@@ -33,6 +33,7 @@ int main(int argc, const char **argv) {
     }
 
     MapleGrammarParser parser(&tokens);
-    MapleGrammarParser::StartContext *context = parser.start();
+    tree::ParseTree *context = parser.start();
+
     return 0;
 }

@@ -5,7 +5,7 @@ start : program+ ;
 program : functionDefinition | declaration ;
 
 // Terminaux
-MACRO : '#' .+ [\\n] -> skip ;
+MACRO : '#' .+? [\n\r] -> skip ;
 WS : [ \t\n\r]+ -> skip ;
 SC :  ';' ;
 TYPE : 'char'| ('int'('32'|'64')'_t') ;

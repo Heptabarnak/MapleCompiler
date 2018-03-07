@@ -23,44 +23,44 @@ public:
   virtual void enterValue(MapleGrammarParser::ValueContext *ctx) = 0;
   virtual void exitValue(MapleGrammarParser::ValueContext *ctx) = 0;
 
-  virtual void enterOp1(MapleGrammarParser::Op1Context *ctx) = 0;
-  virtual void exitOp1(MapleGrammarParser::Op1Context *ctx) = 0;
+  virtual void enterOpUnaryPostfix(MapleGrammarParser::OpUnaryPostfixContext *ctx) = 0;
+  virtual void exitOpUnaryPostfix(MapleGrammarParser::OpUnaryPostfixContext *ctx) = 0;
 
-  virtual void enterOp2(MapleGrammarParser::Op2Context *ctx) = 0;
-  virtual void exitOp2(MapleGrammarParser::Op2Context *ctx) = 0;
+  virtual void enterOpUnaryPrefix(MapleGrammarParser::OpUnaryPrefixContext *ctx) = 0;
+  virtual void exitOpUnaryPrefix(MapleGrammarParser::OpUnaryPrefixContext *ctx) = 0;
 
-  virtual void enterOp3(MapleGrammarParser::Op3Context *ctx) = 0;
-  virtual void exitOp3(MapleGrammarParser::Op3Context *ctx) = 0;
+  virtual void enterOpMultiplicative(MapleGrammarParser::OpMultiplicativeContext *ctx) = 0;
+  virtual void exitOpMultiplicative(MapleGrammarParser::OpMultiplicativeContext *ctx) = 0;
 
-  virtual void enterOp4(MapleGrammarParser::Op4Context *ctx) = 0;
-  virtual void exitOp4(MapleGrammarParser::Op4Context *ctx) = 0;
+  virtual void enterOpAdditive(MapleGrammarParser::OpAdditiveContext *ctx) = 0;
+  virtual void exitOpAdditive(MapleGrammarParser::OpAdditiveContext *ctx) = 0;
 
-  virtual void enterOp5(MapleGrammarParser::Op5Context *ctx) = 0;
-  virtual void exitOp5(MapleGrammarParser::Op5Context *ctx) = 0;
+  virtual void enterOpBinaryShift(MapleGrammarParser::OpBinaryShiftContext *ctx) = 0;
+  virtual void exitOpBinaryShift(MapleGrammarParser::OpBinaryShiftContext *ctx) = 0;
 
-  virtual void enterOp6(MapleGrammarParser::Op6Context *ctx) = 0;
-  virtual void exitOp6(MapleGrammarParser::Op6Context *ctx) = 0;
+  virtual void enterOpCompareRelational(MapleGrammarParser::OpCompareRelationalContext *ctx) = 0;
+  virtual void exitOpCompareRelational(MapleGrammarParser::OpCompareRelationalContext *ctx) = 0;
 
-  virtual void enterOp7(MapleGrammarParser::Op7Context *ctx) = 0;
-  virtual void exitOp7(MapleGrammarParser::Op7Context *ctx) = 0;
+  virtual void enterOpCompareEquality(MapleGrammarParser::OpCompareEqualityContext *ctx) = 0;
+  virtual void exitOpCompareEquality(MapleGrammarParser::OpCompareEqualityContext *ctx) = 0;
 
-  virtual void enterOp8(MapleGrammarParser::Op8Context *ctx) = 0;
-  virtual void exitOp8(MapleGrammarParser::Op8Context *ctx) = 0;
+  virtual void enterOpBinaryAnd(MapleGrammarParser::OpBinaryAndContext *ctx) = 0;
+  virtual void exitOpBinaryAnd(MapleGrammarParser::OpBinaryAndContext *ctx) = 0;
 
-  virtual void enterOp9(MapleGrammarParser::Op9Context *ctx) = 0;
-  virtual void exitOp9(MapleGrammarParser::Op9Context *ctx) = 0;
+  virtual void enterOpBinaryXor(MapleGrammarParser::OpBinaryXorContext *ctx) = 0;
+  virtual void exitOpBinaryXor(MapleGrammarParser::OpBinaryXorContext *ctx) = 0;
 
-  virtual void enterOp10(MapleGrammarParser::Op10Context *ctx) = 0;
-  virtual void exitOp10(MapleGrammarParser::Op10Context *ctx) = 0;
+  virtual void enterOpBinaryOr(MapleGrammarParser::OpBinaryOrContext *ctx) = 0;
+  virtual void exitOpBinaryOr(MapleGrammarParser::OpBinaryOrContext *ctx) = 0;
 
-  virtual void enterOp11(MapleGrammarParser::Op11Context *ctx) = 0;
-  virtual void exitOp11(MapleGrammarParser::Op11Context *ctx) = 0;
+  virtual void enterOpAnd(MapleGrammarParser::OpAndContext *ctx) = 0;
+  virtual void exitOpAnd(MapleGrammarParser::OpAndContext *ctx) = 0;
 
-  virtual void enterOp12(MapleGrammarParser::Op12Context *ctx) = 0;
-  virtual void exitOp12(MapleGrammarParser::Op12Context *ctx) = 0;
+  virtual void enterOpOr(MapleGrammarParser::OpOrContext *ctx) = 0;
+  virtual void exitOpOr(MapleGrammarParser::OpOrContext *ctx) = 0;
 
-  virtual void enterOp13(MapleGrammarParser::Op13Context *ctx) = 0;
-  virtual void exitOp13(MapleGrammarParser::Op13Context *ctx) = 0;
+  virtual void enterOpAffectation(MapleGrammarParser::OpAffectationContext *ctx) = 0;
+  virtual void exitOpAffectation(MapleGrammarParser::OpAffectationContext *ctx) = 0;
 
   virtual void enterExpr(MapleGrammarParser::ExprContext *ctx) = 0;
   virtual void exitExpr(MapleGrammarParser::ExprContext *ctx) = 0;
@@ -95,14 +95,14 @@ public:
   virtual void enterAccessor(MapleGrammarParser::AccessorContext *ctx) = 0;
   virtual void exitAccessor(MapleGrammarParser::AccessorContext *ctx) = 0;
 
-  virtual void enterIf(MapleGrammarParser::IfContext *ctx) = 0;
-  virtual void exitIf(MapleGrammarParser::IfContext *ctx) = 0;
+  virtual void enterIfStatement(MapleGrammarParser::IfStatementContext *ctx) = 0;
+  virtual void exitIfStatement(MapleGrammarParser::IfStatementContext *ctx) = 0;
 
-  virtual void enterElse(MapleGrammarParser::ElseContext *ctx) = 0;
-  virtual void exitElse(MapleGrammarParser::ElseContext *ctx) = 0;
+  virtual void enterElseStatement(MapleGrammarParser::ElseStatementContext *ctx) = 0;
+  virtual void exitElseStatement(MapleGrammarParser::ElseStatementContext *ctx) = 0;
 
-  virtual void enterWhile(MapleGrammarParser::WhileContext *ctx) = 0;
-  virtual void exitWhile(MapleGrammarParser::WhileContext *ctx) = 0;
+  virtual void enterWhileStatement(MapleGrammarParser::WhileStatementContext *ctx) = 0;
+  virtual void exitWhileStatement(MapleGrammarParser::WhileStatementContext *ctx) = 0;
 
   virtual void enterFunctionDefinition(MapleGrammarParser::FunctionDefinitionContext *ctx) = 0;
   virtual void exitFunctionDefinition(MapleGrammarParser::FunctionDefinitionContext *ctx) = 0;

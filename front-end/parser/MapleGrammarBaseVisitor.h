@@ -27,55 +27,55 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOp1(MapleGrammarParser::Op1Context *ctx) override {
+  virtual antlrcpp::Any visitOpUnaryPostfix(MapleGrammarParser::OpUnaryPostfixContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOp2(MapleGrammarParser::Op2Context *ctx) override {
+  virtual antlrcpp::Any visitOpUnaryPrefix(MapleGrammarParser::OpUnaryPrefixContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOp3(MapleGrammarParser::Op3Context *ctx) override {
+  virtual antlrcpp::Any visitOpMultiplicative(MapleGrammarParser::OpMultiplicativeContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOp4(MapleGrammarParser::Op4Context *ctx) override {
+  virtual antlrcpp::Any visitOpAdditive(MapleGrammarParser::OpAdditiveContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOp5(MapleGrammarParser::Op5Context *ctx) override {
+  virtual antlrcpp::Any visitOpBinaryShift(MapleGrammarParser::OpBinaryShiftContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOp6(MapleGrammarParser::Op6Context *ctx) override {
+  virtual antlrcpp::Any visitOpCompareRelational(MapleGrammarParser::OpCompareRelationalContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOp7(MapleGrammarParser::Op7Context *ctx) override {
+  virtual antlrcpp::Any visitOpCompareEquality(MapleGrammarParser::OpCompareEqualityContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOp8(MapleGrammarParser::Op8Context *ctx) override {
+  virtual antlrcpp::Any visitOpBinaryAnd(MapleGrammarParser::OpBinaryAndContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOp9(MapleGrammarParser::Op9Context *ctx) override {
+  virtual antlrcpp::Any visitOpBinaryXor(MapleGrammarParser::OpBinaryXorContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOp10(MapleGrammarParser::Op10Context *ctx) override {
+  virtual antlrcpp::Any visitOpBinaryOr(MapleGrammarParser::OpBinaryOrContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOp11(MapleGrammarParser::Op11Context *ctx) override {
+  virtual antlrcpp::Any visitOpAnd(MapleGrammarParser::OpAndContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOp12(MapleGrammarParser::Op12Context *ctx) override {
+  virtual antlrcpp::Any visitOpOr(MapleGrammarParser::OpOrContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOp13(MapleGrammarParser::Op13Context *ctx) override {
+  virtual antlrcpp::Any visitOpAffectation(MapleGrammarParser::OpAffectationContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -123,15 +123,15 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitIf(MapleGrammarParser::IfContext *ctx) override {
+  virtual antlrcpp::Any visitIfStatement(MapleGrammarParser::IfStatementContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitElse(MapleGrammarParser::ElseContext *ctx) override {
+  virtual antlrcpp::Any visitElseStatement(MapleGrammarParser::ElseStatementContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitWhile(MapleGrammarParser::WhileContext *ctx) override {
+  virtual antlrcpp::Any visitWhileStatement(MapleGrammarParser::WhileStatementContext *ctx) override {
     return visitChildren(ctx);
   }
 

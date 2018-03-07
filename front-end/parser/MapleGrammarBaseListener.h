@@ -25,44 +25,44 @@ public:
   virtual void enterValue(MapleGrammarParser::ValueContext * /*ctx*/) override { }
   virtual void exitValue(MapleGrammarParser::ValueContext * /*ctx*/) override { }
 
-  virtual void enterOp1(MapleGrammarParser::Op1Context * /*ctx*/) override { }
-  virtual void exitOp1(MapleGrammarParser::Op1Context * /*ctx*/) override { }
+  virtual void enterOpUnaryPostfix(MapleGrammarParser::OpUnaryPostfixContext * /*ctx*/) override { }
+  virtual void exitOpUnaryPostfix(MapleGrammarParser::OpUnaryPostfixContext * /*ctx*/) override { }
 
-  virtual void enterOp2(MapleGrammarParser::Op2Context * /*ctx*/) override { }
-  virtual void exitOp2(MapleGrammarParser::Op2Context * /*ctx*/) override { }
+  virtual void enterOpUnaryPrefix(MapleGrammarParser::OpUnaryPrefixContext * /*ctx*/) override { }
+  virtual void exitOpUnaryPrefix(MapleGrammarParser::OpUnaryPrefixContext * /*ctx*/) override { }
 
-  virtual void enterOp3(MapleGrammarParser::Op3Context * /*ctx*/) override { }
-  virtual void exitOp3(MapleGrammarParser::Op3Context * /*ctx*/) override { }
+  virtual void enterOpMultiplicative(MapleGrammarParser::OpMultiplicativeContext * /*ctx*/) override { }
+  virtual void exitOpMultiplicative(MapleGrammarParser::OpMultiplicativeContext * /*ctx*/) override { }
 
-  virtual void enterOp4(MapleGrammarParser::Op4Context * /*ctx*/) override { }
-  virtual void exitOp4(MapleGrammarParser::Op4Context * /*ctx*/) override { }
+  virtual void enterOpAdditive(MapleGrammarParser::OpAdditiveContext * /*ctx*/) override { }
+  virtual void exitOpAdditive(MapleGrammarParser::OpAdditiveContext * /*ctx*/) override { }
 
-  virtual void enterOp5(MapleGrammarParser::Op5Context * /*ctx*/) override { }
-  virtual void exitOp5(MapleGrammarParser::Op5Context * /*ctx*/) override { }
+  virtual void enterOpBinaryShift(MapleGrammarParser::OpBinaryShiftContext * /*ctx*/) override { }
+  virtual void exitOpBinaryShift(MapleGrammarParser::OpBinaryShiftContext * /*ctx*/) override { }
 
-  virtual void enterOp6(MapleGrammarParser::Op6Context * /*ctx*/) override { }
-  virtual void exitOp6(MapleGrammarParser::Op6Context * /*ctx*/) override { }
+  virtual void enterOpCompareRelational(MapleGrammarParser::OpCompareRelationalContext * /*ctx*/) override { }
+  virtual void exitOpCompareRelational(MapleGrammarParser::OpCompareRelationalContext * /*ctx*/) override { }
 
-  virtual void enterOp7(MapleGrammarParser::Op7Context * /*ctx*/) override { }
-  virtual void exitOp7(MapleGrammarParser::Op7Context * /*ctx*/) override { }
+  virtual void enterOpCompareEquality(MapleGrammarParser::OpCompareEqualityContext * /*ctx*/) override { }
+  virtual void exitOpCompareEquality(MapleGrammarParser::OpCompareEqualityContext * /*ctx*/) override { }
 
-  virtual void enterOp8(MapleGrammarParser::Op8Context * /*ctx*/) override { }
-  virtual void exitOp8(MapleGrammarParser::Op8Context * /*ctx*/) override { }
+  virtual void enterOpBinaryAnd(MapleGrammarParser::OpBinaryAndContext * /*ctx*/) override { }
+  virtual void exitOpBinaryAnd(MapleGrammarParser::OpBinaryAndContext * /*ctx*/) override { }
 
-  virtual void enterOp9(MapleGrammarParser::Op9Context * /*ctx*/) override { }
-  virtual void exitOp9(MapleGrammarParser::Op9Context * /*ctx*/) override { }
+  virtual void enterOpBinaryXor(MapleGrammarParser::OpBinaryXorContext * /*ctx*/) override { }
+  virtual void exitOpBinaryXor(MapleGrammarParser::OpBinaryXorContext * /*ctx*/) override { }
 
-  virtual void enterOp10(MapleGrammarParser::Op10Context * /*ctx*/) override { }
-  virtual void exitOp10(MapleGrammarParser::Op10Context * /*ctx*/) override { }
+  virtual void enterOpBinaryOr(MapleGrammarParser::OpBinaryOrContext * /*ctx*/) override { }
+  virtual void exitOpBinaryOr(MapleGrammarParser::OpBinaryOrContext * /*ctx*/) override { }
 
-  virtual void enterOp11(MapleGrammarParser::Op11Context * /*ctx*/) override { }
-  virtual void exitOp11(MapleGrammarParser::Op11Context * /*ctx*/) override { }
+  virtual void enterOpAnd(MapleGrammarParser::OpAndContext * /*ctx*/) override { }
+  virtual void exitOpAnd(MapleGrammarParser::OpAndContext * /*ctx*/) override { }
 
-  virtual void enterOp12(MapleGrammarParser::Op12Context * /*ctx*/) override { }
-  virtual void exitOp12(MapleGrammarParser::Op12Context * /*ctx*/) override { }
+  virtual void enterOpOr(MapleGrammarParser::OpOrContext * /*ctx*/) override { }
+  virtual void exitOpOr(MapleGrammarParser::OpOrContext * /*ctx*/) override { }
 
-  virtual void enterOp13(MapleGrammarParser::Op13Context * /*ctx*/) override { }
-  virtual void exitOp13(MapleGrammarParser::Op13Context * /*ctx*/) override { }
+  virtual void enterOpAffectation(MapleGrammarParser::OpAffectationContext * /*ctx*/) override { }
+  virtual void exitOpAffectation(MapleGrammarParser::OpAffectationContext * /*ctx*/) override { }
 
   virtual void enterExpr(MapleGrammarParser::ExprContext * /*ctx*/) override { }
   virtual void exitExpr(MapleGrammarParser::ExprContext * /*ctx*/) override { }
@@ -97,14 +97,14 @@ public:
   virtual void enterAccessor(MapleGrammarParser::AccessorContext * /*ctx*/) override { }
   virtual void exitAccessor(MapleGrammarParser::AccessorContext * /*ctx*/) override { }
 
-  virtual void enterIf(MapleGrammarParser::IfContext * /*ctx*/) override { }
-  virtual void exitIf(MapleGrammarParser::IfContext * /*ctx*/) override { }
+  virtual void enterIfStatement(MapleGrammarParser::IfStatementContext * /*ctx*/) override { }
+  virtual void exitIfStatement(MapleGrammarParser::IfStatementContext * /*ctx*/) override { }
 
-  virtual void enterElse(MapleGrammarParser::ElseContext * /*ctx*/) override { }
-  virtual void exitElse(MapleGrammarParser::ElseContext * /*ctx*/) override { }
+  virtual void enterElseStatement(MapleGrammarParser::ElseStatementContext * /*ctx*/) override { }
+  virtual void exitElseStatement(MapleGrammarParser::ElseStatementContext * /*ctx*/) override { }
 
-  virtual void enterWhile(MapleGrammarParser::WhileContext * /*ctx*/) override { }
-  virtual void exitWhile(MapleGrammarParser::WhileContext * /*ctx*/) override { }
+  virtual void enterWhileStatement(MapleGrammarParser::WhileStatementContext * /*ctx*/) override { }
+  virtual void exitWhileStatement(MapleGrammarParser::WhileStatementContext * /*ctx*/) override { }
 
   virtual void enterFunctionDefinition(MapleGrammarParser::FunctionDefinitionContext * /*ctx*/) override { }
   virtual void exitFunctionDefinition(MapleGrammarParser::FunctionDefinitionContext * /*ctx*/) override { }

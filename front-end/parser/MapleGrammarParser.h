@@ -24,13 +24,15 @@ public:
   };
 
   enum {
-    RuleStart = 0, RuleProgram = 1, RuleValue = 2, RuleOp1 = 3, RuleOp2 = 4, 
-    RuleOp3 = 5, RuleOp4 = 6, RuleOp5 = 7, RuleOp6 = 8, RuleOp7 = 9, RuleOp8 = 10, 
-    RuleOp9 = 11, RuleOp10 = 12, RuleOp11 = 13, RuleOp12 = 14, RuleOp13 = 15, 
-    RuleExpr = 16, RuleDeclarationVar = 17, RuleDeclarationTab = 18, RuleDeclaration = 19, 
-    RuleDefinitionTab = 20, RuleAssignment = 21, RuleAccessorTab = 22, RuleAccessorVar = 23, 
-    RuleAccessorFunction = 24, RuleLeftValue = 25, RuleAccessor = 26, RuleIf = 27, 
-    RuleElse = 28, RuleWhile = 29, RuleFunctionDefinition = 30, RuleReturnStatement = 31, 
+    RuleStart = 0, RuleProgram = 1, RuleValue = 2, RuleOpUnaryPostfix = 3, 
+    RuleOpUnaryPrefix = 4, RuleOpMultiplicative = 5, RuleOpAdditive = 6, 
+    RuleOpBinaryShift = 7, RuleOpCompareRelational = 8, RuleOpCompareEquality = 9, 
+    RuleOpBinaryAnd = 10, RuleOpBinaryXor = 11, RuleOpBinaryOr = 12, RuleOpAnd = 13, 
+    RuleOpOr = 14, RuleOpAffectation = 15, RuleExpr = 16, RuleDeclarationVar = 17, 
+    RuleDeclarationTab = 18, RuleDeclaration = 19, RuleDefinitionTab = 20, 
+    RuleAssignment = 21, RuleAccessorTab = 22, RuleAccessorVar = 23, RuleAccessorFunction = 24, 
+    RuleLeftValue = 25, RuleAccessor = 26, RuleIfStatement = 27, RuleElseStatement = 28, 
+    RuleWhileStatement = 29, RuleFunctionDefinition = 30, RuleReturnStatement = 31, 
     RuleBlockFunction = 32, RuleArgumentList = 33, RuleTypeList = 34, RuleBlock = 35, 
     RuleStatement = 36, RuleInstruction = 37
   };
@@ -48,19 +50,19 @@ public:
   class StartContext;
   class ProgramContext;
   class ValueContext;
-  class Op1Context;
-  class Op2Context;
-  class Op3Context;
-  class Op4Context;
-  class Op5Context;
-  class Op6Context;
-  class Op7Context;
-  class Op8Context;
-  class Op9Context;
-  class Op10Context;
-  class Op11Context;
-  class Op12Context;
-  class Op13Context;
+  class OpUnaryPostfixContext;
+  class OpUnaryPrefixContext;
+  class OpMultiplicativeContext;
+  class OpAdditiveContext;
+  class OpBinaryShiftContext;
+  class OpCompareRelationalContext;
+  class OpCompareEqualityContext;
+  class OpBinaryAndContext;
+  class OpBinaryXorContext;
+  class OpBinaryOrContext;
+  class OpAndContext;
+  class OpOrContext;
+  class OpAffectationContext;
   class ExprContext;
   class DeclarationVarContext;
   class DeclarationTabContext;
@@ -72,9 +74,9 @@ public:
   class AccessorFunctionContext;
   class LeftValueContext;
   class AccessorContext;
-  class IfContext;
-  class ElseContext;
-  class WhileContext;
+  class IfStatementContext;
+  class ElseStatementContext;
+  class WhileStatementContext;
   class FunctionDefinitionContext;
   class ReturnStatementContext;
   class BlockFunctionContext;
@@ -132,9 +134,9 @@ public:
 
   ValueContext* value();
 
-  class  Op1Context : public antlr4::ParserRuleContext {
+  class  OpUnaryPostfixContext : public antlr4::ParserRuleContext {
   public:
-    Op1Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpUnaryPostfixContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -144,11 +146,11 @@ public:
    
   };
 
-  Op1Context* op1();
+  OpUnaryPostfixContext* opUnaryPostfix();
 
-  class  Op2Context : public antlr4::ParserRuleContext {
+  class  OpUnaryPrefixContext : public antlr4::ParserRuleContext {
   public:
-    Op2Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpUnaryPrefixContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -158,11 +160,11 @@ public:
    
   };
 
-  Op2Context* op2();
+  OpUnaryPrefixContext* opUnaryPrefix();
 
-  class  Op3Context : public antlr4::ParserRuleContext {
+  class  OpMultiplicativeContext : public antlr4::ParserRuleContext {
   public:
-    Op3Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpMultiplicativeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -172,11 +174,11 @@ public:
    
   };
 
-  Op3Context* op3();
+  OpMultiplicativeContext* opMultiplicative();
 
-  class  Op4Context : public antlr4::ParserRuleContext {
+  class  OpAdditiveContext : public antlr4::ParserRuleContext {
   public:
-    Op4Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpAdditiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -186,11 +188,11 @@ public:
    
   };
 
-  Op4Context* op4();
+  OpAdditiveContext* opAdditive();
 
-  class  Op5Context : public antlr4::ParserRuleContext {
+  class  OpBinaryShiftContext : public antlr4::ParserRuleContext {
   public:
-    Op5Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpBinaryShiftContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -200,11 +202,11 @@ public:
    
   };
 
-  Op5Context* op5();
+  OpBinaryShiftContext* opBinaryShift();
 
-  class  Op6Context : public antlr4::ParserRuleContext {
+  class  OpCompareRelationalContext : public antlr4::ParserRuleContext {
   public:
-    Op6Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpCompareRelationalContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -214,11 +216,11 @@ public:
    
   };
 
-  Op6Context* op6();
+  OpCompareRelationalContext* opCompareRelational();
 
-  class  Op7Context : public antlr4::ParserRuleContext {
+  class  OpCompareEqualityContext : public antlr4::ParserRuleContext {
   public:
-    Op7Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpCompareEqualityContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -228,11 +230,11 @@ public:
    
   };
 
-  Op7Context* op7();
+  OpCompareEqualityContext* opCompareEquality();
 
-  class  Op8Context : public antlr4::ParserRuleContext {
+  class  OpBinaryAndContext : public antlr4::ParserRuleContext {
   public:
-    Op8Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpBinaryAndContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -242,11 +244,11 @@ public:
    
   };
 
-  Op8Context* op8();
+  OpBinaryAndContext* opBinaryAnd();
 
-  class  Op9Context : public antlr4::ParserRuleContext {
+  class  OpBinaryXorContext : public antlr4::ParserRuleContext {
   public:
-    Op9Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpBinaryXorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -256,11 +258,11 @@ public:
    
   };
 
-  Op9Context* op9();
+  OpBinaryXorContext* opBinaryXor();
 
-  class  Op10Context : public antlr4::ParserRuleContext {
+  class  OpBinaryOrContext : public antlr4::ParserRuleContext {
   public:
-    Op10Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpBinaryOrContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -270,11 +272,11 @@ public:
    
   };
 
-  Op10Context* op10();
+  OpBinaryOrContext* opBinaryOr();
 
-  class  Op11Context : public antlr4::ParserRuleContext {
+  class  OpAndContext : public antlr4::ParserRuleContext {
   public:
-    Op11Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpAndContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -284,11 +286,11 @@ public:
    
   };
 
-  Op11Context* op11();
+  OpAndContext* opAnd();
 
-  class  Op12Context : public antlr4::ParserRuleContext {
+  class  OpOrContext : public antlr4::ParserRuleContext {
   public:
-    Op12Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpOrContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -298,11 +300,11 @@ public:
    
   };
 
-  Op12Context* op12();
+  OpOrContext* opOr();
 
-  class  Op13Context : public antlr4::ParserRuleContext {
+  class  OpAffectationContext : public antlr4::ParserRuleContext {
   public:
-    Op13Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpAffectationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -312,7 +314,7 @@ public:
    
   };
 
-  Op13Context* op13();
+  OpAffectationContext* opAffectation();
 
   class  ExprContext : public antlr4::ParserRuleContext {
   public:
@@ -322,20 +324,20 @@ public:
     ValueContext *value();
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
-    Op2Context *op2();
+    OpUnaryPrefixContext *opUnaryPrefix();
     LeftValueContext *leftValue();
-    Op13Context *op13();
-    Op3Context *op3();
-    Op4Context *op4();
-    Op5Context *op5();
-    Op6Context *op6();
-    Op7Context *op7();
-    Op8Context *op8();
-    Op9Context *op9();
-    Op10Context *op10();
-    Op11Context *op11();
-    Op12Context *op12();
-    Op1Context *op1();
+    OpAffectationContext *opAffectation();
+    OpMultiplicativeContext *opMultiplicative();
+    OpAdditiveContext *opAdditive();
+    OpBinaryShiftContext *opBinaryShift();
+    OpCompareRelationalContext *opCompareRelational();
+    OpCompareEqualityContext *opCompareEquality();
+    OpBinaryAndContext *opBinaryAnd();
+    OpBinaryXorContext *opBinaryXor();
+    OpBinaryOrContext *opBinaryOr();
+    OpAndContext *opAnd();
+    OpOrContext *opOr();
+    OpUnaryPostfixContext *opUnaryPostfix();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -509,13 +511,13 @@ public:
 
   AccessorContext* accessor();
 
-  class  IfContext : public antlr4::ParserRuleContext {
+  class  IfStatementContext : public antlr4::ParserRuleContext {
   public:
-    IfContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    IfStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     ExprContext *expr();
     InstructionContext *instruction();
-    ElseContext *else();
+    ElseStatementContext *elseStatement();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -524,11 +526,11 @@ public:
    
   };
 
-  IfContext* if();
+  IfStatementContext* ifStatement();
 
-  class  ElseContext : public antlr4::ParserRuleContext {
+  class  ElseStatementContext : public antlr4::ParserRuleContext {
   public:
-    ElseContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    ElseStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     InstructionContext *instruction();
 
@@ -539,11 +541,11 @@ public:
    
   };
 
-  ElseContext* else();
+  ElseStatementContext* elseStatement();
 
-  class  WhileContext : public antlr4::ParserRuleContext {
+  class  WhileStatementContext : public antlr4::ParserRuleContext {
   public:
-    WhileContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    WhileStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     ExprContext *expr();
     InstructionContext *instruction();
@@ -555,7 +557,7 @@ public:
    
   };
 
-  WhileContext* while();
+  WhileStatementContext* whileStatement();
 
   class  FunctionDefinitionContext : public antlr4::ParserRuleContext {
   public:
@@ -682,8 +684,8 @@ public:
     InstructionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     StatementContext *statement();
-    IfContext *if();
-    WhileContext *while();
+    IfStatementContext *ifStatement();
+    WhileStatementContext *whileStatement();
     BlockContext *block();
     ReturnStatementContext *returnStatement();
 

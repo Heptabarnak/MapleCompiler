@@ -16,37 +16,37 @@ ID : [a-zA-Z_]([a-zA-Z0-9_]*) ;
 value : INTEGER | CHAR ;
 
 // Opérateurs
-op1 : '++' | '--' ;
-op2 : '++' | '--' | '+' | '-' | '!' | '~';
-op3 : '*' | '/' | '%'  ;
-op4 : '+' | '-' ;
-op5 : '<<' | '>>' ;
-op6 : '<' | '<=' | '>' | '>=' ;
-op7 : '==' | '!=' ;
-op8 : '&' ;
-op9 : '^' ;  
-op10 : '|' ;
-op11 : '&&' ;
-op12 : '||' ;
-op13 : '=' | '+=' | '-=' | '*=' | '/=' | '%=' | '<<=' | '>>=' | '&=' | '^=' | '|=' ;
+opUnaryPostfix : '++' | '--' ;
+opUnaryPrefix : '++' | '--' | '+' | '-' | '!' | '~';
+opMultiplicative : '*' | '/' | '%'  ;
+opAdditive : '+' | '-' ;
+opBinaryShift : '<<' | '>>' ;
+opCompareRelational : '<' | '<=' | '>' | '>=' ;
+opCompareEquality : '==' | '!=' ;
+opBinaryAnd : '&' ;
+opBinaryXor : '^' ;
+opBinaryOr : '|' ;
+opAnd : '&&' ;
+opOr : '||' ;
+opAffectation : '=' | '+=' | '-=' | '*=' | '/=' | '%=' | '<<=' | '>>=' | '&=' | '^=' | '|=' ;
 
 // Expression
 expr : accessor
     | value
     | '(' expr ')'
-    | expr op1
-    | op2 expr
-    | expr op3 expr
-    | expr op4 expr
-    | expr op5 expr
-    | expr op6 expr
-    | expr op7 expr
-    | expr op8 expr
-    | expr op9 expr
-    | expr op10 expr
-    | expr op11 expr
-    | expr op12 expr
-    | leftValue op13 expr ;
+    | expr opUnaryPostfix
+    | opUnaryPrefix expr
+    | expr opMultiplicative expr
+    | expr opAdditive expr
+    | expr opBinaryShift expr
+    | expr opCompareRelational expr
+    | expr opCompareEquality expr
+    | expr opBinaryAnd expr
+    | expr opBinaryXor expr
+    | expr opBinaryOr expr
+    | expr opAnd expr
+    | expr opOr expr
+    | leftValue opAffectation expr ;
 
 // Déclaration
 declarationVar : TYPE ID assignment? SC ;
@@ -70,9 +70,9 @@ accessor : leftValue
     | accessorFunction ;
 
 // Structures de contrôle
-if: 'if' '(' expr ')' instruction else? ;
-else: 'else' instruction ;
-while: 'while' '(' expr ')' instruction ;
+ifStatement: 'if' '(' expr ')' instruction elseStatement? ;
+elseStatement: 'else' instruction ;
+whileStatement: 'while' '(' expr ')' instruction ;
 
 // Fonctions
 functionDefinition : (TYPE | TYPE_VOID) ID '(' (typeList | TYPE_VOID)? ')' blockFunction ;
@@ -87,7 +87,7 @@ block: '{' instruction* '}' ;
 statement : expr SC ;
 
 instruction : statement
-    | if
-    | while
+    | ifStatement
+    | whileStatement
     | block
     | returnStatement ;

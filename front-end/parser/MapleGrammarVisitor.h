@@ -25,31 +25,31 @@ public:
 
     virtual antlrcpp::Any visitValue(MapleGrammarParser::ValueContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp1(MapleGrammarParser::Op1Context *context) = 0;
+    virtual antlrcpp::Any visitOpUnaryPostfix(MapleGrammarParser::OpUnaryPostfixContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp2(MapleGrammarParser::Op2Context *context) = 0;
+    virtual antlrcpp::Any visitOpUnaryPrefix(MapleGrammarParser::OpUnaryPrefixContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp3(MapleGrammarParser::Op3Context *context) = 0;
+    virtual antlrcpp::Any visitOpMultiplicative(MapleGrammarParser::OpMultiplicativeContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp4(MapleGrammarParser::Op4Context *context) = 0;
+    virtual antlrcpp::Any visitOpAdditive(MapleGrammarParser::OpAdditiveContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp5(MapleGrammarParser::Op5Context *context) = 0;
+    virtual antlrcpp::Any visitOpBinaryShift(MapleGrammarParser::OpBinaryShiftContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp6(MapleGrammarParser::Op6Context *context) = 0;
+    virtual antlrcpp::Any visitOpCompareRelational(MapleGrammarParser::OpCompareRelationalContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp7(MapleGrammarParser::Op7Context *context) = 0;
+    virtual antlrcpp::Any visitOpCompareEquality(MapleGrammarParser::OpCompareEqualityContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp8(MapleGrammarParser::Op8Context *context) = 0;
+    virtual antlrcpp::Any visitOpBinaryAnd(MapleGrammarParser::OpBinaryAndContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp9(MapleGrammarParser::Op9Context *context) = 0;
+    virtual antlrcpp::Any visitOpBinaryXor(MapleGrammarParser::OpBinaryXorContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp10(MapleGrammarParser::Op10Context *context) = 0;
+    virtual antlrcpp::Any visitOpBinaryOr(MapleGrammarParser::OpBinaryOrContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp11(MapleGrammarParser::Op11Context *context) = 0;
+    virtual antlrcpp::Any visitOpAnd(MapleGrammarParser::OpAndContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp12(MapleGrammarParser::Op12Context *context) = 0;
+    virtual antlrcpp::Any visitOpOr(MapleGrammarParser::OpOrContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp13(MapleGrammarParser::Op13Context *context) = 0;
+    virtual antlrcpp::Any visitOpAffectation(MapleGrammarParser::OpAffectationContext *context) = 0;
 
     virtual antlrcpp::Any visitExpr(MapleGrammarParser::ExprContext *context) = 0;
 
@@ -73,11 +73,11 @@ public:
 
     virtual antlrcpp::Any visitAccessor(MapleGrammarParser::AccessorContext *context) = 0;
 
-    virtual antlrcpp::Any visitIf(MapleGrammarParser::IfContext *context) = 0;
+    virtual antlrcpp::Any visitIfStatement(MapleGrammarParser::IfStatementContext *context) = 0;
 
-    virtual antlrcpp::Any visitElse(MapleGrammarParser::ElseContext *context) = 0;
+    virtual antlrcpp::Any visitElseStatement(MapleGrammarParser::ElseStatementContext *context) = 0;
 
-    virtual antlrcpp::Any visitWhile(MapleGrammarParser::WhileContext *context) = 0;
+    virtual antlrcpp::Any visitWhileStatement(MapleGrammarParser::WhileStatementContext *context) = 0;
 
     virtual antlrcpp::Any visitFunctionDefinition(MapleGrammarParser::FunctionDefinitionContext *context) = 0;
 

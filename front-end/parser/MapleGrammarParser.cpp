@@ -251,40 +251,40 @@ MapleGrammarParser::ValueContext* MapleGrammarParser::value() {
   return _localctx;
 }
 
-//----------------- Op1Context ------------------------------------------------------------------
+//----------------- OpUnaryPostfixContext ------------------------------------------------------------------
 
-MapleGrammarParser::Op1Context::Op1Context(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::OpUnaryPostfixContext::OpUnaryPostfixContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t MapleGrammarParser::Op1Context::getRuleIndex() const {
-  return MapleGrammarParser::RuleOp1;
+size_t MapleGrammarParser::OpUnaryPostfixContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleOpUnaryPostfix;
 }
 
-void MapleGrammarParser::Op1Context::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpUnaryPostfixContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOp1(this);
+    parserListener->enterOpUnaryPostfix(this);
 }
 
-void MapleGrammarParser::Op1Context::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpUnaryPostfixContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOp1(this);
+    parserListener->exitOpUnaryPostfix(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::Op1Context::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::OpUnaryPostfixContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitOp1(this);
+    return parserVisitor->visitOpUnaryPostfix(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::Op1Context* MapleGrammarParser::op1() {
-  Op1Context *_localctx = _tracker.createInstance<Op1Context>(_ctx, getState());
-  enterRule(_localctx, 6, MapleGrammarParser::RuleOp1);
+MapleGrammarParser::OpUnaryPostfixContext* MapleGrammarParser::opUnaryPostfix() {
+  OpUnaryPostfixContext *_localctx = _tracker.createInstance<OpUnaryPostfixContext>(_ctx, getState());
+  enterRule(_localctx, 6, MapleGrammarParser::RuleOpUnaryPostfix);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -314,40 +314,40 @@ MapleGrammarParser::Op1Context* MapleGrammarParser::op1() {
   return _localctx;
 }
 
-//----------------- Op2Context ------------------------------------------------------------------
+//----------------- OpUnaryPrefixContext ------------------------------------------------------------------
 
-MapleGrammarParser::Op2Context::Op2Context(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::OpUnaryPrefixContext::OpUnaryPrefixContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t MapleGrammarParser::Op2Context::getRuleIndex() const {
-  return MapleGrammarParser::RuleOp2;
+size_t MapleGrammarParser::OpUnaryPrefixContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleOpUnaryPrefix;
 }
 
-void MapleGrammarParser::Op2Context::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpUnaryPrefixContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOp2(this);
+    parserListener->enterOpUnaryPrefix(this);
 }
 
-void MapleGrammarParser::Op2Context::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpUnaryPrefixContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOp2(this);
+    parserListener->exitOpUnaryPrefix(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::Op2Context::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::OpUnaryPrefixContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitOp2(this);
+    return parserVisitor->visitOpUnaryPrefix(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::Op2Context* MapleGrammarParser::op2() {
-  Op2Context *_localctx = _tracker.createInstance<Op2Context>(_ctx, getState());
-  enterRule(_localctx, 8, MapleGrammarParser::RuleOp2);
+MapleGrammarParser::OpUnaryPrefixContext* MapleGrammarParser::opUnaryPrefix() {
+  OpUnaryPrefixContext *_localctx = _tracker.createInstance<OpUnaryPrefixContext>(_ctx, getState());
+  enterRule(_localctx, 8, MapleGrammarParser::RuleOpUnaryPrefix);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -381,40 +381,40 @@ MapleGrammarParser::Op2Context* MapleGrammarParser::op2() {
   return _localctx;
 }
 
-//----------------- Op3Context ------------------------------------------------------------------
+//----------------- OpMultiplicativeContext ------------------------------------------------------------------
 
-MapleGrammarParser::Op3Context::Op3Context(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::OpMultiplicativeContext::OpMultiplicativeContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t MapleGrammarParser::Op3Context::getRuleIndex() const {
-  return MapleGrammarParser::RuleOp3;
+size_t MapleGrammarParser::OpMultiplicativeContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleOpMultiplicative;
 }
 
-void MapleGrammarParser::Op3Context::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpMultiplicativeContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOp3(this);
+    parserListener->enterOpMultiplicative(this);
 }
 
-void MapleGrammarParser::Op3Context::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpMultiplicativeContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOp3(this);
+    parserListener->exitOpMultiplicative(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::Op3Context::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::OpMultiplicativeContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitOp3(this);
+    return parserVisitor->visitOpMultiplicative(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::Op3Context* MapleGrammarParser::op3() {
-  Op3Context *_localctx = _tracker.createInstance<Op3Context>(_ctx, getState());
-  enterRule(_localctx, 10, MapleGrammarParser::RuleOp3);
+MapleGrammarParser::OpMultiplicativeContext* MapleGrammarParser::opMultiplicative() {
+  OpMultiplicativeContext *_localctx = _tracker.createInstance<OpMultiplicativeContext>(_ctx, getState());
+  enterRule(_localctx, 10, MapleGrammarParser::RuleOpMultiplicative);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -445,40 +445,40 @@ MapleGrammarParser::Op3Context* MapleGrammarParser::op3() {
   return _localctx;
 }
 
-//----------------- Op4Context ------------------------------------------------------------------
+//----------------- OpAdditiveContext ------------------------------------------------------------------
 
-MapleGrammarParser::Op4Context::Op4Context(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::OpAdditiveContext::OpAdditiveContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t MapleGrammarParser::Op4Context::getRuleIndex() const {
-  return MapleGrammarParser::RuleOp4;
+size_t MapleGrammarParser::OpAdditiveContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleOpAdditive;
 }
 
-void MapleGrammarParser::Op4Context::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpAdditiveContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOp4(this);
+    parserListener->enterOpAdditive(this);
 }
 
-void MapleGrammarParser::Op4Context::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpAdditiveContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOp4(this);
+    parserListener->exitOpAdditive(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::Op4Context::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::OpAdditiveContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitOp4(this);
+    return parserVisitor->visitOpAdditive(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::Op4Context* MapleGrammarParser::op4() {
-  Op4Context *_localctx = _tracker.createInstance<Op4Context>(_ctx, getState());
-  enterRule(_localctx, 12, MapleGrammarParser::RuleOp4);
+MapleGrammarParser::OpAdditiveContext* MapleGrammarParser::opAdditive() {
+  OpAdditiveContext *_localctx = _tracker.createInstance<OpAdditiveContext>(_ctx, getState());
+  enterRule(_localctx, 12, MapleGrammarParser::RuleOpAdditive);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -508,40 +508,40 @@ MapleGrammarParser::Op4Context* MapleGrammarParser::op4() {
   return _localctx;
 }
 
-//----------------- Op5Context ------------------------------------------------------------------
+//----------------- OpBinaryShiftContext ------------------------------------------------------------------
 
-MapleGrammarParser::Op5Context::Op5Context(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::OpBinaryShiftContext::OpBinaryShiftContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t MapleGrammarParser::Op5Context::getRuleIndex() const {
-  return MapleGrammarParser::RuleOp5;
+size_t MapleGrammarParser::OpBinaryShiftContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleOpBinaryShift;
 }
 
-void MapleGrammarParser::Op5Context::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpBinaryShiftContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOp5(this);
+    parserListener->enterOpBinaryShift(this);
 }
 
-void MapleGrammarParser::Op5Context::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpBinaryShiftContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOp5(this);
+    parserListener->exitOpBinaryShift(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::Op5Context::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::OpBinaryShiftContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitOp5(this);
+    return parserVisitor->visitOpBinaryShift(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::Op5Context* MapleGrammarParser::op5() {
-  Op5Context *_localctx = _tracker.createInstance<Op5Context>(_ctx, getState());
-  enterRule(_localctx, 14, MapleGrammarParser::RuleOp5);
+MapleGrammarParser::OpBinaryShiftContext* MapleGrammarParser::opBinaryShift() {
+  OpBinaryShiftContext *_localctx = _tracker.createInstance<OpBinaryShiftContext>(_ctx, getState());
+  enterRule(_localctx, 14, MapleGrammarParser::RuleOpBinaryShift);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -571,40 +571,40 @@ MapleGrammarParser::Op5Context* MapleGrammarParser::op5() {
   return _localctx;
 }
 
-//----------------- Op6Context ------------------------------------------------------------------
+//----------------- OpCompareRelationalContext ------------------------------------------------------------------
 
-MapleGrammarParser::Op6Context::Op6Context(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::OpCompareRelationalContext::OpCompareRelationalContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t MapleGrammarParser::Op6Context::getRuleIndex() const {
-  return MapleGrammarParser::RuleOp6;
+size_t MapleGrammarParser::OpCompareRelationalContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleOpCompareRelational;
 }
 
-void MapleGrammarParser::Op6Context::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpCompareRelationalContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOp6(this);
+    parserListener->enterOpCompareRelational(this);
 }
 
-void MapleGrammarParser::Op6Context::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpCompareRelationalContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOp6(this);
+    parserListener->exitOpCompareRelational(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::Op6Context::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::OpCompareRelationalContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitOp6(this);
+    return parserVisitor->visitOpCompareRelational(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::Op6Context* MapleGrammarParser::op6() {
-  Op6Context *_localctx = _tracker.createInstance<Op6Context>(_ctx, getState());
-  enterRule(_localctx, 16, MapleGrammarParser::RuleOp6);
+MapleGrammarParser::OpCompareRelationalContext* MapleGrammarParser::opCompareRelational() {
+  OpCompareRelationalContext *_localctx = _tracker.createInstance<OpCompareRelationalContext>(_ctx, getState());
+  enterRule(_localctx, 16, MapleGrammarParser::RuleOpCompareRelational);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -636,40 +636,40 @@ MapleGrammarParser::Op6Context* MapleGrammarParser::op6() {
   return _localctx;
 }
 
-//----------------- Op7Context ------------------------------------------------------------------
+//----------------- OpCompareEqualityContext ------------------------------------------------------------------
 
-MapleGrammarParser::Op7Context::Op7Context(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::OpCompareEqualityContext::OpCompareEqualityContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t MapleGrammarParser::Op7Context::getRuleIndex() const {
-  return MapleGrammarParser::RuleOp7;
+size_t MapleGrammarParser::OpCompareEqualityContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleOpCompareEquality;
 }
 
-void MapleGrammarParser::Op7Context::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpCompareEqualityContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOp7(this);
+    parserListener->enterOpCompareEquality(this);
 }
 
-void MapleGrammarParser::Op7Context::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpCompareEqualityContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOp7(this);
+    parserListener->exitOpCompareEquality(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::Op7Context::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::OpCompareEqualityContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitOp7(this);
+    return parserVisitor->visitOpCompareEquality(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::Op7Context* MapleGrammarParser::op7() {
-  Op7Context *_localctx = _tracker.createInstance<Op7Context>(_ctx, getState());
-  enterRule(_localctx, 18, MapleGrammarParser::RuleOp7);
+MapleGrammarParser::OpCompareEqualityContext* MapleGrammarParser::opCompareEquality() {
+  OpCompareEqualityContext *_localctx = _tracker.createInstance<OpCompareEqualityContext>(_ctx, getState());
+  enterRule(_localctx, 18, MapleGrammarParser::RuleOpCompareEquality);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -699,40 +699,40 @@ MapleGrammarParser::Op7Context* MapleGrammarParser::op7() {
   return _localctx;
 }
 
-//----------------- Op8Context ------------------------------------------------------------------
+//----------------- OpBinaryAndContext ------------------------------------------------------------------
 
-MapleGrammarParser::Op8Context::Op8Context(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::OpBinaryAndContext::OpBinaryAndContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t MapleGrammarParser::Op8Context::getRuleIndex() const {
-  return MapleGrammarParser::RuleOp8;
+size_t MapleGrammarParser::OpBinaryAndContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleOpBinaryAnd;
 }
 
-void MapleGrammarParser::Op8Context::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpBinaryAndContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOp8(this);
+    parserListener->enterOpBinaryAnd(this);
 }
 
-void MapleGrammarParser::Op8Context::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpBinaryAndContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOp8(this);
+    parserListener->exitOpBinaryAnd(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::Op8Context::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::OpBinaryAndContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitOp8(this);
+    return parserVisitor->visitOpBinaryAnd(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::Op8Context* MapleGrammarParser::op8() {
-  Op8Context *_localctx = _tracker.createInstance<Op8Context>(_ctx, getState());
-  enterRule(_localctx, 20, MapleGrammarParser::RuleOp8);
+MapleGrammarParser::OpBinaryAndContext* MapleGrammarParser::opBinaryAnd() {
+  OpBinaryAndContext *_localctx = _tracker.createInstance<OpBinaryAndContext>(_ctx, getState());
+  enterRule(_localctx, 20, MapleGrammarParser::RuleOpBinaryAnd);
 
   auto onExit = finally([=] {
     exitRule();
@@ -752,40 +752,40 @@ MapleGrammarParser::Op8Context* MapleGrammarParser::op8() {
   return _localctx;
 }
 
-//----------------- Op9Context ------------------------------------------------------------------
+//----------------- OpBinaryXorContext ------------------------------------------------------------------
 
-MapleGrammarParser::Op9Context::Op9Context(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::OpBinaryXorContext::OpBinaryXorContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t MapleGrammarParser::Op9Context::getRuleIndex() const {
-  return MapleGrammarParser::RuleOp9;
+size_t MapleGrammarParser::OpBinaryXorContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleOpBinaryXor;
 }
 
-void MapleGrammarParser::Op9Context::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpBinaryXorContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOp9(this);
+    parserListener->enterOpBinaryXor(this);
 }
 
-void MapleGrammarParser::Op9Context::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpBinaryXorContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOp9(this);
+    parserListener->exitOpBinaryXor(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::Op9Context::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::OpBinaryXorContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitOp9(this);
+    return parserVisitor->visitOpBinaryXor(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::Op9Context* MapleGrammarParser::op9() {
-  Op9Context *_localctx = _tracker.createInstance<Op9Context>(_ctx, getState());
-  enterRule(_localctx, 22, MapleGrammarParser::RuleOp9);
+MapleGrammarParser::OpBinaryXorContext* MapleGrammarParser::opBinaryXor() {
+  OpBinaryXorContext *_localctx = _tracker.createInstance<OpBinaryXorContext>(_ctx, getState());
+  enterRule(_localctx, 22, MapleGrammarParser::RuleOpBinaryXor);
 
   auto onExit = finally([=] {
     exitRule();
@@ -805,40 +805,40 @@ MapleGrammarParser::Op9Context* MapleGrammarParser::op9() {
   return _localctx;
 }
 
-//----------------- Op10Context ------------------------------------------------------------------
+//----------------- OpBinaryOrContext ------------------------------------------------------------------
 
-MapleGrammarParser::Op10Context::Op10Context(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::OpBinaryOrContext::OpBinaryOrContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t MapleGrammarParser::Op10Context::getRuleIndex() const {
-  return MapleGrammarParser::RuleOp10;
+size_t MapleGrammarParser::OpBinaryOrContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleOpBinaryOr;
 }
 
-void MapleGrammarParser::Op10Context::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpBinaryOrContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOp10(this);
+    parserListener->enterOpBinaryOr(this);
 }
 
-void MapleGrammarParser::Op10Context::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpBinaryOrContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOp10(this);
+    parserListener->exitOpBinaryOr(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::Op10Context::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::OpBinaryOrContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitOp10(this);
+    return parserVisitor->visitOpBinaryOr(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::Op10Context* MapleGrammarParser::op10() {
-  Op10Context *_localctx = _tracker.createInstance<Op10Context>(_ctx, getState());
-  enterRule(_localctx, 24, MapleGrammarParser::RuleOp10);
+MapleGrammarParser::OpBinaryOrContext* MapleGrammarParser::opBinaryOr() {
+  OpBinaryOrContext *_localctx = _tracker.createInstance<OpBinaryOrContext>(_ctx, getState());
+  enterRule(_localctx, 24, MapleGrammarParser::RuleOpBinaryOr);
 
   auto onExit = finally([=] {
     exitRule();
@@ -858,40 +858,40 @@ MapleGrammarParser::Op10Context* MapleGrammarParser::op10() {
   return _localctx;
 }
 
-//----------------- Op11Context ------------------------------------------------------------------
+//----------------- OpAndContext ------------------------------------------------------------------
 
-MapleGrammarParser::Op11Context::Op11Context(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::OpAndContext::OpAndContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t MapleGrammarParser::Op11Context::getRuleIndex() const {
-  return MapleGrammarParser::RuleOp11;
+size_t MapleGrammarParser::OpAndContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleOpAnd;
 }
 
-void MapleGrammarParser::Op11Context::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpAndContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOp11(this);
+    parserListener->enterOpAnd(this);
 }
 
-void MapleGrammarParser::Op11Context::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpAndContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOp11(this);
+    parserListener->exitOpAnd(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::Op11Context::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::OpAndContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitOp11(this);
+    return parserVisitor->visitOpAnd(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::Op11Context* MapleGrammarParser::op11() {
-  Op11Context *_localctx = _tracker.createInstance<Op11Context>(_ctx, getState());
-  enterRule(_localctx, 26, MapleGrammarParser::RuleOp11);
+MapleGrammarParser::OpAndContext* MapleGrammarParser::opAnd() {
+  OpAndContext *_localctx = _tracker.createInstance<OpAndContext>(_ctx, getState());
+  enterRule(_localctx, 26, MapleGrammarParser::RuleOpAnd);
 
   auto onExit = finally([=] {
     exitRule();
@@ -911,40 +911,40 @@ MapleGrammarParser::Op11Context* MapleGrammarParser::op11() {
   return _localctx;
 }
 
-//----------------- Op12Context ------------------------------------------------------------------
+//----------------- OpOrContext ------------------------------------------------------------------
 
-MapleGrammarParser::Op12Context::Op12Context(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::OpOrContext::OpOrContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t MapleGrammarParser::Op12Context::getRuleIndex() const {
-  return MapleGrammarParser::RuleOp12;
+size_t MapleGrammarParser::OpOrContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleOpOr;
 }
 
-void MapleGrammarParser::Op12Context::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpOrContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOp12(this);
+    parserListener->enterOpOr(this);
 }
 
-void MapleGrammarParser::Op12Context::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpOrContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOp12(this);
+    parserListener->exitOpOr(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::Op12Context::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::OpOrContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitOp12(this);
+    return parserVisitor->visitOpOr(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::Op12Context* MapleGrammarParser::op12() {
-  Op12Context *_localctx = _tracker.createInstance<Op12Context>(_ctx, getState());
-  enterRule(_localctx, 28, MapleGrammarParser::RuleOp12);
+MapleGrammarParser::OpOrContext* MapleGrammarParser::opOr() {
+  OpOrContext *_localctx = _tracker.createInstance<OpOrContext>(_ctx, getState());
+  enterRule(_localctx, 28, MapleGrammarParser::RuleOpOr);
 
   auto onExit = finally([=] {
     exitRule();
@@ -964,40 +964,40 @@ MapleGrammarParser::Op12Context* MapleGrammarParser::op12() {
   return _localctx;
 }
 
-//----------------- Op13Context ------------------------------------------------------------------
+//----------------- OpAffectationContext ------------------------------------------------------------------
 
-MapleGrammarParser::Op13Context::Op13Context(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::OpAffectationContext::OpAffectationContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
 
-size_t MapleGrammarParser::Op13Context::getRuleIndex() const {
-  return MapleGrammarParser::RuleOp13;
+size_t MapleGrammarParser::OpAffectationContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleOpAffectation;
 }
 
-void MapleGrammarParser::Op13Context::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpAffectationContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterOp13(this);
+    parserListener->enterOpAffectation(this);
 }
 
-void MapleGrammarParser::Op13Context::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::OpAffectationContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitOp13(this);
+    parserListener->exitOpAffectation(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::Op13Context::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::OpAffectationContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitOp13(this);
+    return parserVisitor->visitOpAffectation(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::Op13Context* MapleGrammarParser::op13() {
-  Op13Context *_localctx = _tracker.createInstance<Op13Context>(_ctx, getState());
-  enterRule(_localctx, 30, MapleGrammarParser::RuleOp13);
+MapleGrammarParser::OpAffectationContext* MapleGrammarParser::opAffectation() {
+  OpAffectationContext *_localctx = _tracker.createInstance<OpAffectationContext>(_ctx, getState());
+  enterRule(_localctx, 30, MapleGrammarParser::RuleOpAffectation);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -1058,60 +1058,60 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::ExprContext::expr(size_t i)
   return getRuleContext<MapleGrammarParser::ExprContext>(i);
 }
 
-MapleGrammarParser::Op2Context* MapleGrammarParser::ExprContext::op2() {
-  return getRuleContext<MapleGrammarParser::Op2Context>(0);
+MapleGrammarParser::OpUnaryPrefixContext* MapleGrammarParser::ExprContext::opUnaryPrefix() {
+  return getRuleContext<MapleGrammarParser::OpUnaryPrefixContext>(0);
 }
 
 MapleGrammarParser::LeftValueContext* MapleGrammarParser::ExprContext::leftValue() {
   return getRuleContext<MapleGrammarParser::LeftValueContext>(0);
 }
 
-MapleGrammarParser::Op13Context* MapleGrammarParser::ExprContext::op13() {
-  return getRuleContext<MapleGrammarParser::Op13Context>(0);
+MapleGrammarParser::OpAffectationContext* MapleGrammarParser::ExprContext::opAffectation() {
+  return getRuleContext<MapleGrammarParser::OpAffectationContext>(0);
 }
 
-MapleGrammarParser::Op3Context* MapleGrammarParser::ExprContext::op3() {
-  return getRuleContext<MapleGrammarParser::Op3Context>(0);
+MapleGrammarParser::OpMultiplicativeContext* MapleGrammarParser::ExprContext::opMultiplicative() {
+  return getRuleContext<MapleGrammarParser::OpMultiplicativeContext>(0);
 }
 
-MapleGrammarParser::Op4Context* MapleGrammarParser::ExprContext::op4() {
-  return getRuleContext<MapleGrammarParser::Op4Context>(0);
+MapleGrammarParser::OpAdditiveContext* MapleGrammarParser::ExprContext::opAdditive() {
+  return getRuleContext<MapleGrammarParser::OpAdditiveContext>(0);
 }
 
-MapleGrammarParser::Op5Context* MapleGrammarParser::ExprContext::op5() {
-  return getRuleContext<MapleGrammarParser::Op5Context>(0);
+MapleGrammarParser::OpBinaryShiftContext* MapleGrammarParser::ExprContext::opBinaryShift() {
+  return getRuleContext<MapleGrammarParser::OpBinaryShiftContext>(0);
 }
 
-MapleGrammarParser::Op6Context* MapleGrammarParser::ExprContext::op6() {
-  return getRuleContext<MapleGrammarParser::Op6Context>(0);
+MapleGrammarParser::OpCompareRelationalContext* MapleGrammarParser::ExprContext::opCompareRelational() {
+  return getRuleContext<MapleGrammarParser::OpCompareRelationalContext>(0);
 }
 
-MapleGrammarParser::Op7Context* MapleGrammarParser::ExprContext::op7() {
-  return getRuleContext<MapleGrammarParser::Op7Context>(0);
+MapleGrammarParser::OpCompareEqualityContext* MapleGrammarParser::ExprContext::opCompareEquality() {
+  return getRuleContext<MapleGrammarParser::OpCompareEqualityContext>(0);
 }
 
-MapleGrammarParser::Op8Context* MapleGrammarParser::ExprContext::op8() {
-  return getRuleContext<MapleGrammarParser::Op8Context>(0);
+MapleGrammarParser::OpBinaryAndContext* MapleGrammarParser::ExprContext::opBinaryAnd() {
+  return getRuleContext<MapleGrammarParser::OpBinaryAndContext>(0);
 }
 
-MapleGrammarParser::Op9Context* MapleGrammarParser::ExprContext::op9() {
-  return getRuleContext<MapleGrammarParser::Op9Context>(0);
+MapleGrammarParser::OpBinaryXorContext* MapleGrammarParser::ExprContext::opBinaryXor() {
+  return getRuleContext<MapleGrammarParser::OpBinaryXorContext>(0);
 }
 
-MapleGrammarParser::Op10Context* MapleGrammarParser::ExprContext::op10() {
-  return getRuleContext<MapleGrammarParser::Op10Context>(0);
+MapleGrammarParser::OpBinaryOrContext* MapleGrammarParser::ExprContext::opBinaryOr() {
+  return getRuleContext<MapleGrammarParser::OpBinaryOrContext>(0);
 }
 
-MapleGrammarParser::Op11Context* MapleGrammarParser::ExprContext::op11() {
-  return getRuleContext<MapleGrammarParser::Op11Context>(0);
+MapleGrammarParser::OpAndContext* MapleGrammarParser::ExprContext::opAnd() {
+  return getRuleContext<MapleGrammarParser::OpAndContext>(0);
 }
 
-MapleGrammarParser::Op12Context* MapleGrammarParser::ExprContext::op12() {
-  return getRuleContext<MapleGrammarParser::Op12Context>(0);
+MapleGrammarParser::OpOrContext* MapleGrammarParser::ExprContext::opOr() {
+  return getRuleContext<MapleGrammarParser::OpOrContext>(0);
 }
 
-MapleGrammarParser::Op1Context* MapleGrammarParser::ExprContext::op1() {
-  return getRuleContext<MapleGrammarParser::Op1Context>(0);
+MapleGrammarParser::OpUnaryPostfixContext* MapleGrammarParser::ExprContext::opUnaryPostfix() {
+  return getRuleContext<MapleGrammarParser::OpUnaryPostfixContext>(0);
 }
 
 
@@ -1187,7 +1187,7 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
 
     case 4: {
       setState(120);
-      op2();
+      opUnaryPrefix();
       setState(121);
       expr(12);
       break;
@@ -1197,7 +1197,7 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
       setState(123);
       leftValue();
       setState(124);
-      op13();
+      opAffectation();
       setState(125);
       expr(1);
       break;
@@ -1223,7 +1223,7 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
 
           if (!(precpred(_ctx, 11))) throw FailedPredicateException(this, "precpred(_ctx, 11)");
           setState(130);
-          op3();
+          opMultiplicative();
           setState(131);
           expr(12);
           break;
@@ -1236,7 +1236,7 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
 
           if (!(precpred(_ctx, 10))) throw FailedPredicateException(this, "precpred(_ctx, 10)");
           setState(134);
-          op4();
+          opAdditive();
           setState(135);
           expr(11);
           break;
@@ -1249,7 +1249,7 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
 
           if (!(precpred(_ctx, 9))) throw FailedPredicateException(this, "precpred(_ctx, 9)");
           setState(138);
-          op5();
+          opBinaryShift();
           setState(139);
           expr(10);
           break;
@@ -1262,7 +1262,7 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
 
           if (!(precpred(_ctx, 8))) throw FailedPredicateException(this, "precpred(_ctx, 8)");
           setState(142);
-          op6();
+          opCompareRelational();
           setState(143);
           expr(9);
           break;
@@ -1275,7 +1275,7 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
 
           if (!(precpred(_ctx, 7))) throw FailedPredicateException(this, "precpred(_ctx, 7)");
           setState(146);
-          op7();
+          opCompareEquality();
           setState(147);
           expr(8);
           break;
@@ -1288,7 +1288,7 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
 
           if (!(precpred(_ctx, 6))) throw FailedPredicateException(this, "precpred(_ctx, 6)");
           setState(150);
-          op8();
+          opBinaryAnd();
           setState(151);
           expr(7);
           break;
@@ -1301,7 +1301,7 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
 
           if (!(precpred(_ctx, 5))) throw FailedPredicateException(this, "precpred(_ctx, 5)");
           setState(154);
-          op9();
+          opBinaryXor();
           setState(155);
           expr(6);
           break;
@@ -1314,7 +1314,7 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
 
           if (!(precpred(_ctx, 4))) throw FailedPredicateException(this, "precpred(_ctx, 4)");
           setState(158);
-          op10();
+          opBinaryOr();
           setState(159);
           expr(5);
           break;
@@ -1327,7 +1327,7 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
 
           if (!(precpred(_ctx, 3))) throw FailedPredicateException(this, "precpred(_ctx, 3)");
           setState(162);
-          op11();
+          opAnd();
           setState(163);
           expr(4);
           break;
@@ -1340,7 +1340,7 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
 
           if (!(precpred(_ctx, 2))) throw FailedPredicateException(this, "precpred(_ctx, 2)");
           setState(166);
-          op12();
+          opOr();
           setState(167);
           expr(3);
           break;
@@ -1353,7 +1353,7 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
 
           if (!(precpred(_ctx, 13))) throw FailedPredicateException(this, "precpred(_ctx, 13)");
           setState(170);
-          op1();
+          opUnaryPostfix();
           break;
         }
 
@@ -2115,52 +2115,52 @@ MapleGrammarParser::AccessorContext* MapleGrammarParser::accessor() {
   return _localctx;
 }
 
-//----------------- IfContext ------------------------------------------------------------------
+//----------------- IfStatementContext ------------------------------------------------------------------
 
-MapleGrammarParser::IfContext::IfContext(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::IfStatementContext::IfStatementContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-MapleGrammarParser::ExprContext* MapleGrammarParser::IfContext::expr() {
+MapleGrammarParser::ExprContext* MapleGrammarParser::IfStatementContext::expr() {
   return getRuleContext<MapleGrammarParser::ExprContext>(0);
 }
 
-MapleGrammarParser::InstructionContext* MapleGrammarParser::IfContext::instruction() {
+MapleGrammarParser::InstructionContext* MapleGrammarParser::IfStatementContext::instruction() {
   return getRuleContext<MapleGrammarParser::InstructionContext>(0);
 }
 
-MapleGrammarParser::ElseContext* MapleGrammarParser::IfContext::else() {
-  return getRuleContext<MapleGrammarParser::ElseContext>(0);
+MapleGrammarParser::ElseStatementContext* MapleGrammarParser::IfStatementContext::elseStatement() {
+  return getRuleContext<MapleGrammarParser::ElseStatementContext>(0);
 }
 
 
-size_t MapleGrammarParser::IfContext::getRuleIndex() const {
-  return MapleGrammarParser::RuleIf;
+size_t MapleGrammarParser::IfStatementContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleIfStatement;
 }
 
-void MapleGrammarParser::IfContext::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::IfStatementContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterIf(this);
+    parserListener->enterIfStatement(this);
 }
 
-void MapleGrammarParser::IfContext::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::IfStatementContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitIf(this);
+    parserListener->exitIfStatement(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::IfContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::IfStatementContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitIf(this);
+    return parserVisitor->visitIfStatement(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::IfContext* MapleGrammarParser::if() {
-  IfContext *_localctx = _tracker.createInstance<IfContext>(_ctx, getState());
-  enterRule(_localctx, 54, MapleGrammarParser::RuleIf);
+MapleGrammarParser::IfStatementContext* MapleGrammarParser::ifStatement() {
+  IfStatementContext *_localctx = _tracker.createInstance<IfStatementContext>(_ctx, getState());
+  enterRule(_localctx, 54, MapleGrammarParser::RuleIfStatement);
 
   auto onExit = finally([=] {
     exitRule();
@@ -2183,7 +2183,7 @@ MapleGrammarParser::IfContext* MapleGrammarParser::if() {
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 12, _ctx)) {
     case 1: {
       setState(240);
-      else();
+      elseStatement();
       break;
     }
 
@@ -2199,44 +2199,44 @@ MapleGrammarParser::IfContext* MapleGrammarParser::if() {
   return _localctx;
 }
 
-//----------------- ElseContext ------------------------------------------------------------------
+//----------------- ElseStatementContext ------------------------------------------------------------------
 
-MapleGrammarParser::ElseContext::ElseContext(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::ElseStatementContext::ElseStatementContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-MapleGrammarParser::InstructionContext* MapleGrammarParser::ElseContext::instruction() {
+MapleGrammarParser::InstructionContext* MapleGrammarParser::ElseStatementContext::instruction() {
   return getRuleContext<MapleGrammarParser::InstructionContext>(0);
 }
 
 
-size_t MapleGrammarParser::ElseContext::getRuleIndex() const {
-  return MapleGrammarParser::RuleElse;
+size_t MapleGrammarParser::ElseStatementContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleElseStatement;
 }
 
-void MapleGrammarParser::ElseContext::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::ElseStatementContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterElse(this);
+    parserListener->enterElseStatement(this);
 }
 
-void MapleGrammarParser::ElseContext::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::ElseStatementContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitElse(this);
+    parserListener->exitElseStatement(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::ElseContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::ElseStatementContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitElse(this);
+    return parserVisitor->visitElseStatement(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::ElseContext* MapleGrammarParser::else() {
-  ElseContext *_localctx = _tracker.createInstance<ElseContext>(_ctx, getState());
-  enterRule(_localctx, 56, MapleGrammarParser::RuleElse);
+MapleGrammarParser::ElseStatementContext* MapleGrammarParser::elseStatement() {
+  ElseStatementContext *_localctx = _tracker.createInstance<ElseStatementContext>(_ctx, getState());
+  enterRule(_localctx, 56, MapleGrammarParser::RuleElseStatement);
 
   auto onExit = finally([=] {
     exitRule();
@@ -2258,48 +2258,48 @@ MapleGrammarParser::ElseContext* MapleGrammarParser::else() {
   return _localctx;
 }
 
-//----------------- WhileContext ------------------------------------------------------------------
+//----------------- WhileStatementContext ------------------------------------------------------------------
 
-MapleGrammarParser::WhileContext::WhileContext(ParserRuleContext *parent, size_t invokingState)
+MapleGrammarParser::WhileStatementContext::WhileStatementContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-MapleGrammarParser::ExprContext* MapleGrammarParser::WhileContext::expr() {
+MapleGrammarParser::ExprContext* MapleGrammarParser::WhileStatementContext::expr() {
   return getRuleContext<MapleGrammarParser::ExprContext>(0);
 }
 
-MapleGrammarParser::InstructionContext* MapleGrammarParser::WhileContext::instruction() {
+MapleGrammarParser::InstructionContext* MapleGrammarParser::WhileStatementContext::instruction() {
   return getRuleContext<MapleGrammarParser::InstructionContext>(0);
 }
 
 
-size_t MapleGrammarParser::WhileContext::getRuleIndex() const {
-  return MapleGrammarParser::RuleWhile;
+size_t MapleGrammarParser::WhileStatementContext::getRuleIndex() const {
+  return MapleGrammarParser::RuleWhileStatement;
 }
 
-void MapleGrammarParser::WhileContext::enterRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::WhileStatementContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterWhile(this);
+    parserListener->enterWhileStatement(this);
 }
 
-void MapleGrammarParser::WhileContext::exitRule(tree::ParseTreeListener *listener) {
+void MapleGrammarParser::WhileStatementContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<MapleGrammarListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitWhile(this);
+    parserListener->exitWhileStatement(this);
 }
 
 
-antlrcpp::Any MapleGrammarParser::WhileContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any MapleGrammarParser::WhileStatementContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitWhile(this);
+    return parserVisitor->visitWhileStatement(this);
   else
     return visitor->visitChildren(this);
 }
 
-MapleGrammarParser::WhileContext* MapleGrammarParser::while() {
-  WhileContext *_localctx = _tracker.createInstance<WhileContext>(_ctx, getState());
-  enterRule(_localctx, 58, MapleGrammarParser::RuleWhile);
+MapleGrammarParser::WhileStatementContext* MapleGrammarParser::whileStatement() {
+  WhileStatementContext *_localctx = _tracker.createInstance<WhileStatementContext>(_ctx, getState());
+  enterRule(_localctx, 58, MapleGrammarParser::RuleWhileStatement);
 
   auto onExit = finally([=] {
     exitRule();
@@ -2957,12 +2957,12 @@ MapleGrammarParser::StatementContext* MapleGrammarParser::InstructionContext::st
   return getRuleContext<MapleGrammarParser::StatementContext>(0);
 }
 
-MapleGrammarParser::IfContext* MapleGrammarParser::InstructionContext::if() {
-  return getRuleContext<MapleGrammarParser::IfContext>(0);
+MapleGrammarParser::IfStatementContext* MapleGrammarParser::InstructionContext::ifStatement() {
+  return getRuleContext<MapleGrammarParser::IfStatementContext>(0);
 }
 
-MapleGrammarParser::WhileContext* MapleGrammarParser::InstructionContext::while() {
-  return getRuleContext<MapleGrammarParser::WhileContext>(0);
+MapleGrammarParser::WhileStatementContext* MapleGrammarParser::InstructionContext::whileStatement() {
+  return getRuleContext<MapleGrammarParser::WhileStatementContext>(0);
 }
 
 MapleGrammarParser::BlockContext* MapleGrammarParser::InstructionContext::block() {
@@ -3028,14 +3028,14 @@ MapleGrammarParser::InstructionContext* MapleGrammarParser::instruction() {
       case MapleGrammarParser::T__40: {
         enterOuterAlt(_localctx, 2);
         setState(316);
-        if();
+        ifStatement();
         break;
       }
 
       case MapleGrammarParser::T__42: {
         enterOuterAlt(_localctx, 3);
         setState(317);
-        while();
+        whileStatement();
         break;
       }
 
@@ -3106,12 +3106,14 @@ atn::ATN MapleGrammarParser::_atn;
 std::vector<uint16_t> MapleGrammarParser::_serializedATN;
 
 std::vector<std::string> MapleGrammarParser::_ruleNames = {
-  "start", "program", "value", "op1", "op2", "op3", "op4", "op5", "op6", 
-  "op7", "op8", "op9", "op10", "op11", "op12", "op13", "expr", "declarationVar", 
-  "declarationTab", "declaration", "definitionTab", "assignment", "accessorTab", 
-  "accessorVar", "accessorFunction", "leftValue", "accessor", "if", "else", 
-  "while", "functionDefinition", "returnStatement", "blockFunction", "argumentList", 
-  "typeList", "block", "statement", "instruction"
+  "start", "program", "value", "opUnaryPostfix", "opUnaryPrefix", "opMultiplicative", 
+  "opAdditive", "opBinaryShift", "opCompareRelational", "opCompareEquality", 
+  "opBinaryAnd", "opBinaryXor", "opBinaryOr", "opAnd", "opOr", "opAffectation", 
+  "expr", "declarationVar", "declarationTab", "declaration", "definitionTab", 
+  "assignment", "accessorTab", "accessorVar", "accessorFunction", "leftValue", 
+  "accessor", "ifStatement", "elseStatement", "whileStatement", "functionDefinition", 
+  "returnStatement", "blockFunction", "argumentList", "typeList", "block", 
+  "statement", "instruction"
 };
 
 std::vector<std::string> MapleGrammarParser::_literalNames = {

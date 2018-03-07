@@ -49,7 +49,7 @@ expr : accessor
     | leftValue opAffectation expr ;
 
 // Déclaration
-declarationVar : TYPE ID assignment? SC ;
+declarationVar : TYPE (ID assignment? ',')* ID assignment? SC ;
 declarationTab : TYPE '[' expr ']' ID definitionTab? SC ;
 declaration : declarationVar
     | declarationTab  ;

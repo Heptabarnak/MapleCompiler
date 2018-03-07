@@ -12,8 +12,12 @@ TYPE : 'char'| ('int'('32'|'64')'_t') ;
 TYPE_VOID : 'void' ;
 CHAR : '\'' [\u0000-\u00FF] '\'' ;
 INTEGER : [0-9]+ ('e' [0-9]+)?;
-ID : [a-zA-Z_]([a-zA-Z0-9_]*) ;
+ID : [a-zA-Z_]+ [a-zA-Z0-9_]* ;
 value : INTEGER | CHAR ;
+
+// Comments
+COMMENT : '/*' .*? '*/' -> channel(HIDDEN) ;
+LINE_COMMENT : '//' ~'\n'* '\n' -> channel(HIDDEN) ;
 
 // Opérateurs
 opUnaryPostfix : '++' | '--' ;

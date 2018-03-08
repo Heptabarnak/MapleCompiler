@@ -271,28 +271,166 @@ public:
   class  ExprContext : public antlr4::ParserRuleContext {
   public:
     ExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    ExprContext() : antlr4::ParserRuleContext() { }
+    void copyFrom(ExprContext *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
     virtual size_t getRuleIndex() const override;
-    AccessorContext *accessor();
-    ValueContext *value();
+
+   
+  };
+
+  class  ExprAdditiveContext : public ExprContext {
+  public:
+    ExprAdditiveContext(ExprContext *ctx);
+
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
-    OpUnaryPrefixContext *opUnaryPrefix();
+    OpAdditiveContext *opAdditive();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprValueContext : public ExprContext {
+  public:
+    ExprValueContext(ExprContext *ctx);
+
+    ValueContext *value();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprBinaryShiftContext : public ExprContext {
+  public:
+    ExprBinaryShiftContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    OpBinaryShiftContext *opBinaryShift();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprAffectationContext : public ExprContext {
+  public:
+    ExprAffectationContext(ExprContext *ctx);
+
     LeftValueContext *leftValue();
     OpAffectationContext *opAffectation();
-    OpMultiplicativeContext *opMultiplicative();
-    OpAdditiveContext *opAdditive();
-    OpBinaryShiftContext *opBinaryShift();
-    OpCompareRelationalContext *opCompareRelational();
-    OpCompareEqualityContext *opCompareEquality();
-    OpBinaryAndContext *opBinaryAnd();
-    OpBinaryXorContext *opBinaryXor();
-    OpBinaryOrContext *opBinaryOr();
-    OpAndContext *opAnd();
-    OpOrContext *opOr();
-    OpUnaryPostfixContext *opUnaryPostfix();
-
+    ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
+  };
+
+  class  ExprBinaryXorContext : public ExprContext {
+  public:
+    ExprBinaryXorContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    OpBinaryXorContext *opBinaryXor();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprBinaryAndContext : public ExprContext {
+  public:
+    ExprBinaryAndContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    OpBinaryAndContext *opBinaryAnd();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprOrContext : public ExprContext {
+  public:
+    ExprOrContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    OpOrContext *opOr();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprUnaryPostfixContext : public ExprContext {
+  public:
+    ExprUnaryPostfixContext(ExprContext *ctx);
+
+    ExprContext *expr();
+    OpUnaryPostfixContext *opUnaryPostfix();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprMultiplicativeContext : public ExprContext {
+  public:
+    ExprMultiplicativeContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    OpMultiplicativeContext *opMultiplicative();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprAccessorContext : public ExprContext {
+  public:
+    ExprAccessorContext(ExprContext *ctx);
+
+    AccessorContext *accessor();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprAndContext : public ExprContext {
+  public:
+    ExprAndContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    OpAndContext *opAnd();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprParenthesisContext : public ExprContext {
+  public:
+    ExprParenthesisContext(ExprContext *ctx);
+
+    ExprContext *expr();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprBinaryOrContext : public ExprContext {
+  public:
+    ExprBinaryOrContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    OpBinaryOrContext *opBinaryOr();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprCompareRelationalContext : public ExprContext {
+  public:
+    ExprCompareRelationalContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    OpCompareRelationalContext *opCompareRelational();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprCompareEqualityContext : public ExprContext {
+  public:
+    ExprCompareEqualityContext(ExprContext *ctx);
+
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+    OpCompareEqualityContext *opCompareEquality();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprUnaryPrefixContext : public ExprContext {
+  public:
+    ExprUnaryPrefixContext(ExprContext *ctx);
+
+    OpUnaryPrefixContext *opUnaryPrefix();
+    ExprContext *expr();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   ExprContext* expr();

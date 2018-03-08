@@ -51,7 +51,37 @@ public:
 
     virtual antlrcpp::Any visitOpAffectation(MapleGrammarParser::OpAffectationContext *context) = 0;
 
-    virtual antlrcpp::Any visitExpr(MapleGrammarParser::ExprContext *context) = 0;
+    virtual antlrcpp::Any visitExprAdditive(MapleGrammarParser::ExprAdditiveContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprValue(MapleGrammarParser::ExprValueContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprBinaryShift(MapleGrammarParser::ExprBinaryShiftContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprAffectation(MapleGrammarParser::ExprAffectationContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprBinaryXor(MapleGrammarParser::ExprBinaryXorContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprBinaryAnd(MapleGrammarParser::ExprBinaryAndContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprOr(MapleGrammarParser::ExprOrContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprUnaryPostfix(MapleGrammarParser::ExprUnaryPostfixContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprMultiplicative(MapleGrammarParser::ExprMultiplicativeContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprAccessor(MapleGrammarParser::ExprAccessorContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprAnd(MapleGrammarParser::ExprAndContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprParenthesis(MapleGrammarParser::ExprParenthesisContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprBinaryOr(MapleGrammarParser::ExprBinaryOrContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprCompareRelational(MapleGrammarParser::ExprCompareRelationalContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprCompareEquality(MapleGrammarParser::ExprCompareEqualityContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprUnaryPrefix(MapleGrammarParser::ExprUnaryPrefixContext *context) = 0;
 
     virtual antlrcpp::Any visitDeclarationVar(MapleGrammarParser::DeclarationVarContext *context) = 0;
 

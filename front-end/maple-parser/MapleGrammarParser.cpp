@@ -833,90 +833,335 @@ MapleGrammarParser::ExprContext::ExprContext(ParserRuleContext *parent, size_t i
   : ParserRuleContext(parent, invokingState) {
 }
 
-MapleGrammarParser::AccessorContext* MapleGrammarParser::ExprContext::accessor() {
-  return getRuleContext<MapleGrammarParser::AccessorContext>(0);
-}
-
-MapleGrammarParser::ValueContext* MapleGrammarParser::ExprContext::value() {
-  return getRuleContext<MapleGrammarParser::ValueContext>(0);
-}
-
-std::vector<MapleGrammarParser::ExprContext *> MapleGrammarParser::ExprContext::expr() {
-  return getRuleContexts<MapleGrammarParser::ExprContext>();
-}
-
-MapleGrammarParser::ExprContext* MapleGrammarParser::ExprContext::expr(size_t i) {
-  return getRuleContext<MapleGrammarParser::ExprContext>(i);
-}
-
-MapleGrammarParser::OpUnaryPrefixContext* MapleGrammarParser::ExprContext::opUnaryPrefix() {
-  return getRuleContext<MapleGrammarParser::OpUnaryPrefixContext>(0);
-}
-
-MapleGrammarParser::LeftValueContext* MapleGrammarParser::ExprContext::leftValue() {
-  return getRuleContext<MapleGrammarParser::LeftValueContext>(0);
-}
-
-MapleGrammarParser::OpAffectationContext* MapleGrammarParser::ExprContext::opAffectation() {
-  return getRuleContext<MapleGrammarParser::OpAffectationContext>(0);
-}
-
-MapleGrammarParser::OpMultiplicativeContext* MapleGrammarParser::ExprContext::opMultiplicative() {
-  return getRuleContext<MapleGrammarParser::OpMultiplicativeContext>(0);
-}
-
-MapleGrammarParser::OpAdditiveContext* MapleGrammarParser::ExprContext::opAdditive() {
-  return getRuleContext<MapleGrammarParser::OpAdditiveContext>(0);
-}
-
-MapleGrammarParser::OpBinaryShiftContext* MapleGrammarParser::ExprContext::opBinaryShift() {
-  return getRuleContext<MapleGrammarParser::OpBinaryShiftContext>(0);
-}
-
-MapleGrammarParser::OpCompareRelationalContext* MapleGrammarParser::ExprContext::opCompareRelational() {
-  return getRuleContext<MapleGrammarParser::OpCompareRelationalContext>(0);
-}
-
-MapleGrammarParser::OpCompareEqualityContext* MapleGrammarParser::ExprContext::opCompareEquality() {
-  return getRuleContext<MapleGrammarParser::OpCompareEqualityContext>(0);
-}
-
-MapleGrammarParser::OpBinaryAndContext* MapleGrammarParser::ExprContext::opBinaryAnd() {
-  return getRuleContext<MapleGrammarParser::OpBinaryAndContext>(0);
-}
-
-MapleGrammarParser::OpBinaryXorContext* MapleGrammarParser::ExprContext::opBinaryXor() {
-  return getRuleContext<MapleGrammarParser::OpBinaryXorContext>(0);
-}
-
-MapleGrammarParser::OpBinaryOrContext* MapleGrammarParser::ExprContext::opBinaryOr() {
-  return getRuleContext<MapleGrammarParser::OpBinaryOrContext>(0);
-}
-
-MapleGrammarParser::OpAndContext* MapleGrammarParser::ExprContext::opAnd() {
-  return getRuleContext<MapleGrammarParser::OpAndContext>(0);
-}
-
-MapleGrammarParser::OpOrContext* MapleGrammarParser::ExprContext::opOr() {
-  return getRuleContext<MapleGrammarParser::OpOrContext>(0);
-}
-
-MapleGrammarParser::OpUnaryPostfixContext* MapleGrammarParser::ExprContext::opUnaryPostfix() {
-  return getRuleContext<MapleGrammarParser::OpUnaryPostfixContext>(0);
-}
-
 
 size_t MapleGrammarParser::ExprContext::getRuleIndex() const {
   return MapleGrammarParser::RuleExpr;
 }
 
-antlrcpp::Any MapleGrammarParser::ExprContext::accept(tree::ParseTreeVisitor *visitor) {
+void MapleGrammarParser::ExprContext::copyFrom(ExprContext *ctx) {
+  ParserRuleContext::copyFrom(ctx);
+}
+
+//----------------- ExprAdditiveContext ------------------------------------------------------------------
+
+std::vector<MapleGrammarParser::ExprContext *> MapleGrammarParser::ExprAdditiveContext::expr() {
+  return getRuleContexts<MapleGrammarParser::ExprContext>();
+}
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprAdditiveContext::expr(size_t i) {
+  return getRuleContext<MapleGrammarParser::ExprContext>(i);
+}
+
+MapleGrammarParser::OpAdditiveContext* MapleGrammarParser::ExprAdditiveContext::opAdditive() {
+  return getRuleContext<MapleGrammarParser::OpAdditiveContext>(0);
+}
+
+MapleGrammarParser::ExprAdditiveContext::ExprAdditiveContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprAdditiveContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
-    return parserVisitor->visitExpr(this);
+    return parserVisitor->visitExprAdditive(this);
   else
     return visitor->visitChildren(this);
 }
+//----------------- ExprValueContext ------------------------------------------------------------------
 
+MapleGrammarParser::ValueContext* MapleGrammarParser::ExprValueContext::value() {
+  return getRuleContext<MapleGrammarParser::ValueContext>(0);
+}
+
+MapleGrammarParser::ExprValueContext::ExprValueContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprValueContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprValue(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprBinaryShiftContext ------------------------------------------------------------------
+
+std::vector<MapleGrammarParser::ExprContext *> MapleGrammarParser::ExprBinaryShiftContext::expr() {
+  return getRuleContexts<MapleGrammarParser::ExprContext>();
+}
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprBinaryShiftContext::expr(size_t i) {
+  return getRuleContext<MapleGrammarParser::ExprContext>(i);
+}
+
+MapleGrammarParser::OpBinaryShiftContext* MapleGrammarParser::ExprBinaryShiftContext::opBinaryShift() {
+  return getRuleContext<MapleGrammarParser::OpBinaryShiftContext>(0);
+}
+
+MapleGrammarParser::ExprBinaryShiftContext::ExprBinaryShiftContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprBinaryShiftContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprBinaryShift(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprAffectationContext ------------------------------------------------------------------
+
+MapleGrammarParser::LeftValueContext* MapleGrammarParser::ExprAffectationContext::leftValue() {
+  return getRuleContext<MapleGrammarParser::LeftValueContext>(0);
+}
+
+MapleGrammarParser::OpAffectationContext* MapleGrammarParser::ExprAffectationContext::opAffectation() {
+  return getRuleContext<MapleGrammarParser::OpAffectationContext>(0);
+}
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprAffectationContext::expr() {
+  return getRuleContext<MapleGrammarParser::ExprContext>(0);
+}
+
+MapleGrammarParser::ExprAffectationContext::ExprAffectationContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprAffectationContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprAffectation(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprBinaryXorContext ------------------------------------------------------------------
+
+std::vector<MapleGrammarParser::ExprContext *> MapleGrammarParser::ExprBinaryXorContext::expr() {
+  return getRuleContexts<MapleGrammarParser::ExprContext>();
+}
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprBinaryXorContext::expr(size_t i) {
+  return getRuleContext<MapleGrammarParser::ExprContext>(i);
+}
+
+MapleGrammarParser::OpBinaryXorContext* MapleGrammarParser::ExprBinaryXorContext::opBinaryXor() {
+  return getRuleContext<MapleGrammarParser::OpBinaryXorContext>(0);
+}
+
+MapleGrammarParser::ExprBinaryXorContext::ExprBinaryXorContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprBinaryXorContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprBinaryXor(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprBinaryAndContext ------------------------------------------------------------------
+
+std::vector<MapleGrammarParser::ExprContext *> MapleGrammarParser::ExprBinaryAndContext::expr() {
+  return getRuleContexts<MapleGrammarParser::ExprContext>();
+}
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprBinaryAndContext::expr(size_t i) {
+  return getRuleContext<MapleGrammarParser::ExprContext>(i);
+}
+
+MapleGrammarParser::OpBinaryAndContext* MapleGrammarParser::ExprBinaryAndContext::opBinaryAnd() {
+  return getRuleContext<MapleGrammarParser::OpBinaryAndContext>(0);
+}
+
+MapleGrammarParser::ExprBinaryAndContext::ExprBinaryAndContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprBinaryAndContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprBinaryAnd(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprOrContext ------------------------------------------------------------------
+
+std::vector<MapleGrammarParser::ExprContext *> MapleGrammarParser::ExprOrContext::expr() {
+  return getRuleContexts<MapleGrammarParser::ExprContext>();
+}
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprOrContext::expr(size_t i) {
+  return getRuleContext<MapleGrammarParser::ExprContext>(i);
+}
+
+MapleGrammarParser::OpOrContext* MapleGrammarParser::ExprOrContext::opOr() {
+  return getRuleContext<MapleGrammarParser::OpOrContext>(0);
+}
+
+MapleGrammarParser::ExprOrContext::ExprOrContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprOrContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprOr(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprUnaryPostfixContext ------------------------------------------------------------------
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprUnaryPostfixContext::expr() {
+  return getRuleContext<MapleGrammarParser::ExprContext>(0);
+}
+
+MapleGrammarParser::OpUnaryPostfixContext* MapleGrammarParser::ExprUnaryPostfixContext::opUnaryPostfix() {
+  return getRuleContext<MapleGrammarParser::OpUnaryPostfixContext>(0);
+}
+
+MapleGrammarParser::ExprUnaryPostfixContext::ExprUnaryPostfixContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprUnaryPostfixContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprUnaryPostfix(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprMultiplicativeContext ------------------------------------------------------------------
+
+std::vector<MapleGrammarParser::ExprContext *> MapleGrammarParser::ExprMultiplicativeContext::expr() {
+  return getRuleContexts<MapleGrammarParser::ExprContext>();
+}
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprMultiplicativeContext::expr(size_t i) {
+  return getRuleContext<MapleGrammarParser::ExprContext>(i);
+}
+
+MapleGrammarParser::OpMultiplicativeContext* MapleGrammarParser::ExprMultiplicativeContext::opMultiplicative() {
+  return getRuleContext<MapleGrammarParser::OpMultiplicativeContext>(0);
+}
+
+MapleGrammarParser::ExprMultiplicativeContext::ExprMultiplicativeContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprMultiplicativeContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprMultiplicative(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprAccessorContext ------------------------------------------------------------------
+
+MapleGrammarParser::AccessorContext* MapleGrammarParser::ExprAccessorContext::accessor() {
+  return getRuleContext<MapleGrammarParser::AccessorContext>(0);
+}
+
+MapleGrammarParser::ExprAccessorContext::ExprAccessorContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprAccessorContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprAccessor(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprAndContext ------------------------------------------------------------------
+
+std::vector<MapleGrammarParser::ExprContext *> MapleGrammarParser::ExprAndContext::expr() {
+  return getRuleContexts<MapleGrammarParser::ExprContext>();
+}
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprAndContext::expr(size_t i) {
+  return getRuleContext<MapleGrammarParser::ExprContext>(i);
+}
+
+MapleGrammarParser::OpAndContext* MapleGrammarParser::ExprAndContext::opAnd() {
+  return getRuleContext<MapleGrammarParser::OpAndContext>(0);
+}
+
+MapleGrammarParser::ExprAndContext::ExprAndContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprAndContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprAnd(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprParenthesisContext ------------------------------------------------------------------
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprParenthesisContext::expr() {
+  return getRuleContext<MapleGrammarParser::ExprContext>(0);
+}
+
+MapleGrammarParser::ExprParenthesisContext::ExprParenthesisContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprParenthesisContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprParenthesis(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprBinaryOrContext ------------------------------------------------------------------
+
+std::vector<MapleGrammarParser::ExprContext *> MapleGrammarParser::ExprBinaryOrContext::expr() {
+  return getRuleContexts<MapleGrammarParser::ExprContext>();
+}
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprBinaryOrContext::expr(size_t i) {
+  return getRuleContext<MapleGrammarParser::ExprContext>(i);
+}
+
+MapleGrammarParser::OpBinaryOrContext* MapleGrammarParser::ExprBinaryOrContext::opBinaryOr() {
+  return getRuleContext<MapleGrammarParser::OpBinaryOrContext>(0);
+}
+
+MapleGrammarParser::ExprBinaryOrContext::ExprBinaryOrContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprBinaryOrContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprBinaryOr(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprCompareRelationalContext ------------------------------------------------------------------
+
+std::vector<MapleGrammarParser::ExprContext *> MapleGrammarParser::ExprCompareRelationalContext::expr() {
+  return getRuleContexts<MapleGrammarParser::ExprContext>();
+}
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprCompareRelationalContext::expr(size_t i) {
+  return getRuleContext<MapleGrammarParser::ExprContext>(i);
+}
+
+MapleGrammarParser::OpCompareRelationalContext* MapleGrammarParser::ExprCompareRelationalContext::opCompareRelational() {
+  return getRuleContext<MapleGrammarParser::OpCompareRelationalContext>(0);
+}
+
+MapleGrammarParser::ExprCompareRelationalContext::ExprCompareRelationalContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprCompareRelationalContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprCompareRelational(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprCompareEqualityContext ------------------------------------------------------------------
+
+std::vector<MapleGrammarParser::ExprContext *> MapleGrammarParser::ExprCompareEqualityContext::expr() {
+  return getRuleContexts<MapleGrammarParser::ExprContext>();
+}
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprCompareEqualityContext::expr(size_t i) {
+  return getRuleContext<MapleGrammarParser::ExprContext>(i);
+}
+
+MapleGrammarParser::OpCompareEqualityContext* MapleGrammarParser::ExprCompareEqualityContext::opCompareEquality() {
+  return getRuleContext<MapleGrammarParser::OpCompareEqualityContext>(0);
+}
+
+MapleGrammarParser::ExprCompareEqualityContext::ExprCompareEqualityContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprCompareEqualityContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprCompareEquality(this);
+  else
+    return visitor->visitChildren(this);
+}
+//----------------- ExprUnaryPrefixContext ------------------------------------------------------------------
+
+MapleGrammarParser::OpUnaryPrefixContext* MapleGrammarParser::ExprUnaryPrefixContext::opUnaryPrefix() {
+  return getRuleContext<MapleGrammarParser::OpUnaryPrefixContext>(0);
+}
+
+MapleGrammarParser::ExprContext* MapleGrammarParser::ExprUnaryPrefixContext::expr() {
+  return getRuleContext<MapleGrammarParser::ExprContext>(0);
+}
+
+MapleGrammarParser::ExprUnaryPrefixContext::ExprUnaryPrefixContext(ExprContext *ctx) { copyFrom(ctx); }
+
+antlrcpp::Any MapleGrammarParser::ExprUnaryPrefixContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<MapleGrammarVisitor*>(visitor))
+    return parserVisitor->visitExprUnaryPrefix(this);
+  else
+    return visitor->visitChildren(this);
+}
 
 MapleGrammarParser::ExprContext* MapleGrammarParser::expr() {
    return expr(0);
@@ -942,18 +1187,28 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
     _errHandler->sync(this);
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 2, _ctx)) {
     case 1: {
+      _localctx = _tracker.createInstance<ExprAccessorContext>(_localctx);
+      _ctx = _localctx;
+      previousContext = _localctx;
+
       setState(114);
       accessor();
       break;
     }
 
     case 2: {
+      _localctx = _tracker.createInstance<ExprValueContext>(_localctx);
+      _ctx = _localctx;
+      previousContext = _localctx;
       setState(115);
       value();
       break;
     }
 
     case 3: {
+      _localctx = _tracker.createInstance<ExprParenthesisContext>(_localctx);
+      _ctx = _localctx;
+      previousContext = _localctx;
       setState(116);
       match(MapleGrammarParser::T__33);
       setState(117);
@@ -964,6 +1219,9 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
     }
 
     case 4: {
+      _localctx = _tracker.createInstance<ExprUnaryPrefixContext>(_localctx);
+      _ctx = _localctx;
+      previousContext = _localctx;
       setState(120);
       opUnaryPrefix();
       setState(121);
@@ -972,6 +1230,9 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
     }
 
     case 5: {
+      _localctx = _tracker.createInstance<ExprAffectationContext>(_localctx);
+      _ctx = _localctx;
+      previousContext = _localctx;
       setState(123);
       leftValue();
       setState(124);
@@ -995,8 +1256,9 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
         _errHandler->sync(this);
         switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 3, _ctx)) {
         case 1: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<ExprMultiplicativeContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(129);
 
           if (!(precpred(_ctx, 11))) throw FailedPredicateException(this, "precpred(_ctx, 11)");
@@ -1008,8 +1270,9 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
         }
 
         case 2: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<ExprAdditiveContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(133);
 
           if (!(precpred(_ctx, 10))) throw FailedPredicateException(this, "precpred(_ctx, 10)");
@@ -1021,8 +1284,9 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
         }
 
         case 3: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<ExprBinaryShiftContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(137);
 
           if (!(precpred(_ctx, 9))) throw FailedPredicateException(this, "precpred(_ctx, 9)");
@@ -1034,8 +1298,9 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
         }
 
         case 4: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<ExprCompareRelationalContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(141);
 
           if (!(precpred(_ctx, 8))) throw FailedPredicateException(this, "precpred(_ctx, 8)");
@@ -1047,8 +1312,9 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
         }
 
         case 5: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<ExprCompareEqualityContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(145);
 
           if (!(precpred(_ctx, 7))) throw FailedPredicateException(this, "precpred(_ctx, 7)");
@@ -1060,8 +1326,9 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
         }
 
         case 6: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<ExprBinaryAndContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(149);
 
           if (!(precpred(_ctx, 6))) throw FailedPredicateException(this, "precpred(_ctx, 6)");
@@ -1073,8 +1340,9 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
         }
 
         case 7: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<ExprBinaryXorContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(153);
 
           if (!(precpred(_ctx, 5))) throw FailedPredicateException(this, "precpred(_ctx, 5)");
@@ -1086,8 +1354,9 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
         }
 
         case 8: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<ExprBinaryOrContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(157);
 
           if (!(precpred(_ctx, 4))) throw FailedPredicateException(this, "precpred(_ctx, 4)");
@@ -1099,8 +1368,9 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
         }
 
         case 9: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<ExprAndContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(161);
 
           if (!(precpred(_ctx, 3))) throw FailedPredicateException(this, "precpred(_ctx, 3)");
@@ -1112,8 +1382,9 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
         }
 
         case 10: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<ExprOrContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(165);
 
           if (!(precpred(_ctx, 2))) throw FailedPredicateException(this, "precpred(_ctx, 2)");
@@ -1125,8 +1396,9 @@ MapleGrammarParser::ExprContext* MapleGrammarParser::expr(int precedence) {
         }
 
         case 11: {
-          _localctx = _tracker.createInstance<ExprContext>(parentContext, parentState);
-          pushNewRecursionContext(_localctx, startState, RuleExpr);
+          auto newContext = _tracker.createInstance<ExprUnaryPostfixContext>(_tracker.createInstance<ExprContext>(parentContext, parentState));
+          _localctx = newContext;
+          pushNewRecursionContext(newContext, startState, RuleExpr);
           setState(169);
 
           if (!(precpred(_ctx, 13))) throw FailedPredicateException(this, "precpred(_ctx, 13)");

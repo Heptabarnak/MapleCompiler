@@ -1,8 +1,9 @@
 #include <iostream>
 #include <antlr4-runtime.h>
-#include "maple-parser/MapleGrammarParser.h"
-#include "maple-parser/MapleGrammarLexer.h"
-#include "maple-parser/MapleGrammarBaseVisitor.h"
+#include <maple-parser/MapleGrammarParser.h>
+#include <maple-parser/MapleGrammarLexer.h>
+#include <maple-parser/MapleGrammarBaseVisitor.h>
+#include <StartVisitor.h>
 
 
 using namespace antlr4;
@@ -26,14 +27,18 @@ int main(int argc, const char **argv) {
     ANTLRInputStream input(inputFile);
     MapleGrammarLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
-
-    tokens.fill();
-    for (auto token : tokens.getTokens()) {
-        std::cout << token->toString() << std::endl;
-    }
-
     MapleGrammarParser parser(&tokens);
-    tree::ParseTree *context = parser.start();
 
+    /*
+    tree::ParseTree *tree = parser.start();
+
+    StartVisitor visitor;
+
+    auto e = visitor.visit(tree);
+*/
+
+    tree::ParseTree *tree = parser.value();
+
+    ExprValue e;
     return 0;
 }

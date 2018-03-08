@@ -35,22 +35,23 @@ opOr : '||' ;
 opAffectation : '=' | '+=' | '-=' | '*=' | '/=' | '%=' | '<<=' | '>>=' | '&=' | '^=' | '|=' ;
 
 // Expression
-expr : accessor
-    | value
-    | '(' expr ')'
-    | expr opUnaryPostfix
-    | opUnaryPrefix expr
-    | expr opMultiplicative expr
-    | expr opAdditive expr
-    | expr opBinaryShift expr
-    | expr opCompareRelational expr
-    | expr opCompareEquality expr
-    | expr opBinaryAnd expr
-    | expr opBinaryXor expr
-    | expr opBinaryOr expr
-    | expr opAnd expr
-    | expr opOr expr
-    | leftValue opAffectation expr ;
+expr : accessor                         # exprAccessor
+    | value                             # exprValue
+    | '(' expr ')'                      # exprParenthesis
+    | expr opUnaryPostfix               # exprUnaryPostfix
+    | opUnaryPrefix expr                # exprUnaryPrefix
+    | expr opMultiplicative expr        # exprMultiplicative
+    | expr opAdditive expr              # exprAdditive
+    | expr opBinaryShift expr           # exprBinaryShift
+    | expr opCompareRelational expr     # exprCompareRelational
+    | expr opCompareEquality expr       # exprCompareEquality
+    | expr opBinaryAnd expr             # exprBinaryAnd
+    | expr opBinaryXor expr             # exprBinaryXor
+    | expr opBinaryOr expr              # exprBinaryOr
+    | expr opAnd expr                   # exprAnd
+    | expr opOr expr                    # exprOr
+    | leftValue opAffectation expr      # exprAffectation
+    ;
 
 // Déclaration
 declarationVar : TYPE (ID assignment? ',')* ID assignment? SC ;

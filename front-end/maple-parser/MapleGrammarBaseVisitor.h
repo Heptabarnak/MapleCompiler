@@ -3,7 +3,6 @@
 
 #pragma once
 
-
 #include "antlr4-runtime.h"
 #include "MapleGrammarVisitor.h"
 
@@ -79,7 +78,67 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitExpr(MapleGrammarParser::ExprContext *ctx) override {
+  virtual antlrcpp::Any visitExprAdditive(MapleGrammarParser::ExprAdditiveContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprValue(MapleGrammarParser::ExprValueContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprBinaryShift(MapleGrammarParser::ExprBinaryShiftContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprAffectation(MapleGrammarParser::ExprAffectationContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprBinaryXor(MapleGrammarParser::ExprBinaryXorContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprBinaryAnd(MapleGrammarParser::ExprBinaryAndContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprOr(MapleGrammarParser::ExprOrContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprUnaryPostfix(MapleGrammarParser::ExprUnaryPostfixContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprMultiplicative(MapleGrammarParser::ExprMultiplicativeContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprAccessor(MapleGrammarParser::ExprAccessorContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprAnd(MapleGrammarParser::ExprAndContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprParenthesis(MapleGrammarParser::ExprParenthesisContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprBinaryOr(MapleGrammarParser::ExprBinaryOrContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprCompareRelational(MapleGrammarParser::ExprCompareRelationalContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprCompareEquality(MapleGrammarParser::ExprCompareEqualityContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExprUnaryPrefix(MapleGrammarParser::ExprUnaryPrefixContext *ctx) override {
     return visitChildren(ctx);
   }
 

@@ -5,38 +5,14 @@ ExprMultiplicative::ExprMultiplicative(Expr *left, Expr *right, const std::strin
         : left(left), right(right) {
 
     switch (str2int(op_str.c_str())) {
-        case str2int("="):
-            op = EQUAL;
+        case str2int("*"):
+            op = MULT;
             break;
-        case str2int("+="):
-            op = PLUS_EQUAL;
+        case str2int("/"):
+            op = DIV;
             break;
-        case str2int("-="):
-            op = MINUS_EQUAL;
-            break;
-        case str2int("*="):
-            op = MULT_EQUAL;
-            break;
-        case str2int("/="):
-            op = DIV_EQUAL;
-            break;
-        case str2int("%="):
-            op = MOD_EQUAL;
-            break;
-        case str2int("<<="):
-            op = LEFT_SHIFT_EQUAL;
-            break;
-        case str2int(">>="):
-            op = RIGHT_SHIFT_EQUAL;
-            break;
-        case str2int("&="):
-            op = AND_EQUAL;
-            break;
-        case str2int("^="):
-            op = XOR_EQUAL;
-            break;
-        case str2int("|="):
-            op = OR_EQUAL;
+        case str2int("%"):
+            op = MOD;
             break;
         default:
             // TODO Throw ERROR

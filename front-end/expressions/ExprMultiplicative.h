@@ -5,21 +5,13 @@
 #include <string>
 
 
-enum OP {
-    EQUAL,
-    PLUS_EQUAL,
-    MINUS_EQUAL,
-    MULT_EQUAL,
-    DIV_EQUAL,
-    MOD_EQUAL,
-    LEFT_SHIFT_EQUAL,
-    RIGHT_SHIFT_EQUAL,
-    AND_EQUAL,
-    XOR_EQUAL,
-    OR_EQUAL
-};
-
 class ExprMultiplicative : public Expr {
+
+    enum OP {
+        MULT,
+        DIV,
+        MOD
+    };
 
     Expr *left;
     Expr *right;

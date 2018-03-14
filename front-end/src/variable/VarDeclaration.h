@@ -6,10 +6,12 @@
 #define ANTLR4CPP_FETCHER_VARDECLARATION_H
 
 
+#include <src/expressions/Expr.h>
+
 class VarDeclaration {
 
 protected:
-    List<Var> variables;
+    std::list<Var> variables;
     Expr Assignment;
 
 };

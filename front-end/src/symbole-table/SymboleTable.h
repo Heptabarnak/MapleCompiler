@@ -1,19 +1,16 @@
-//
-// Created by jgally on 14/03/18.
-//
+#ifndef ANTLR4CPP_FETCHER_SYMBOLETABLE_H
+#define ANTLR4CPP_FETCHER_SYMBOLETABLE_H
+
 #include <unordered_map>
 #include <string>
 #include <list>
-#include <Symbole.h>
-
-#ifndef ANTLR4CPP_FETCHER_SYMBOLETABLE_H
-#define ANTLR4CPP_FETCHER_SYMBOLETABLE_H
+#include "Symbole.h"
 
 using std::unordered_map;
 using std::string;
 using std::list;
 
-class Symbole{};
+class Symbole;
 
 
 class SymboleTable {

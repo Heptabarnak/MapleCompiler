@@ -27,51 +27,56 @@ set_target_properties(antlr4-runtime PROPERTIES
 #   MAPLE PARSER
 #--------------------
 
-include_directories(${FRONT_END_FOLDER})
+include_directories(${FRONT_END_FOLDER}/src)
 
 set(ANTLR4_GENERATED_GRAMMAR_FILES
-        ${FRONT_END_FOLDER}/maple-parser/MapleGrammarLexer.cpp
-        ${FRONT_END_FOLDER}/maple-parser/MapleGrammarParser.cpp
-        ${FRONT_END_FOLDER}/maple-parser/MapleGrammarVisitor.cpp
-        ${FRONT_END_FOLDER}/maple-parser/MapleGrammarBaseVisitor.cpp)
+        front-end/src/maple-parser/MapleGrammarLexer.cpp
+        front-end/src/maple-parser/MapleGrammarParser.cpp
+        front-end/src/maple-parser/MapleGrammarVisitor.cpp
+        front-end/src/maple-parser/MapleGrammarBaseVisitor.cpp)
 
 #---------------
 #   FRONT-END
 #---------------
 
-set(VISITORS_FILES
-        front-end/StartVisitor.cpp
-        front-end/expressions/ExprAccessor.cpp
-        front-end/expressions/ExprValue.cpp
-        front-end/expressions/ExprAffectation.cpp
-        front-end/expressions/ExprMultiplicative.cpp
-        front-end/declaration/DeclarationOfTab.cpp
-        front-end/declaration/DeclarationOfVar.cpp
-        front-end/function/BlockFunction.cpp
-        front-end/expressions/ExprMultiplicative.cpp
-        front-end/symbole-table/SymboleTable.cpp
-        front-end/symbole-table/Symbole.cpp
-        front-end/expressions/ExprMultiplicative.cpp
-        front-end/expressions/ExprParenthesis.cpp
-        front-end/expressions/unary/ExprPrefixUnary.cpp
-        front-end/expressions/unary/ExprPostfixUnary.cpp
-        front-end/expressions/Operation/ExprEqualityComparaisonOperation.cpp
-        front-end/expressions/Operation/ExprRelationalComparaisonOperation.cpp
-        front-end/expressions/Operation/ExprAdditiveOperation.cpp
-        front-end/expressions/Operation/ExprMultiplicativeOperation.cpp
-        front-end/expressions/Operation/ExprAndOperation.cpp
-        front-end/expressions/Operation/ExprOrOperation.cpp
-        front-end/expressions/Operation/Binary/ExprBinaryAndOperation.cpp
-        front-end/expressions/Operation/Binary/ExprBinaryXorOperation.cpp
-        front-end/expressions/Operation/Binary/ExprBinaryOrOperation.cpp
-        front-end/expressions/Operation/Binary/ExprBinaryShiftOperation.cpp
-        front-end/Variable/VarAccessor.cpp
-        front-end/Variable/VarDeclaration.cpp
-        front-end/Array/TabAccessor.cpp
-        front-end/Array/TabDeclaration.cpp
-        front-end/Array/Tab.cpp
-        front-end/Array/ItemTab.cpp)
+set(AST_SRC_FILES
+        front-end/src/StartVisitor.cpp
+        front-end/src/expressions/ExprAccessor.cpp
+        front-end/src/expressions/ExprValue.cpp
+        front-end/src/expressions/ExprAffectation.cpp
+        front-end/src/expressions/ExprMultiplicative.cpp
+        front-end/src/declaration/DeclarationOfTab.cpp
+        front-end/src/declaration/DeclarationOfVar.cpp
+        front-end/src/function/BlockFunction.cpp
+        front-end/src/expressions/ExprMultiplicative.cpp
+        front-end/src/symbole-table/SymboleTable.cpp
+        front-end/src/symbole-table/Symbole.cpp
+        front-end/src/expressions/ExprMultiplicative.cpp
+        front-end/src/expressions/ExprParenthesis.cpp
+        front-end/src/expressions/unary/ExprPrefixUnary.cpp
+        front-end/src/expressions/unary/ExprPostfixUnary.cpp
+        front-end/src/expressions/Operation/ExprEqualityComparaisonOperation.cpp
+        front-end/src/expressions/Operation/ExprRelationalComparaisonOperation.cpp
+        front-end/src/expressions/Operation/ExprAdditiveOperation.cpp
+        front-end/src/expressions/Operation/ExprMultiplicativeOperation.cpp
+        front-end/src/expressions/Operation/ExprAndOperation.cpp
+        front-end/src/expressions/Operation/ExprOrOperation.cpp
+        front-end/src/expressions/Operation/Binary/ExprBinaryAndOperation.cpp
+        front-end/src/expressions/Operation/Binary/ExprBinaryXorOperation.cpp
+        front-end/src/expressions/Operation/Binary/ExprBinaryOrOperation.cpp
+        front-end/src/expressions/Operation/Binary/ExprBinaryShiftOperation.cpp
+        front-end/src/variable/VarAccessor.cpp
+        front-end/src/variable/VarDeclaration.cpp
+        front-end/src/array/TabAccessor.cpp
+        front-end/src/array/TabDeclaration.cpp
+        front-end/src/array/Tab.cpp
+        front-end/src/array/ItemTab.cpp)
 
+#-----------
+#   UTILS
+#-----------
+
+set(UTILS_SRC_FILES utils/str2int.h)
 
 #----------------
 #   EXECUTABLE
@@ -80,8 +85,8 @@ set(VISITORS_FILES
 # add generated grammar to demo binary target
 add_executable(MapleCompiler
         main.cpp
-        utils/str2int.h
+        ${UTILS_SRC_FILES}
         ${ANTLR4_GENERATED_GRAMMAR_FILES}
-        ${VISITORS_FILES}
+        ${AST_SRC_FILES}
         )
 target_link_libraries(MapleCompiler antlr4-runtime)

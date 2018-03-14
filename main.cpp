@@ -39,6 +39,6 @@ int main(int argc, const char **argv) {
 
     tree::ParseTree *tree = parser.value();
 
-    ExprValue e;
+    //ExprValue e;
     return 0;
 }

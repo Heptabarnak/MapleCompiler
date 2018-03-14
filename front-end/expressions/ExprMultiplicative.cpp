@@ -19,10 +19,3 @@ ExprMultiplicative::ExprMultiplicative(Expr *left, Expr *right, const std::strin
             break;
     }
 }
-
-
-int ExprMultiplicative::eval() {
-
-
-    return 0;
-}

@@ -14,8 +14,6 @@ public:
 
     ExprValue(std::string i, std::string c);
 
-    int64_t eval();
-
 };
 
 #endif //ANTLR4CPP_FETCHER_EXPRVALUE_H

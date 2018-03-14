@@ -1,0 +1,12 @@
+
+
+#ifndef MAPLECOMPILER_LEFTVALUE_H
+#define MAPLECOMPILER_LEFTVALUE_H
+
+
+class LeftValue {
+
+};
+
+
+#endif //MAPLECOMPILER_LEFTVALUE_H

@@ -1,0 +1,12 @@
+
+
+#ifndef MAPLECOMPILER_LEFTVALUETAB_H
+#define MAPLECOMPILER_LEFTVALUETAB_H
+
+
+class LeftValueTab {
+
+};
+
+
+#endif //MAPLECOMPILER_LEFTVALUETAB_H

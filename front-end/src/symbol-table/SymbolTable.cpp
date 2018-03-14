@@ -1,10 +1,10 @@
-#include "SymboleTable.h"
+#include "SymbolTable.h"
 
 using std::make_pair;
 
-SymboleTable::SymboleTable(SymboleTable* father): father(father) {}
+SymbolTable::SymbolTable(SymbolTable* father): father(father) {}
 
-SymboleTable::~SymboleTable() {
+SymbolTable::~SymbolTable() {
     while(!children.empty()){
         delete children.back();
         children.pop_back();
@@ -18,12 +18,12 @@ SymboleTable::~SymboleTable() {
 
 }
 
-SymboleTable* SymboleTable::insert(string name, Symbole *symbole) {
-    symbols.insert({name, symbole});
+SymbolTable* SymbolTable::insert(string name, Symbol *symbol) {
+    symbols.insert({name, symbol});
     return this;
 }
 
-Symbole* SymboleTable::lookup(string name) {
+Symbol* SymbolTable::lookup(string name) {
     auto it = symbols.find(name);
     if(it == symbols.end()){
         if( father != nullptr){

@@ -5,13 +5,13 @@
 
 
 #include <list>
-#include <symbole-table/SymboleTable.h>
+#include <symbol-table/SymbolTable.h>
 
 class start {
 
 protected:
     std::list<Program> programs;
-    SymboleTable globalSymbolTable;
+    SymbolTable globalSymbolTable;
 
 };
 

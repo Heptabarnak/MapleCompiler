@@ -51,7 +51,9 @@ set(VISITORS_FILES
         front-end/accessor/Accessor.cpp
         front-end/expressions/ExprValue.cpp
         front-end/expressions/ExprAffectation.cpp
-        front-end/expressions/ExprMultiplicative.cpp)
+        front-end/expressions/ExprMultiplicative.cpp
+        front-end/symbole-table/SymboleTable.cpp
+        front-end/symbole-table/Symbole.cpp)
 
 
 #----------------

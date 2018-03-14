@@ -74,8 +74,9 @@ set(AST_SRC_FILES
         front-end/src/accessor/LeftValueVar.cpp
         front-end/src/accessor/LeftValueTab.cpp)
         front-end/src/array/Tab.cpp
+        front-end/control-structure/StatementInstruction.cpp
+        front-end/control-structure/Statement.cpp
         front-end/src/array/ItemTab.cpp
-
 #-----------
 #   UTILS
 #-----------

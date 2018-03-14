@@ -33,8 +33,6 @@ class ExprAffectation : public Expr {
 public:
 
     ExprAffectation(Accessor *left, Expr *right, const std::string &op);
-
-    int eval() override;
 };
 
 

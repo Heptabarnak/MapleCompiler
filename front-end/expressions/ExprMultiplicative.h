@@ -21,8 +21,6 @@ class ExprMultiplicative : public Expr {
 public:
 
     ExprMultiplicative(Expr *left, Expr *right, const std::string &op);
-
-    int eval() override;
 };
 
 #endif //ANTLR4CPP_FETCHER_EXPRMULTIPLICATIVE_H

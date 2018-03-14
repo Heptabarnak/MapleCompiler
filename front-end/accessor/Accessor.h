@@ -3,8 +3,6 @@
 
 
 class Accessor {
-public:
-    virtual eval() = 0;
 };
 
 

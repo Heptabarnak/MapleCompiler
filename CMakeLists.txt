@@ -71,20 +71,28 @@ set(AST_SRC_FILES
         front-end/src/array/TabDeclaration.cpp
         front-end/src/function/FunctionParam.cpp
         front-end/src/function/AccessorFunction.cpp
-        front-end/src/function/FunctionDefinition.cpp)
+        front-end/src/function/FunctionDefinition.cpp
         front-end/src/accessor/LeftValueAccessor.cpp
         front-end/src/accessor/FunctionAccessor.cpp
         front-end/src/accessor/LeftValueVar.cpp
+        front-end/src/function/FunctionParam.cpp
+        front-end/src/function/AccessorFunction.cpp
+        front-end/src/function/FunctionDefinition.cpp
         front-end/src/array/Tab.cpp
-        front-end/src/accessor/LeftValueTab.cpp)
+        front-end/src/accessor/LeftValueTab.cpp
         front-end/control-structure/StatementInstruction.cpp
         front-end/control-structure/Statement.cpp
         front-end/src/array/ItemTab.cpp
+        front-end/src/array/ItemTab.cpp
+        front-end/control-structure/StatementInstruction.cpp
+        front-end/control-structure/Statement.cpp
+        )
+
 #-----------
 #   UTILS
 #-----------
 
-set(UTILS_SRC_FILES utils/str2int.h front-end/src/Axiome/start.cpp front-end/src/Axiome/start.h front-end/src/Axiome/Program.h front-end/src/Axiome/ProgramFunction.cpp front-end/src/Axiome/ProgramFunction.h front-end/src/Axiome/ProgramDeclaration.cpp front-end/src/Axiome/ProgramDeclaration.h)
+set(UTILS_SRC_FILES utils/str2int.h)
 
 #----------------
 #   EXECUTABLE

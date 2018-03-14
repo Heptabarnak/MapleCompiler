@@ -69,6 +69,13 @@ set(AST_SRC_FILES
         front-end/src/variable/VarDeclaration.cpp
         front-end/src/array/TabAccessor.cpp
         front-end/src/array/TabDeclaration.cpp
+        front-end/src/function/FunctionParam.cpp
+        front-end/src/function/AccessorFunction.cpp
+        front-end/src/function/FunctionDefinition.cpp
+        front-end/src/array/Tab.cpp
+        front-end/src/array/ItemTab.cpp
+        front-end/control-structure/StatementInstruction.cpp
+        front-end/control-structure/Statement.cpp
         )
 
 #-----------

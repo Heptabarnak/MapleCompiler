@@ -7,16 +7,10 @@
 
 
 enum Type {
+    VOID,
     CHAR,
     INT32_T,
     INT64_T
-};
-
-enum FunctionType {
-    CHAR,
-    INT32_T,
-    INT64_T,
-    VOID
 };
 
 

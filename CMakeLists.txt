@@ -64,7 +64,13 @@ set(VISITORS_FILES
         front-end/expressions/Operation/Binary/ExprBinaryAndOperation.cpp
         front-end/expressions/Operation/Binary/ExprBinaryXorOperation.cpp
         front-end/expressions/Operation/Binary/ExprBinaryOrOperation.cpp
-        front-end/expressions/Operation/Binary/ExprBinaryShiftOperation.cpp)
+        front-end/expressions/Operation/Binary/ExprBinaryShiftOperation.cpp
+        front-end/Variable/VarAccessor.cpp
+        front-end/Variable/VarDeclaration.cpp
+        front-end/Array/TabAccessor.cpp
+        front-end/Array/TabDeclaration.cpp
+        front-end/Array/Tab.cpp
+        front-end/Array/ItemTab.cpp)
 
 
 #----------------

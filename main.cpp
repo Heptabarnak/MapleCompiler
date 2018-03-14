@@ -38,6 +38,6 @@ int main(int argc, const char **argv) {
 */
 
     tree::ParseTree *tree = parser.value();
-    
+
     return 0;
 }

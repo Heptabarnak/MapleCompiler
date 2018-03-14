@@ -56,6 +56,9 @@ set(VISITORS_FILES
         front-end/declaration/DeclarationOfVar.cpp
         front-end/function/BlockFunction.cpp
         front-end/expressions/ExprMultiplicative.cpp
+        front-end/symbole-table/SymboleTable.cpp
+        front-end/symbole-table/Symbole.cpp
+        front-end/expressions/ExprMultiplicative.cpp
         front-end/expressions/ExprParenthesis.cpp
         front-end/expressions/unary/ExprPrefixUnary.cpp
         front-end/expressions/unary/ExprPostfixUnary.cpp

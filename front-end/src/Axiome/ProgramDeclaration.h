@@ -1,0 +1,14 @@
+
+
+#ifndef MAPLECOMPILER_PROGRAMDECLARATION_H
+#define MAPLECOMPILER_PROGRAMDECLARATION_H
+
+
+class ProgramDeclaration {
+
+    Declaration declaration;
+
+};
+
+
+#endif //MAPLECOMPILER_PROGRAMDECLARATION_H

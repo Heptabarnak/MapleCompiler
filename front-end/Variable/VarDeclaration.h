@@ -5,11 +5,16 @@
 #ifndef ANTLR4CPP_FETCHER_VARDECLARATION_H
 #define ANTLR4CPP_FETCHER_VARDECLARATION_H
 
+#include <list>
+#include <string>
+#include <expressions/Expr.h>
+
+using std::string;
 
 class VarDeclaration {
 
 protected:
-    List<Var> variables;
+    string name;
     Expr Assignment;
 
 };

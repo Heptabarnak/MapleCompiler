@@ -2,11 +2,13 @@
 #define ANTLR4CPP_FETCHER_VARACCESSOR_H
 
 
+#include "VarDeclaration.h"
+
 class VarAccessor {
 
 
 protected:
-    Var var;
+    VarDeclaration Declaration;
 };
 
 

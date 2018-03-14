@@ -6,9 +6,10 @@
 
 class VarAccessor {
 
-
-protected:
-    VarDeclaration Declaration;
+private:
+    VarDeclaration *Declaration;
+public:
+    VarAccessor(VarDeclaration *Declaration);
 };
 
 

@@ -2,17 +2,24 @@
 #define ANTLR4CPP_FETCHER_TABDECLARATION_H
 
 #include <token/Type.h>
-#include <expressions/Value.h>
+#include <expression/Value.h>
 #include <list>
+#include <string>
 
 
 using std::list;
+using std::string;
 
 class TabDeclaration {
 
-protected:
+private:
     Type type;
-    list<Value> definition;
+    string name;
+    int size;
+    list<Value *> definition;
+
+public:
+    TabDeclaration(Type type, const string &name, int size, const list<Value *> &definition);
 
 };
 

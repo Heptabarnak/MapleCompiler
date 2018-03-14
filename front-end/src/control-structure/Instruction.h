@@ -1,8 +1,7 @@
-
 #ifndef ANTLR4CPP_FETCHER_INSTRUCTION_H
 #define ANTLR4CPP_FETCHER_INSTRUCTION_H
 
-class Instruction{
+class Instruction {
 
 };
 

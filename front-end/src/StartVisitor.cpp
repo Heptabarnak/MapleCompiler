@@ -1,5 +1,4 @@
-#include <expressions/ExprValue.h>
-#include <expressions/ExprMultiplicative.h>
+#include <expression/ExprValue.h>
 #include "StartVisitor.h"
 
 antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
@@ -8,7 +7,7 @@ antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
             ctx->CHAR()->getText()
     );
 }
-    // J'ai tout plein d'erreurs !?
+// J'ai tout plein d'erreurs !?
 
 antlrcpp::Any StartVisitor::visitStart(MapleGrammarParser::StartContext *ctx) {
     return MapleGrammarBaseVisitor::visitStart(ctx);
@@ -51,11 +50,7 @@ antlrcpp::Any StartVisitor::visitExprUnaryPostfix(MapleGrammarParser::ExprUnaryP
 }
 
 antlrcpp::Any StartVisitor::visitExprMultiplicative(MapleGrammarParser::ExprMultiplicativeContext *ctx) {
-    return new ExprMultiplicative(
-            visit(ctx->expr(0)),
-            visit(ctx->expr(1)),
-            ctx->opMultiplicative()->getText()
-    );
+    return MapleGrammarBaseVisitor::visitExprMultiplicative(ctx);
 }
 
 antlrcpp::Any StartVisitor::visitExprAccessor(MapleGrammarParser::ExprAccessorContext *ctx) {

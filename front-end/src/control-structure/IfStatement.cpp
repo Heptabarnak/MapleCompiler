@@ -1,3 +1,6 @@
 #include "IfStatement.h"
 
-IfStatement::IfStatement(Expr *c, Instruction *st, ElseStatement *elseSt) : condition(c), statements(st), elseStatement(elseSt) {}
+IfStatement::IfStatement(Expr *c, Statement *st, Instruction *elseSt) : condition(c), statement(st),
+                                                                        elseStatement(elseSt) {
+
+}

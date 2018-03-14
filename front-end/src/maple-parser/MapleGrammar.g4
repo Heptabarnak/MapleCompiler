@@ -1,6 +1,6 @@
 grammar MapleGrammar;
 
-// axiome
+// axiom
 start : program+ ;
 program : functionDefinition | declaration ;
 

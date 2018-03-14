@@ -1,9 +1,0 @@
-#ifndef ANTLR4CPP_FETCHER_ACCESSOR_H
-#define ANTLR4CPP_FETCHER_ACCESSOR_H
-
-
-class Accessor {
-};
-
-
-#endif //ANTLR4CPP_FETCHER_ACCESSOR_H

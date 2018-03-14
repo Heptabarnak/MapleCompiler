@@ -1,10 +1,9 @@
-
-
 #ifndef MAPLECOMPILER_LEFTVALUE_H
 #define MAPLECOMPILER_LEFTVALUE_H
 
+#include "Accessor.h"
 
-class LeftValue {
+class LeftValue : public Accessor {
 
 };
 

@@ -1,13 +1,15 @@
-#include "../expressions/Expr.h"
-
 #ifndef ANTLR4CPP_FETCHER_STATEMENT_H
 #define ANTLR4CPP_FETCHER_STATEMENT_H
 
-class Statement{
+#include <expression/Expr.h>
+#include "Instruction.h"
+
+class Statement : public Instruction {
 public:
-    Statement(Expr * e);
+    Statement(Expr *e);
+
 private:
-    Expr * expr;
+    Expr *expr;
 };
 
 #endif //ANTLR4CPP_FETCHER_STATEMENT_H

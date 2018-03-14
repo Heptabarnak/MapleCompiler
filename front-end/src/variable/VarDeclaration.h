@@ -3,17 +3,20 @@
 
 #include <list>
 #include <string>
-#include <expressions/Expr.h>
+#include <expression/Expr.h>
+#include <token/Type.h>
 
 using std::string;
 
-#include <expressions/Expr.h>
-
 class VarDeclaration {
 
-protected:
+private:
     string name;
-    Expr Assignment;
+    Type type;
+    Expr *assignment;
+
+public:
+    VarDeclaration(const string &name, Type type, Expr *assignment);
 
 };
 

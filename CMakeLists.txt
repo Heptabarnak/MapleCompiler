@@ -40,39 +40,39 @@ set(ANTLR4_GENERATED_GRAMMAR_FILES
 #---------------
 
 set(AST_SRC_FILES
+        front-end/src/expression/Expr.h
+        front-end/src/expression/operation/binary/ExprBinaryOperation.h
+        front-end/src/expression/operation/ExprOperation.h
+        front-end/src/expression/unary/ExprUnary.h
+
         front-end/src/accessor/FunctionAccessor.cpp
-        front-end/src/accessor/LeftValueAccessor.cpp
         front-end/src/accessor/LeftValueTab.cpp
         front-end/src/accessor/LeftValueVar.cpp
         front-end/src/array/TabAccessor.cpp
         front-end/src/array/TabDeclaration.cpp
-        front-end/src/axiome/ProgramDeclaration.cpp
-        front-end/src/axiome/ProgramFunction.cpp
-        front-end/src/axiome/Start.cpp
-        front-end/src/control-structure/ElseStatement.cpp
-        front-end/src/control-structure/IfStatementInstruction.cpp
+        front-end/src/axiom/Start.cpp
+        front-end/src/control-structure/Block.cpp
+        front-end/src/control-structure/IfStatement.cpp
+        front-end/src/control-structure/ReturnStatement.cpp
         front-end/src/control-structure/Statement.cpp
-        front-end/src/control-structure/StatementInstruction.cpp
-        front-end/src/declaration/DeclarationOfTab.cpp
-        front-end/src/declaration/DeclarationOfVar.cpp
-        front-end/src/expressions/ExprAccessor.cpp
-        front-end/src/expressions/ExprAffectation.cpp
-        front-end/src/expressions/ExprMultiplicative.cpp
-        front-end/src/expressions/ExprParenthesis.cpp
-        front-end/src/expressions/ExprValue.cpp
-        front-end/src/expressions/Operation/Binary/ExprBinaryAndOperation.cpp
-        front-end/src/expressions/Operation/Binary/ExprBinaryOrOperation.cpp
-        front-end/src/expressions/Operation/Binary/ExprBinaryShiftOperation.cpp
-        front-end/src/expressions/Operation/Binary/ExprBinaryXorOperation.cpp
-        front-end/src/expressions/Operation/ExprAdditiveOperation.cpp
-        front-end/src/expressions/Operation/ExprAndOperation.cpp
-        front-end/src/expressions/Operation/ExprEqualityComparaisonOperation.cpp
-        front-end/src/expressions/Operation/ExprMultiplicativeOperation.cpp
-        front-end/src/expressions/Operation/ExprOrOperation.cpp
-        front-end/src/expressions/Operation/ExprRelationalComparaisonOperation.cpp
-        front-end/src/expressions/unary/ExprPostfixUnary.cpp
-        front-end/src/expressions/unary/ExprPrefixUnary.cpp
-        front-end/src/expressions/Value.cpp
+        front-end/src/control-structure/WhileStatement.cpp
+        front-end/src/expression/ExprAccessor.cpp
+        front-end/src/expression/ExprAffectation.cpp
+        front-end/src/expression/ExprParenthesis.cpp
+        front-end/src/expression/ExprValue.cpp
+        front-end/src/expression/operation/binary/ExprBinaryAndOperation.cpp
+        front-end/src/expression/operation/binary/ExprBinaryOrOperation.cpp
+        front-end/src/expression/operation/binary/ExprBinaryShiftOperation.cpp
+        front-end/src/expression/operation/binary/ExprBinaryXorOperation.cpp
+        front-end/src/expression/operation/ExprAdditiveOperation.cpp
+        front-end/src/expression/operation/ExprAndOperation.cpp
+        front-end/src/expression/operation/ExprEqualityComparisonOperation.cpp
+        front-end/src/expression/operation/ExprMultiplicativeOperation.cpp
+        front-end/src/expression/operation/ExprOrOperation.cpp
+        front-end/src/expression/operation/ExprRelationalComparisonOperation.cpp
+        front-end/src/expression/unary/ExprPostfixUnary.cpp
+        front-end/src/expression/unary/ExprPrefixUnary.cpp
+        front-end/src/expression/Value.cpp
         front-end/src/function/AccessorFunction.cpp
         front-end/src/function/BlockFunction.cpp
         front-end/src/function/FunctionDefinition.cpp

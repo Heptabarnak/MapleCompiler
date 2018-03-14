@@ -2,11 +2,14 @@
 // Created by julien on 3/14/18.
 //
 
-#ifndef ANTLR4CPP_FETCHER_IFSTATEMENTINSTRUCTION_H
-#define ANTLR4CPP_FETCHER_IFSTATEMENTINSTRUCTION_H
+#ifndef MAPLECOMPILER_IFSTATEMENTINSTRUCTION_H
+#define MAPLECOMPILER_IFSTATEMENTINSTRUCTION_H
 
 class IfStatementInstruction{
-
+private:
+    IfStatement ifStatement;
+public:
+    IfStatementInstruction(IfStatement * ifSt);
 };
 
-#endif //ANTLR4CPP_FETCHER_IFSTATEMENTINSTRUCTION_H
+#endif //MAPLECOMPILER_IFSTATEMENTINSTRUCTION_H

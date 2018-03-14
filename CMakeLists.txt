@@ -69,12 +69,12 @@ set(AST_SRC_FILES
         front-end/src/variable/VarDeclaration.cpp
         front-end/src/array/TabAccessor.cpp
         front-end/src/array/TabDeclaration.cpp
-        front-end/src/array/Tab.cpp
-        front-end/src/array/ItemTab.cpp
         front-end/src/accessor/LeftValueAccessor.cpp
         front-end/src/accessor/FunctionAccessor.cpp
         front-end/src/accessor/LeftValueVar.cpp
         front-end/src/accessor/LeftValueTab.cpp)
+        front-end/src/array/Tab.cpp
+        front-end/src/array/ItemTab.cpp
 
 #-----------
 #   UTILS

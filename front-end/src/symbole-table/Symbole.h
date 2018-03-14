@@ -7,6 +7,9 @@ class SymboleTable;
 
 class Symbole {
 public:
+    Symbole(SymboleTable* table);
+    ~Symbole();
+private:
     SymboleTable* table;
 };
 

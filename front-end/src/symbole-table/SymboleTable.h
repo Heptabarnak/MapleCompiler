@@ -15,8 +15,10 @@ class Symbole;
 
 class SymboleTable {
 public:
-    SymboleTable();
+    SymboleTable(SymboleTable* father = nullptr);
     ~SymboleTable();
+    SymboleTable* insert(string name, Symbole* symbole);
+    Symbole* lookup(string name);
 
 private:
     unordered_map<string, Symbole*> symbols;

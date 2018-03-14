@@ -1,0 +1,12 @@
+
+
+#ifndef ANTLR4CPP_FETCHER_EXPRUNARY_H
+#define ANTLR4CPP_FETCHER_EXPRUNARY_H
+
+
+class ExprUnary {
+
+};
+
+
+#endif //ANTLR4CPP_FETCHER_EXPRUNARY_H

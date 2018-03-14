@@ -48,14 +48,33 @@ set(ANTLR4_GENERATED_GRAMMAR_FILES
 
 set(VISITORS_FILES
         front-end/StartVisitor.cpp
-        front-end/accessor/Accessor.cpp
+        front-end/expressions/ExprAccessor.cpp
         front-end/expressions/ExprValue.cpp
         front-end/expressions/ExprAffectation.cpp
         front-end/expressions/ExprMultiplicative.cpp
         front-end/declaration/DeclarationOfTab.cpp
         front-end/declaration/DeclarationOfVar.cpp
         front-end/function/BlockFunction.cpp
-        )
+        front-end/expressions/ExprMultiplicative.cpp
+        front-end/expressions/ExprParenthesis.cpp
+        front-end/expressions/unary/ExprPrefixUnary.cpp
+        front-end/expressions/unary/ExprPostfixUnary.cpp
+        front-end/expressions/Operation/ExprEqualityComparaisonOperation.cpp
+        front-end/expressions/Operation/ExprRelationalComparaisonOperation.cpp
+        front-end/expressions/Operation/ExprAdditiveOperation.cpp
+        front-end/expressions/Operation/ExprMultiplicativeOperation.cpp
+        front-end/expressions/Operation/ExprAndOperation.cpp
+        front-end/expressions/Operation/ExprOrOperation.cpp
+        front-end/expressions/Operation/Binary/ExprBinaryAndOperation.cpp
+        front-end/expressions/Operation/Binary/ExprBinaryXorOperation.cpp
+        front-end/expressions/Operation/Binary/ExprBinaryOrOperation.cpp
+        front-end/expressions/Operation/Binary/ExprBinaryShiftOperation.cpp
+        front-end/Variable/VarAccessor.cpp
+        front-end/Variable/VarDeclaration.cpp
+        front-end/Array/TabAccessor.cpp
+        front-end/Array/TabDeclaration.cpp
+        front-end/Array/Tab.cpp
+        front-end/Array/ItemTab.cpp)
 
 
 #----------------

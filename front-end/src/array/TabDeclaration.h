@@ -1,17 +1,18 @@
-//
-// Created by loicsrz on 14/03/2018.
-//
-
 #ifndef ANTLR4CPP_FETCHER_TABDECLARATION_H
 #define ANTLR4CPP_FETCHER_TABDECLARATION_H
 
 #include <token/Type.h>
+#include <expressions/Value.h>
+#include <list>
+
+
+using std::list;
 
 class TabDeclaration {
 
 protected:
     Type type;
-    List<Val> definition;
+    list<Value> definition;
 
 };
 

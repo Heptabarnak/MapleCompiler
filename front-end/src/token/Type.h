@@ -1,7 +1,3 @@
-//
-// Created by jgally on 14/03/18.
-//
-
 #ifndef ANTLR4CPP_FETCHER_TYPE_H
 #define ANTLR4CPP_FETCHER_TYPE_H
 

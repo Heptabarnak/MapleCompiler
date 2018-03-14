@@ -1,0 +1,12 @@
+
+
+#ifndef MAPLECOMPILER_ACCESSOR_H
+#define MAPLECOMPILER_ACCESSOR_H
+
+
+class Accessor {
+
+};
+
+
+#endif //MAPLECOMPILER_ACCESSOR_H

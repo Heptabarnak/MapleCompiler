@@ -1,0 +1,12 @@
+
+
+#ifndef MAPLECOMPILER_VALUE_H
+#define MAPLECOMPILER_VALUE_H
+
+
+class Value {
+
+};
+
+
+#endif //MAPLECOMPILER_VALUE_H

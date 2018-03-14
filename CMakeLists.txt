@@ -84,7 +84,7 @@ set(AST_SRC_FILES
 #   UTILS
 #-----------
 
-set(UTILS_SRC_FILES utils/str2int.h)
+set(UTILS_SRC_FILES utils/str2int.h front-end/src/Axiome/start.cpp front-end/src/Axiome/start.h front-end/src/Axiome/Program.h front-end/src/Axiome/ProgramFunction.cpp front-end/src/Axiome/ProgramFunction.h)
 
 #----------------
 #   EXECUTABLE

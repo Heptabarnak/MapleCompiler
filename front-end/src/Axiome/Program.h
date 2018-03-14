@@ -1,0 +1,12 @@
+
+
+#ifndef MAPLECOMPILER_PROGRAM_H
+#define MAPLECOMPILER_PROGRAM_H
+
+
+class Program {
+
+};
+
+
+#endif //MAPLECOMPILER_PROGRAM_H

@@ -70,8 +70,12 @@ set(AST_SRC_FILES
         front-end/src/array/TabAccessor.cpp
         front-end/src/array/TabDeclaration.cpp
         front-end/src/array/Tab.cpp
-        front-end/src/array/ItemTab.cpp)
-
+        front-end/src/array/ItemTab.cpp front-end/control-structure/Instruction.h
+        front-end/control-structure/StatementInstruction.cpp
+        front-end/control-structure/StatementInstruction.h
+        front-end/control-structure/Statement.cpp
+        front-end/control-structure/Statement.h)
+        
 #-----------
 #   UTILS
 #-----------

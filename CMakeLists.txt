@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(MapleCompiler)
 
-LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
 # compiler must be 11 or 14
 SET(CMAKE_CXX_STANDARD 14)
 
@@ -19,15 +17,11 @@ include_directories(utils)
 #   ANTLR4 RUNTIME
 #--------------------
 
-# Set variable pointing to the antlr tool that supports C++
-set(ANTLR4CPP_JAR_LOCATION ${LIBS_FOLDER}/antlr/antlr-4.7.1-complete.jar)
-# Add external build for antlrcpp
-include(ExternalAntlr4Cpp)
-# Add antrl4cpp artifacts to project environment
-include_directories(${ANTLR4CPP_INCLUDE_DIRS})
-link_directories(${ANTLR4CPP_LIBS})
-
-message(STATUS "Found antlr4cpp libs: ${ANTLR4CPP_LIBS} and includes: ${ANTLR4CPP_INCLUDE_DIRS} ")
+add_library(antlr4-runtime STATIC IMPORTED) # or STATIC instead of SHARED
+set_target_properties(antlr4-runtime PROPERTIES
+        IMPORTED_LOCATION "${LIBS_FOLDER}/libantlr4-runtime.a"
+        INTERFACE_INCLUDE_DIRECTORIES "${FRONT_END_FOLDER}/include/antlr"
+        )
 
 #--------------------
 #   MAPLE PARSER
@@ -44,7 +38,6 @@ set(ANTLR4_GENERATED_GRAMMAR_FILES
 #---------------
 #   FRONT-END
 #---------------
-
 
 set(VISITORS_FILES
         front-end/StartVisitor.cpp
@@ -65,5 +58,4 @@ add_executable(MapleCompiler
         ${ANTLR4_GENERATED_GRAMMAR_FILES}
         ${VISITORS_FILES}
         )
-add_dependencies(MapleCompiler antlr4cpp)
-target_link_libraries(MapleCompiler antlr4-runtime.a)
+target_link_libraries(MapleCompiler antlr4-runtime)

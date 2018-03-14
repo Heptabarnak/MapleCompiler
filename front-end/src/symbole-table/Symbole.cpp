@@ -1,5 +1,7 @@
-//
-// Created by jgally on 14/03/18.
-//
-
 #include "Symbole.h"
+
+Symbole::Symbole(SymboleTable *table) : table(table){}
+
+Symbole::~Symbole() {
+    delete table;
+}

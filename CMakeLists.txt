@@ -51,7 +51,11 @@ set(VISITORS_FILES
         front-end/accessor/Accessor.cpp
         front-end/expressions/ExprValue.cpp
         front-end/expressions/ExprAffectation.cpp
-        front-end/expressions/ExprMultiplicative.cpp front-end/declaration/Declaration.h front-end/declaration/DeclarationOfVar.h front-end/declaration/DeclarationOfTab.h front-end/declaration/DeclarationOfTab.cpp front-end/declaration/DeclarationOfVar.cpp)
+        front-end/expressions/ExprMultiplicative.cpp
+        front-end/declaration/DeclarationOfTab.cpp
+        front-end/declaration/DeclarationOfVar.cpp
+        front-end/function/BlockFunction.cpp
+        )
 
 
 #----------------

@@ -14,6 +14,7 @@ private:
 
 public:
     Block(const list<Instruction *> &instructions);
+    ~Block();
 };
 
 

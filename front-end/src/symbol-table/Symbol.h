@@ -8,12 +8,14 @@ class SymbolTable;
 
 class Symbol {
 public:
-    Symbol(SymbolTable* table);
+    Symbol(SymbolTable* table, bool aff, bool r);
     ~Symbol();
     Declaration declaration;
     bool affectation;
 private:
     SymbolTable* table;
+    bool affectation;
+    bool read;
 };
 
 

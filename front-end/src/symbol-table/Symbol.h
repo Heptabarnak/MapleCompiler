@@ -7,10 +7,12 @@ class SymbolTable;
 
 class Symbol {
 public:
-    Symbol(SymbolTable* table);
+    Symbol(SymbolTable* table, bool aff, bool r);
     ~Symbol();
 private:
     SymbolTable* table;
+    bool affectation;
+    bool read;
 };
 
 

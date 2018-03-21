@@ -7,7 +7,6 @@ antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
             ctx->CHAR()->getText()
     );
 }
-// J'ai tout plein d'erreurs !?
 
 antlrcpp::Any StartVisitor::visitStart(MapleGrammarParser::StartContext *ctx) {
     return MapleGrammarBaseVisitor::visitStart(ctx);

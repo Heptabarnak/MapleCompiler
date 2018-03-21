@@ -10,6 +10,7 @@ public:
 
 private:
     Expr *expr;
+    ~Statement();
 };
 
 #endif //ANTLR4CPP_FETCHER_STATEMENT_H

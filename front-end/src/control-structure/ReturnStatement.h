@@ -12,6 +12,7 @@ private:
 
 public:
     ReturnStatement(Expr *expr);
+    ~ReturnStatement();
 };
 
 

@@ -13,7 +13,7 @@ private:
 
 public:
     WhileStatement(Expr *condition, Instruction *instruction);
-
+    ~WhileStatement();
 };
 
 

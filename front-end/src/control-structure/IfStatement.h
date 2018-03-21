@@ -12,6 +12,7 @@ private:
     Instruction *elseStatement;
 public:
     IfStatement(Expr *c, Statement *st, Instruction *elseSt);
+    ~IfStatement();
 };
 
 #endif //ANTLR4CPP_FETCHER_IFSTATEMENTINSTRUCTION_H

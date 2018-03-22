@@ -20,6 +20,7 @@
 #include <expression/Expr.h>
 #include <expression/ExprAccessor.h>
 #include <expression/ExprAffectation.h>
+#include <expression/ExprIncrement.h>
 #include <expression/ExprParenthesis.h>
 #include <expression/ExprValue.h>
 #include <expression/Value.h>
@@ -35,7 +36,6 @@
 #include <expression/operation/ExprOrOperation.h>
 #include <expression/operation/ExprOperation.h>
 #include <expression/operation/ExprRelationalComparisonOperation.h>
-#include <expression/unary/ExprPostfixUnary.h>
 #include <expression/unary/ExprPrefixUnary.h>
 #include <expression/unary/ExprUnary.h>
 #include <function/AccessorFunction.h>

@@ -24,7 +24,7 @@ public:
   };
 
   enum {
-    RuleStart = 0, RuleProgram = 1, RuleValue = 2, RuleOpUnaryPostfix = 3, 
+    RuleStart = 0, RuleProgram = 1, RuleValue = 2, RuleOpIncrement = 3, 
     RuleOpUnaryPrefix = 4, RuleOpMultiplicative = 5, RuleOpAdditive = 6, 
     RuleOpBinaryShift = 7, RuleOpCompareRelational = 8, RuleOpCompareEquality = 9, 
     RuleOpBinaryAnd = 10, RuleOpBinaryXor = 11, RuleOpBinaryOr = 12, RuleOpAnd = 13, 
@@ -50,7 +50,7 @@ public:
   class StartContext;
   class ProgramContext;
   class ValueContext;
-  class OpUnaryPostfixContext;
+  class OpIncrementContext;
   class OpUnaryPrefixContext;
   class OpMultiplicativeContext;
   class OpAdditiveContext;
@@ -126,16 +126,16 @@ public:
 
   ValueContext* value();
 
-  class  OpUnaryPostfixContext : public antlr4::ParserRuleContext {
+  class  OpIncrementContext : public antlr4::ParserRuleContext {
   public:
-    OpUnaryPostfixContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    OpIncrementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
-  OpUnaryPostfixContext* opUnaryPostfix();
+  OpIncrementContext* opIncrement();
 
   class  OpUnaryPrefixContext : public antlr4::ParserRuleContext {
   public:
@@ -340,6 +340,15 @@ public:
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
+  class  ExprIncrementPostfixContext : public ExprContext {
+  public:
+    ExprIncrementPostfixContext(ExprContext *ctx);
+
+    LeftValueContext *leftValue();
+    OpIncrementContext *opIncrement();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
   class  ExprOrContext : public ExprContext {
   public:
     ExprOrContext(ExprContext *ctx);
@@ -347,15 +356,6 @@ public:
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
     OpOrContext *opOr();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  ExprUnaryPostfixContext : public ExprContext {
-  public:
-    ExprUnaryPostfixContext(ExprContext *ctx);
-
-    ExprContext *expr();
-    OpUnaryPostfixContext *opUnaryPostfix();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
@@ -422,6 +422,15 @@ public:
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
     OpCompareEqualityContext *opCompareEquality();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprIncrementPrefixContext : public ExprContext {
+  public:
+    ExprIncrementPrefixContext(ExprContext *ctx);
+
+    OpIncrementContext *opIncrement();
+    LeftValueContext *leftValue();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 

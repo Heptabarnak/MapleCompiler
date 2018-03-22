@@ -2,7 +2,7 @@
 #include <antlr4-runtime.h>
 #include <maple-parser/MapleGrammarParser.h>
 #include <maple-parser/MapleGrammarLexer.h>
-#include <StartVisitor.h>
+#include <visitor/StartVisitor.h>
 
 
 using namespace antlr4;
@@ -13,6 +13,7 @@ int main(int argc, const char **argv) {
         std::cerr << "Not enough arguments" << std::endl;
         return 1;
     }
+
 
     std::fstream inputFile;
     inputFile.open(argv[1], std::fstream::in);

@@ -20,8 +20,8 @@ COMMENT : '/*' .*? '*/' -> channel(HIDDEN) ;
 LINE_COMMENT : '//' ~'\n'* '\n' -> channel(HIDDEN) ;
 
 // Opérateurs
-opUnaryPostfix : '++' | '--' ;
-opUnaryPrefix : '++' | '--' | '+' | '-' | '!' | '~';
+opIncrement : '++' | '--' ;
+opUnaryPrefix : '+' | '-' | '!' | '~';
 opMultiplicative : '*' | '/' | '%'  ;
 opAdditive : '+' | '-' ;
 opBinaryShift : '<<' | '>>' ;
@@ -38,7 +38,8 @@ opAffectation : '=' | '+=' | '-=' | '*=' | '/=' | '%=' | '<<=' | '>>=' | '&=' | 
 expr : accessor                         # exprAccessor
     | value                             # exprValue
     | '(' expr ')'                      # exprParenthesis
-    | expr opUnaryPostfix               # exprUnaryPostfix
+    | leftValue opIncrement             # exprIncrementPostfix
+    | opIncrement leftValue             # exprIncrementPrefix
     | opUnaryPrefix expr                # exprUnaryPrefix
     | expr opMultiplicative expr        # exprMultiplicative
     | expr opAdditive expr              # exprAdditive

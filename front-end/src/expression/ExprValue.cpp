@@ -3,6 +3,6 @@
 #include "ExprValue.h"
 
 
-ExprValue::ExprValue(Value* v)
-        :value(v) {
+ExprValue::ExprValue(Value *v)
+        : value(v) {
 }

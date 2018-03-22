@@ -10,12 +10,10 @@ using std::string;
 
 class ExprValue : public Expr {
 private:
-   Value* value;
-
+    Value *value;
 
 public:
-
-    ExprValue(Value* v);
+    explicit ExprValue(Value *v);
 
 };
 

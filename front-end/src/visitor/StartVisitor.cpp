@@ -14,6 +14,7 @@ using std::endl;
 using std::vector;
 using std::string;
 
+
 antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
     if (ctx->INTEGER() == nullptr) {
         return new ExprValue(new Value(Type::CHAR, ctx->CHAR()->getText().at(0)));
@@ -42,159 +43,6 @@ antlrcpp::Any StartVisitor::visitProgram(MapleGrammarParser::ProgramContext *ctx
         return visit(ctx->declaration());
     }
     return visit(ctx->functionDefinition());
-}
-
-antlrcpp::Any StartVisitor::visitExprValue(MapleGrammarParser::ExprValueContext *ctx) {
-    return visit(ctx->value());
-}
-
-antlrcpp::Any StartVisitor::visitExprBinaryShift(MapleGrammarParser::ExprBinaryShiftContext *ctx) {
-    return new ExprBinaryShiftOperation(
-            (Expr *) (visit(ctx->expr(0))),
-            (Expr *) (visit(ctx->expr(1))),
-            ctx->opBinaryShift()->getText()
-    );
-}
-
-antlrcpp::Any StartVisitor::visitExprAffectation(MapleGrammarParser::ExprAffectationContext *ctx) {
-    return new ExprAffectation(
-            visit(ctx->leftValue()),
-            visit(ctx->expr()),
-            ctx->opAffectation()->getText()
-    );
-}
-
-antlrcpp::Any StartVisitor::visitExprBinaryXor(MapleGrammarParser::ExprBinaryXorContext *ctx) {
-    return new ExprBinaryXorOperation(
-            (Expr *) (visit(ctx->expr(0))),
-            (Expr *) (visit(ctx->expr(1)))
-    );
-}
-
-antlrcpp::Any StartVisitor::visitExprBinaryAnd(MapleGrammarParser::ExprBinaryAndContext *ctx) {
-    return new ExprBinaryAndOperation(
-            (Expr *) visit(ctx->expr(0)),
-            (Expr *) visit(ctx->expr(1))
-    );
-}
-
-antlrcpp::Any StartVisitor::visitExprOr(MapleGrammarParser::ExprOrContext *ctx) {
-    return new ExprOrOperation(
-            (Expr *) (visit(ctx->expr(0))),
-            (Expr *) (visit(ctx->expr(1)))
-    );
-}
-
-antlrcpp::Any StartVisitor::visitExprUnaryPostfix(MapleGrammarParser::ExprUnaryPostfixContext *ctx) {
-    return new ExprPostfixUnary(
-            (Expr *) visit(ctx->expr()),
-            ctx->opUnaryPostfix()->getText()
-    );
-}
-
-antlrcpp::Any StartVisitor::visitExprMultiplicative(MapleGrammarParser::ExprMultiplicativeContext *ctx) {
-    return new ExprMultiplicativeOperation(
-            (Expr *) visit(ctx->expr(0)),
-            (Expr *) visit(ctx->expr(1)),
-            ctx->opMultiplicative()->getText()
-    );
-}
-
-antlrcpp::Any StartVisitor::visitExprAdditive(MapleGrammarParser::ExprAdditiveContext *ctx) {
-    return new ExprAdditiveOperation(
-            (Expr *) visit(ctx->expr(0)),
-            (Expr *) visit(ctx->expr(1)),
-            ctx->opAdditive()->getText()
-    );
-}
-
-antlrcpp::Any StartVisitor::visitExprAccessor(MapleGrammarParser::ExprAccessorContext *ctx) {
-    return new ExprAccessor((Accessor *) visit(ctx->accessor()));
-}
-
-antlrcpp::Any StartVisitor::visitExprAnd(MapleGrammarParser::ExprAndContext *ctx) {
-    return new ExprAndOperation(
-            (Expr *) (visit(ctx->expr(0))),
-            (Expr *) (visit(ctx->expr(1)))
-    );
-}
-
-antlrcpp::Any StartVisitor::visitExprParenthesis(MapleGrammarParser::ExprParenthesisContext *ctx) {
-    return new ExprParenthesis((Expr *) (visit(ctx->expr())));
-}
-
-antlrcpp::Any StartVisitor::visitExprBinaryOr(MapleGrammarParser::ExprBinaryOrContext *ctx) {
-    return new ExprBinaryOrOperation(
-            (Expr *) visit(ctx->expr(0)),
-            (Expr *) visit(ctx->expr(1))
-    );
-}
-
-antlrcpp::Any StartVisitor::visitExprCompareRelational(MapleGrammarParser::ExprCompareRelationalContext *ctx) {
-    return new ExprRelationalComparisonOperation(
-            (Expr *) (visit(ctx->expr(0))),
-            (Expr *) (visit(ctx->expr(1))),
-            ctx->opCompareRelational()->getText()
-    );
-}
-
-antlrcpp::Any StartVisitor::visitExprCompareEquality(MapleGrammarParser::ExprCompareEqualityContext *ctx) {
-    return new ExprEqualityComparisonOperation(
-            (Expr *) (visit(ctx->expr(0))),
-            (Expr *) (visit(ctx->expr(1))),
-            ctx->opCompareEquality()->getText()
-    );
-}
-
-antlrcpp::Any StartVisitor::visitExprUnaryPrefix(MapleGrammarParser::ExprUnaryPrefixContext *ctx) {
-    return new ExprPrefixUnary(
-            (Expr *) visit(ctx->expr()),
-            ctx->opUnaryPrefix()->getText()
-    );
-}
-
-antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationTabContext *ctx) {
-    unsigned long tabSize;
-    vector<Value *> tabList = nullptr;
-
-    const string &name = ctx->ID()->getText();
-
-    if (auto symbol = currentSymbolTable->lookup(name)) {
-        // TODO Throw error, duplicate definition
-        cerr << "Duplicate declaration of " << name << endl;
-        cerr << "Found : " << symbol->getDeclaration() << endl;
-        return nullptr;
-    }
-
-    if (ctx->expr() == nullptr) {
-        tabList = visit(ctx->definitionTab());
-        tabSize = tabList.size();
-    } else {
-        // FIXME Ça ne marchera pas, il faut trouver de déterminer la taille directement,
-        // mais être sur que l'expression n'implique pas de variable !
-        tabSize = (unsigned long) visit(ctx->expr());
-    }
-
-
-    return new TabDeclaration(
-            getTypeFromString(ctx->TYPE()->getText()),
-            tabSize,
-            name,
-            tabList
-    );
-}
-
-antlrcpp::Any StartVisitor::visitDeclaration(MapleGrammarParser::DeclarationContext *ctx) {
-    if (ctx->declarationVar()) {
-        return visit(ctx->declarationVar());
-    }
-    vector<Declaration *> declarations(1);
-    declarations.push_back((Declaration *&&) visit(ctx->declarationTab()));
-    return declarations;
-}
-
-antlrcpp::Any StartVisitor::visitDefinitionTab(MapleGrammarParser::DefinitionTabContext *ctx) {
-    return mapContext2Vector<MapleGrammarParser::ValueContext *, Value *>(ctx->value(), this);
 }
 
 antlrcpp::Any StartVisitor::visitAssignment(MapleGrammarParser::AssignmentContext *ctx) {
@@ -383,10 +231,6 @@ antlrcpp::Any StartVisitor::visitBlockFunction(MapleGrammarParser::BlockFunction
 }
 
 
-antlrcpp::Any
-StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDefinitionContext *context) {
-    return antlrcpp::Any();
-}
 
 antlrcpp::Any StartVisitor::visitDeclarationVar(MapleGrammarParser::DeclarationVarContext *ctx) {
     /*vector<VarDeclaration*> declarationList;
@@ -402,3 +246,4 @@ antlrcpp::Any StartVisitor::visitDeclarationVar(MapleGrammarParser::DeclarationV
     }
     return declarationList;*/
 }
+

@@ -59,6 +59,7 @@ set(AST_SRC_FILES
         front-end/src/control-structure/WhileStatement.cpp
         front-end/src/expression/ExprAccessor.cpp
         front-end/src/expression/ExprAffectation.cpp
+        front-end/src/expression/ExprIncrement.cpp
         front-end/src/expression/ExprParenthesis.cpp
         front-end/src/expression/ExprValue.cpp
         front-end/src/expression/operation/binary/ExprBinaryAndOperation.cpp
@@ -71,19 +72,21 @@ set(AST_SRC_FILES
         front-end/src/expression/operation/ExprMultiplicativeOperation.cpp
         front-end/src/expression/operation/ExprOrOperation.cpp
         front-end/src/expression/operation/ExprRelationalComparisonOperation.cpp
-        front-end/src/expression/unary/ExprPostfixUnary.cpp
         front-end/src/expression/unary/ExprPrefixUnary.cpp
         front-end/src/expression/Value.cpp
         front-end/src/function/AccessorFunction.cpp
         front-end/src/function/BlockFunction.cpp
         front-end/src/function/FunctionDefinition.cpp
         front-end/src/function/FunctionParam.cpp
-        front-end/src/StartVisitor.cpp
         front-end/src/symbol-table/Symbol.cpp
         front-end/src/symbol-table/SymbolTable.cpp
         front-end/src/variable/VarAccessor.cpp
         front-end/src/variable/VarDeclaration.cpp
-        )
+        front-end/src/visitor/StartVisitor.cpp
+        front-end/src/visitor/VisitorDeclaration.cpp
+        front-end/src/visitor/VisitorExpr.cpp
+        front-end/src/visitor/VisitorOp.cpp
+       )
 #-----------
 #   UTILS
 #-----------

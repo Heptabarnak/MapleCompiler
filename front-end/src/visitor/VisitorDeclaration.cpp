@@ -76,3 +76,24 @@ antlrcpp::Any
 StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDefinitionContext *ctx) {
     return antlrcpp::Any();
 }
+
+
+antlrcpp::Any StartVisitor::visitDeclarationVar(MapleGrammarParser::DeclarationVarContext *ctx) {
+    /*vector<VarDeclaration*> declarationList;
+    if(ctx->assignment().empty()){
+        for(std::size_t i = 0; i != ctx->ID().size(); i++) {
+            declarationList.push_back(new VarDeclaration(ctx->ID(i)->getText(),  getTypeFromString(ctx->TYPE()->getText()), nullptr));
+        }
+    } else {
+        for(std::size_t i = 0; i != ctx->ID().size(); i++) {
+            //à modifier surement plus tard
+            if()declarationList.push_back(new VarDeclaration(ctx->ID(i)->getText(),  getTypeFromString(ctx->TYPE()->getText()),(Expr*)visit((ctx->assignment(i))));
+        }
+    }
+    return declarationList;*/
+}
+
+
+antlrcpp::Any StartVisitor::visitAssignment(MapleGrammarParser::AssignmentContext *ctx) {
+    return (Expr *) visit(ctx->expr());
+}

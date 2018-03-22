@@ -83,8 +83,11 @@ set(AST_SRC_FILES
         front-end/src/variable/VarAccessor.cpp
         front-end/src/variable/VarDeclaration.cpp
         front-end/src/visitor/StartVisitor.cpp
+        front-end/src/visitor/VisitorAccessor.cpp
         front-end/src/visitor/VisitorDeclaration.cpp
         front-end/src/visitor/VisitorExpr.cpp
+        front-end/src/visitor/VisitorFunction.cpp
+        front-end/src/visitor/VisitorInstruction.cpp
         front-end/src/visitor/VisitorOp.cpp
        )
 #-----------

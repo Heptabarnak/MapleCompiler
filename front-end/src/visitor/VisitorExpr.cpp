@@ -3,13 +3,13 @@
 
 
 antlrcpp::Any StartVisitor::visitExprValue(MapleGrammarParser::ExprValueContext *ctx) {
-    return new ExprValue(
+    return (Expr *) new ExprValue(
             (Value *) visit(ctx->value())
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprBinaryShift(MapleGrammarParser::ExprBinaryShiftContext *ctx) {
-    return new ExprBinaryShiftOperation(
+    return (Expr *) new ExprBinaryShiftOperation(
             visit(ctx->expr(0)),
             visit(ctx->expr(1)),
             visit(ctx->opBinaryShift())
@@ -17,7 +17,7 @@ antlrcpp::Any StartVisitor::visitExprBinaryShift(MapleGrammarParser::ExprBinaryS
 }
 
 antlrcpp::Any StartVisitor::visitExprAffectation(MapleGrammarParser::ExprAffectationContext *ctx) {
-    return new ExprAffectation(
+    return (Expr *) new ExprAffectation(
             visit(ctx->leftValue()),
             visit(ctx->expr()),
             visit(ctx->opAffectation())
@@ -25,28 +25,28 @@ antlrcpp::Any StartVisitor::visitExprAffectation(MapleGrammarParser::ExprAffecta
 }
 
 antlrcpp::Any StartVisitor::visitExprBinaryXor(MapleGrammarParser::ExprBinaryXorContext *ctx) {
-    return new ExprBinaryXorOperation(
+    return (Expr *) new ExprBinaryXorOperation(
             visit(ctx->expr(0)),
             visit(ctx->expr(1))
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprBinaryAnd(MapleGrammarParser::ExprBinaryAndContext *ctx) {
-    return new ExprBinaryAndOperation(
+    return (Expr *) new ExprBinaryAndOperation(
             visit(ctx->expr(0)),
             visit(ctx->expr(1))
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprOr(MapleGrammarParser::ExprOrContext *ctx) {
-    return new ExprOrOperation(
+    return (Expr *) new ExprOrOperation(
             visit(ctx->expr(0)),
             visit(ctx->expr(1))
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprMultiplicative(MapleGrammarParser::ExprMultiplicativeContext *ctx) {
-    return new ExprMultiplicativeOperation(
+    return (Expr *) new ExprMultiplicativeOperation(
             visit(ctx->expr(0)),
             visit(ctx->expr(1)),
             visit(ctx->opMultiplicative())
@@ -54,7 +54,7 @@ antlrcpp::Any StartVisitor::visitExprMultiplicative(MapleGrammarParser::ExprMult
 }
 
 antlrcpp::Any StartVisitor::visitExprAdditive(MapleGrammarParser::ExprAdditiveContext *ctx) {
-    return new ExprAdditiveOperation(
+    return (Expr *) new ExprAdditiveOperation(
             visit(ctx->expr(0)),
             visit(ctx->expr(1)),
             visit(ctx->opAdditive())
@@ -62,33 +62,33 @@ antlrcpp::Any StartVisitor::visitExprAdditive(MapleGrammarParser::ExprAdditiveCo
 }
 
 antlrcpp::Any StartVisitor::visitExprAccessor(MapleGrammarParser::ExprAccessorContext *ctx) {
-    return new ExprAccessor(
+    return (Expr *) new ExprAccessor(
             (Accessor *) visit(ctx->accessor())
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprAnd(MapleGrammarParser::ExprAndContext *ctx) {
-    return new ExprAndOperation(
+    return (Expr *) new ExprAndOperation(
             visit(ctx->expr(0)),
             visit(ctx->expr(1))
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprParenthesis(MapleGrammarParser::ExprParenthesisContext *ctx) {
-    return new ExprParenthesis(
+    return (Expr *) new ExprParenthesis(
             (Expr *) visit(ctx->expr())
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprBinaryOr(MapleGrammarParser::ExprBinaryOrContext *ctx) {
-    return new ExprBinaryOrOperation(
+    return (Expr *) new ExprBinaryOrOperation(
             visit(ctx->expr(0)),
             visit(ctx->expr(1))
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprCompareRelational(MapleGrammarParser::ExprCompareRelationalContext *ctx) {
-    return new ExprRelationalComparisonOperation(
+    return (Expr *) new ExprRelationalComparisonOperation(
             visit(ctx->expr(0)),
             visit(ctx->expr(1)),
             visit(ctx->opCompareRelational())
@@ -96,7 +96,7 @@ antlrcpp::Any StartVisitor::visitExprCompareRelational(MapleGrammarParser::ExprC
 }
 
 antlrcpp::Any StartVisitor::visitExprCompareEquality(MapleGrammarParser::ExprCompareEqualityContext *ctx) {
-    return new ExprEqualityComparisonOperation(
+    return (Expr *) new ExprEqualityComparisonOperation(
             visit(ctx->expr(0)),
             visit(ctx->expr(1)),
             visit(ctx->opCompareEquality())
@@ -104,14 +104,14 @@ antlrcpp::Any StartVisitor::visitExprCompareEquality(MapleGrammarParser::ExprCom
 }
 
 antlrcpp::Any StartVisitor::visitExprUnaryPrefix(MapleGrammarParser::ExprUnaryPrefixContext *ctx) {
-    return new ExprPrefixUnary(
+    return (Expr *) new ExprPrefixUnary(
             visit(ctx->expr()),
             visit(ctx->opUnaryPrefix())
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprIncrementPostfix(MapleGrammarParser::ExprIncrementPostfixContext *ctx) {
-    return new ExprIncrement(
+    return (Expr *) new ExprIncrement(
             visit(ctx->leftValue()),
             visit(ctx->opIncrement()),
             true
@@ -119,7 +119,7 @@ antlrcpp::Any StartVisitor::visitExprIncrementPostfix(MapleGrammarParser::ExprIn
 }
 
 antlrcpp::Any StartVisitor::visitExprIncrementPrefix(MapleGrammarParser::ExprIncrementPrefixContext *ctx) {
-    return new ExprIncrement(
+    return (Expr *) new ExprIncrement(
             visit(ctx->leftValue()),
             visit(ctx->opIncrement()),
             false
@@ -128,7 +128,7 @@ antlrcpp::Any StartVisitor::visitExprIncrementPrefix(MapleGrammarParser::ExprInc
 
 antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
     if (ctx->INTEGER() == nullptr) {
-        return new ExprValue(new Value(Type::CHAR, ctx->CHAR()->getText().at(0)));
+        return new Value(Type::CHAR, ctx->CHAR()->getText().at(0));
     }
-    return new ExprValue(new Value(Type::INT64_T, stoi(ctx->INTEGER()->getText())));
+    return new Value(Type::INT64_T, stoi(ctx->INTEGER()->getText()));
 }

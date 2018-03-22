@@ -10,9 +10,9 @@ using std::endl;
 
 antlrcpp::Any StartVisitor::visitAccessor(MapleGrammarParser::AccessorContext *ctx) {
     if (ctx->accessorFunction() == nullptr) {
-        return new LeftValueAccessor((LeftValue *) (visit(ctx->leftValue())));
+        return (Accessor *) new LeftValueAccessor((LeftValue *) (visit(ctx->leftValue())));
     }
-    return new FunctionAccessor((AccessorFunction *) (visit(ctx->accessorFunction())));
+    return (Accessor *) new FunctionAccessor((AccessorFunction *) (visit(ctx->accessorFunction())));
 }
 
 antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabContext *ctx) {
@@ -20,21 +20,22 @@ antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabCont
     const string &name = ctx->ID()->getText();
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
-        if (auto symbolTab = dynamic_cast<TabDeclaration*>(symbol->getDeclaration())) {
+        if (auto symbolTab = dynamic_cast<TabDeclaration *>(symbol->getDeclaration())) {
 
+            // TODO Check if it's reading or affectation (with parent ?)
+            symbol->doRead();
             return new TabAccessor(
                     symbolTab,
                     visit(ctx->expr())
             );
         }
 
-        // TODO Throw error, symbol is not an array
         cerr << "Wanted array but got :" << symbol->getDeclaration() << endl;
+        throw std::runtime_error("Symbol is not an array");
     } else {
-        // TODO Throw error, variable not found
         cerr << "Symbol '" << name << "' was not found" << endl;
+        throw std::runtime_error("Array not found");
     }
-    return nullptr;
 }
 
 antlrcpp::Any StartVisitor::visitAccessorVar(MapleGrammarParser::AccessorVarContext *ctx) {
@@ -44,16 +45,17 @@ antlrcpp::Any StartVisitor::visitAccessorVar(MapleGrammarParser::AccessorVarCont
     if (auto symbol = currentSymbolTable->lookup(name)) {
         if (auto symbolVar = dynamic_cast<VarDeclaration *>(symbol->getDeclaration())) {
 
+            // TODO Check if it's reading or affectation (with parent ?)
+            symbol->doRead();
             return new VarAccessor(symbolVar);
         }
 
-        // TODO Throw error, symbol is not a variable
         cerr << "Wanted a variable but got :" << symbol->getDeclaration() << endl;
+        throw std::runtime_error("Symbol is not a variable");
     } else {
-        // TODO Throw error, variable not found
         cerr << "Symbol '" << name << "' was not found" << endl;
+        throw std::runtime_error("Variable not found");
     }
-    return nullptr;
 }
 
 antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFunctionContext *ctx) {
@@ -62,24 +64,24 @@ antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFu
     if (auto symbol = currentSymbolTable->lookup(name)) {
         if (auto symbolFun = dynamic_cast<FunctionDefinition *>(symbol->getDeclaration())) {
 
-            return new AccessorFunction(
+            symbol->doRead();
+            return (Accessor *) new AccessorFunction(
                     symbolFun,
                     visit(ctx->argumentList())
             );
         }
 
-        // TODO Throw error, symbol is not a function
         cerr << "Wanted a function but got :" << symbol->getDeclaration() << endl;
+        throw std::runtime_error("Symbol is not a function");
     } else {
-        // TODO Throw error, function not found
         cerr << "Symbol '" << name << "' was not found" << endl;
+        throw std::runtime_error("Function not found");
     }
-    return nullptr;
 }
 
 antlrcpp::Any StartVisitor::visitLeftValue(MapleGrammarParser::LeftValueContext *ctx) {
     if (ctx->accessorTab() == nullptr) {
-        return new LeftValueVar((VarAccessor *) visit(ctx->accessorVar()));
+        return (LeftValue *) new LeftValueVar((VarAccessor *) visit(ctx->accessorVar()));
     }
-    return new LeftValueTab((TabAccessor *) visit(ctx->accessorTab()));
+    return (LeftValue *) new LeftValueTab((TabAccessor *) visit(ctx->accessorTab()));
 }

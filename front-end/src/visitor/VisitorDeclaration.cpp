@@ -18,52 +18,56 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
     const string &name = ctx->ID()->getText();
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
-        // TODO Throw error, duplicate definition
         cerr << "Duplicate declaration of " << name << endl;
         cerr << "Found : " << symbol->getDeclaration() << endl;
-        return nullptr;
+        throw std::runtime_error("Duplicate definition");
     }
 
     if (ctx->expr() == nullptr) {
         vector<Value *> tabList = visit(ctx->definitionTab());
 
-        return new TabDeclaration(
+        Declaration *declaration = new TabDeclaration(
                 getTypeFromString(ctx->TYPE()->getText()),
                 tabList.size(),
                 name,
                 tabList
         );
+
+        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, declaration));
+        return declaration;
     }
 
     Expr *expr = visit(ctx->expr()); // FIXME Delete expression
 
     if (!expr->isSimplifiable()) {
-        // TODO Throw error, not simplifiable expression
         cerr << "Unable to simplify expression for " << name << endl;
-        return nullptr;
+        throw std::runtime_error("Not simplifiable declaration");
     }
 
     const long tabSize = expr->simplify();
 
     if (tabSize < 1) {
-        // TODO Throw error, size < 1
         cerr << "Array size must be more than 0, got : " << tabSize << endl;
-        return nullptr;
+        throw std::runtime_error("Array size must > 1");
     }
 
-    return new TabDeclaration(
+
+    Declaration *declaration = new TabDeclaration(
             getTypeFromString(ctx->TYPE()->getText()),
             (unsigned long) tabSize,
             name
     );
+
+    currentSymbolTable->insert(name, new Symbol(currentSymbolTable, declaration));
+    return declaration;
 }
 
 antlrcpp::Any StartVisitor::visitDeclaration(MapleGrammarParser::DeclarationContext *ctx) {
     if (ctx->declarationVar()) {
-        return visit(ctx->declarationVar());
+        return (vector<Declaration *> *) visit(ctx->declarationVar());
     }
-    vector<Declaration *> declarations(1);
-    declarations.push_back((Declaration *&&) visit(ctx->declarationTab()));
+    auto declarations = new vector<Declaration *>(1);
+    declarations->push_back((Declaration *) visit(ctx->declarationTab()));
     return declarations;
 }
 
@@ -81,35 +85,40 @@ StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDe
     const string &name = ctx->ID()->getText();
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
-        // TODO Throw error, duplicate definition
         cerr << "Duplicate declaration of " << name << endl;
         cerr << "Found : " << symbol->getDeclaration() << endl;
-        return nullptr;
+        throw std::runtime_error("Duplicated declaration");
     }
 
     if (ctx->assignment() == nullptr) {
-        return new VarDeclaration(name, type);
+        auto declaration = new VarDeclaration(name, type);
+
+        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, declaration));
+        return declaration;
     }
 
-    return new VarDeclaration(
+    auto declaration = new VarDeclaration(
             name,
             type,
             visit(ctx->assignment())
     );
+    currentSymbolTable->insert(name, new Symbol(currentSymbolTable, declaration, true));
+    return declaration;
 }
 
 
 antlrcpp::Any StartVisitor::visitDeclarationVar(MapleGrammarParser::DeclarationVarContext *ctx) {
-    vector<VarDeclaration *> declarationList;
+    const auto &definitions = ctx->declarationVarDefinition();
+    auto declarations = new vector<Declaration *>(definitions.size());
 
-    for (auto &&declaration : ctx->declarationVarDefinition()) {
-        declarationList.push_back((VarDeclaration *&&) visit(declaration));
+    for (auto &&declaration : definitions) {
+        declarations->push_back((VarDeclaration *) visit(declaration));
     }
 
-    return declarationList;
+    return declarations;
 }
 
 
 antlrcpp::Any StartVisitor::visitAssignment(MapleGrammarParser::AssignmentContext *ctx) {
-    return visit(ctx->expr());
+    return (Expr *) visit(ctx->expr());
 }

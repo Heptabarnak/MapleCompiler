@@ -13,11 +13,15 @@ public:
 
     Declaration *getDeclaration() const;
 
+    void doRead();
+    void doAffectation();
+
 private:
     SymbolTable* table;
     Declaration* declaration;
     bool affectation;
     bool read;
+
 };
 
 

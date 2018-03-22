@@ -8,10 +8,11 @@
 class IfStatement : public Instruction {
 private:
     Expr *condition;
-    Statement *statement;
+    Instruction *statement;
     Instruction *elseStatement;
 public:
-    IfStatement(Expr *c, Statement *st, Instruction *elseSt);
+    IfStatement(Expr *c, Instruction *st, Instruction *elseSt = nullptr);
+
     ~IfStatement();
 };
 

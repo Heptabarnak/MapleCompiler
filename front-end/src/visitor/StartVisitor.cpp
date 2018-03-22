@@ -1,4 +1,5 @@
 #include <vector>
+#include <mapContext2Vector.h>
 
 #include "Declarations.h"
 #include "StartVisitor.h"
@@ -11,21 +12,18 @@ antlrcpp::Any StartVisitor::visitStart(MapleGrammarParser::StartContext *ctx) {
 
     // TODO Add putchar & getchar
 
-    vector<Declaration *> declarations;
-
-    for (auto &&item : ctx->program()) {
-        auto dList = (vector<Declaration *>*) visit(item);
-
-        declarations.insert(declarations.end(), dList->begin(), dList->end());
-    }
-
-    return start = new Start(declarations, currentSymbolTable);
+    return start = new Start(
+            *mapContext2VectorFlat<MapleGrammarParser::ProgramContext *, Declaration *>(ctx->program(), this),
+            currentSymbolTable
+    );
 }
 
 antlrcpp::Any StartVisitor::visitProgram(MapleGrammarParser::ProgramContext *ctx) {
     if (ctx->declaration()) {
-        return visit(ctx->declaration());
+        return (vector<Declaration *> *) visit(ctx->declaration());
     }
-    return visit(ctx->functionDefinition());
+    auto functions = new vector<Declaration *>(1);
+    functions->push_back((Declaration *) visit(ctx->functionDefinition()));
+    return functions;
 }
 

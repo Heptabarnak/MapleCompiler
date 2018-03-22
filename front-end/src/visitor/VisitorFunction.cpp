@@ -18,25 +18,31 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
     const string &name = ctx->ID()->getText();
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
-        // TODO Throw error, duplicate definition
         cerr << "Duplicate declaration of " << name << endl;
         cerr << "Found : " << symbol->getDeclaration() << endl;
-        return nullptr;
+        throw std::runtime_error("Duplicate definition");
     }
 
     FunctionDefinition *functionDefinition;
 
+    Type type = Type::VOID;
+
+    if (ctx->TYPE() != nullptr) {
+        type = getTypeFromString(ctx->TYPE()->getText());
+    }
+
+
     if (ctx->typeList() != nullptr) {
         functionDefinition = new FunctionDefinition(
                 (BlockFunction *) visit(ctx->blockFunction()),
-                getTypeFromString(ctx->TYPE()->getText()),
+                type,
                 visit(ctx->typeList()),
                 name
         );
     } else {
         functionDefinition = new FunctionDefinition(
                 (BlockFunction *) visit(ctx->blockFunction()),
-                getTypeFromString(ctx->TYPE()->getText()),
+                type,
                 {},
                 name
         );
@@ -44,13 +50,14 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
 
     currentSymbolTable->insert(name, new Symbol(currentSymbolTable, functionDefinition));
 
-    return functionDefinition;
+    return (Declaration *) functionDefinition;
 }
 
 antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *ctx) {
-    vector<FunctionParam *> fParams;
+    auto fParams = new vector<FunctionParam *>(ctx->ID().size());
+
     for (std::size_t i = 0; i != ctx->ID().size(); i++) {
-        fParams.push_back(new FunctionParam(
+        fParams->push_back(new FunctionParam(
                 ctx->ID(i)->getText(),
                 getTypeFromString(ctx->TYPE(i)->getText()))
         );
@@ -62,8 +69,8 @@ antlrcpp::Any StartVisitor::visitBlockFunction(MapleGrammarParser::BlockFunction
     currentSymbolTable = new SymbolTable(currentSymbolTable);
 
     auto block = new BlockFunction(
-            mapContext2Vector<MapleGrammarParser::DeclarationContext *, Declaration *>(ctx->declaration(), this),
-            mapContext2Vector<MapleGrammarParser::InstructionContext *, Instruction *>(ctx->instruction(), this),
+            *mapContext2VectorFlat<MapleGrammarParser::DeclarationContext *, Declaration *>(ctx->declaration(), this),
+            *mapContext2Vector<MapleGrammarParser::InstructionContext *, Instruction *>(ctx->instruction(), this),
             currentSymbolTable
     );
 

@@ -12,6 +12,8 @@
 using namespace antlr4;
 
 using std::cerr;
+using std::cout;
+using std::endl;
 
 int main(int argc, const char **argv) {
 
@@ -41,8 +43,9 @@ int main(int argc, const char **argv) {
 
     try {
         auto ast = visitor.visit(tree);
+        cout << "AST Generated !" << endl;
     } catch (std::exception &exception) {
-        cerr << "Error while creating AST :" << std::endl << exception.what();
+        cerr << "Error while creating AST :" << endl << exception.what();
     }
 
     // TODO Send AST to back-end (it already contains a symbol table)

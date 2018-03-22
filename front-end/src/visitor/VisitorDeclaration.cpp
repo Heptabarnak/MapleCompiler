@@ -15,9 +15,6 @@ using std::vector;
 
 
 antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationTabContext *ctx) {
-    unsigned long tabSize;
-    vector<Value *> tabList = nullptr;
-
     const string &name = ctx->ID()->getText();
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
@@ -28,20 +25,36 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
     }
 
     if (ctx->expr() == nullptr) {
-        tabList = visit(ctx->definitionTab());
-        tabSize = tabList.size();
-    } else {
-        // FIXME Ça ne marchera pas, il faut trouver de déterminer la taille directement,
-        // mais être sur que l'expression n'implique pas de variable !
-        tabSize = (unsigned long) visit(ctx->expr());
+        vector<Value *> tabList = visit(ctx->definitionTab());
+
+        return new TabDeclaration(
+                getTypeFromString(ctx->TYPE()->getText()),
+                tabList.size(),
+                name,
+                tabList
+        );
     }
 
+    Expr *expr = visit(ctx->expr()); // FIXME Delete expression
+
+    if (!expr->isSimplifiable()) {
+        // TODO Throw error, not simplifiable expression
+        cerr << "Unable to simplify expression for " << name << endl;
+        return nullptr;
+    }
+
+    const long tabSize = expr->simplify();
+
+    if (tabSize < 1) {
+        // TODO Throw error, size < 1
+        cerr << "Array size must be more than 0, got : " << tabSize << endl;
+        return nullptr;
+    }
 
     return new TabDeclaration(
             getTypeFromString(ctx->TYPE()->getText()),
-            tabSize,
-            name,
-            tabList
+            (unsigned long) tabSize,
+            name
     );
 }
 

@@ -9,11 +9,11 @@ public:
     Expr() = default;
 
 
-    virtual bool virtual isSimplifiable() {
+    virtual bool isSimplifiable() {
         return false;
     }
 
-    virtual long virtual simplify() {
+    virtual long simplify() {
         throw std::runtime_error("Tried to simplify a not simplifiable expression");
     }
 };

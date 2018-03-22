@@ -7,10 +7,10 @@
 class Statement : public Instruction {
 public:
     Statement(Expr *e);
+    ~Statement();
 
 private:
     Expr *expr;
-    ~Statement();
 };
 
 #endif //MAPLECOMPILER_STATEMENT_H

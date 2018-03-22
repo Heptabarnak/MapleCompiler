@@ -19,7 +19,7 @@ private:
     vector<Value *> definition;
 
 public:
-    TabDeclaration(Type type, unsigned long size, const string &name, const vector<Value *> &definition = nullptr);
+    TabDeclaration(Type type, unsigned long size, const string &name, const vector<Value *> &definition = {});
 
 };
 

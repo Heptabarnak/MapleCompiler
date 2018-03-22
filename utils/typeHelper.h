@@ -3,6 +3,7 @@
 
 #include <token/Type.h>
 #include <string>
+#include <stdexcept>
 #include "str2int.h"
 
 Type getTypeFromString(const std::string &str) {
@@ -16,8 +17,7 @@ Type getTypeFromString(const std::string &str) {
         case str2int("void"):
             return Type::VOID;
         default:
-            // TODO throw error;
-            return nullptr;
+            throw std::runtime_error("Unable to parse TYPE");
     }
 }
 

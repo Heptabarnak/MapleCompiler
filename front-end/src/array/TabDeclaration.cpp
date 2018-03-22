@@ -1,7 +1,4 @@
 #include "TabDeclaration.h"
 
-TabDeclaration::TabDeclaration(Type type, const string &name, int size, const list<Value *> &definition) : type(type),
-                                                                                                         name(name),
-                                                                                                         size(size),
-                                                                                                         definition(
-                                                                                                                 definition) {}
+TabDeclaration::TabDeclaration(Type type, unsigned long size, const string &name, const vector<Value *> &definition)
+        : type(type), size(size), name(name), definition(definition) {}

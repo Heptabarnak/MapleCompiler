@@ -1,5 +1,5 @@
 
-// Generated from R:/Documents/_INSA/4/PLD COMP/MapleCompiler/front-end\MapleGrammar.g4 by ANTLR 4.7
+// Generated from N:/MapleCompiler/front-end/src/maple-parser\MapleGrammar.g4 by ANTLR 4.7
 
 #pragma once
 

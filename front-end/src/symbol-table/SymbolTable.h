@@ -3,12 +3,12 @@
 
 #include <unordered_map>
 #include <string>
-#include <list>
+#include <vector>
 #include "Symbol.h"
 
 using std::unordered_map;
 using std::string;
-using std::list;
+using std::vector;
 
 class Symbol;
 
@@ -20,10 +20,12 @@ public:
     SymbolTable* insert(string name, Symbol* symbol);
     Symbol* lookup(string name);
 
+    SymbolTable *getFather();
+
 private:
     unordered_map<string, Symbol*> symbols;
     SymbolTable* father;
-    list<SymbolTable*> children;
+    vector<SymbolTable*> children;
 };
 
 

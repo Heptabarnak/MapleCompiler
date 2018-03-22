@@ -1,5 +1,5 @@
 
-// Generated from R:/Documents/_INSA/4/PLD COMP/MapleCompiler/front-end\MapleGrammar.g4 by ANTLR 4.7
+// Generated from N:/MapleCompiler/front-end/src/maple-parser\MapleGrammar.g4 by ANTLR 4.7
 
 #pragma once
 
@@ -29,12 +29,12 @@ public:
     RuleOpBinaryShift = 7, RuleOpCompareRelational = 8, RuleOpCompareEquality = 9, 
     RuleOpBinaryAnd = 10, RuleOpBinaryXor = 11, RuleOpBinaryOr = 12, RuleOpAnd = 13, 
     RuleOpOr = 14, RuleOpAffectation = 15, RuleExpr = 16, RuleDeclarationVar = 17, 
-    RuleDeclarationTab = 18, RuleDeclaration = 19, RuleDefinitionTab = 20, 
-    RuleAssignment = 21, RuleAccessorTab = 22, RuleAccessorVar = 23, RuleAccessorFunction = 24, 
-    RuleLeftValue = 25, RuleAccessor = 26, RuleIfStatement = 27, RuleElseStatement = 28, 
-    RuleWhileStatement = 29, RuleFunctionDefinition = 30, RuleReturnStatement = 31, 
-    RuleBlockFunction = 32, RuleArgumentList = 33, RuleTypeList = 34, RuleBlock = 35, 
-    RuleStatement = 36, RuleInstruction = 37
+    RuleDeclarationTab = 18, RuleDeclaration = 19, RuleDeclarationVarDefinition = 20, 
+    RuleDefinitionTab = 21, RuleAssignment = 22, RuleAccessorTab = 23, RuleAccessorVar = 24, 
+    RuleAccessorFunction = 25, RuleLeftValue = 26, RuleAccessor = 27, RuleIfStatement = 28, 
+    RuleElseStatement = 29, RuleWhileStatement = 30, RuleFunctionDefinition = 31, 
+    RuleReturnStatement = 32, RuleBlockFunction = 33, RuleArgumentList = 34, 
+    RuleTypeList = 35, RuleBlock = 36, RuleStatement = 37, RuleInstruction = 38
   };
 
   MapleGrammarParser(antlr4::TokenStream *input);
@@ -67,6 +67,7 @@ public:
   class DeclarationVarContext;
   class DeclarationTabContext;
   class DeclarationContext;
+  class DeclarationVarDefinitionContext;
   class DefinitionTabContext;
   class AssignmentContext;
   class AccessorTabContext;
@@ -440,11 +441,9 @@ public:
     DeclarationVarContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *TYPE();
-    std::vector<antlr4::tree::TerminalNode *> ID();
-    antlr4::tree::TerminalNode* ID(size_t i);
+    std::vector<DeclarationVarDefinitionContext *> declarationVarDefinition();
+    DeclarationVarDefinitionContext* declarationVarDefinition(size_t i);
     antlr4::tree::TerminalNode *SC();
-    std::vector<AssignmentContext *> assignment();
-    AssignmentContext* assignment(size_t i);
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
@@ -480,6 +479,19 @@ public:
   };
 
   DeclarationContext* declaration();
+
+  class  DeclarationVarDefinitionContext : public antlr4::ParserRuleContext {
+  public:
+    DeclarationVarDefinitionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *ID();
+    AssignmentContext *assignment();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  DeclarationVarDefinitionContext* declarationVarDefinition();
 
   class  DefinitionTabContext : public antlr4::ParserRuleContext {
   public:

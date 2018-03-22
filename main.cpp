@@ -2,7 +2,6 @@
 #include <antlr4-runtime.h>
 #include <maple-parser/MapleGrammarParser.h>
 #include <maple-parser/MapleGrammarLexer.h>
-#include <maple-parser/MapleGrammarBaseVisitor.h>
 #include <StartVisitor.h>
 
 
@@ -29,15 +28,12 @@ int main(int argc, const char **argv) {
     CommonTokenStream tokens(&lexer);
     MapleGrammarParser parser(&tokens);
 
-    /*
     tree::ParseTree *tree = parser.start();
-
     StartVisitor visitor;
 
-    auto e = visitor.visit(tree);
-*/
+    auto ast = visitor.visit(tree);
 
-    tree::ParseTree *tree = parser.value();
+    // TODO Send AST to back-end (it already contains a symbol table)
 
     return 0;
 }

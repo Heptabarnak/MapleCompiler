@@ -1,20 +1,20 @@
 #ifndef MAPLECOMPILER_ACCESSORFUNCTION_H
 #define MAPLECOMPILER_ACCESSORFUNCTION_H
 
-#include <list>
+#include <vector>
 #include <expression/Expr.h>
 #include "FunctionDefinition.h"
 
-using std::list;
+using std::vector;
 
 class AccessorFunction {
 
 private:
     FunctionDefinition *declaration;
-    list<Expr *> arguments;
+    vector<Expr *> arguments;
 
 public:
-    AccessorFunction(FunctionDefinition *declaration, const list<Expr *> &arguments);
+    AccessorFunction(FunctionDefinition *declaration, const vector<Expr *> &arguments);
 };
 
 

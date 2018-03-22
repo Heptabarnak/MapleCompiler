@@ -3,7 +3,6 @@
 #include "ExprValue.h"
 
 
-ExprValue::ExprValue(std::string i, std::string c)
-        : integer(std::move(i)), character(std::move(c)) {
-
+ExprValue::ExprValue(Value* v)
+        :value(v) {
 }

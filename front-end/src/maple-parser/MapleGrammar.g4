@@ -54,10 +54,11 @@ expr : accessor                         # exprAccessor
     ;
 
 // Déclaration
-declarationVar : TYPE (ID assignment? ',')* ID assignment? SC ;
-declarationTab : TYPE '[' expr ']' ID definitionTab? SC ;
+declarationVar : TYPE (declarationVarDefinition ',')* declarationVarDefinition SC ;
+declarationTab : TYPE '[' (expr ']' ID ) | (']' ID definitionTab) SC;
 declaration : declarationVar
     | declarationTab  ;
+declarationVarDefinition : ID assignment? ;
 
 // Affectation
 definitionTab : '=' '{' ((value ',')* value)? '}' ;

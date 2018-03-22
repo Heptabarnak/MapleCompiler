@@ -2,17 +2,20 @@
 #define MAPLECOMPILER_START_H
 
 
-#include <list>
+#include <vector>
 #include <symbol-table/SymbolTable.h>
 #include <declaration/Declaration.h>
 
-using std::list;
+using std::vector;
 
 class Start {
 
 protected:
-    list<Declaration *> declarations;
+    vector<Declaration *> declarations;
     SymbolTable globalSymbolTable;
+
+public:
+    Start(const vector<Declaration *> &declarations, const SymbolTable &globalSymbolTable);
 
 };
 

@@ -2,22 +2,22 @@
 #define ANTLR4CPP_FETCHER_BLOCKFUNCTION_H
 
 
-#include <list>
+#include <vector>
 #include <declaration/Declaration.h>
 #include <control-structure/Instruction.h>
 #include <symbol-table/SymbolTable.h>
 
-using std::list;
+using std::vector;
 
 class BlockFunction {
 
 private:
-    list<Declaration *> declarations;
-    list<Instruction *> instructions;
+    vector<Declaration *> declarations;
+    vector<Instruction *> instructions;
     SymbolTable *symbolTable;
 
 public:
-    BlockFunction(const list<Declaration *> &declarations, const list<Instruction *> &instructions,
+    BlockFunction(const vector<Declaration *> &declarations, const vector<Instruction *> &instructions,
                   SymbolTable *symbolTable);
 
 };

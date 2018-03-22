@@ -3,11 +3,11 @@
 
 #include <token/Type.h>
 #include <expression/Value.h>
-#include <list>
+#include <vector>
 #include <string>
 
 
-using std::list;
+using std::vector;
 using std::string;
 
 class TabDeclaration {
@@ -15,11 +15,11 @@ class TabDeclaration {
 private:
     Type type;
     string name;
-    int size;
-    list<Value *> definition;
+    unsigned long size;
+    vector<Value *> definition;
 
 public:
-    TabDeclaration(Type type, const string &name, int size, const list<Value *> &definition);
+    TabDeclaration(Type type, unsigned long size, const string &name, const vector<Value *> &definition = nullptr);
 
 };
 

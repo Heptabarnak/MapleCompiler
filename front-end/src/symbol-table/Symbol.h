@@ -8,12 +8,14 @@ class SymbolTable;
 
 class Symbol {
 public:
-    Symbol(SymbolTable* table, bool aff, bool r);
+    Symbol(SymbolTable* table, Declaration * dec, bool aff = false, bool r = false);
     ~Symbol();
-    Declaration declaration;
-    bool affectation;
+
+    Declaration *getDeclaration() const;
+
 private:
     SymbolTable* table;
+    Declaration* declaration;
     bool affectation;
     bool read;
 };

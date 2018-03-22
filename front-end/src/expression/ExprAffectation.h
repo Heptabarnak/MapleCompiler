@@ -5,6 +5,7 @@
 #include <expression/Expr.h>
 #include <expression/ExprAccessor.h>
 #include <string>
+#include <accessor/LeftValue.h>
 
 
 class ExprAffectation : public Expr {
@@ -23,14 +24,14 @@ class ExprAffectation : public Expr {
     };
 
 
-    Accessor *left;
+    LeftValue *left;
     Expr *right;
 
     OP op;
 
 public:
 
-    ExprAffectation(Accessor *left, Expr *right, const std::string &op);
+    ExprAffectation(LeftValue *left, Expr *right, const std::string &op);
 };
 
 

@@ -33,7 +33,7 @@ set(ANTLR4_GENERATED_GRAMMAR_FILES
         front-end/src/maple-parser/MapleGrammarLexer.cpp
         front-end/src/maple-parser/MapleGrammarParser.cpp
         front-end/src/maple-parser/MapleGrammarVisitor.cpp
-        front-end/src/maple-parser/MapleGrammarBaseVisitor.cpp)
+        )
 
 #---------------
 #   FRONT-END
@@ -48,6 +48,7 @@ set(AST_SRC_FILES
         front-end/src/accessor/FunctionAccessor.cpp
         front-end/src/accessor/LeftValueTab.cpp
         front-end/src/accessor/LeftValueVar.cpp
+        front-end/src/accessor/LeftValueAccessor.cpp
         front-end/src/array/TabAccessor.cpp
         front-end/src/array/TabDeclaration.cpp
         front-end/src/axiom/Start.cpp
@@ -87,7 +88,7 @@ set(AST_SRC_FILES
 #   UTILS
 #-----------
 
-set(UTILS_SRC_FILES utils/str2int.h)
+set(UTILS_SRC_FILES utils/str2int.h utils/mapContext2Vector.h utils/typeHelper.h)
 
 #----------------
 #   EXECUTABLE

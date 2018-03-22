@@ -4,17 +4,18 @@
 
 #include <string>
 #include "Expr.h"
+#include "Value.h"
 
 using std::string;
 
 class ExprValue : public Expr {
 private:
-    string integer;
-    string character;
+   Value* value;
+
 
 public:
 
-    ExprValue(string i, string c);
+    ExprValue(Value* v);
 
 };
 

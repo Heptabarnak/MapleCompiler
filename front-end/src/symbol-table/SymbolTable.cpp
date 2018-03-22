@@ -2,15 +2,18 @@
 
 using std::make_pair;
 
-SymbolTable::SymbolTable(SymbolTable* father): father(father) {}
+SymbolTable::SymbolTable(SymbolTable *father) : father(father) {
+    // Add to symbol table's children
+    father->children.push_back(this);
+}
 
 SymbolTable::~SymbolTable() {
-    while(!children.empty()){
+    while (!children.empty()) {
         delete children.back();
         children.pop_back();
     }
 
-    while(!symbols.empty()){
+    while (!symbols.empty()) {
         delete symbols.begin()->second;
         symbols.erase(symbols.begin());
     }
@@ -18,22 +21,24 @@ SymbolTable::~SymbolTable() {
 
 }
 
-SymbolTable* SymbolTable::insert(string name, Symbol *symbol) {
+SymbolTable *SymbolTable::insert(string name, Symbol *symbol) {
     symbols.insert({name, symbol});
     return this;
 }
 
-Symbol* SymbolTable::lookup(string name) {
+Symbol *SymbolTable::lookup(string name) {
     auto it = symbols.find(name);
-    if(it == symbols.end()){
-        if( father != nullptr){
+    if (it == symbols.end()) {
+        if (father != nullptr) {
             return father->lookup(name);
-        }
-        else{
+        } else {
             return nullptr;
         }
-    }
-    else{
+    } else {
         return it->second;
     }
+}
+
+SymbolTable *SymbolTable::getFather() {
+    return father;
 }

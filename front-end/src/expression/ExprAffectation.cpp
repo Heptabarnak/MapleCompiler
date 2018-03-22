@@ -1,7 +1,7 @@
 #include <str2int.h>
 #include "ExprAffectation.h"
 
-ExprAffectation::ExprAffectation(Accessor *left, Expr *right, const std::string &op_str)
+ExprAffectation::ExprAffectation(LeftValue *left, Expr *right, const std::string &op_str)
         : left(left), right(right) {
 
     switch (str2int(op_str.c_str())) {

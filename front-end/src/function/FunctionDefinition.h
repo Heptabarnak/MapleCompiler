@@ -3,24 +3,25 @@
 
 
 #include <string>
-#include <list>
+#include <vector>
 #include <token/Type.h>
+#include <declaration/Declaration.h>
 #include "BlockFunction.h"
 #include "FunctionParam.h"
 
 using std::string;
-using std::list;
+using std::vector;
 
-class FunctionDefinition {
+class FunctionDefinition : public Declaration {
 
 private:
     BlockFunction *block;
     Type type;
-    list<FunctionParam *> params;
+    vector<FunctionParam *> params;
     string name;
 
 public:
-    FunctionDefinition(BlockFunction *block, Type type, const list<FunctionParam *> &params, const string &name);
+    FunctionDefinition(BlockFunction *block, Type type, const vector<FunctionParam *> &params, const string &name);
 };
 
 

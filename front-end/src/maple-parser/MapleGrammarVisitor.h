@@ -1,5 +1,5 @@
 
-// Generated from R:/Documents/_INSA/4/PLD COMP/MapleCompiler/front-end\MapleGrammar.g4 by ANTLR 4.7
+// Generated from N:/MapleCompiler/front-end/src/maple-parser\MapleGrammar.g4 by ANTLR 4.7
 
 #pragma once
 
@@ -88,6 +88,8 @@ public:
     virtual antlrcpp::Any visitDeclarationTab(MapleGrammarParser::DeclarationTabContext *context) = 0;
 
     virtual antlrcpp::Any visitDeclaration(MapleGrammarParser::DeclarationContext *context) = 0;
+
+    virtual antlrcpp::Any visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDefinitionContext *context) = 0;
 
     virtual antlrcpp::Any visitDefinitionTab(MapleGrammarParser::DefinitionTabContext *context) = 0;
 

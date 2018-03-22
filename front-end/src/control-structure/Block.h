@@ -2,18 +2,18 @@
 #define MAPLECOMPILER_BLOCK_H
 
 
-#include <list>
+#include <vector>
 #include "Instruction.h"
 
-using std::list;
+using std::vector;
 
 class Block : public Instruction {
 
 private:
-    list <Instruction *> instructions;
+    vector <Instruction *> instructions;
 
 public:
-    Block(const list<Instruction *> &instructions);
+    Block(const vector<Instruction *> &instructions);
     ~Block();
 };
 

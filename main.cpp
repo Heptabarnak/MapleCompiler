@@ -42,7 +42,7 @@ int main(int argc, const char **argv) {
     StartVisitor visitor;
 
     try {
-        auto ast = visitor.visit(tree);
+        Start *ast = visitor.visit(tree);
         cout << "AST Generated !" << endl;
     } catch (std::exception &exception) {
         cerr << "Error while creating AST :" << endl << exception.what();

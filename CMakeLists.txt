@@ -40,6 +40,7 @@ set(ANTLR4_GENERATED_GRAMMAR_FILES
 #---------------
 
 set(AST_SRC_FILES
+        front-end/src/declaration/Declaration.h
         front-end/src/expression/Expr.h
         front-end/src/expression/operation/binary/ExprBinaryOperation.h
         front-end/src/expression/operation/ExprOperation.h
@@ -94,7 +95,7 @@ set(AST_SRC_FILES
 #   UTILS
 #-----------
 
-set(UTILS_SRC_FILES utils/str2int.h utils/mapContext2Vector.h utils/typeHelper.h)
+set(UTILS_SRC_FILES utils/str2int.h utils/mapContext2Vector.h utils/typeHelper.cpp)
 
 #----------------
 #   EXECUTABLE

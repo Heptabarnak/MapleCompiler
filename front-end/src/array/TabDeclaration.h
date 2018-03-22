@@ -5,12 +5,13 @@
 #include <expression/Value.h>
 #include <vector>
 #include <string>
+#include <declaration/Declaration.h>
 
 
 using std::vector;
 using std::string;
 
-class TabDeclaration {
+class TabDeclaration : public Declaration {
 
 private:
     Type type;

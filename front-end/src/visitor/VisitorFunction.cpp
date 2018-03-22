@@ -15,12 +15,6 @@ antlrcpp::Any StartVisitor::visitArgumentList(MapleGrammarParser::ArgumentListCo
 
 
 antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::FunctionDefinitionContext *ctx) {
-    vector<FunctionParam *> fParams;
-
-    if (ctx->typeList() != nullptr) {
-        fParams = (vector<FunctionParam *>) visit(ctx->typeList());
-    }
-
     const string &name = ctx->ID()->getText();
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
@@ -30,12 +24,23 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
         return nullptr;
     }
 
-    FunctionDefinition *functionDefinition = new FunctionDefinition(
-            (BlockFunction *) visit(ctx->blockFunction()),
-            getTypeFromString(ctx->TYPE()->getText()),
-            fParams,
-            name
-    );
+    FunctionDefinition *functionDefinition;
+
+    if (ctx->typeList() != nullptr) {
+        functionDefinition = new FunctionDefinition(
+                (BlockFunction *) visit(ctx->blockFunction()),
+                getTypeFromString(ctx->TYPE()->getText()),
+                visit(ctx->typeList()),
+                name
+        );
+    } else {
+        functionDefinition = new FunctionDefinition(
+                (BlockFunction *) visit(ctx->blockFunction()),
+                getTypeFromString(ctx->TYPE()->getText()),
+                {},
+                name
+        );
+    }
 
     currentSymbolTable->insert(name, new Symbol(currentSymbolTable, functionDefinition));
 

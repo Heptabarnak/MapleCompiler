@@ -4,10 +4,11 @@
 #include <string>
 #include <expression/Expr.h>
 #include <token/Type.h>
+#include <declaration/Declaration.h>
 
 using std::string;
 
-class VarDeclaration {
+class VarDeclaration : public Declaration {
 
 private:
     string name;

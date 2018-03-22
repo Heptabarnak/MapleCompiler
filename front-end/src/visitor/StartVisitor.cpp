@@ -14,9 +14,9 @@ antlrcpp::Any StartVisitor::visitStart(MapleGrammarParser::StartContext *ctx) {
     vector<Declaration *> declarations;
 
     for (auto &&item : ctx->program()) {
-        auto dList = (vector<Declaration *>) visit(item);
+        auto dList = (vector<Declaration *>*) visit(item);
 
-        declarations.insert(declarations.end(), dList.begin(), dList.end());
+        declarations.insert(declarations.end(), dList->begin(), dList->end());
     }
 
     return start = new Start(declarations, currentSymbolTable);

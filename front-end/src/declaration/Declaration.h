@@ -3,6 +3,8 @@
 
 class Declaration {
 
+public:
+    virtual ~Declaration() = default;
 };
 
 

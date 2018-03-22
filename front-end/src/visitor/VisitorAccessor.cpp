@@ -20,11 +20,11 @@ antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabCont
     const string &name = ctx->ID()->getText();
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
-        if (auto symbolTab = dynamic_cast<TabDeclaration *>(symbol)) {
+        if (auto symbolTab = dynamic_cast<TabDeclaration*>(symbol->getDeclaration())) {
 
             return new TabAccessor(
                     symbolTab,
-                    (Expr *) visit(ctx->expr())
+                    visit(ctx->expr())
             );
         }
 
@@ -42,7 +42,7 @@ antlrcpp::Any StartVisitor::visitAccessorVar(MapleGrammarParser::AccessorVarCont
     const string &name = ctx->ID()->getText();
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
-        if (auto symbolVar = dynamic_cast<VarDeclaration *>(symbol)) {
+        if (auto symbolVar = dynamic_cast<VarDeclaration *>(symbol->getDeclaration())) {
 
             return new VarAccessor(symbolVar);
         }
@@ -60,11 +60,11 @@ antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFu
     const string &name = ctx->ID()->getText();
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
-        if (auto symbolFun = dynamic_cast<FunctionDefinition *>(symbol)) {
+        if (auto symbolFun = dynamic_cast<FunctionDefinition *>(symbol->getDeclaration())) {
 
             return new AccessorFunction(
                     symbolFun,
-                    (vector<Expr *>) visit(ctx->argumentList())
+                    visit(ctx->argumentList())
             );
         }
 

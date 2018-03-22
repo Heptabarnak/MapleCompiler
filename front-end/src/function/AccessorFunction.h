@@ -14,7 +14,7 @@ private:
     vector<Expr *> arguments;
 
 public:
-    AccessorFunction(FunctionDefinition *declaration, const vector<Expr *> &arguments);
+    AccessorFunction(FunctionDefinition *declaration, vector<Expr *> const &arguments);
 };
 
 

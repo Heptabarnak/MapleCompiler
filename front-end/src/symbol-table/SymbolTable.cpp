@@ -4,21 +4,22 @@ using std::make_pair;
 
 SymbolTable::SymbolTable(SymbolTable *father) : father(father) {
     // Add to symbol table's children
-    father->children.push_back(this);
+
+    if (father != nullptr) {
+        father->children.push_back(this);
+    }
 }
 
 SymbolTable::~SymbolTable() {
-    while (!children.empty()) {
-        delete children.back();
-        children.pop_back();
+    for (auto &child : children) {
+        delete child;
     }
+    children.clear();
 
-    while (!symbols.empty()) {
-        delete symbols.begin()->second;
-        symbols.erase(symbols.begin());
+    for (auto &symbol : symbols) {
+        delete symbol.second;
+        symbol.second = nullptr;
     }
-
-
 }
 
 SymbolTable *SymbolTable::insert(string name, Symbol *symbol) {
@@ -31,12 +32,11 @@ Symbol *SymbolTable::lookup(string name) {
     if (it == symbols.end()) {
         if (father != nullptr) {
             return father->lookup(name);
-        } else {
-            return nullptr;
         }
-    } else {
-        return it->second;
+        return nullptr;
+
     }
+    return it->second;
 }
 
 SymbolTable *SymbolTable::getFather() {

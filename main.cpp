@@ -3,9 +3,15 @@
 #include <maple-parser/MapleGrammarParser.h>
 #include <maple-parser/MapleGrammarLexer.h>
 #include <visitor/StartVisitor.h>
+#include <cstring>
+#include <exception>
+#include <typeinfo>
+#include <stdexcept>
 
 
 using namespace antlr4;
+
+using std::cerr;
 
 int main(int argc, const char **argv) {
 
@@ -14,12 +20,13 @@ int main(int argc, const char **argv) {
         return 1;
     }
 
-
     std::fstream inputFile;
     inputFile.open(argv[1], std::fstream::in);
 
+    std::cout << "Opening file: " << argv[1] << std::endl;
+
     if (!inputFile) {
-        std::cerr << "Error opening input file";
+        std::cerr << "Error opening input file: " << strerror(errno);
         return 1;
     }
 
@@ -32,7 +39,11 @@ int main(int argc, const char **argv) {
     tree::ParseTree *tree = parser.start();
     StartVisitor visitor;
 
-    auto ast = visitor.visit(tree);
+    try {
+        auto ast = visitor.visit(tree);
+    } catch (std::exception &exception) {
+        cerr << "Error while creating AST :" << std::endl << exception.what();
+    }
 
     // TODO Send AST to back-end (it already contains a symbol table)
 

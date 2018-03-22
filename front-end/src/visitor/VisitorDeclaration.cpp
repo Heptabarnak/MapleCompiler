@@ -74,26 +74,42 @@ antlrcpp::Any StartVisitor::visitDefinitionTab(MapleGrammarParser::DefinitionTab
 
 antlrcpp::Any
 StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDefinitionContext *ctx) {
-    return antlrcpp::Any();
+    Type type = getTypeFromString(
+            ((MapleGrammarParser::DeclarationVarContext *) ctx->parent)->TYPE()->getText()
+    );
+
+    const string &name = ctx->ID()->getText();
+
+    if (auto symbol = currentSymbolTable->lookup(name)) {
+        // TODO Throw error, duplicate definition
+        cerr << "Duplicate declaration of " << name << endl;
+        cerr << "Found : " << symbol->getDeclaration() << endl;
+        return nullptr;
+    }
+
+    if (ctx->assignment() == nullptr) {
+        return new VarDeclaration(name, type);
+    }
+
+    return new VarDeclaration(
+            name,
+            type,
+            visit(ctx->assignment())
+    );
 }
 
 
 antlrcpp::Any StartVisitor::visitDeclarationVar(MapleGrammarParser::DeclarationVarContext *ctx) {
-    /*vector<VarDeclaration*> declarationList;
-    if(ctx->assignment().empty()){
-        for(std::size_t i = 0; i != ctx->ID().size(); i++) {
-            declarationList.push_back(new VarDeclaration(ctx->ID(i)->getText(),  getTypeFromString(ctx->TYPE()->getText()), nullptr));
-        }
-    } else {
-        for(std::size_t i = 0; i != ctx->ID().size(); i++) {
-            //à modifier surement plus tard
-            if()declarationList.push_back(new VarDeclaration(ctx->ID(i)->getText(),  getTypeFromString(ctx->TYPE()->getText()),(Expr*)visit((ctx->assignment(i))));
-        }
+    vector<VarDeclaration *> declarationList;
+
+    for (auto &&declaration : ctx->declarationVarDefinition()) {
+        declarationList.push_back((VarDeclaration *&&) visit(declaration));
     }
-    return declarationList;*/
+
+    return declarationList;
 }
 
 
 antlrcpp::Any StartVisitor::visitAssignment(MapleGrammarParser::AssignmentContext *ctx) {
-    return (Expr *) visit(ctx->expr());
+    return visit(ctx->expr());
 }

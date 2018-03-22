@@ -1,12 +1,12 @@
 #ifndef MAPLECOMPILER_SYMBOLTABLE_H
 #define MAPLECOMPILER_SYMBOLTABLE_H
 
-#include <unordered_map>
+#include <map>
 #include <string>
 #include <vector>
 #include "Symbol.h"
 
-using std::unordered_map;
+using std::map;
 using std::string;
 using std::vector;
 
@@ -15,17 +15,20 @@ class Symbol;
 
 class SymbolTable {
 public:
-    SymbolTable(SymbolTable* father = nullptr);
+    explicit SymbolTable(SymbolTable *father = nullptr);
+
     ~SymbolTable();
-    SymbolTable* insert(string name, Symbol* symbol);
-    Symbol* lookup(string name);
+
+    SymbolTable *insert(string name, Symbol *symbol);
+
+    Symbol *lookup(string name);
 
     SymbolTable *getFather();
 
 private:
-    unordered_map<string, Symbol*> symbols;
-    SymbolTable* father;
-    vector<SymbolTable*> children;
+    map<string, Symbol *> symbols;
+    SymbolTable *father;
+    vector<SymbolTable *> children;
 };
 
 

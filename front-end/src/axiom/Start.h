@@ -12,10 +12,10 @@ class Start {
 
 protected:
     vector<Declaration *> declarations;
-    SymbolTable globalSymbolTable;
+    SymbolTable *globalSymbolTable;
 
 public:
-    Start(const vector<Declaration *> &declarations, const SymbolTable &globalSymbolTable);
+    Start(const vector<Declaration *> &declarations, SymbolTable *globalSymbolTable);
 
 };
 

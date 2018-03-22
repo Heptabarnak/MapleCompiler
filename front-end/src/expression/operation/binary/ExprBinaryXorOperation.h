@@ -1,5 +1,5 @@
-#ifndef ANTLR4CPP_FETCHER_EXPRBINARYXOROPERATION_H
-#define ANTLR4CPP_FETCHER_EXPRBINARYXOROPERATION_H
+#ifndef MAPLECOMPILER_EXPRBINARYXOROPERATION_H
+#define MAPLECOMPILER_EXPRBINARYXOROPERATION_H
 
 #include "ExprBinaryOperation.h"
 
@@ -7,6 +7,8 @@ class ExprBinaryXorOperation : public ExprBinaryOperation {
 
 public:
     ExprBinaryXorOperation(Expr *left, Expr *right);
+
+    long simplify() override;
 };
 
-#endif //ANTLR4CPP_FETCHER_EXPRBINARYXOROPERATION_H
+#endif //MAPLECOMPILER_EXPRBINARYXOROPERATION_H

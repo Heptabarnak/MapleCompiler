@@ -1,5 +1,5 @@
-#ifndef ANTLR4CPP_FETCHER_TABACCESSOR_H
-#define ANTLR4CPP_FETCHER_TABACCESSOR_H
+#ifndef MAPLECOMPILER_TABACCESSOR_H
+#define MAPLECOMPILER_TABACCESSOR_H
 
 #include <expression/Expr.h>
 #include "TabDeclaration.h"
@@ -16,4 +16,4 @@ public:
 };
 
 
-#endif //ANTLR4CPP_FETCHER_TABACCESSOR_H
+#endif //MAPLECOMPILER_TABACCESSOR_H

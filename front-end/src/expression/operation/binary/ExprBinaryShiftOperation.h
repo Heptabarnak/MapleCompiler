@@ -1,5 +1,5 @@
-#ifndef ANTLR4CPP_FETCHER_EXPRBINARYSHIFTOPERATION_H
-#define ANTLR4CPP_FETCHER_EXPRBINARYSHIFTOPERATION_H
+#ifndef MAPLECOMPILER_EXPRBINARYSHIFTOPERATION_H
+#define MAPLECOMPILER_EXPRBINARYSHIFTOPERATION_H
 
 #include <string>
 #include "ExprBinaryOperation.h"
@@ -16,7 +16,9 @@ private:
     BinaryShiftOperation operation;
 public:
     ExprBinaryShiftOperation(Expr *left, Expr *right, const string &op);
+
+    long simplify() override;
 };
 
 
-#endif //ANTLR4CPP_FETCHER_EXPRBINARYSHIFTOPERATION_H
+#endif //MAPLECOMPILER_EXPRBINARYSHIFTOPERATION_H

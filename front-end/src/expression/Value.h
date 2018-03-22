@@ -7,11 +7,12 @@
 class Value {
 private:
     Type type;
-    int value;
+    long value;
 
 public:
-    Value(Type type, int value);
+    Value(Type type, long value);
 
+    long getValue();
 };
 
 

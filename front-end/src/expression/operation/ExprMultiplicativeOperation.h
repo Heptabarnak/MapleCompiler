@@ -1,5 +1,5 @@
-#ifndef ANTLR4CPP_FETCHER_EXPRMULTIPLICATIVEOPERATION_H
-#define ANTLR4CPP_FETCHER_EXPRMULTIPLICATIVEOPERATION_H
+#ifndef MAPLECOMPILER_EXPRMULTIPLICATIVEOPERATION_H
+#define MAPLECOMPILER_EXPRMULTIPLICATIVEOPERATION_H
 
 #include <string>
 #include "ExprOperation.h"
@@ -18,7 +18,9 @@ private:
 
 public:
     ExprMultiplicativeOperation(Expr *left, Expr *right, const string &op);
+
+    long simplify() override;
 };
 
 
-#endif //ANTLR4CPP_FETCHER_EXPRMULTIPLICATIVEOPERATION_H
+#endif //MAPLECOMPILER_EXPRMULTIPLICATIVEOPERATION_H

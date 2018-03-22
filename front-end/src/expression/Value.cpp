@@ -1,5 +1,7 @@
-
-
 #include "Value.h"
 
-Value::Value(Type type, int value) : type(type), value(value) {}
+Value::Value(Type type, long value) : type(type), value(value) {}
+
+long Value::getValue() {
+    return value;
+}

@@ -1,5 +1,5 @@
-#ifndef ANTLR4CPP_FETCHER_SYMBOL_H
-#define ANTLR4CPP_FETCHER_SYMBOL_H
+#ifndef MAPLECOMPILER_SYMBOL_H
+#define MAPLECOMPILER_SYMBOL_H
 
 #include "SymbolTable.h"
 #include "declaration/Declaration.h"
@@ -21,4 +21,4 @@ private:
 };
 
 
-#endif //ANTLR4CPP_FETCHER_SYMBOL_H
+#endif //MAPLECOMPILER_SYMBOL_H

@@ -1,5 +1,5 @@
-#ifndef ANTLR4CPP_FETCHER_EXPRPARENTHESIS_H
-#define ANTLR4CPP_FETCHER_EXPRPARENTHESIS_H
+#ifndef MAPLECOMPILER_EXPRPARENTHESIS_H
+#define MAPLECOMPILER_EXPRPARENTHESIS_H
 
 
 #include "Expr.h"
@@ -11,7 +11,11 @@ private:
 
 public:
     ExprParenthesis(Expr *expr);
+
+    bool isSimplifiable() override;
+
+    long simplify() override;
 };
 
 
-#endif //ANTLR4CPP_FETCHER_EXPRPARENTHESIS_H
+#endif //MAPLECOMPILER_EXPRPARENTHESIS_H

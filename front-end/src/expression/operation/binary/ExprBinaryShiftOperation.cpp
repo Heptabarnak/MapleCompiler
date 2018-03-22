@@ -16,3 +16,12 @@ ExprBinaryShiftOperation::ExprBinaryShiftOperation(Expr *left, Expr *right, cons
             break;
     }
 }
+
+long ExprBinaryShiftOperation::simplify() {
+    switch (operation) {
+        case RIGHT:
+            return leftExpr->simplify() >> rightExpr->simplify();
+        case LEFT:
+            return leftExpr->simplify() << rightExpr->simplify();
+    }
+}

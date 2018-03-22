@@ -1,5 +1,5 @@
-#ifndef ANTLR4CPP_FETCHER_ACCESSOR_H
-#define ANTLR4CPP_FETCHER_ACCESSOR_H
+#ifndef MAPLECOMPILER_ACCESSOR_H
+#define MAPLECOMPILER_ACCESSOR_H
 
 
 #include <accessor/Accessor.h>
@@ -14,4 +14,4 @@ public:
 };
 
 
-#endif //ANTLR4CPP_FETCHER_ACCESSOR_H
+#endif //MAPLECOMPILER_ACCESSOR_H

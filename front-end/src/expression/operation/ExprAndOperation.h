@@ -1,5 +1,5 @@
-#ifndef ANTLR4CPP_FETCHER_EXPRANDOPERATION_H
-#define ANTLR4CPP_FETCHER_EXPRANDOPERATION_H
+#ifndef MAPLECOMPILER_EXPRANDOPERATION_H
+#define MAPLECOMPILER_EXPRANDOPERATION_H
 
 
 #include "ExprOperation.h"
@@ -8,7 +8,9 @@ class ExprAndOperation : public ExprOperation {
 
 public:
     ExprAndOperation(Expr * left, Expr * right);
+
+    long simplify() override;
 };
 
 
-#endif //ANTLR4CPP_FETCHER_EXPRANDOPERATION_H
+#endif //MAPLECOMPILER_EXPRANDOPERATION_H

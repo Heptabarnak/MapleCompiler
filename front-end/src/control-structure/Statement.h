@@ -1,5 +1,5 @@
-#ifndef ANTLR4CPP_FETCHER_STATEMENT_H
-#define ANTLR4CPP_FETCHER_STATEMENT_H
+#ifndef MAPLECOMPILER_STATEMENT_H
+#define MAPLECOMPILER_STATEMENT_H
 
 #include <expression/Expr.h>
 #include "Instruction.h"
@@ -13,4 +13,4 @@ private:
     ~Statement();
 };
 
-#endif //ANTLR4CPP_FETCHER_STATEMENT_H
+#endif //MAPLECOMPILER_STATEMENT_H

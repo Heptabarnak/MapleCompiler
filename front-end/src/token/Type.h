@@ -1,5 +1,5 @@
-#ifndef ANTLR4CPP_FETCHER_TYPE_H
-#define ANTLR4CPP_FETCHER_TYPE_H
+#ifndef MAPLECOMPILER_TYPE_H
+#define MAPLECOMPILER_TYPE_H
 
 
 enum Type {
@@ -10,4 +10,4 @@ enum Type {
 };
 
 
-#endif //ANTLR4CPP_FETCHER_TYPE_H
+#endif //MAPLECOMPILER_TYPE_H

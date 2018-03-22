@@ -16,3 +16,12 @@ ExprEqualityComparisonOperation::ExprEqualityComparisonOperation(Expr *left, Exp
             break;
     }
 }
+
+long ExprEqualityComparisonOperation::simplify() {
+    switch (operation) {
+        case EQUAL:
+            return leftExpr->simplify() == rightExpr->simplify();
+        case NOT_EQUAL:
+            return leftExpr->simplify() != rightExpr->simplify();
+    }
+}

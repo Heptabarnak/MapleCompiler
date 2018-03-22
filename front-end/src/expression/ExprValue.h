@@ -1,5 +1,5 @@
-#ifndef ANTLR4CPP_FETCHER_EXPRVALUE_H
-#define ANTLR4CPP_FETCHER_EXPRVALUE_H
+#ifndef MAPLECOMPILER_EXPRVALUE_H
+#define MAPLECOMPILER_EXPRVALUE_H
 
 
 #include <string>
@@ -15,6 +15,10 @@ private:
 public:
     explicit ExprValue(Value *v);
 
+    bool isSimplifiable() override;
+
+    long simplify() override;
+
 };
 
-#endif //ANTLR4CPP_FETCHER_EXPRVALUE_H
+#endif //MAPLECOMPILER_EXPRVALUE_H

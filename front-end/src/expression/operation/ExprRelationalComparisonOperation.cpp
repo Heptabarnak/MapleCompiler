@@ -22,3 +22,17 @@ ExprRelationalComparisonOperation::ExprRelationalComparisonOperation(Expr *left,
             break;
     }
 }
+
+long ExprRelationalComparisonOperation::simplify() {
+
+    switch (operation) {
+        case LESS:
+            return leftExpr->simplify() < rightExpr->simplify();
+        case LESS_EQUAL:
+            return leftExpr->simplify() <= rightExpr->simplify();
+        case MORE:
+            return leftExpr->simplify() > rightExpr->simplify();
+        case MORE_EQUAL:
+            return leftExpr->simplify() >= rightExpr->simplify();
+    }
+}

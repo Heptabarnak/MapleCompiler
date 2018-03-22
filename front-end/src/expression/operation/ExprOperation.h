@@ -1,5 +1,5 @@
-#ifndef ANTLR4CPP_FETCHER_EXPROPERATION_H
-#define ANTLR4CPP_FETCHER_EXPROPERATION_H
+#ifndef MAPLECOMPILER_EXPROPERATION_H
+#define MAPLECOMPILER_EXPROPERATION_H
 
 #include <expression/Expr.h>
 
@@ -11,7 +11,12 @@ protected:
 protected:
     ExprOperation(Expr *left, Expr *right) : leftExpr(left), rightExpr(right) {}
 
+public:
+    bool isSimplifiable() override {
+        return leftExpr->isSimplifiable() && rightExpr->isSimplifiable();
+    }
+
 };
 
 
-#endif //ANTLR4CPP_FETCHER_EXPROPERATION_H
+#endif //MAPLECOMPILER_EXPROPERATION_H

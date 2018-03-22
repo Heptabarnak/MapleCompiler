@@ -19,3 +19,15 @@ ExprMultiplicativeOperation::ExprMultiplicativeOperation(Expr *left, Expr *right
             break;
     }
 }
+
+long ExprMultiplicativeOperation::simplify() {
+    switch (operation) {
+        case MULT:
+            return leftExpr->simplify() * rightExpr->simplify();
+        case DIV:
+            // FIXME Check 0 division
+            return leftExpr->simplify() / rightExpr->simplify();
+        case MOD:
+            return leftExpr->simplify() % rightExpr->simplify();
+    }
+}

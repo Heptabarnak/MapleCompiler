@@ -100,7 +100,7 @@ StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDe
     auto declaration = new VarDeclaration(
             name,
             type,
-            visit(ctx->assignment())
+            visit(ctx->assignment()) // FIXME Simplify this expression if needed
     );
     currentSymbolTable->insert(name, new Symbol(currentSymbolTable, declaration, true));
     return declaration;

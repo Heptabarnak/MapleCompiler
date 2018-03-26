@@ -7,9 +7,11 @@
 class VarAccessor {
 
 private:
-    VarDeclaration *Declaration;
+    VarDeclaration *declaration;
+
 public:
-    VarAccessor(VarDeclaration *Declaration);
+    VarAccessor(VarDeclaration *dec);
+    std::string getName ();
 };
 
 

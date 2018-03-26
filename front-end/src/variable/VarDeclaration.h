@@ -14,6 +14,8 @@ private:
     string name;
     Type type;
     Expr *assignment;
+public:
+    const string &getName() const;
 
 public:
     VarDeclaration(const string &name, Type type, Expr *assignment = nullptr);

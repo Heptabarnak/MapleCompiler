@@ -3,6 +3,9 @@
 
 
 class Accessor {
+public:
+
+    virtual std::string getSymbolName ()=0;
 
 };
 

@@ -12,6 +12,7 @@ private:
 
 public:
     TabAccessor(TabDeclaration *declaration, Expr *pos);
+    std::string getName ();
 
 };
 

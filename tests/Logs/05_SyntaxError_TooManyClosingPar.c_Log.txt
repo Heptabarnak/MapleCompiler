@@ -1,4 +1,2 @@
-Opening file: SyntaxError/05_SyntaxError_TooManyClosingPar.c
 line 2:13 extraneous input ')' expecting ';'
-AST Generated !
-Warning : main was declared but not read.
+Error while parsing

@@ -1,4 +1,2 @@
-Opening file: SyntaxError/04_SyntaxError_MissingPar.c
 line 2:14 missing ')' at ';'
-AST Generated !
-Warning : main was declared but not read.
+Error while parsing

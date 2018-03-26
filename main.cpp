@@ -39,9 +39,14 @@ int main(int argc, const char **argv) {
     MapleGrammarParser parser(&tokens);
 
     tree::ParseTree *tree = parser.start();
-    StartVisitor visitor;
 
-    Start * ast;
+    if (parser.getNumberOfSyntaxErrors() != 0) {
+        cerr << "Error while parsing" << endl;
+        return 1;
+    }
+
+    StartVisitor visitor;
+    Start *ast;
 
     try {
         ast = visitor.visit(tree);
@@ -49,6 +54,7 @@ int main(int argc, const char **argv) {
         ast->getGlobalSymbolTable()->staticAnalysis();
     } catch (std::exception &exception) {
         cerr << "Error while creating AST :" << endl << exception.what();
+        return 1;
     }
 
     // TODO Send AST to back-end (it already contains a symbol table)

@@ -1,4 +1,2 @@
-Opening file: SyntaxError/02_SyntaxError_TwoOperands.c
 line 2:5 extraneous input '2' expecting ';'
-AST Generated !
-Warning : main was declared but not read.
+Error while parsing

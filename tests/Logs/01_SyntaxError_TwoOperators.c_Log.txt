@@ -1,3 +1,0 @@
-Opening file: SyntaxError/01_SyntaxError_TwoOperators.c
-AST Generated !
-Warning : main was declared but not read.

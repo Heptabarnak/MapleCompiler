@@ -13,6 +13,8 @@ private:
 public:
     FunctionAccessor(AccessorFunction *accessorFunction);
 
+    string getSymbolName() override;
+
 };
 
 

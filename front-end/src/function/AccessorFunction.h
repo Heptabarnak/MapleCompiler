@@ -15,6 +15,7 @@ private:
 
 public:
     AccessorFunction(FunctionDefinition *declaration, vector<Expr *> const &arguments);
+    string getSymbolName();
 };
 
 

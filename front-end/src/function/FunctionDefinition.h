@@ -22,6 +22,7 @@ private:
 
 public:
     FunctionDefinition(BlockFunction *block, Type type, const vector<FunctionParam *> &params, const string &name);
+    string getSymbolName();
 };
 
 

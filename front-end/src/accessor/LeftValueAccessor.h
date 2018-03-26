@@ -11,6 +11,8 @@ private:
 
 public:
     LeftValueAccessor(LeftValue *leftValue);
+
+    std::string getSymbolName() override;
 };
 
 

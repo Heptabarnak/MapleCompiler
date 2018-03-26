@@ -27,8 +27,6 @@ set_target_properties(antlr4-runtime PROPERTIES
 #   MAPLE PARSER
 #--------------------
 
-include_directories(${FRONT_END_FOLDER}/src)
-
 set(ANTLR4_GENERATED_GRAMMAR_FILES
         front-end/src/maple-parser/MapleGrammarLexer.cpp
         front-end/src/maple-parser/MapleGrammarParser.cpp
@@ -38,6 +36,8 @@ set(ANTLR4_GENERATED_GRAMMAR_FILES
 #---------------
 #   FRONT-END
 #---------------
+
+include_directories(${FRONT_END_FOLDER}/src)
 
 set(AST_SRC_FILES
         front-end/src/declaration/Declaration.h
@@ -90,7 +90,30 @@ set(AST_SRC_FILES
         front-end/src/visitor/VisitorFunction.cpp
         front-end/src/visitor/VisitorInstruction.cpp
         front-end/src/visitor/VisitorOp.cpp
-       )
+        )
+
+#---------------
+#   BACK-END
+#---------------
+
+include_directories(${BACK_END_FOLDER}/src)
+
+set(BACK_SRC_FILES
+        back-end/src/ir/IRInstr.cpp
+        back-end/src/ir/BasicBlock.cpp
+        back-end/src/ir/CFG.cpp
+        back-end/src/ir/instructions/AddInstr.cpp
+        back-end/src/ir/instructions/SubInstr.cpp
+        back-end/src/ir/instructions/MulInstr.cpp
+        back-end/src/ir/instructions/RMemInstr.cpp
+        back-end/src/ir/instructions/WMemInstr.cpp
+        back-end/src/ir/instructions/CallInstr.cpp
+        back-end/src/ir/instructions/CmpEqInstr.cpp
+        back-end/src/ir/instructions/CmpLtInstr.cpp
+        back-end/src/ir/instructions/CmpLeInstr.cpp
+        back-end/src/ir/instructions/LDConstInstr.cpp
+        )
+
 #-----------
 #   UTILS
 #-----------
@@ -107,5 +130,6 @@ add_executable(MapleCompiler
         ${UTILS_SRC_FILES}
         ${ANTLR4_GENERATED_GRAMMAR_FILES}
         ${AST_SRC_FILES}
+        ${BACK_SRC_FILES}
         )
 target_link_libraries(MapleCompiler antlr4-runtime)

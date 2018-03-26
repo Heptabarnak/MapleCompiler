@@ -1,0 +1,10 @@
+#ifndef MAPLECOMPILER_WMEMINSTR_H
+#define MAPLECOMPILER_WMEMINSTR_H
+
+
+class WMemInstr {
+
+};
+
+
+#endif //MAPLECOMPILER_WMEMINSTR_H

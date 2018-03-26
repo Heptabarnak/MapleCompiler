@@ -39,6 +39,20 @@ Symbol *SymbolTable::lookup(string name) {
     return it->second;
 }
 
+Symbol *SymbolTable::lookdown(string name) {
+    auto it = symbols.find(name);
+    if (it == symbols.end()) {
+        for (auto &&child : children) {
+            Symbol * res = child->lookdown(name);
+            if(res!= nullptr){
+                return res;
+            }
+        }
+        return nullptr;
+    }
+    return it->second;
+}
+
 SymbolTable *SymbolTable::getFather() {
     return father;
 }

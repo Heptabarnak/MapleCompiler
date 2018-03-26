@@ -23,6 +23,8 @@ public:
 
     Symbol *lookup(string name);
 
+    Symbol * lookdown(string name);
+
     SymbolTable *getFather();
 
 private:

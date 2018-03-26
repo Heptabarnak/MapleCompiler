@@ -41,9 +41,12 @@ int main(int argc, const char **argv) {
     tree::ParseTree *tree = parser.start();
     StartVisitor visitor;
 
+    Start * ast;
+
     try {
-        Start *ast = visitor.visit(tree);
+        ast = visitor.visit(tree);
         cout << "AST Generated !" << endl;
+        ast->getGlobalSymbolTable()->staticAnalysis();
     } catch (std::exception &exception) {
         cerr << "Error while creating AST :" << endl << exception.what();
     }

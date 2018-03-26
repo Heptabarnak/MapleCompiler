@@ -18,3 +18,11 @@ void Symbol::doRead() {
 void Symbol::doAffectation() {
     affectation = true;
 }
+
+bool Symbol::getAffectation() {
+    return affectation;
+}
+
+bool Symbol::getRead() {
+    return read;
+}

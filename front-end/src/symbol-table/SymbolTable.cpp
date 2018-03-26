@@ -1,6 +1,8 @@
 #include "SymbolTable.h"
+#include <iostream>
 
 using std::make_pair;
+using namespace std;
 
 SymbolTable::SymbolTable(SymbolTable *father) : father(father) {
     // Add to symbol table's children
@@ -39,19 +41,19 @@ Symbol *SymbolTable::lookup(string name) {
     return it->second;
 }
 
-Symbol *SymbolTable::lookdown(string name) {
-    auto it = symbols.find(name);
-    if (it == symbols.end()) {
-        for (auto &&child : children) {
-            Symbol * res = child->lookdown(name);
-            if(res!= nullptr){
-                return res;
+void SymbolTable::staticAnalysis() {
+    for (auto &&symbol : symbols) {
+        if (!symbol.second->getRead()){
+            if(!symbol.second->getAffectation()){
+                cout << "Warning : " << symbol.first << "is not used." << endl;
+            } else {
+                cout << "Warning : " << symbol.first << "was declared but not read." << endl;
             }
         }
-        return nullptr;
     }
-    return it->second;
 }
+
+
 
 SymbolTable *SymbolTable::getFather() {
     return father;

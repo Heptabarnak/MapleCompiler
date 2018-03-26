@@ -13,6 +13,9 @@ public:
 
     Declaration *getDeclaration() const;
 
+    bool getRead();
+    bool getAffectation();
+
     void doRead();
     void doAffectation();
 

@@ -23,7 +23,7 @@ public:
 
     Symbol *lookup(string name);
 
-    Symbol * lookdown(string name);
+    void staticAnalysis();
 
     SymbolTable *getFather();
 

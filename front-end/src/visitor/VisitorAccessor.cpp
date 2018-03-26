@@ -21,7 +21,6 @@ antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabCont
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
         if (auto symbolTab = dynamic_cast<TabDeclaration *>(symbol->getDeclaration())) {
-
             // TODO Check if it's reading or affectation (with parent ?)
             symbol->doRead();
             return new TabAccessor(
@@ -29,7 +28,6 @@ antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabCont
                     visit(ctx->expr())
             );
         }
-
         cerr << "Wanted array but got :" << symbol->getDeclaration() << endl;
         throw std::runtime_error("Symbol is not an array");
     } else {

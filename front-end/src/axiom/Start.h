@@ -13,6 +13,8 @@ class Start {
 protected:
     vector<Declaration *> declarations;
     SymbolTable *globalSymbolTable;
+public:
+    SymbolTable *getGlobalSymbolTable() const;
 
 public:
     Start(const vector<Declaration *> &declarations, SymbolTable *globalSymbolTable);

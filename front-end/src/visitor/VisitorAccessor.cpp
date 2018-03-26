@@ -6,13 +6,28 @@
 
 using std::string;
 using std::cerr;
+using std::cout;
 using std::endl;
 
 antlrcpp::Any StartVisitor::visitAccessor(MapleGrammarParser::AccessorContext *ctx) {
+    Accessor *accessor = nullptr;
+
     if (ctx->accessorFunction() == nullptr) {
-        return (Accessor *) new LeftValueAccessor((LeftValue *) (visit(ctx->leftValue())));
+        accessor = new LeftValueAccessor((LeftValue *) (visit(ctx->leftValue())));
+    } else {
+        accessor = new FunctionAccessor((AccessorFunction *) (visit(ctx->accessorFunction())));
     }
-    return (Accessor *) new FunctionAccessor((AccessorFunction *) (visit(ctx->accessorFunction())));
+
+    const string &name = accessor->getSymbolName();
+    if (auto symbol = currentSymbolTable->lookup(name)) {
+        symbol->doRead();
+
+        if (!symbol->getAffectation()) {
+            cout << "Warning : " << endl
+                 << "\tSymbol '" << name << "' used before affectation" << endl;
+        }
+    }
+    return accessor;
 }
 
 antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabContext *ctx) {
@@ -21,15 +36,11 @@ antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabCont
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
         if (auto symbolTab = dynamic_cast<TabDeclaration *>(symbol->getDeclaration())) {
-
-            // TODO Check if it's reading or affectation (with parent ?)
-            symbol->doRead();
             return new TabAccessor(
                     symbolTab,
                     visit(ctx->expr())
             );
         }
-
         cerr << "Wanted array but got :" << symbol->getDeclaration() << endl;
         throw std::runtime_error("Symbol is not an array");
     } else {
@@ -44,9 +55,6 @@ antlrcpp::Any StartVisitor::visitAccessorVar(MapleGrammarParser::AccessorVarCont
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
         if (auto symbolVar = dynamic_cast<VarDeclaration *>(symbol->getDeclaration())) {
-
-            // TODO Check if it's reading or affectation (with parent ?)
-            symbol->doRead();
             return new VarAccessor(symbolVar);
         }
 

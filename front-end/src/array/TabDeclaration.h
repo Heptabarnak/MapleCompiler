@@ -22,6 +22,7 @@ private:
 public:
     TabDeclaration(Type type, unsigned long size, const string &name, const vector<Value *> &definition = {});
 
+    const string &getName() const;
 };
 
 

@@ -112,7 +112,7 @@ set(BACK_SRC_FILES
         back-end/src/ir/instructions/CmpLtInstr.cpp
         back-end/src/ir/instructions/CmpLeInstr.cpp
         back-end/src/ir/instructions/LoadConstInstr.cpp
-        back-end/src/Target.h)
+        back-end/src/targets/Target.h)
 
 #-----------
 #   UTILS

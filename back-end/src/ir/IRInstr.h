@@ -6,7 +6,7 @@
 #include <iostream>
 
 #include <token/Type.h>
-#include <Target.h>
+#include <targets/Target.h>
 #include "BasicBlock.h"
 
 class BasicBlock;

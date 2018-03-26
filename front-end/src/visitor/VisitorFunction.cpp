@@ -11,7 +11,7 @@ using std::cerr;
 using std::endl;
 
 antlrcpp::Any StartVisitor::visitArgumentList(MapleGrammarParser::ArgumentListContext *ctx) {
-    return mapContext2Vector<MapleGrammarParser::ExprContext *, Expr *>(ctx->expr(), this);
+    return *mapContext2Vector<MapleGrammarParser::ExprContext *, Expr *>(ctx->expr(), this);
 }
 
 
@@ -25,7 +25,6 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
         throw std::runtime_error("Duplicate definition");
     }
 
-    FunctionDefinition *functionDefinition;
 
     Type type = Type::VOID;
 
@@ -34,48 +33,58 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
     }
 
 
+    auto fDef = new FunctionDefinition(
+            type,
+            name
+    );
+    currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fDef, true));
+
+
+    // Add a new scoped env
+    currentSymbolTable = new SymbolTable(currentSymbolTable);
+
     if (ctx->typeList() != nullptr) {
-        functionDefinition = new FunctionDefinition(
-                (BlockFunction *) visit(ctx->blockFunction()),
-                type,
-                visit(ctx->typeList()),
-                name
-        );
-    } else {
-        functionDefinition = new FunctionDefinition(
-                (BlockFunction *) visit(ctx->blockFunction()),
-                type,
-                {},
-                name
-        );
+        fDef->setArguments(*(vector<FunctionParam *> *) visit(ctx->typeList()));
     }
 
-    currentSymbolTable->insert(name, new Symbol(currentSymbolTable, functionDefinition));
+    fDef->setBlockFunction((BlockFunction *) visit(ctx->blockFunction()));
 
-    return (Declaration *) functionDefinition;
+    currentSymbolTable = currentSymbolTable->getFather();
+    // Close scoped env
+
+    return (Declaration *) fDef;
 }
 
 antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *ctx) {
     auto fParams = new vector<FunctionParam *>(ctx->ID().size());
 
     for (std::size_t i = 0; i != ctx->ID().size(); i++) {
-        fParams->push_back(new FunctionParam(
-                ctx->ID(i)->getText(),
-                getTypeFromString(ctx->TYPE(i)->getText()))
+        const string &name = ctx->ID(i)->getText();
+
+        if (auto symbol = currentSymbolTable->lookup(name)) {
+            cerr << "Duplicate declaration of " << name << endl;
+            cerr << "Found : " << symbol->getDeclaration() << endl;
+            printDebugInfo(cerr, ctx);
+            throw std::runtime_error("Duplicated declaration");
+        }
+
+        auto fParam = new FunctionParam(
+                name,
+                getTypeFromString(ctx->TYPE(i)->getText())
         );
+
+        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));
+        fParams->push_back(fParam);
     }
     return fParams;
 }
 
 antlrcpp::Any StartVisitor::visitBlockFunction(MapleGrammarParser::BlockFunctionContext *ctx) {
-    currentSymbolTable = new SymbolTable(currentSymbolTable);
-
     auto block = new BlockFunction(
             *mapContext2VectorFlat<MapleGrammarParser::DeclarationContext *, Declaration *>(ctx->declaration(), this),
             *mapContext2Vector<MapleGrammarParser::InstructionContext *, Instruction *>(ctx->instruction(), this),
             currentSymbolTable
     );
 
-    currentSymbolTable = currentSymbolTable->getFather();
     return block;
 }

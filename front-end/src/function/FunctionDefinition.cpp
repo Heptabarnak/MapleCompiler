@@ -1,8 +1,15 @@
 #include "FunctionDefinition.h"
 
-FunctionDefinition::FunctionDefinition(BlockFunction *block, Type type, const vector<FunctionParam *> &params,
-                                       const string &name) : block(block), type(type), params(params), name(name) {}
+FunctionDefinition::FunctionDefinition(Type type, const string &name) : type(type), name(name) {}
 
 string FunctionDefinition::getSymbolName() {
     return name;
+}
+
+void FunctionDefinition::setBlockFunction(BlockFunction *block) {
+    this->block = block;
+}
+
+void FunctionDefinition::setArguments(const vector<FunctionParam *> &params) {
+    this->params = params;
 }

@@ -1,4 +1,0 @@
-Symbol 'a' was not found
-At line: 4, column: 10
-Error while creating AST :
-Variable not found

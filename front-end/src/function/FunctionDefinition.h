@@ -21,8 +21,13 @@ private:
     string name;
 
 public:
-    FunctionDefinition(BlockFunction *block, Type type, const vector<FunctionParam *> &params, const string &name);
+    FunctionDefinition(Type type, const string &name);
+
     string getSymbolName();
+
+    void setBlockFunction(BlockFunction *block);
+
+    void setArguments(const vector<FunctionParam *> &params);
 };
 
 

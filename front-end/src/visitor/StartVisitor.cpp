@@ -10,17 +10,14 @@ using std::vector;
 antlrcpp::Any StartVisitor::visitStart(MapleGrammarParser::StartContext *ctx) {
     currentSymbolTable = new SymbolTable();
 
-    vector<FunctionParam *> vectorParamsPutchar;
-    vector<FunctionParam *> vectorParamsGetchar;
-    vectorParamsPutchar.push_back(new FunctionParam("char", Type::CHAR));
-    FunctionDefinition *putchar = new FunctionDefinition(nullptr, Type::VOID, vectorParamsPutchar, "putchar");
-    FunctionDefinition *getchar = new FunctionDefinition(nullptr, Type::CHAR, vectorParamsGetchar, "getchar");
+    FunctionDefinition *putchar = new FunctionDefinition(Type::VOID, "putchar");
+    FunctionDefinition *getchar = new FunctionDefinition(Type::CHAR, "getchar");
 
-    auto symbolPutchar = new Symbol(currentSymbolTable, putchar, true, true);
-    auto symbolGetchar = new Symbol(currentSymbolTable, getchar, true, true);
+    putchar->setArguments({new FunctionParam("char", Type::CHAR)});
 
-    currentSymbolTable->insert("putchar", symbolPutchar);
-    currentSymbolTable->insert("getchar", symbolGetchar);
+    currentSymbolTable->insert("putchar", new Symbol(currentSymbolTable, putchar, true, true));
+    currentSymbolTable->insert("getchar", new Symbol(currentSymbolTable, getchar, true, true));
+
 
     return start = new Start(
             *mapContext2VectorFlat<MapleGrammarParser::ProgramContext *, Declaration *>(ctx->program(), this),

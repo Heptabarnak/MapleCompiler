@@ -79,7 +79,7 @@ antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFu
         if (auto symbolFun = dynamic_cast<FunctionDefinition *>(symbol->getDeclaration())) {
 
             symbol->doRead();
-            return (Accessor *) new AccessorFunction(
+            return new AccessorFunction(
                     symbolFun,
                     visit(ctx->argumentList())
             );

@@ -1,3 +1,4 @@
 Opening file: LexError/02_LexError_InvalidCharInStreamWithinProgram.c
 line 3:14 token recognition error at: '$'
 AST Generated !
+Warning : main was declared but not read.

@@ -3,14 +3,11 @@
 
 #include <string>
 #include <token/Type.h>
+#include <variable/VarDeclaration.h>
 
 using std::string;
 
-class FunctionParam {
-private:
-    string name;
-    Type type;
-
+class FunctionParam : public VarDeclaration {
 public:
     FunctionParam(const string &name, Type type);
 

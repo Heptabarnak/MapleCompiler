@@ -37,15 +37,17 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
         return declaration;
     }
 
-    Expr *expr = visit(ctx->expr()); // FIXME Delete expression
+    Expr *expr = visit(ctx->expr());
 
     if (!expr->isSimplifiable()) {
+        delete(expr);
         cerr << "Unable to simplify expression for " << name << endl;
         throw std::runtime_error("Not simplifiable declaration");
     }
 
     const long tabSize = expr->simplify();
 
+    delete(expr);
     if (tabSize < 1) {
         cerr << "Array size must be more than 0, got : " << tabSize << endl;
         throw std::runtime_error("Array size must > 1");

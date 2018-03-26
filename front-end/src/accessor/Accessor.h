@@ -5,7 +5,7 @@
 class Accessor {
 public:
 
-    virtual std::string getSymbolName ()=0;
+    virtual std::string getSymbolName()=0;
 
 };
 

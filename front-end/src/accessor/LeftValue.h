@@ -5,9 +5,6 @@
 #include <string>
 
 class LeftValue : public Accessor {
-public:
-
-    virtual std::string getSymbolName ()=0;
 
 };
 

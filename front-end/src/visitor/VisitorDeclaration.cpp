@@ -93,14 +93,26 @@ StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDe
     if (ctx->assignment() == nullptr) {
         auto declaration = new VarDeclaration(name, type);
 
-        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, declaration));
+        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, declaration, true));
         return declaration;
+    }
+
+    Expr *expr = visit(ctx->assignment());
+
+    if (expr->isSimplifiable()) {
+        Expr *newExpr = new ExprValue(new Value(
+                Type::INT64_T,
+                expr->simplify()
+        ));
+
+        delete expr;
+        expr = newExpr;
     }
 
     auto declaration = new VarDeclaration(
             name,
             type,
-            visit(ctx->assignment()) // FIXME Simplify this expression if needed
+            expr
     );
     currentSymbolTable->insert(name, new Symbol(currentSymbolTable, declaration, true));
     return declaration;

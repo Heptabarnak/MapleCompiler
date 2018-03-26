@@ -9,12 +9,16 @@ using std::cerr;
 using std::endl;
 
 antlrcpp::Any StartVisitor::visitAccessor(MapleGrammarParser::AccessorContext *ctx) {
+    Accessor *accessor = nullptr;
+
     if (ctx->accessorFunction() == nullptr) {
-        return (Accessor *) new LeftValueAccessor((LeftValue *) (visit(ctx->leftValue())));
+        accessor = new LeftValueAccessor((LeftValue *) (visit(ctx->leftValue())));
+    } else {
+        accessor = new FunctionAccessor((AccessorFunction *) (visit(ctx->accessorFunction())));
     }
-    FunctionAccessor *accessor = new FunctionAccessor((AccessorFunction *) (visit(ctx->accessorFunction())));
-    if (auto Symbol = currentSymbolTable->lookup(accessor->getSymbolName())) {
-        Symbol->doRead();
+
+    if (auto symbol = currentSymbolTable->lookup(accessor->getSymbolName())) {
+        symbol->doRead();
     }
     return accessor;
 }
@@ -84,15 +88,8 @@ antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFu
 }
 
 antlrcpp::Any StartVisitor::visitLeftValue(MapleGrammarParser::LeftValueContext *ctx) {
-    LeftValue *leftValue = nullptr;
     if (ctx->accessorTab() == nullptr) {
-        leftValue = new LeftValueVar((VarAccessor *) visit(ctx->accessorVar()));
-    } else {
-        leftValue = new LeftValueTab((TabAccessor *) visit(ctx->accessorTab()));
+        return (LeftValue *) new LeftValueVar((VarAccessor *) visit(ctx->accessorVar()));
     }
-
-    if (auto Symbol = currentSymbolTable->lookup(leftValue->getSymbolName())) {
-        Symbol->doAffectation();
-    }
-    return leftValue;
+    return (LeftValue *) new LeftValueTab((TabAccessor *) visit(ctx->accessorTab()));
 }

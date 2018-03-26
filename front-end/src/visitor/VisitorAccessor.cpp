@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <Declarations.h>
+#include <printDebugInfo.h>
 
 #include "StartVisitor.h"
 
@@ -25,6 +26,7 @@ antlrcpp::Any StartVisitor::visitAccessor(MapleGrammarParser::AccessorContext *c
         if (!symbol->getAffectation()) {
             cout << "Warning : " << endl
                  << "\tSymbol '" << name << "' used before affectation" << endl;
+            printDebugInfo(cout, ctx);
         }
     }
     return accessor;
@@ -41,10 +43,13 @@ antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabCont
                     visit(ctx->expr())
             );
         }
+        ctx->;
         cerr << "Wanted array but got :" << symbol->getDeclaration() << endl;
+        printDebugInfo(cerr, ctx);
         throw std::runtime_error("Symbol is not an array");
     } else {
         cerr << "Symbol '" << name << "' was not found" << endl;
+        printDebugInfo(cerr, ctx);
         throw std::runtime_error("Array not found");
     }
 }
@@ -59,9 +64,11 @@ antlrcpp::Any StartVisitor::visitAccessorVar(MapleGrammarParser::AccessorVarCont
         }
 
         cerr << "Wanted a variable but got :" << symbol->getDeclaration() << endl;
+        printDebugInfo(cerr, ctx);
         throw std::runtime_error("Symbol is not a variable");
     } else {
         cerr << "Symbol '" << name << "' was not found" << endl;
+        printDebugInfo(cerr, ctx);
         throw std::runtime_error("Variable not found");
     }
 }
@@ -80,9 +87,11 @@ antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFu
         }
 
         cerr << "Wanted a function but got :" << symbol->getDeclaration() << endl;
+        printDebugInfo(cerr, ctx);
         throw std::runtime_error("Symbol is not a function");
     } else {
         cerr << "Symbol '" << name << "' was not found" << endl;
+        printDebugInfo(cerr, ctx);
         throw std::runtime_error("Function not found");
     }
 }

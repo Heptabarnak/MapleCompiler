@@ -9,11 +9,12 @@ using std::vector;
 
 antlrcpp::Any StartVisitor::visitStart(MapleGrammarParser::StartContext *ctx) {
     currentSymbolTable = new SymbolTable();
-    vector<FunctionParam*> vectorParamsPutchar;
-    vectorParamsPutchar.push_back(new FunctionParam("char", INT64_T));
-    vector<FunctionParam*> vectorParamsGetchar;
-    FunctionDefinition* putchar = new FunctionDefinition(nullptr, INT64_T, vectorParamsPutchar, "putchar");
-    FunctionDefinition* getchar = new FunctionDefinition(nullptr, INT64_T, vectorParamsGetchar, "getchar");
+
+    vector<FunctionParam *> vectorParamsPutchar;
+    vector<FunctionParam *> vectorParamsGetchar;
+    vectorParamsPutchar.push_back(new FunctionParam("char", Type::CHAR));
+    FunctionDefinition *putchar = new FunctionDefinition(nullptr, Type::VOID, vectorParamsPutchar, "putchar");
+    FunctionDefinition *getchar = new FunctionDefinition(nullptr, Type::CHAR, vectorParamsGetchar, "getchar");
 
     auto symbolPutchar = new Symbol(currentSymbolTable, putchar, true, true);
     auto symbolGetchar = new Symbol(currentSymbolTable, getchar, true, true);

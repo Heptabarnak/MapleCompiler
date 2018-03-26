@@ -2,6 +2,7 @@
 #include <Declarations.h>
 #include <mapContext2Vector.h>
 #include <typeHelper.h>
+#include <printDebugInfo.h>
 
 #include "StartVisitor.h"
 
@@ -20,6 +21,7 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
     if (auto symbol = currentSymbolTable->lookup(name)) {
         cerr << "Duplicate declaration of " << name << endl;
         cerr << "Found : " << symbol->getDeclaration() << endl;
+        printDebugInfo(cerr, ctx);
         throw std::runtime_error("Duplicate definition");
     }
 

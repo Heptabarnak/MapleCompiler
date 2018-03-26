@@ -5,6 +5,7 @@
 #include <Declarations.h>
 #include <typeHelper.h>
 #include <mapContext2Vector.h>
+#include <printDebugInfo.h>
 
 #include "StartVisitor.h"
 
@@ -20,6 +21,7 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
     if (auto symbol = currentSymbolTable->lookup(name)) {
         cerr << "Duplicate declaration of " << name << endl;
         cerr << "Found : " << symbol->getDeclaration() << endl;
+        printDebugInfo(cerr, ctx);
         throw std::runtime_error("Duplicate definition");
     }
 
@@ -42,6 +44,7 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
     if (!expr->isSimplifiable()) {
         delete(expr);
         cerr << "Unable to simplify expression for " << name << endl;
+        printDebugInfo(cerr, ctx);
         throw std::runtime_error("Not simplifiable declaration");
     }
 
@@ -50,6 +53,7 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
     delete(expr);
     if (tabSize < 1) {
         cerr << "Array size must be more than 0, got : " << tabSize << endl;
+        printDebugInfo(cerr, ctx);
         throw std::runtime_error("Array size must > 1");
     }
 
@@ -89,6 +93,7 @@ StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDe
     if (auto symbol = currentSymbolTable->lookup(name)) {
         cerr << "Duplicate declaration of " << name << endl;
         cerr << "Found : " << symbol->getDeclaration() << endl;
+        printDebugInfo(cerr, ctx);
         throw std::runtime_error("Duplicated declaration");
     }
 

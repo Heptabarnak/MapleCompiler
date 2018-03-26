@@ -118,7 +118,12 @@ set(BACK_SRC_FILES
 #   UTILS
 #-----------
 
-set(UTILS_SRC_FILES utils/str2int.h utils/mapContext2Vector.h utils/typeHelper.cpp)
+set(UTILS_SRC_FILES
+        utils/str2int.h
+        utils/mapContext2Vector.h
+        utils/typeHelper.cpp
+        utils/printDebugInfo.h
+        )
 
 #----------------
 #   EXECUTABLE

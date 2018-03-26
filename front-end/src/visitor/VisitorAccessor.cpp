@@ -12,7 +12,11 @@ antlrcpp::Any StartVisitor::visitAccessor(MapleGrammarParser::AccessorContext *c
     if (ctx->accessorFunction() == nullptr) {
         return (Accessor *) new LeftValueAccessor((LeftValue *) (visit(ctx->leftValue())));
     }
-    return (Accessor *) new FunctionAccessor((AccessorFunction *) (visit(ctx->accessorFunction())));
+    FunctionAccessor *accessor = new FunctionAccessor((AccessorFunction *) (visit(ctx->accessorFunction())));
+    if (auto Symbol = currentSymbolTable->lookup(accessor->getSymbolName())) {
+        Symbol->doRead();
+    }
+    return accessor;
 }
 
 antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabContext *ctx) {

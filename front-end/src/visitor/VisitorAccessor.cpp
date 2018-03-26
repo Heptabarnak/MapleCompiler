@@ -6,6 +6,7 @@
 
 using std::string;
 using std::cerr;
+using std::cout;
 using std::endl;
 
 antlrcpp::Any StartVisitor::visitAccessor(MapleGrammarParser::AccessorContext *ctx) {
@@ -17,8 +18,14 @@ antlrcpp::Any StartVisitor::visitAccessor(MapleGrammarParser::AccessorContext *c
         accessor = new FunctionAccessor((AccessorFunction *) (visit(ctx->accessorFunction())));
     }
 
-    if (auto symbol = currentSymbolTable->lookup(accessor->getSymbolName())) {
+    const string &name = accessor->getSymbolName();
+    if (auto symbol = currentSymbolTable->lookup(name)) {
         symbol->doRead();
+
+        if (!symbol->getAffectation()) {
+            cout << "Warning : " << endl
+                 << "\tSymbol '" << name << "' used before affectation" << endl;
+        }
     }
     return accessor;
 }
@@ -29,8 +36,6 @@ antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabCont
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
         if (auto symbolTab = dynamic_cast<TabDeclaration *>(symbol->getDeclaration())) {
-            // TODO Check if it's reading or affectation (with parent ?)
-            symbol->doRead();
             return new TabAccessor(
                     symbolTab,
                     visit(ctx->expr())
@@ -50,9 +55,6 @@ antlrcpp::Any StartVisitor::visitAccessorVar(MapleGrammarParser::AccessorVarCont
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
         if (auto symbolVar = dynamic_cast<VarDeclaration *>(symbol->getDeclaration())) {
-
-            // TODO Check if it's reading or affectation (with parent ?)
-            symbol->doRead();
             return new VarAccessor(symbolVar);
         }
 

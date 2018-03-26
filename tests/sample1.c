@@ -1,5 +1,10 @@
 #include<stdio.h>
 
+int64_t lol() {
+    char a = 2;
+}
+
+
 void main() {
     char a = 2;
 

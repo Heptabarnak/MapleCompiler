@@ -43,16 +43,18 @@ Symbol *SymbolTable::lookup(string name) {
 
 void SymbolTable::staticAnalysis() {
     for (auto &&symbol : symbols) {
-        if (!symbol.second->getRead()){
-            if(!symbol.second->getAffectation()){
+        if (!symbol.second->getRead()) {
+            if (!symbol.second->getAffectation()) {
                 cout << "Warning : " << symbol.first << " is not used." << endl;
             } else {
                 cout << "Warning : " << symbol.first << " was declared but not read." << endl;
             }
         }
     }
+    for (auto &&child  : children) {
+        child->staticAnalysis();
+    }
 }
-
 
 
 SymbolTable *SymbolTable::getFather() {

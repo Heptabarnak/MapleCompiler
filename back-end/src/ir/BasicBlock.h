@@ -10,6 +10,10 @@
 #include "CFG.h"
 #include "IRInstr.h"
 
+class CFG;
+
+class IRInstr;
+
 class BasicBlock {
 public:
     BasicBlock(CFG *cfg, std::string entry_label);

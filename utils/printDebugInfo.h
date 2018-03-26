@@ -4,10 +4,6 @@
 #include <ostream>
 #include <antlr4-runtime.h>
 
-void printDebugInfo(std::ostream &o, antlr4::ParserRuleContext *ctx) {
-    auto start = ctx->getStart();
-
-    o << "At line: " << start->getLine() << ", column: " << start->getCharPositionInLine() << std::endl;
-}
+void printDebugInfo(std::ostream &o, antlr4::ParserRuleContext *ctx);
 
 #endif //MAPLECOMPILER_PRINTDEBUGINFO_H

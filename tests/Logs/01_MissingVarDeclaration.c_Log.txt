@@ -1,4 +1,4 @@
 Symbol 'a' was not found
-At line: 5, column: 11
+At line: 2, column: 3
 Error while creating AST :
 Variable not found

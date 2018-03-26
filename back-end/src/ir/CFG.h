@@ -10,6 +10,8 @@
 
 #include "BasicBlock.h"
 
+class BasicBlock;
+
 class CFG {
 public:
     CFG(FunctionDefinition *ast);

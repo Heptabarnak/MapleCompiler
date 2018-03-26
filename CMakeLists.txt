@@ -111,8 +111,8 @@ set(BACK_SRC_FILES
         back-end/src/ir/instructions/CmpEqInstr.cpp
         back-end/src/ir/instructions/CmpLtInstr.cpp
         back-end/src/ir/instructions/CmpLeInstr.cpp
-        back-end/src/ir/instructions/LDConstInstr.cpp
-        )
+        back-end/src/ir/instructions/LoadConstInstr.cpp
+        back-end/src/Target.h)
 
 #-----------
 #   UTILS
@@ -122,7 +122,7 @@ set(UTILS_SRC_FILES
         utils/str2int.h
         utils/mapContext2Vector.h
         utils/typeHelper.cpp
-        utils/printDebugInfo.h
+        utils/printDebugInfo.cpp
         )
 
 #----------------

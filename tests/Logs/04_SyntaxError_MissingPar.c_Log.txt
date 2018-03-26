@@ -1,0 +1,3 @@
+Opening file: SyntaxError/04_SyntaxError_MissingPar.c
+line 2:14 missing ')' at ';'
+AST Generated !

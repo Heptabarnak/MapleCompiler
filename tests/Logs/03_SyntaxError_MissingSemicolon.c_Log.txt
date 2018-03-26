@@ -1,0 +1,3 @@
+Opening file: SyntaxError/03_SyntaxError_MissingSemicolon.c
+line 3:0 missing ';' at '}'
+AST Generated !

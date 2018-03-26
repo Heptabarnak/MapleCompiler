@@ -6,8 +6,10 @@
 #include <iostream>
 
 #include <token/Type.h>
+#include <Target.h>
 #include "BasicBlock.h"
 
+class BasicBlock;
 
 class IRInstr {
 
@@ -28,14 +30,15 @@ public:
 
 
     /**  constructor */
-    IRInstr(BasicBlock *bb_, Type t);
+    IRInstr(BasicBlock *bb_, Type t, Target target = Target::x86);
 
     /** Actual code generation */
-    virtual void gen_asm(std::ostream &o) = 0; /**< x86 assembly code generation for this IR instruction */
+    // virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
 
 protected:
     BasicBlock *bb; /**< The BB this instruction belongs to, which provides a pointer to the CFG this instruction belong to */
     Type t;
+    Target target;
 };
 
 

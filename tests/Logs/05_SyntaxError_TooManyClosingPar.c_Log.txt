@@ -1,0 +1,3 @@
+Opening file: SyntaxError/05_SyntaxError_TooManyClosingPar.c
+line 2:13 extraneous input ')' expecting ';'
+AST Generated !

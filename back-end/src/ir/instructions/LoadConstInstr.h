@@ -4,9 +4,9 @@
 
 #include <ir/IRInstr.h>
 
-class LDConstInstr : public IRInstr{
+class LoadConstInstr : public IRInstr{
 public:
-    LDConstInstr(BasicBlock *bb_, Type t);
+    LoadConstInstr(BasicBlock *bb_, Type t);
 
 };
 

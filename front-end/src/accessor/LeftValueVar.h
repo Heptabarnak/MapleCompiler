@@ -4,6 +4,7 @@
 
 #include <variable/VarAccessor.h>
 #include "LeftValue.h"
+#include <string>
 
 class LeftValueVar : public LeftValue {
 
@@ -12,6 +13,7 @@ private:
 
 public:
     LeftValueVar(VarAccessor *varAccessor);
+    std::string getSymbolName() override;
 };
 
 

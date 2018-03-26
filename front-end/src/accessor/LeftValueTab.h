@@ -12,6 +12,7 @@ private:
 
 public:
     LeftValueTab(TabAccessor *tabAccessor);
+    std::string getSymbolName() override;
 };
 
 

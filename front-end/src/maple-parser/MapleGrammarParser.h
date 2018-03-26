@@ -1,5 +1,5 @@
 
-// Generated from N:/MapleCompiler/front-end/src/maple-parser\MapleGrammar.g4 by ANTLR 4.7
+// Generated from F:/Downloads/MapleCompiler/front-end/src/maple-parser\MapleGrammar.g4 by ANTLR 4.7
 
 #pragma once
 
@@ -465,9 +465,9 @@ public:
     DeclarationTabContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *TYPE();
-    ExprContext *expr();
     antlr4::tree::TerminalNode *ID();
     antlr4::tree::TerminalNode *SC();
+    ExprContext *expr();
     DefinitionTabContext *definitionTab();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;

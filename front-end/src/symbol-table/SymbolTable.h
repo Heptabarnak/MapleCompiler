@@ -29,6 +29,8 @@ public:
 
 private:
     map<string, Symbol *> symbols;
+    map<int, string> levels;
+    int lastLevel = 0;
     SymbolTable *father;
     vector<SymbolTable *> children;
 };

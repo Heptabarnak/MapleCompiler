@@ -26,6 +26,8 @@ SymbolTable::~SymbolTable() {
 
 SymbolTable *SymbolTable::insert(string name, Symbol *symbol) {
     symbols.insert({name, symbol});
+    levels.insert({lastLevel, name});
+    lastLevel++;
     return this;
 }
 
@@ -36,21 +38,21 @@ Symbol *SymbolTable::lookup(string name) {
             return father->lookup(name);
         }
         return nullptr;
-
     }
     return it->second;
 }
 
 void SymbolTable::staticAnalysis() {
-    for (auto &&symbol : symbols) {
-        if (!symbol.second->getRead()) {
-            if (!symbol.second->getAffectation()) {
+    for (auto &&name : levels) {
+        auto &&symbol = symbols.find(name.second)->second;
+        if (!symbol->getRead()) {
+            if (!symbol->getAffectation()) {
                 // Skip main function
-                if (symbol.first == "main") continue;
+                if (name.second == "main") continue;
 
-                cout << "Warning : " << symbol.first << " is not used." << endl;
+                cout << "Warning : " << name.second << " is not used." << endl;
             } else {
-                cout << "Warning : " << symbol.first << " was declared but not read." << endl;
+                cout << "Warning : " << name.second << " was declared but not read." << endl;
             }
         }
     }

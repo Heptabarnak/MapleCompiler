@@ -33,7 +33,7 @@ public:
     IRInstr(BasicBlock *bb_, Type t, Target target = Target::x86);
 
     /** Actual code generation */
-    // virtual void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
+    virtual void genAsm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
 
 protected:
     BasicBlock *bb; /**< The BB this instruction belongs to, which provides a pointer to the CFG this instruction belong to */

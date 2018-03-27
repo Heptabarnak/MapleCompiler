@@ -1,8 +1,9 @@
 #include "FunctionDefinition.h"
 
-FunctionDefinition::FunctionDefinition(Type type, const string &name) : type(type), name(name) {}
+FunctionDefinition::FunctionDefinition(Type type, const string &name, SymbolTable *symbolTable)
+        : type(type), name(name), symbolTable(symbolTable) {}
 
-string FunctionDefinition::getSymbolName() {
+std::string FunctionDefinition::getSymbolName() {
     return name;
 }
 
@@ -12,4 +13,19 @@ void FunctionDefinition::setBlockFunction(BlockFunction *block) {
 
 void FunctionDefinition::setArguments(const vector<FunctionParam *> &params) {
     this->params = params;
+}
+
+std::string FunctionDefinition::buildIR(CFG *cfg) {
+
+    // TODO Prologue
+
+    // Create instructions
+    block->buildIR(cfg);
+
+    // TODO Epilogue
+
+}
+
+SymbolTable *FunctionDefinition::getSymbolTable() const {
+    return symbolTable;
 }

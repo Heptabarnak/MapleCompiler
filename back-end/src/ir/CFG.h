@@ -23,35 +23,29 @@ public:
     // x86 code generation: could be encapsulated in a processor class in a retargetable compiler
     void genAsm(std::ostream &o);
 
-    string IRRegToAsm(
-            string reg); /**< helper method: inputs a IR reg or input variable, returns e.g. "-24(%rbp)" for the proper value of 24 */
+    std::string IRRegToAsm(
+            std::string reg); /**< helper method: inputs a IR reg or input variable, returns e.g. "-24(%rbp)" for the proper value of 24 */
 
     void genAsmPrologue(std::ostream &o);
 
     void genAsmEpilogue(std::ostream &o);
 
     // symbol table methods
-    void addToSymbolTable(string name, Type t);
+    void addToSymbolTable(std::string name, Type t);
 
-    string createNewTmpVar(Type t);
+    int getVarIndex(std::string name);
 
-    int getVarIndex(string name);
-
-    Type getVarType(string name);
+    Type getVarType(std::string name);
 
     // basic block management
-    string newBBName();
+    std::string newBBName();
 
     BasicBlock *currentBB;
 
 protected:
-    std::map<string, Type> symbolType; /**< part of the symbol table  */
-    std::map<string, int> symbolIndex; /**< part of the symbol table  */
-    int nextFreeSymbolIndex; /**< to allocate new symbols in the symbol table */
     int nextBBnumber; /**< just for naming */
 
     std::vector<BasicBlock *> bbs; /**< all the basic blocks of this CFG*/
-
 };
 
 

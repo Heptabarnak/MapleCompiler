@@ -1,7 +1,9 @@
 #ifndef MAPLECOMPILER_INSTRUCTION_H
 #define MAPLECOMPILER_INSTRUCTION_H
 
-class Instruction {
+#include <ir/BuildIR.h>
+
+class Instruction : public BuildIR {
 
 };
 

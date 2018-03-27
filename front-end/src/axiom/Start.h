@@ -16,9 +16,9 @@ protected:
 public:
     SymbolTable *getGlobalSymbolTable() const;
 
-public:
-    Start(const vector<Declaration *> &declarations, SymbolTable *globalSymbolTable);
+    const vector<Declaration *> &getDeclarations() const;
 
+    Start(const vector<Declaration *> &declarations, SymbolTable *globalSymbolTable);
 };
 
 

@@ -13,6 +13,8 @@ private:
 public:
     IfStatement(Expr *c, Instruction *st, Instruction *elseSt = nullptr);
 
+    string buildIR(CFG *cfg) override;
+
     ~IfStatement();
 };
 

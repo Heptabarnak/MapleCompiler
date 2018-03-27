@@ -1,10 +1,13 @@
 #ifndef MAPLECOMPILER_BUILDIR_H
 #define MAPLECOMPILER_BUILDIR_H
 
+#include <string>
 #include "CFG.h"
 
 class BuildIR {
-    virtual void buildIR(CFG* cfg) = 0;
+
+public:
+    virtual std::string buildIR(CFG *cfg) = 0;
 };
 
 

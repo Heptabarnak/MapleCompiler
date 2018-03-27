@@ -2,9 +2,10 @@
 #define MAPLECOMPILER_EXPR_H
 
 #include <stdexcept>
+#include <ir/BuildIR.h>
 
 
-class Expr {
+class Expr : public BuildIR {
 public:
     Expr() = default;
 

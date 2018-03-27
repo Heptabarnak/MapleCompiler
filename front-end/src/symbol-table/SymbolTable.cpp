@@ -1,5 +1,6 @@
 #include "SymbolTable.h"
 #include <iostream>
+#include <variable/VarDeclaration.h>
 
 using std::make_pair;
 using namespace std;
@@ -64,4 +65,19 @@ void SymbolTable::staticAnalysis() {
 
 SymbolTable *SymbolTable::getFather() {
     return father;
+}
+
+string SymbolTable::createNewTmpVar(Type type) {
+    string name = "!tmp" + lastLevel;
+
+    auto declaration = new VarDeclaration(name, type);
+
+    auto symbol = new Symbol(
+            this,
+            declaration
+    ); // We are after static analysis, we can leave aff & read at default
+
+    this->insert(name, symbol);
+
+    return name;
 }

@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <token/Type.h>
 #include "Symbol.h"
 
 using std::map;
@@ -27,10 +28,14 @@ public:
 
     SymbolTable *getFather();
 
+    string createNewTmpVar(Type type);
+
 private:
     map<string, Symbol *> symbols;
+
     map<int, string> levels;
     int lastLevel = 0;
+
     SymbolTable *father;
     vector<SymbolTable *> children;
 };

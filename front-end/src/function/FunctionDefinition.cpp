@@ -17,13 +17,10 @@ void FunctionDefinition::setArguments(const vector<FunctionParam *> &params) {
 
 std::string FunctionDefinition::buildIR(CFG *cfg) {
 
-    // TODO Prologue
+    // I don't know if I need to do something with arguments?
 
     // Create instructions
     block->buildIR(cfg);
-
-    // TODO Epilogue
-
 }
 
 SymbolTable *FunctionDefinition::getSymbolTable() const {

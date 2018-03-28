@@ -8,7 +8,7 @@ std::map<std::string, CFG *> MapleTreeWalk::generateIR() {
 
     for (auto &&declaration : declarations) {
         if (auto funcDef = dynamic_cast<FunctionDefinition *>(declaration)) {
-            auto newCfg = new CFG();
+            auto newCfg = new CFG(start->getGlobalSymbolTable());
             funcDef->buildIR(newCfg);
 
             cfgs.insert({funcDef->getSymbolName(), newCfg});

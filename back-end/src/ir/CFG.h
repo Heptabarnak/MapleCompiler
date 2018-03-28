@@ -14,28 +14,11 @@ class BasicBlock;
 
 class CFG {
 public:
-    CFG(FunctionDefinition *ast);
-
-    FunctionDefinition *ast; /**< The AST this CFG comes from */
+    explicit CFG(SymbolTable *symbolTable);
 
     void addBB(BasicBlock *bb);
 
-    // x86 code generation: could be encapsulated in a processor class in a retargetable compiler
-    void genAsm(std::ostream &o);
-
-    std::string IRRegToAsm(
-            std::string reg); /**< helper method: inputs a IR reg or input variable, returns e.g. "-24(%rbp)" for the proper value of 24 */
-
-    void genAsmPrologue(std::ostream &o);
-
-    void genAsmEpilogue(std::ostream &o);
-
-    // symbol table methods
-    void addToSymbolTable(std::string name, Type t);
-
-    int getVarIndex(std::string name);
-
-    Type getVarType(std::string name);
+    std::string createNewTmpVar(Type type);
 
     // basic block management
     std::string newBBName();
@@ -44,8 +27,12 @@ public:
 
     BasicBlock *currentBB;
 
+    BasicBlock *getRootBB();
+
 protected:
-    int nextBBnumber; /**< just for naming */
+    int nextBBNumber; /**< just for naming */
+
+    SymbolTable *symbolTable;
 
     std::vector<BasicBlock *> bbs; /**< all the basic blocks of this CFG*/
 };

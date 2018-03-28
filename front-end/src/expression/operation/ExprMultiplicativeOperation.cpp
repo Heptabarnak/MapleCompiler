@@ -1,5 +1,6 @@
 #include <str2int.h>
 #include <iostream>
+#include <ir/instructions/MulInstr.h>
 #include "ExprMultiplicativeOperation.h"
 
 using std::cerr;
@@ -39,4 +40,13 @@ long ExprMultiplicativeOperation::simplify() {
         case MOD:
             return leftExpr->simplify() % rightExpr->simplify();
     }
+}
+
+string ExprMultiplicativeOperation::buildIR(CFG *cfg) {
+    string var1 = leftExpr->buildIR(cfg);
+    string var2 = rightExpr->buildIR(cfg);
+    string var3 = cfg->createNewTmpVar(INT64_T);
+    //TODO implement Mulinstr class
+    cfg->currentBB->addIRInstr(new MulInstr(cfg->currentBB, INT64_T));
+    return var3;
 }

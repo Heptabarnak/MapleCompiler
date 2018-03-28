@@ -9,3 +9,10 @@ bool ExprParenthesis::isSimplifiable() {
 long ExprParenthesis::simplify() {
     return expr->simplify();
 }
+
+std::string ExprParenthesis::buildIR(CFG *cfg) {
+
+    return expr->buildIR(cfg);
+
+
+}

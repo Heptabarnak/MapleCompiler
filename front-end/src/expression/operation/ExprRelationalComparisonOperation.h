@@ -20,6 +20,8 @@ private:
 public:
     ExprRelationalComparisonOperation(Expr *left, Expr *right, const string &op);
 
+    string buildIR(CFG *cfg) override;
+
     long simplify() override;
 };
 

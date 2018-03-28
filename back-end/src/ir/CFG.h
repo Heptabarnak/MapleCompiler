@@ -20,6 +20,8 @@ public:
 
     void addBB(BasicBlock *bb);
 
+    void createNewTmpVar(Type type);
+
     // x86 code generation: could be encapsulated in a processor class in a retargetable compiler
     void genAsm(std::ostream &o);
 

@@ -1,6 +1,6 @@
 #include <str2int.h>
 #include <iostream>
-#include <ir/instructions/MulInstr.h>
+#include <ir/instructions/OpInstr.h>
 #include "ExprMultiplicativeOperation.h"
 
 using std::cerr;
@@ -32,8 +32,7 @@ long ExprMultiplicativeOperation::simplify() {
         case DIV:
             if (rightExpr->simplify() != 0) {
                 return leftExpr->simplify() / rightExpr->simplify();
-            }
-            else {
+            } else {
                 cerr << "Division by 0 is forbidden" << endl;
                 throw std::runtime_error("Forbidden operation : division by zero");
             }
@@ -45,8 +44,19 @@ long ExprMultiplicativeOperation::simplify() {
 string ExprMultiplicativeOperation::buildIR(CFG *cfg) {
     string var1 = leftExpr->buildIR(cfg);
     string var2 = rightExpr->buildIR(cfg);
-    string var3 = cfg->createNewTmpVar(INT64_T);
-    //TODO implement Mulinstr class
-    cfg->addIRInstr(new MulInstr(cfg->currentBB, INT64_T));
-    return var3;
+    string var = cfg->createNewTmpVar(INT64_T);
+
+    OpInstr::OpType type = OpInstr::MULT;
+
+    switch (operation) {
+        case DIV:
+            type = OpInstr::DIV;
+            break;
+        case MOD:
+            type = OpInstr::MOD;
+            break;
+    }
+
+    cfg->addIRInstr(new OpInstr(cfg->currentBB, type, var, var1, var2));
+    return var;
 }

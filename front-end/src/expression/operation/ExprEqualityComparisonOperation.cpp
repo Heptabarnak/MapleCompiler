@@ -1,5 +1,6 @@
 #include <str2int.h>
-#include <ir/instructions/CmpEqInstr.h>
+#include <ir/instructions/OpInstr.h>
+#include <ir/instructions/UnaryOpInstr.h>
 #include "ExprEqualityComparisonOperation.h"
 
 ExprEqualityComparisonOperation::ExprEqualityComparisonOperation(Expr *left, Expr *right, const string &op)
@@ -29,10 +30,18 @@ long ExprEqualityComparisonOperation::simplify() {
 
 string ExprEqualityComparisonOperation::buildIR(CFG *cfg) {
     string var1 = leftExpr->buildIR(cfg);
-    string var2 = leftExpr->buildIR(cfg);
-    //TODO create the cfg->createNewTmpVar() method
-    string var3 = cfg->createNewTmpVar(INT64_T);
-    //TODO implement CmpEqInstr class
-    cfg->addIRInstr(new CmpEqInstr(cfg->currentBB, INT64_T));
-    return var3;
+    string var2 = rightExpr->buildIR(cfg);
+
+    string var = cfg->createNewTmpVar(INT64_T);
+    cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::EQUAL_EQUAL, var, var1, var2));
+
+    if (operation == EQUAL) {
+        return var;
+    }
+    // We have to invert the result !
+
+    string notVar = cfg->createNewTmpVar(INT64_T);
+    cfg->addIRInstr(new UnaryOpInstr(cfg->currentBB, UnaryOpInstr::NOT, notVar, var));
+
+    return var;
 }

@@ -1,4 +1,6 @@
 #include <str2int.h>
+#include <ir/instructions/OpInstr.h>
+#include <ir/instructions/UnaryOpInstr.h>
 #include "ExprRelationalComparisonOperation.h"
 
 ExprRelationalComparisonOperation::ExprRelationalComparisonOperation(Expr *left, Expr *right, const string &op)
@@ -40,7 +42,32 @@ long ExprRelationalComparisonOperation::simplify() {
 string ExprRelationalComparisonOperation::buildIR(CFG *cfg) {
     string var1 = leftExpr->buildIR(cfg);
     string var2 = rightExpr->buildIR(cfg);
-    string var3 = cfg->createNewTmpVar(INT64_T);
-    //TODO create CmpRelInstr class
-    cfg->addIRInstr(new CmpRelInstr(cfg->currentBB, INT64_T));
+
+    bool mustBeInverted = false;
+    OpInstr::OpType type = OpInstr::LESS_THAN;
+    switch (operation) {
+        case LESS_EQUAL:
+            type = OpInstr::LESS_THAN_OR_EQ;
+            break;
+        case MORE:
+            mustBeInverted = true;
+            type = OpInstr::LESS_THAN_OR_EQ;
+            break;
+        case MORE_EQUAL:
+            mustBeInverted = true;
+            type = OpInstr::LESS_THAN;
+            break;
+    }
+
+    string var = cfg->createNewTmpVar(INT64_T);
+    cfg->addIRInstr(new OpInstr(cfg->currentBB, type, var, var1, var2));
+
+    if (!mustBeInverted) {
+        return var;
+    }
+
+    auto notVar = cfg->createNewTmpVar(Type::INT64_T);
+    cfg->addIRInstr(new UnaryOpInstr(cfg->currentBB, UnaryOpInstr::NOT, notVar, var));
+
+    return notVar;
 }

@@ -1,3 +1,4 @@
+Opening file: LexError/01_LexError_InvalidCharInStream.c
 line 1:0 token recognition error at: '@'
-line 3:0 mismatched input '<EOF>' expecting {TYPE, 'void'}
-Error while parsing
+line 3:0 mismatched input '<EOF>' expecting {']', TYPE, 'void'}
+AST Generated !

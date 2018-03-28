@@ -20,7 +20,7 @@ public:
 
     void genAsm(std::ostream &o); /**< x86 assembly code generation for this basic block (very simple) */
 
-    void addIRInstr(IRInstr instr);
+    void addIRInstr(IRInstr *instr);
 
     // No encapsulation whatsoever here. Feel free to do better.
     BasicBlock *exitTrue;  /**< pointer to the next basic block, true branch. If nullptr, return from procedure */

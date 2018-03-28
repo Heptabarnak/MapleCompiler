@@ -38,3 +38,10 @@ long ExprPrefixUnary::simplify() {
             return ~expr->simplify();
     }
 }
+
+string ExprPrefixUnary::buildIR(CFG *cfg) {
+    string var1 = expr->buildIR(cfg);
+    string var2 = cfg->createNewTmpVar(Type::INT64_T);
+    // TO DO, opérateurs binaires
+    return var1;
+}

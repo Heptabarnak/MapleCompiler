@@ -1,6 +1,9 @@
 #include <str2int.h>
 #include <ir/instructions/OpInstr.h>
+#include <ostream>
 #include "ExprAdditiveOperation.h"
+
+using namespace std;
 
 ExprAdditiveOperation::ExprAdditiveOperation(Expr *left, Expr *right, const string &op) : ExprOperation(left, right) {
 
@@ -12,7 +15,7 @@ ExprAdditiveOperation::ExprAdditiveOperation(Expr *left, Expr *right, const stri
             operation = MINUS;
             break;
         default:
-            // TODO Throw ERROR
+        cerr << "Operator expected to be \"+\" or \"-\" but did not match." << endl;
             break;
     }
 }

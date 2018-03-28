@@ -1,7 +1,10 @@
 #include <str2int.h>
+#include <ostream>
 #include <ir/instructions/OpInstr.h>
 #include <ir/instructions/WMemInstr.h>
 #include "ExprAffectation.h"
+
+using namespace std;
 
 ExprAffectation::ExprAffectation(LeftValue *left, Expr *right, const std::string &op_str)
         : left(left), right(right) {
@@ -41,7 +44,8 @@ ExprAffectation::ExprAffectation(LeftValue *left, Expr *right, const std::string
             op = OR_EQUAL;
             break;
         default:
-            // TODO Throw ERROR
+            cerr << "Operator expected to be \"=\", \"+=\", \"-=\", \"*=\", \"/=\", \"%=\", \"<<=\", \">>=\",";
+            cerr << " \"&=\", \"^=\" or \"|=\" but did not match." << endl;
             break;
     }
 }

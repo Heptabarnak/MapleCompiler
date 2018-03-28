@@ -1,8 +1,11 @@
 #include <str2int.h>
+#include <ostream>
 #include <ir/instructions/LoadConstInstr.h>
 #include <ir/instructions/WMemInstr.h>
 #include <ir/instructions/OpInstr.h>
 #include "ExprIncrement.h"
+
+using namespace std;
 
 ExprIncrement::ExprIncrement(LeftValue *leftValue, std::string op_str, bool isPostfix)
         : leftValue(leftValue), isPostfix(isPostfix) {
@@ -15,7 +18,7 @@ ExprIncrement::ExprIncrement(LeftValue *leftValue, std::string op_str, bool isPo
             op = MINUS_MINUS;
             break;
         default:
-            // TODO Throw ERROR
+            cerr << "Operator expected to be \"++\" or \"--\" but did not match." << endl;
             break;
     }
 

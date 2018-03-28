@@ -20,7 +20,7 @@ ExprMultiplicativeOperation::ExprMultiplicativeOperation(Expr *left, Expr *right
             operation = MOD;
             break;
         default:
-            // TODO Throw ERROR
+            cerr << "Operator expected to be \"*\", \"/\" or \"%\" but did not match." << endl;
             break;
     }
 }

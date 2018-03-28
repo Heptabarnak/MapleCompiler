@@ -1,6 +1,9 @@
 #include <str2int.h>
+#include <ostream>
 #include <ir/instructions/UnaryOpInstr.h>
 #include "ExprPrefixUnary.h"
+
+using namespace std;
 
 ExprPrefixUnary::ExprPrefixUnary(Expr *expr, const string &op) : ExprUnary(expr) {
 
@@ -18,7 +21,7 @@ ExprPrefixUnary::ExprPrefixUnary(Expr *expr, const string &op) : ExprUnary(expr)
             prefixOp = BITWISE_NOT;
             break;
         default:
-            // TODO Throw ERROR
+            cerr << "Operator expected to be \"+\", \"-\", \"!\" or \"~\" but did not match." << endl;
             break;
     }
 }

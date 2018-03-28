@@ -15,6 +15,8 @@ private:
 public:
     Block(const vector<Instruction *> &instructions);
     ~Block();
+
+    string buildIR(CFG *cfg) override;
 };
 
 

@@ -13,6 +13,8 @@ private:
 public:
     ReturnStatement(Expr *expr);
     ~ReturnStatement();
+
+    string buildIR(CFG *cfg) override;
 };
 
 

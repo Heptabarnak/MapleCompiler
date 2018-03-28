@@ -11,12 +11,10 @@ class MapleTreeWalk {
 public:
     MapleTreeWalk(Start *start);
 
-    void generateIR();
+    std::map<std::string, CFG *> generateIR();
 
 private:
-
     Start *start;
-    std::map<std::string, CFG *> cfgs;
 };
 
 

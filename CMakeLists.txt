@@ -102,17 +102,16 @@ set(BACK_SRC_FILES
         back-end/src/ir/IRInstr.cpp
         back-end/src/ir/BasicBlock.cpp
         back-end/src/ir/CFG.cpp
-        back-end/src/ir/instructions/AddInstr.cpp
-        back-end/src/ir/instructions/SubInstr.cpp
-        back-end/src/ir/instructions/MulInstr.cpp
         back-end/src/ir/instructions/RMemInstr.cpp
         back-end/src/ir/instructions/WMemInstr.cpp
         back-end/src/ir/instructions/CallInstr.cpp
-        back-end/src/ir/instructions/CmpEqInstr.cpp
-        back-end/src/ir/instructions/CmpLtInstr.cpp
-        back-end/src/ir/instructions/CmpLeInstr.cpp
         back-end/src/ir/instructions/LoadConstInstr.cpp
-        back-end/src/targets/Target.h back-end/src/tree-walk/MapleTreeWalk.cpp back-end/src/tree-walk/MapleTreeWalk.h)
+        back-end/src/tree-walk/MapleTreeWalk.cpp
+        back-end/src/targets/X86_64.cpp
+        back-end/src/targets/BaseTarget.cpp
+        back-end/src/ir/instructions/OpInstr.cpp
+        back-end/src/ir/instructions/UnaryOpInstr.cpp
+        )
 
 #-----------
 #   UTILS

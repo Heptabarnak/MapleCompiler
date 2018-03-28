@@ -11,7 +11,7 @@ long ExprBinaryXorOperation::simplify() {
 string ExprBinaryXorOperation::buildIR(CFG *cfg) {
     string var1 = leftExpr->buildIR(cfg);
     string var2 = rightExpr->buildIR(cfg);
-    string var3 = cfg->createNewTmpVar();
+    string var3 = cfg->createNewTmpVar(INT64_T);
     // TODO : Create instruction for binary xor
     return var3;
 }

@@ -36,3 +36,11 @@ long ExprRelationalComparisonOperation::simplify() {
             return leftExpr->simplify() >= rightExpr->simplify();
     }
 }
+
+string ExprRelationalComparisonOperation::buildIR(CFG *cfg) {
+    string var1 = leftExpr->buildIR(cfg);
+    string var2 = rightExpr->buildIR(cfg);
+    string var3 = cfg->createNewTmpVar(INT64_T);
+    //TODO create CmpRelInstr class
+    cfg->currentBB->addIRInstr(new CmpRelInstr(cfg->currentBB, INT64_T));
+}

@@ -30,7 +30,9 @@ long ExprEqualityComparisonOperation::simplify() {
 string ExprEqualityComparisonOperation::buildIR(CFG *cfg) {
     string var1 = leftExpr->buildIR(cfg);
     string var2 = leftExpr->buildIR(cfg);
+    //TODO create the cfg->createNewTmpVar() method
     string var3 = cfg->createNewTmpVar(INT64_T);
+    //TODO implement CmpEqInstr class
     cfg->currentBB->addIRInstr(new CmpEqInstr(cfg->currentBB, INT64_T));
     return var3;
 }

@@ -13,6 +13,5 @@ string ExprBinaryAndOperation::buildIR(CFG *cfg) {
     string var2 = rightExpr->buildIR(cfg);
     string var3 = cfg->createNewTmpVar();
     // TODO : Create instruction for binary and
-    cfg->currentBB->addIRInstr(new IRInstr(cfg->currentBB, INT64_T));
     return var3;
 }

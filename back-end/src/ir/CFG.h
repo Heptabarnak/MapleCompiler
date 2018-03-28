@@ -22,16 +22,6 @@ public:
 
     std::string createNewTmpVar(Type type);
 
-    // x86 code generation: could be encapsulated in a processor class in a retargetable compiler
-    void genAsm(std::ostream &o);
-
-    std::string IRRegToAsm(
-            std::string reg); /**< helper method: inputs a IR reg or input variable, returns e.g. "-24(%rbp)" for the proper value of 24 */
-
-    void genAsmPrologue(std::ostream &o);
-
-    void genAsmEpilogue(std::ostream &o);
-
     // symbol table methods
     void addToSymbolTable(std::string name, Type t);
 
@@ -43,6 +33,8 @@ public:
     std::string newBBName();
 
     BasicBlock *currentBB;
+
+    BasicBlock *getRootBB();
 
 protected:
     int nextBBnumber; /**< just for naming */

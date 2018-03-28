@@ -18,6 +18,8 @@ public:
     ExprBinaryShiftOperation(Expr *left, Expr *right, const string &op);
 
     long simplify() override;
+
+    string buildIR(CFG *cfg) override;
 };
 
 

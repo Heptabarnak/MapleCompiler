@@ -7,3 +7,11 @@ ExprBinaryAndOperation::ExprBinaryAndOperation(Expr *left, Expr *right) : ExprBi
 long ExprBinaryAndOperation::simplify() {
     return leftExpr->simplify() & rightExpr->simplify();
 }
+
+string ExprBinaryAndOperation::buildIR(CFG *cfg) {
+    string var1 = leftExpr->buildIR(cfg);
+    string var2 = rightExpr->buildIR(cfg);
+    string var3 = cfg->createNewTmpVar(INT64_T);
+    // TODO : Create instruction for binary and
+    return var3;
+}

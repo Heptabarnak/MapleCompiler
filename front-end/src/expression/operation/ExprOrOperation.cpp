@@ -28,6 +28,11 @@ string ExprOrOperation::buildIR(CFG *cfg) {
     trueBB->addIRInstr(new LoadConstInstr(trueBB, finalValue, 1));
 
 
+    // Save existing exits
+    nextBB->exitTrue = cfg->currentBB->exitTrue;
+    nextBB->exitFalse = cfg->currentBB->exitFalse;
+
+
     // Left test
     leftExpr->buildIR(cfg);
 

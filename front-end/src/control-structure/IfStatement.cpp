@@ -10,33 +10,43 @@ IfStatement::~IfStatement() {
 }
 
 string IfStatement::buildIR(CFG *cfg) {
-    condition->buildIR(cfg);
-
-    auto conditionBB = cfg->currentBB;
-    auto statementBB = new BasicBlock(cfg, cfg->newBBName());
 
     auto afterIf = new BasicBlock(cfg, cfg->newBBName());
+    auto statementBB = new BasicBlock(cfg, cfg->newBBName());
 
-    // Affect to after if the current next BB of the function
-    afterIf->exitTrue = conditionBB->exitTrue;
-    afterIf->exitFalse = conditionBB->exitFalse;
+    // Save existing exits
+    afterIf->exitTrue = cfg->currentBB->exitTrue;
+    afterIf->exitFalse = cfg->currentBB->exitFalse;
 
-    // Add statement after the condition
-    conditionBB->exitTrue = statementBB;
-    // TODO Add instruction to the statement
+    // Add condition IR to the current BB
+    condition->buildIR(cfg);
+    cfg->currentBB->exitTrue = statementBB;
 
+    // Add if inner statement to IR
+    cfg->addBB(statementBB);
+    cfg->currentBB = statementBB;
 
-    // If there is an else, the condition will do a jump to it
-    // Otherwise, condition will jump directly after the if.
-    if (elseStatement != nullptr) {
-        auto elseStatementBB = new BasicBlock(cfg, cfg->newBBName());
+    statement->buildIR(cfg);
 
-        // TODO Add instruction to this basic block
-        conditionBB->exitFalse = elseStatementBB;
-        elseStatementBB->exitTrue = afterIf;
-    } else {
-        conditionBB->exitFalse = afterIf;
+    if (elseStatement == nullptr) {
+        cfg->currentBB->exitFalse = afterIf;
     }
 
-    cfg->addBB(afterIf); // Set current BB after IF
+    // Add elseBB if present
+    if (elseStatement != nullptr) {
+        auto elseBB = new BasicBlock(cfg, cfg->newBBName());
+        cfg->currentBB->exitFalse = elseBB;
+
+        // Add else inner statement to IR
+        cfg->addBB(elseBB);
+        cfg->currentBB = elseBB;
+
+        elseStatement->buildIR(cfg);
+
+        cfg->currentBB->exitTrue = afterIf;
+    }
+
+    cfg->addBB(afterIf);
+    cfg->currentBB = afterIf; // Set current BB after IF
+    return nullptr;
 }

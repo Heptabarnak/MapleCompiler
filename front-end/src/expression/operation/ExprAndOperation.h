@@ -10,6 +10,8 @@ public:
     ExprAndOperation(Expr * left, Expr * right);
 
     long simplify() override;
+
+    std::string ExprAndOperation::buildIR(CFG *cfg);
 };
 
 

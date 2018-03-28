@@ -2,7 +2,7 @@ grammar MapleGrammar;
 
 // axiom
 start : program+ ;
-program : functionDefinition | declaration ;
+program : functionDefinition | functionDeclaration | declaration ;
 
 // Terminaux
 MACRO : '#' .+? [\n\r] -> skip ;
@@ -82,11 +82,14 @@ elseStatement: 'else' instruction ;
 whileStatement: 'while' '(' expr ')' instruction ;
 
 // Fonctions
+
+functionDeclaration: (TYPE | TYPE_VOID) ID '(' (typeListWithoutName | TYPE_VOID)? ')' SC;
 functionDefinition : (TYPE | TYPE_VOID) ID '(' (typeList | TYPE_VOID)? ')' blockFunction ;
 returnStatement : 'return' expr SC ;
 blockFunction : '{' declaration* instruction* '}' ;
 argumentList : ((expr ',')* expr)? ;
 typeList : ((TYPE ID ',')* TYPE ID) ;
+typeListWithoutName : ((TYPE ID? ',')* TYPE ID?) ;
 
 
 // Autres structures

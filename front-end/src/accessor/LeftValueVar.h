@@ -14,6 +14,8 @@ private:
 public:
     LeftValueVar(VarAccessor *varAccessor);
     std::string getSymbolName() override;
+
+    string buildIR(CFG *cfg) override;
 };
 
 

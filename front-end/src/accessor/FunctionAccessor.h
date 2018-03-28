@@ -15,6 +15,7 @@ public:
 
     string getSymbolName() override;
 
+    string buildIR(CFG *cfg) override;
 };
 
 

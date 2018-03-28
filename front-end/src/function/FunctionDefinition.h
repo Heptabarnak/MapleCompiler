@@ -28,6 +28,8 @@ public:
 
     string getSymbolName();
 
+    Type getType() const;
+
     SymbolTable *getSymbolTable() const;
 
     void setBlockFunction(BlockFunction *block);

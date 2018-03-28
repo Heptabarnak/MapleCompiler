@@ -1,8 +1,7 @@
 #include <str2int.h>
 #include <ir/instructions/LoadConstInstr.h>
-#include <ir/instructions/AddInstr.h>
 #include <ir/instructions/WMemInstr.h>
-#include <ir/instructions/SubInstr.h>
+#include <ir/instructions/OpInstr.h>
 #include "ExprIncrement.h"
 
 ExprIncrement::ExprIncrement(LeftValue *leftValue, std::string op_str, bool isPostfix)
@@ -24,25 +23,34 @@ ExprIncrement::ExprIncrement(LeftValue *leftValue, std::string op_str, bool isPo
 
 string ExprIncrement::buildIR(CFG *cfg) {
     string var = cfg->createNewTmpVar(Type::INT64_T);
-    auto *instr = new LoadConstInstr(cfg->currentBB, Type::INT64_T); //avec un 1, pas encore fonctionnel
-    string var2 = leftValue->buildIR(cfg);
-    IRInstr *instr2;
-    switch (op) {
-        case PLUS_PLUS:
-            instr2 = new AddInstr(cfg->currentBB, Type::INT64_T); //pas encore fonctionnel
-            break;
-        case MINUS_MINUS:
-            instr2 = new SubInstr(cfg->currentBB, Type::INT64_T); //pas encore fonctionnel
-            break;
+
+    string var2 = cfg->createNewTmpVar(Type::INT64_T);
+    auto loadConstant = new LoadConstInstr(cfg->currentBB, var2, 1);
+
+    string var1 = leftValue->buildIR(cfg);
+
+    auto opInstr = OpInstr::ADD;
+
+    if (op == MINUS_MINUS) {
+        opInstr = OpInstr::SUB;
     }
-    auto *instr3 = new WMemInstr(cfg->currentBB, Type::INT64_T);//pas encore fonctionnel
-    cfg->currentBB->addIRInstr(instr);
-    if (isPostfix) {
-        cfg->currentBB->addIRInstr(instr3);
-        cfg->currentBB->addIRInstr(instr2);
-    } else {
-        cfg->currentBB->addIRInstr(instr2);
-        cfg->currentBB->addIRInstr(instr3);
+
+
+    IRInstr *addition = new OpInstr(cfg->currentBB, opInstr, var, var1, var2);
+
+    auto *saveVar = new WMemInstr(cfg->currentBB, var1, var);
+
+    cfg->addIRInstr(loadConstant);
+    cfg->addIRInstr(addition);
+    cfg->addIRInstr(saveVar);
+
+
+    if (!isPostfix) {
+        return var1;
     }
-    return var;
+
+    // FIXME See to send value before addition
+
+
+    return "<not_implemented>";
 }

@@ -7,3 +7,7 @@ FunctionAccessor::FunctionAccessor(AccessorFunction *accessorFunction) : accesso
 string FunctionAccessor::getSymbolName() {
     return accessorFunction->getSymbolName();
 }
+
+string FunctionAccessor::buildIR(CFG *cfg) {
+    return accessorFunction->buildIR(cfg);
+}

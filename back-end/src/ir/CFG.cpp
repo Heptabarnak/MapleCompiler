@@ -17,3 +17,7 @@ std::string CFG::newBBName() {
 void CFG::addBB(BasicBlock *bb) {
     bbs.push_back(bb);
 }
+
+void CFG::addIRInstr(IRInstr *instr) {
+    currentBB->addIRInstr(instr);
+}

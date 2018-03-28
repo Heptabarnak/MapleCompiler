@@ -47,6 +47,6 @@ string ExprMultiplicativeOperation::buildIR(CFG *cfg) {
     string var2 = rightExpr->buildIR(cfg);
     string var3 = cfg->createNewTmpVar(INT64_T);
     //TODO implement Mulinstr class
-    cfg->currentBB->addIRInstr(new MulInstr(cfg->currentBB, INT64_T));
+    cfg->addIRInstr(new MulInstr(cfg->currentBB, INT64_T));
     return var3;
 }

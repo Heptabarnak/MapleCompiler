@@ -1,4 +1,5 @@
 #include <str2int.h>
+#include <ir/instructions/UnaryOpInstr.h>
 #include "ExprPrefixUnary.h"
 
 ExprPrefixUnary::ExprPrefixUnary(Expr *expr, const string &op) : ExprUnary(expr) {
@@ -41,7 +42,26 @@ long ExprPrefixUnary::simplify() {
 
 string ExprPrefixUnary::buildIR(CFG *cfg) {
     string var1 = expr->buildIR(cfg);
-    string var2 = cfg->createNewTmpVar(Type::INT64_T);
-    // TO DO, opérateurs binaires
-    return var1;
+    string var = cfg->createNewTmpVar(Type::INT64_T);
+
+    UnaryOpInstr::UnaryOpType opType = UnaryOpInstr::PLUS;
+    switch (prefixOp) {
+        case PLUS:
+            opType = UnaryOpInstr::PLUS;
+            break;
+        case MINUS:
+            opType = UnaryOpInstr::MINUS;
+            break;
+        case NOT:
+            opType = UnaryOpInstr::NOT;
+            break;
+        case BITWISE_NOT:
+            opType = UnaryOpInstr::BITWISE_NOT;
+            break;
+    }
+
+    auto instr = new UnaryOpInstr(cfg->currentBB, opType, var, var1);
+    cfg->addIRInstr(instr);
+
+    return var;
 }

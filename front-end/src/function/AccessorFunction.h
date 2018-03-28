@@ -3,19 +3,21 @@
 
 #include <vector>
 #include <expression/Expr.h>
+#include <ir/BuildIR.h>
 #include "FunctionDefinition.h"
 
-using std::vector;
-
-class AccessorFunction {
+class AccessorFunction : public BuildIR {
 
 private:
     FunctionDefinition *declaration;
-    vector<Expr *> arguments;
+    std::vector<Expr *> arguments;
 
 public:
-    AccessorFunction(FunctionDefinition *declaration, vector<Expr *> const &arguments);
-    string getSymbolName();
+    AccessorFunction(FunctionDefinition *declaration, std::vector<Expr *> const &arguments);
+
+    std::string getSymbolName();
+
+    string buildIR(CFG *cfg) override;
 };
 
 

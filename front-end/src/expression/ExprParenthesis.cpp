@@ -11,8 +11,5 @@ long ExprParenthesis::simplify() {
 }
 
 std::string ExprParenthesis::buildIR(CFG *cfg) {
-
     return expr->buildIR(cfg);
-
-
 }

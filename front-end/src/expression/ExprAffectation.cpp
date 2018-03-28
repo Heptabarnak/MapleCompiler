@@ -1,4 +1,5 @@
 #include <str2int.h>
+#include <ir/instructions/WMemInstr.h>
 #include "ExprAffectation.h"
 
 ExprAffectation::ExprAffectation(LeftValue *left, Expr *right, const std::string &op_str)
@@ -42,4 +43,16 @@ ExprAffectation::ExprAffectation(LeftValue *left, Expr *right, const std::string
             // TODO Throw ERROR
             break;
     }
+}
+
+string ExprAffectation::buildIR(CFG *cfg) {
+
+    std::string value = right->buildIR(cfg);
+    std::string dest = left->buildIR(cfg);
+
+    auto instr = new WMemInstr(cfg->currentBB, dest, value);
+
+    cfg->addIRInstr(instr);
+
+    return value;
 }

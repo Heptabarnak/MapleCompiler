@@ -9,6 +9,7 @@
 #include <function/FunctionDefinition.h>
 
 #include "BasicBlock.h"
+#include "IRInstr.h"
 
 class BasicBlock;
 
@@ -18,12 +19,12 @@ public:
 
     void addBB(BasicBlock *bb);
 
+    void addIRInstr(IRInstr *instr);
+
     std::string createNewTmpVar(Type type);
 
     // basic block management
     std::string newBBName();
-
-    std::string createNewTmpVar(Type type);
 
     BasicBlock *currentBB;
 

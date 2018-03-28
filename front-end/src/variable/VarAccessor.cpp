@@ -6,3 +6,7 @@ std::string VarAccessor::getName() {
     return declaration->getName();
 }
 
+string VarAccessor::buildIR(CFG *cfg) {
+    return declaration->getName();
+}
+

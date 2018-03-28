@@ -16,7 +16,7 @@ long ExprValue::simplify() {
 
 string ExprValue::buildIR(CFG *cfg) {
     string var = cfg->createNewTmpVar(value->getType());
-    auto * instr = new LoadConstInstr(cfg->currentBB, value->getType()); //pas encore fonctionnel
-    cfg->currentBB->addIRInstr(instr);
+    auto *instr = new LoadConstInstr(cfg->currentBB, var, value->getValue(), value->getType());
+    cfg->addIRInstr(instr);
     return var;
 }

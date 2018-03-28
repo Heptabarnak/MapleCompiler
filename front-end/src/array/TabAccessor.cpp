@@ -5,3 +5,11 @@ TabAccessor::TabAccessor(TabDeclaration *declaration, Expr *pos) : declaration(d
 std::string TabAccessor::getName() {
     return declaration->getName();
 }
+
+std::string TabAccessor::buildIR(CFG *cfg) {
+    std::string varPos = pos->buildIR(cfg);
+
+    // TODO Add new instruction to access an array
+
+    return varPos;
+}

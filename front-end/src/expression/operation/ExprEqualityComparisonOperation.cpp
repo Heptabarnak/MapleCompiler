@@ -33,6 +33,6 @@ string ExprEqualityComparisonOperation::buildIR(CFG *cfg) {
     //TODO create the cfg->createNewTmpVar() method
     string var3 = cfg->createNewTmpVar(INT64_T);
     //TODO implement CmpEqInstr class
-    cfg->currentBB->addIRInstr(new CmpEqInstr(cfg->currentBB, INT64_T));
+    cfg->addIRInstr(new CmpEqInstr(cfg->currentBB, INT64_T));
     return var3;
 }

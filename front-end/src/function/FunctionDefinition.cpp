@@ -29,3 +29,7 @@ std::string FunctionDefinition::buildIR(CFG *cfg) {
 SymbolTable *FunctionDefinition::getSymbolTable() const {
     return symbolTable;
 }
+
+Type FunctionDefinition::getType() const {
+    return type;
+}

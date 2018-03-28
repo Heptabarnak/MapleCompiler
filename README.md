@@ -11,7 +11,6 @@ It is written in C++.
 - Marc-Antoine Fernandes
 - Justin Gally
 - Vincent Guillon
-- Pierre Jaglin
 - Loïc Sérazin
 
 

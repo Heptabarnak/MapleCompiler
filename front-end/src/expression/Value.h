@@ -12,6 +12,9 @@ private:
 public:
     Value(Type type, long value);
 
+
+    Type getType() const;
+
     long getValue();
 };
 

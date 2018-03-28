@@ -24,6 +24,8 @@ public:
 
     long simplify() override;
 
+    string buildIR(CFG* cfg);
+
 };
 
 

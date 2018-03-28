@@ -19,6 +19,8 @@ public:
 
     long simplify() override;
 
+    string buildIR(CFG* cfg);
+
 };
 
 #endif //MAPLECOMPILER_EXPRVALUE_H

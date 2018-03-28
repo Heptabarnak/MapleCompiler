@@ -23,6 +23,8 @@ public:
     // basic block management
     std::string newBBName();
 
+    std::string createNewTmpVar(Type type);
+
     BasicBlock *currentBB;
 
     BasicBlock *getRootBB();

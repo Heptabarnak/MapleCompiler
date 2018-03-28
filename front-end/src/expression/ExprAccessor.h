@@ -11,6 +11,7 @@ private:
 
 public:
     ExprAccessor(Accessor *accessor);
+    string buildIR(CFG* cfg);
 };
 
 

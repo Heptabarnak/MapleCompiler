@@ -21,6 +21,7 @@ private:
 
 public:
     ExprIncrement(LeftValue *leftValue, std::string op_str, bool isPostfix);
+    string buildIR(CFG* cfg);
 };
 
 

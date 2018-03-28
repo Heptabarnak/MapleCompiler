@@ -2,7 +2,13 @@
 #define MAPLECOMPILER_WMEMINSTR_H
 
 
-class WMemInstr {
+#include <ir/IRInstr.h>
+
+class WMemInstr : public IRInstr {
+public:
+    WMemInstr(BasicBlock *bb_, Type t);
+
+public:
 
 };
 

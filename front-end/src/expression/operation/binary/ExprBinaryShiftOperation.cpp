@@ -1,4 +1,5 @@
 #include <str2int.h>
+#include <ir/instructions/OpInstr.h>
 #include "ExprBinaryShiftOperation.h"
 
 ExprBinaryShiftOperation::ExprBinaryShiftOperation(Expr *left, Expr *right, const string &op)
@@ -29,7 +30,16 @@ long ExprBinaryShiftOperation::simplify() {
 string ExprBinaryShiftOperation::buildIR(CFG *cfg) {
     string var1 = leftExpr->buildIR(cfg);
     string var2 = rightExpr->buildIR(cfg);
-    string var3 = cfg->createNewTmpVar(INT64_T);
-    // TODO : Create instruction for binary shift
-    return var3;
+    string var = cfg->createNewTmpVar(INT64_T);
+
+    OpInstr::OpType type = OpInstr::SHIFT_LEFT;
+
+    switch (operation) {
+        case RIGHT:
+            type = OpInstr::SHIFT_RIGHT;
+            break;
+    }
+
+    cfg->addIRInstr(new OpInstr(cfg->currentBB, type, var, var1, var2));
+    return var;
 }

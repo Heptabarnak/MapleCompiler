@@ -1,3 +1,4 @@
+#include <ir/instructions/OpInstr.h>
 #include "ExprBinaryXorOperation.h"
 
 ExprBinaryXorOperation::ExprBinaryXorOperation(Expr *left, Expr *right) : ExprBinaryOperation(left, right) {
@@ -11,7 +12,8 @@ long ExprBinaryXorOperation::simplify() {
 string ExprBinaryXorOperation::buildIR(CFG *cfg) {
     string var1 = leftExpr->buildIR(cfg);
     string var2 = rightExpr->buildIR(cfg);
-    string var3 = cfg->createNewTmpVar(INT64_T);
-    // TODO : Create instruction for binary xor
-    return var3;
+    string var = cfg->createNewTmpVar(INT64_T);
+
+    cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::XOR, var, var1, var2));
+    return var;
 }

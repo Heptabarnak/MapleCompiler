@@ -7,6 +7,8 @@
 #include <exception>
 #include <typeinfo>
 #include <stdexcept>
+#include <tree-walk/MapleTreeWalk.h>
+#include <targets/X86_64.h>
 
 
 using namespace antlr4;
@@ -33,6 +35,8 @@ int main(int argc, const char **argv) {
     }
 
 
+    // Parsing
+
     ANTLRInputStream input(inputFile);
     MapleGrammarLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
@@ -44,6 +48,9 @@ int main(int argc, const char **argv) {
         cerr << "Error while parsing" << endl;
         return 1;
     }
+
+
+    // AST Generation
 
     StartVisitor visitor;
     Start *ast;
@@ -57,7 +64,33 @@ int main(int argc, const char **argv) {
         return 1;
     }
 
-    // TODO Send AST to back-end (it already contains a symbol table)
+
+    // TreeWalk
+
+    std::map<std::string, CFG *> cfgs;
+
+    try {
+        MapleTreeWalk treeWalk(ast);
+        cfgs = treeWalk.generateIR();
+    } catch (std::exception &exception) {
+        cerr << "Error in TreeWalk :" << endl << exception.what();
+        return 1;
+    }
+
+
+    // ASM Generation
+
+    try {
+        X86_64 target(argv[1], cfgs);
+
+        target.parse();
+
+        // TODO Option
+        target.compile();
+    } catch (std::exception &exception) {
+        cerr << "Error in IR Generation :" << endl << exception.what();
+        return 1;
+    }
 
     return 0;
 }

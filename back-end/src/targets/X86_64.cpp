@@ -17,3 +17,43 @@ void X86_64::parse() {
 void X86_64::compile() {
 
 }
+
+void X86_64::prologue() {
+
+}
+
+void X86_64::epilogue() {
+
+}
+
+void X86_64::parseBasicBlocks() {
+
+}
+
+void X86_64::op(OpInstr *instr) {
+
+}
+
+void X86_64::loadConst(LoadConstInstr *instr) {
+
+}
+
+void X86_64::call(CallInstr *instr) {
+
+}
+
+void X86_64::rmemarray(RMemArrayInstr *instr) {
+
+}
+
+void X86_64::rmem(RMemInstr *instr) {
+
+}
+
+void X86_64::wmem(WMemInstr *instr) {
+
+}
+
+void X86_64::unaryop(UnaryOpInstr *instr) {
+
+}

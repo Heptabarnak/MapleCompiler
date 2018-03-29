@@ -74,12 +74,22 @@ int Runner::run(Config *conf) {
 
     if (conf->generateAsm) {
         try {
-
-            X86_64 target(conf, cfgs);
+            BaseTarget target = nullptr;
+            switch (conf->target) {
+                case X86_64:
+                    target = X86_64::X86_64(conf, cfgs);
+                    break;
+                case JAVA:
+                case MSP430:
+                    std::cerr << "This target is not available for now. Sorry for the inconvenience" << std::endl;
+                    return 1;
+            }
 
             target.parse();
 
-            // TODO Add option for target.compile();
+            if (conf->linkAsm) {
+                target.compile();
+            }
         } catch (std::exception &exception) {
             std::cerr << "Error in IR Generation :" << std::endl << exception.what();
             return 1;

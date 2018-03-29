@@ -20,7 +20,7 @@ Config *parseConfig(int argc, char *const *argv) {
     opterr = 0;
     int opt;
 
-    while ((opt = getopt(argc, argv, "-aoct:")) != -1) {
+    while ((opt = getopt(argc, argv, "-aoclt:")) != -1) {
         switch (opt) {
             case 'a':
                 config->staticAnalysis = true;
@@ -30,6 +30,9 @@ Config *parseConfig(int argc, char *const *argv) {
                 break;
             case 'c':
                 config->generateAsm = true;
+                break;
+            case 'l':
+                config->linkAsm = true;
                 break;
             case 't':
                 switch (str2int(optarg)) {

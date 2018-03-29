@@ -13,6 +13,7 @@ typedef struct Config {
     bool staticAnalysis = false;
     bool optimisation = false;
     bool generateAsm = false;
+    bool linkAsm = false;
 
     Target target = X86_64;
     std::string fileToCompile{};

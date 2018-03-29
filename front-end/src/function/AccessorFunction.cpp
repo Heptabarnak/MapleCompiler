@@ -18,11 +18,9 @@ string AccessorFunction::buildIR(CFG *cfg) {
         args.push_back(argument->buildIR(cfg));
     }
 
-    auto returnName = cfg->createNewTmpVar(declaration->getType());
-
-    auto instr = new CallInstr(cfg->currentBB, cfg->newBBName(), returnName, args);
-
+    auto dest = cfg->createNewTmpVar(Type::INT64_T);
+    auto instr = new CallInstr(cfg->currentBB, cfg->newBBName(), dest, declaration->getSymbolName(), args);
     cfg->addIRInstr(instr);
 
-    return returnName;
+    return dest;
 }

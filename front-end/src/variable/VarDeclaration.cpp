@@ -11,10 +11,14 @@ const string &VarDeclaration::getName() const {
 }
 
 string VarDeclaration::buildIR(CFG *cfg) {
-    auto defValue = assignment->buildIR(cfg);
+    if (assignment) {
 
-    cfg->addIRInstr(new WMemInstr(cfg->currentBB, name, defValue));
-    return defValue;
+        auto defValue = assignment->buildIR(cfg);
+
+        cfg->addIRInstr(new WMemInstr(cfg->currentBB, name, defValue));
+        return defValue;
+    }
+    return "";
 }
 
 int VarDeclaration::getAllocationSize() {

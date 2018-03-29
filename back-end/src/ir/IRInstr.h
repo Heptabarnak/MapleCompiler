@@ -14,6 +14,8 @@ class IRInstr {
 public:
     explicit IRInstr(BasicBlock *bb_);
 
+    virtual ~IRInstr() = default;
+
 protected:
     BasicBlock *bb;
 };

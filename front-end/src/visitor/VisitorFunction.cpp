@@ -37,14 +37,15 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
 
     auto fDef = new FunctionDefinition(
             type,
-            name,
-            currentSymbolTable
+            name
     );
     currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fDef, true));
 
 
     // Add a new scoped env
     currentSymbolTable = new SymbolTable(currentSymbolTable);
+
+    fDef->setSymbolTable(currentSymbolTable);
 
     if (ctx->typeList() != nullptr) {
         fDef->setArguments(*(vector<FunctionParam *> *) visit(ctx->typeList()));

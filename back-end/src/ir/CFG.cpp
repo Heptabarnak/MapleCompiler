@@ -27,6 +27,14 @@ void CFG::addIRInstr(IRInstr *instr) {
     currentBB->addIRInstr(instr);
 }
 
-int CFG::getAllocationSize() {
+long CFG::getAllocationSize() {
     return symbolTable->getAllocationSize();
+}
+
+std::vector<BasicBlock *> &CFG::getBBs() {
+    return bbs;
+}
+
+long CFG::getOffset(string name) {
+    return symbolTable->getOffset(name);
 }

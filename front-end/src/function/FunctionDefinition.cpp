@@ -4,8 +4,8 @@
 using std::string;
 using std::vector;
 
-FunctionDefinition::FunctionDefinition(Type type, const string &name, SymbolTable *symbolTable)
-        : type(type), name(name), symbolTable(symbolTable) {}
+FunctionDefinition::FunctionDefinition(Type type, const string &name)
+        : type(type), name(name), symbolTable(nullptr) {}
 
 string FunctionDefinition::getSymbolName() {
     return name;
@@ -32,6 +32,9 @@ Type FunctionDefinition::getType() const {
 }
 
 int FunctionDefinition::getAllocationSize() {
-    std::cerr << "[FunctionDefinition#getAllocationSize()] Should not have been called" << std::endl;
     return 0;
+}
+
+void FunctionDefinition::setSymbolTable(SymbolTable *symbolTable) {
+    this->symbolTable = symbolTable;
 }

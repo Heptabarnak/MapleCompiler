@@ -23,13 +23,15 @@ private:
     SymbolTable *symbolTable;
 
 public:
-    FunctionDefinition(Type type, const std::string &name, SymbolTable *symbolTable);
+    FunctionDefinition(Type type, const std::string &name);
 
     std::string getSymbolName();
 
     Type getType() const;
 
     SymbolTable *getSymbolTable() const;
+
+    void setSymbolTable(SymbolTable *symbolTable);
 
     void setBlockFunction(BlockFunction *block);
 

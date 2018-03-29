@@ -33,7 +33,11 @@ public:
 
     BasicBlock *getRootBB();
 
-    int getAllocationSize();
+    long getAllocationSize();
+
+    std::vector<BasicBlock *> &getBBs();
+
+    long getOffset(std::string name);
 
 protected:
     int nextBBNumber; /**< just for naming */

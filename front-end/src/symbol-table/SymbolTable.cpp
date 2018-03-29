@@ -28,8 +28,13 @@ SymbolTable::~SymbolTable() {
 
 SymbolTable *SymbolTable::insert(string name, Symbol *symbol) {
     symbols.insert({name, symbol});
-    levels.insert({lastLevel, name});
-    lastLevel++;
+    levels.insert({order, name});
+    order++;
+
+    // Offset handling
+    offset += symbol->getDeclaration()->getAllocationSize();
+    offsetTable.insert({name, offset});
+
     return this;
 }
 
@@ -69,7 +74,7 @@ SymbolTable *SymbolTable::getFather() {
 }
 
 string SymbolTable::createNewTmpVar(Type type) {
-    string name = "!tmp" + lastLevel;
+    string name = "!tmp" + std::to_string(order);
 
     auto declaration = new VarDeclaration(name, type);
 
@@ -83,11 +88,16 @@ string SymbolTable::createNewTmpVar(Type type) {
     return name;
 }
 
-int SymbolTable::getAllocationSize() {
-    int alloc = 0;
-    for (auto &&symbol : symbols) {
-        alloc += symbol.second->getDeclaration()->getAllocationSize();
+long SymbolTable::getAllocationSize() {
+    return offset;
+}
+
+long SymbolTable::getOffset(string &name) {
+    auto item = offsetTable.find(name);
+
+    if (item == offsetTable.end()) {
+        return -1;
     }
 
-    return alloc;
+    return item->second;
 }

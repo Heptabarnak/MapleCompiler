@@ -26,13 +26,17 @@ public:
 
     std::string createNewTmpVar(Type type);
 
-    int getAllocationSize();
+    long getOffset(std::string &name);
+
+    long getAllocationSize();
 
 private:
     std::map<std::string, Symbol *> symbols;
-
     std::map<int, std::string> levels;
-    int lastLevel = 0;
+    int order = 0;
+
+    std::map<std::string, long> offsetTable;
+    long offset = 8; // Start at 8 for %rbp
 
     SymbolTable *father;
     std::vector<SymbolTable *> children;

@@ -15,6 +15,7 @@ const string &TabDeclaration::getName() const {
 
 string TabDeclaration::buildIR(CFG *cfg) {
     // FIXME Try to write everything in one instruction
+    if (definition.empty()) return "";
 
     // Mem[i] = Mem + i * sizeof(type)
     // Mem[i] = Mem + byteDistance

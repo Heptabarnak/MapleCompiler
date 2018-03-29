@@ -12,7 +12,12 @@ map<string, CFG *> MapleTreeWalk::generateIR() {
 
     for (auto &&declaration : declarations) {
         if (auto funcDef = dynamic_cast<FunctionDefinition *>(declaration)) {
-            auto newCfg = new CFG(start->getGlobalSymbolTable());
+            if (funcDef->getSymbolTable() == nullptr) {
+                // Example: putchar & getchar
+                continue;
+            }
+
+            auto newCfg = new CFG(funcDef->getSymbolTable());
             funcDef->buildIR(newCfg);
 
             cfgs.insert({funcDef->getSymbolName(), newCfg});

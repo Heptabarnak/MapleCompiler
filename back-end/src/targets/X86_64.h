@@ -32,6 +32,8 @@ protected:
 
     void unaryop(UnaryOpInstr *instr) override;
 
+private:
+    void instrDispacher(IRInstr *instr);
 };
 
 

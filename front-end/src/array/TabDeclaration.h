@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <declaration/Declaration.h>
+#include <ir/BuildIR.h>
 
 
 using std::vector;
@@ -21,6 +22,8 @@ private:
 
 public:
     TabDeclaration(Type type, unsigned long size, const string &name, const vector<Value *> &definition = {});
+
+    string buildIR(CFG *cfg) override;
 
     const string &getName() const;
 };

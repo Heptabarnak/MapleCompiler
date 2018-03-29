@@ -20,6 +20,8 @@ public:
 public:
     VarDeclaration(const string &name, Type type, Expr *assignment = nullptr);
 
+    string buildIR(CFG *cfg) override ;
+
 };
 
 

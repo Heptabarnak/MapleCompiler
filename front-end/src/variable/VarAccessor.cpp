@@ -1,3 +1,5 @@
+
+
 #include "VarAccessor.h"
 
 VarAccessor::VarAccessor(VarDeclaration *dec) : declaration(dec) {}
@@ -9,4 +11,3 @@ std::string VarAccessor::getName() {
 string VarAccessor::buildIR(CFG *cfg) {
     return declaration->getName();
 }
-

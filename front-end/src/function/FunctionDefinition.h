@@ -36,6 +36,8 @@ public:
     void setArguments(const std::vector<FunctionParam *> &params);
 
     std::string buildIR(CFG *cfg);
+
+    int getAllocationSize() override;
 };
 
 

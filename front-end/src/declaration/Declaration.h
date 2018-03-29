@@ -7,6 +7,8 @@ class Declaration : public BuildIR {
 
 public:
     virtual ~Declaration() = default;
+
+    virtual int getAllocationSize() = 0;
 };
 
 

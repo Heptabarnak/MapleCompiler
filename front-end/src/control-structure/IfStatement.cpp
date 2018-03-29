@@ -50,5 +50,5 @@ string IfStatement::buildIR(CFG *cfg) {
 
     cfg->addBB(afterIf);
     cfg->currentBB = afterIf; // Set current BB after IF
-    return nullptr;
+    return "";
 }

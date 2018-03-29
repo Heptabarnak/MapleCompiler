@@ -5,12 +5,12 @@ using std::map;
 using std::ofstream;
 
 BaseTarget::BaseTarget(Config *config, map<string, CFG *> &cfgs)
-        : config(config), cfgs(cfgs) {
+        : conf(config), cfgs(cfgs) {
     output = new ofstream();
 }
 
 void BaseTarget::open() {
-    output->open(config->fileToCompile + ".s", std::ios_base::trunc);
+    output->open(conf->fileToCompile + ".s", std::ios_base::trunc);
 
     if (!output->is_open()) {
         // TODO Throw error

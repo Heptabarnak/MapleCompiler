@@ -7,7 +7,7 @@
 #include "Runner.h"
 
 using antlr4::ANTLRInputStream;
-using antlr4::CommonTokenStream
+using antlr4::CommonTokenStream;
 using antlr4::tree::ParseTree;
 using std::cerr;
 using std::cout;
@@ -74,21 +74,21 @@ int Runner::run(Config *conf) {
 
     if (conf->generateAsm) {
         try {
-            BaseTarget target = nullptr;
+            BaseTarget *target = nullptr;
             switch (conf->target) {
-                case X86_64:
-                    target = X86_64::X86_64(conf, cfgs);
+                case Target::X86_64:
+                    target = new X86_64(conf, cfgs);
                     break;
-                case JAVA:
-                case MSP430:
+                case Target::JAVA:
+                case Target::MSP430:
                     std::cerr << "This target is not available for now. Sorry for the inconvenience" << std::endl;
                     return 1;
             }
 
-            target.parse();
+            target->parse();
 
             if (conf->linkAsm) {
-                target.compile();
+                target->compile();
             }
         } catch (std::exception &exception) {
             std::cerr << "Error in IR Generation :" << std::endl << exception.what();

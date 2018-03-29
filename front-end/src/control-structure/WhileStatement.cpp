@@ -41,5 +41,5 @@ string WhileStatement::buildIR(CFG *cfg) {
     // While end
     cfg->addBB(afterWhile);
     cfg->currentBB = afterWhile; // Set current BB after While
-    return nullptr;
+    return "";
 }

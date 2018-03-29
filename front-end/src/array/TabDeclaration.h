@@ -21,6 +21,12 @@ public:
     std::string buildIR(CFG *cfg) override;
 
     const std::string &getName() const;
+
+    Type getType() const;
+
+    unsigned long getSize() const;
+
+    int getAllocationSize() override;
 };
 
 

@@ -102,7 +102,7 @@ set(AST_SRC_FILES
         front-end/src/visitor/VisitorFunction.cpp
         front-end/src/visitor/VisitorInstruction.cpp
         front-end/src/visitor/VisitorOp.cpp
-        )
+        front-end/src/expression/Expr.cpp)
 
 #---------------
 #   BACK-END
@@ -115,7 +115,6 @@ set(BACK_SRC_FILES
         back-end/src/ir/BasicBlock.cpp
         back-end/src/ir/BuildIR.h
         back-end/src/ir/CFG.cpp
-        back-end/src/ir/instructions/RMemArrayInstr.cpp
         back-end/src/ir/instructions/RMemInstr.cpp
         back-end/src/ir/instructions/WMemInstr.cpp
         back-end/src/ir/instructions/CallInstr.cpp

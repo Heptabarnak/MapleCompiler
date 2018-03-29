@@ -26,8 +26,6 @@ protected:
 
     void call(CallInstr *instr) override;
 
-    void rmemarray(RMemArrayInstr *instr) override;
-
     void rmem(RMemInstr *instr) override;
 
     void wmem(WMemInstr *instr) override;

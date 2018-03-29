@@ -72,7 +72,7 @@ antlrcpp::Any StartVisitor::visitDeclaration(MapleGrammarParser::DeclarationCont
     if (ctx->declarationVar()) {
         return (vector<Declaration *> *) visit(ctx->declarationVar());
     }
-    auto declarations = new vector<Declaration *>(1);
+    auto declarations = new vector<Declaration *>();
     declarations->push_back((Declaration *) visit(ctx->declarationTab()));
     return declarations;
 }
@@ -128,7 +128,7 @@ StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDe
 
 antlrcpp::Any StartVisitor::visitDeclarationVar(MapleGrammarParser::DeclarationVarContext *ctx) {
     const auto &definitions = ctx->declarationVarDefinition();
-    auto declarations = new vector<Declaration *>(definitions.size());
+    auto declarations = new vector<Declaration *>();
 
     for (auto &&declaration : definitions) {
         declarations->push_back((VarDeclaration *) visit(declaration));

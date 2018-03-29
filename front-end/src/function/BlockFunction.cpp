@@ -19,5 +19,5 @@ string BlockFunction::buildIR(CFG *cfg) {
         instruction->buildIR(cfg);
     }
 
-    return nullptr;
+    return "";
 }

@@ -82,3 +82,12 @@ string SymbolTable::createNewTmpVar(Type type) {
 
     return name;
 }
+
+int SymbolTable::getAllocationSize() {
+    int alloc = 0;
+    for (auto &&symbol : symbols) {
+        alloc += symbol.second->getDeclaration()->getAllocationSize();
+    }
+
+    return alloc;
+}

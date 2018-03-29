@@ -6,7 +6,10 @@ BasicBlock *CFG::getRootBB() {
     return bbs.front();
 }
 
-CFG::CFG(SymbolTable *symbolTable) : symbolTable(symbolTable), nextBBNumber(0) {}
+CFG::CFG(SymbolTable *symbolTable) : symbolTable(symbolTable), nextBBNumber(0) {
+    currentBB = new BasicBlock(this, newBBName());
+    bbs.push_back(currentBB);
+}
 
 string CFG::createNewTmpVar(Type type) {
     return symbolTable->createNewTmpVar(type);
@@ -22,4 +25,8 @@ void CFG::addBB(BasicBlock *bb) {
 
 void CFG::addIRInstr(IRInstr *instr) {
     currentBB->addIRInstr(instr);
+}
+
+int CFG::getAllocationSize() {
+    return symbolTable->getAllocationSize();
 }

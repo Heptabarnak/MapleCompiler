@@ -59,7 +59,7 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
 }
 
 antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *ctx) {
-    auto fParams = new vector<FunctionParam *>(ctx->ID().size());
+    auto fParams = new vector<FunctionParam *>();
 
     for (std::size_t i = 0; i != ctx->ID().size(); i++) {
         const string &name = ctx->ID(i)->getText();

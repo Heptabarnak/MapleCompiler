@@ -9,7 +9,6 @@
 #include <ir/instructions/OpInstr.h>
 #include <ir/instructions/LoadConstInstr.h>
 #include <ir/instructions/CallInstr.h>
-#include <ir/instructions/RMemArrayInstr.h>
 #include <ir/instructions/RMemInstr.h>
 #include <ir/instructions/WMemInstr.h>
 #include <ir/instructions/UnaryOpInstr.h>
@@ -49,8 +48,6 @@ protected:
 
     virtual void call(CallInstr *instr) = 0;
 
-    virtual void rmemarray(RMemArrayInstr *instr) = 0;
-
     virtual void rmem(RMemInstr *instr) = 0;
 
     virtual void wmem(WMemInstr *instr) = 0;
@@ -62,9 +59,10 @@ protected:
 
     std::map<std::string, CFG *> cfgs;
 
+    Config *conf;
+
 private:
     std::ofstream *output;
-    Config *config;
 };
 
 

@@ -16,4 +16,5 @@ string ReturnStatement::buildIR(CFG *cfg) {
 
     cfg->currentBB->exitTrue = nullptr;
     cfg->currentBB->exitFalse = nullptr;
+    return "";
 }

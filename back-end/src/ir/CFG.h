@@ -33,6 +33,8 @@ public:
 
     BasicBlock *getRootBB();
 
+    int getAllocationSize();
+
 protected:
     int nextBBNumber; /**< just for naming */
 

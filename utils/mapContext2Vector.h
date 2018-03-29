@@ -9,7 +9,7 @@ std::vector<T>* mapContext2Vector(
         const std::vector<U> &children,
         antlr4::tree::AbstractParseTreeVisitor *visitor
 ) {
-    auto vector = new std::vector<T>(children.size());
+    auto vector = new std::vector<T>();
 
     for (auto &&item : children) {
         vector->push_back((T) visitor->visit(item));

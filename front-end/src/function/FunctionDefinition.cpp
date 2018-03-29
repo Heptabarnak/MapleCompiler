@@ -1,3 +1,4 @@
+#include <iostream>
 #include "FunctionDefinition.h"
 
 using std::string;
@@ -28,4 +29,9 @@ SymbolTable *FunctionDefinition::getSymbolTable() const {
 
 Type FunctionDefinition::getType() const {
     return type;
+}
+
+int FunctionDefinition::getAllocationSize() {
+    std::cerr << "[FunctionDefinition#getAllocationSize()] Should not have been called" << std::endl;
+    return 0;
 }

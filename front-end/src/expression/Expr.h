@@ -7,7 +7,7 @@
 
 class Expr : public BuildIR {
 protected:
-    static bool optimisationEnable = false;
+    static bool optimisationEnable;
 public:
     Expr() = default;
 

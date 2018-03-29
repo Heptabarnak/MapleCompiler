@@ -3,7 +3,7 @@
 
 #include <string>
 
-enum Target {
+enum class Target {
     X86_64,
     JAVA,
     MSP430
@@ -15,7 +15,7 @@ typedef struct Config {
     bool generateAsm = false;
     bool linkAsm = false;
 
-    Target target = X86_64;
+    Target target = Target::X86_64;
     std::string fileToCompile{};
 
 } Config;

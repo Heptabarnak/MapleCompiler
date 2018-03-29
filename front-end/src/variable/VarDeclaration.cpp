@@ -1,3 +1,4 @@
+#include <ir/instructions/WMemInstr.h>
 #include "VarDeclaration.h"
 
 using std::string;
@@ -10,6 +11,22 @@ const string &VarDeclaration::getName() const {
 }
 
 string VarDeclaration::buildIR(CFG *cfg) {
-    // TODO Loic VarDeclaration
-    return std::__cxx11::string();
+    auto defValue = assignment->buildIR(cfg);
+
+    cfg->addIRInstr(new WMemInstr(cfg->currentBB, name, defValue));
+    return defValue;
+}
+
+int VarDeclaration::getAllocationSize() {
+    switch (type) {
+        case VOID:
+            // Should not append
+            throw std::runtime_error("VarDeclaration with VOID type");
+        case CHAR:
+            return 1;
+        case INT32_T:
+            return 4;
+        case INT64_T:
+            return 8;
+    }
 }

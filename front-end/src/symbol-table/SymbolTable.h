@@ -26,6 +26,8 @@ public:
 
     std::string createNewTmpVar(Type type);
 
+    int getAllocationSize();
+
 private:
     std::map<std::string, Symbol *> symbols;
 

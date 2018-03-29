@@ -19,6 +19,8 @@ public:
 
     std::string buildIR(CFG *cfg) override;
 
+    int getAllocationSize() override;
+
 };
 
 

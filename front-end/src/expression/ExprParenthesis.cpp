@@ -1,5 +1,7 @@
 #include "ExprParenthesis.h"
 
+using std::string;
+
 ExprParenthesis::ExprParenthesis(Expr *expr) : expr(expr) {}
 
 bool ExprParenthesis::isSimplifiable() {
@@ -10,6 +12,6 @@ long ExprParenthesis::simplify() {
     return expr->simplify();
 }
 
-std::string ExprParenthesis::buildIR(CFG *cfg) {
+string ExprParenthesis::buildIR(CFG *cfg) {
     return expr->buildIR(cfg);
 }

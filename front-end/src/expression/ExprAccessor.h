@@ -11,7 +11,7 @@ private:
 
 public:
     ExprAccessor(Accessor *accessor);
-    string buildIR(CFG* cfg);
+    std::string buildIR(CFG* cfg);
 };
 
 

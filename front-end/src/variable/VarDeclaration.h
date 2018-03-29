@@ -6,19 +6,16 @@
 #include <token/Type.h>
 #include <declaration/Declaration.h>
 
-using std::string;
-
 class VarDeclaration : public Declaration {
 
 private:
-    string name;
+    std::string name;
     Type type;
     Expr *assignment;
 public:
-    const string &getName() const;
+    const std::string &getName() const;
 
-public:
-    VarDeclaration(const string &name, Type type, Expr *assignment = nullptr);
+    VarDeclaration(const std::string &name, Type type, Expr *assignment = nullptr);
 
 };
 

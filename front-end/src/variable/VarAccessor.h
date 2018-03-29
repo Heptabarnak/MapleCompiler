@@ -14,7 +14,7 @@ public:
 
     std::string getName();
 
-    string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg) override;
 };
 
 

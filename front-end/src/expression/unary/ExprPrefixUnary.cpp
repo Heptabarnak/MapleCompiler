@@ -3,7 +3,10 @@
 #include <ir/instructions/UnaryOpInstr.h>
 #include "ExprPrefixUnary.h"
 
-using namespace std;
+using std::cerr;
+using std::endl;
+using std::string;
+
 
 ExprPrefixUnary::ExprPrefixUnary(Expr *expr, const string &op) : ExprUnary(expr) {
 

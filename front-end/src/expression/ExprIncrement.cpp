@@ -5,9 +5,11 @@
 #include <ir/instructions/OpInstr.h>
 #include "ExprIncrement.h"
 
-using namespace std;
+using std::string;
+using std::cerr;
+using std::endl;
 
-ExprIncrement::ExprIncrement(LeftValue *leftValue, std::string op_str, bool isPostfix)
+ExprIncrement::ExprIncrement(LeftValue *leftValue, string op_str, bool isPostfix)
         : leftValue(leftValue), isPostfix(isPostfix) {
 
     switch (str2int(op_str.c_str())) {

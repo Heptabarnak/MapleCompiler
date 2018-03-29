@@ -6,7 +6,7 @@
 
 class X86_64 : public BaseTarget {
 public:
-    X86_64(const string &filename, map<string, CFG *> &cfgs);
+    X86_64(const std::string &filename, std::map<std::string, CFG *> &cfgs);
 
     void parse() override;
 

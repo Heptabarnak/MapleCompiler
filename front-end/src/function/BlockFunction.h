@@ -8,20 +8,18 @@
 #include <symbol-table/SymbolTable.h>
 #include <ir/BuildIR.h>
 
-using std::vector;
-
 class BlockFunction : public BuildIR {
 
 private:
-    vector<Declaration *> declarations;
-    vector<Instruction *> instructions;
+    std::vector<Declaration *> declarations;
+    std::vector<Instruction *> instructions;
     SymbolTable *symbolTable;
 
 public:
-    BlockFunction(const vector<Declaration *> &declarations, const vector<Instruction *> &instructions,
+    BlockFunction(const std::vector<Declaration *> &declarations, const std::vector<Instruction *> &instructions,
                   SymbolTable *symbolTable);
 
-    string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg) override;
 
 };
 

@@ -45,7 +45,7 @@ int main(int argc, const char **argv) {
     tree::ParseTree *tree = parser.start();
 
     if (parser.getNumberOfSyntaxErrors() != 0) {
-        cerr << "Error while parsing" << endl;
+        std::cerr << "Error while parsing" << std::endl;
         return 1;
     }
 
@@ -57,10 +57,10 @@ int main(int argc, const char **argv) {
 
     try {
         ast = visitor.visit(tree);
-        cout << "AST Generated !" << endl;
+        std::cout << "AST Generated !" << std::endl;
         ast->getGlobalSymbolTable()->staticAnalysis();
     } catch (std::exception &exception) {
-        cerr << "Error while creating AST :" << endl << exception.what();
+        std::cerr << "Error while creating AST :" << std::endl << exception.what();
         return 1;
     }
 
@@ -73,7 +73,7 @@ int main(int argc, const char **argv) {
         MapleTreeWalk treeWalk(ast);
         cfgs = treeWalk.generateIR();
     } catch (std::exception &exception) {
-        cerr << "Error in TreeWalk :" << endl << exception.what();
+        std::cerr << "Error in TreeWalk :" << std::endl << exception.what();
         return 1;
     }
 
@@ -88,7 +88,7 @@ int main(int argc, const char **argv) {
         // TODO Option
         target.compile();
     } catch (std::exception &exception) {
-        cerr << "Error in IR Generation :" << endl << exception.what();
+        std::cerr << "Error in IR Generation :" << std::endl << exception.what();
         return 1;
     }
 

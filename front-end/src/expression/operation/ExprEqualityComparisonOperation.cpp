@@ -4,7 +4,10 @@
 #include <ostream>
 #include "ExprEqualityComparisonOperation.h"
 
-using namespace std;
+using std::cerr;
+using std::endl;
+using std::string;
+
 
 ExprEqualityComparisonOperation::ExprEqualityComparisonOperation(Expr *left, Expr *right, const string &op)
         : ExprOperation(left, right) {

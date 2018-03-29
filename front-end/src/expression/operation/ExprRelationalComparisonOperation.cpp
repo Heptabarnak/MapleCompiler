@@ -4,7 +4,9 @@
 #include <ir/instructions/UnaryOpInstr.h>
 #include "ExprRelationalComparisonOperation.h"
 
-using namespace std;
+using std::cerr;
+using std::endl;
+using std::string;
 
 ExprRelationalComparisonOperation::ExprRelationalComparisonOperation(Expr *left, Expr *right, const string &op)
         : ExprOperation(left, right) {

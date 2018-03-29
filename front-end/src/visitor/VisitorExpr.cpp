@@ -146,7 +146,7 @@ antlrcpp::Any StartVisitor::visitExprIncrementPrefix(MapleGrammarParser::ExprInc
 
 antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
     if (ctx->INTEGER() == nullptr) {
-        return new Value(Type::CHAR, ctx->CHAR()->getText().at(0));
+        return new Value(Type::CHAR, ctx->CHAR()->getText().at(1)); // 1 because of the "'"
     }
     return new Value(Type::INT64_T, stoi(ctx->INTEGER()->getText()));
 }

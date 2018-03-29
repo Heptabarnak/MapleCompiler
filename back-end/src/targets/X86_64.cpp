@@ -93,7 +93,34 @@ void X86_64::loadConst(LoadConstInstr *instr) {
 }
 
 void X86_64::call(CallInstr *instr) {
+    auto args = instr->arguments;
+    long size = args.size();
 
+    if (size > 0) {
+        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(0))) + "(%rbp), %rdi");
+    }
+    if (size > 1) {
+        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(1))) + "(%rbp), %rsi");
+    }
+    if (size > 2) {
+        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(1))) + "(%rbp), %rdx");
+    }
+    if (size > 3) {
+        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(2))) + "(%rbp), %rcx");
+    }
+    if (size > 4) {
+        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(3))) + "(%rbp), %r8");
+    }
+    if (size > 5) {
+        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(4))) + "(%rbp), %r9");
+    }
+    if (size > 6) {
+        for (auto it = args.rbegin(); it != (args.rend() + 6); ++it) {
+            write("\tpush -" + std::to_string(currentCFG->getOffset((*it))) + "(%rsp)");
+        }
+    }
+
+    write("\tcall " + instr->label);
 }
 
 void X86_64::rmem(RMemInstr *instr) {

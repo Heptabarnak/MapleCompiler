@@ -34,3 +34,9 @@ antlrcpp::Any StartVisitor::visitProgram(MapleGrammarParser::ProgramContext *ctx
     return functions;
 }
 
+
+StartVisitor::StartVisitor(Config *conf) : conf(conf) {
+    // Configure Expr class for optimisation
+
+    Expr::setOptimisation(conf->optimisation);
+}

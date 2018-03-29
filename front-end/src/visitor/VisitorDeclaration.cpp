@@ -106,7 +106,7 @@ StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDe
 
     Expr *expr = visit(ctx->assignment());
 
-    if (expr->isSimplifiable()) {
+    if (conf->optimisation && expr->isSimplifiable()) {
         Expr *newExpr = new ExprValue(new Value(
                 Type::INT64_T,
                 expr->simplify()

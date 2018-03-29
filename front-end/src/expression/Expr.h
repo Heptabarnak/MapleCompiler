@@ -6,9 +6,12 @@
 
 
 class Expr : public BuildIR {
+protected:
+    static bool optimisationEnable = false;
 public:
     Expr() = default;
 
+    static inline void setOptimisation(bool enable) { optimisationEnable = enable; }
 
     virtual bool isSimplifiable() {
         return false;

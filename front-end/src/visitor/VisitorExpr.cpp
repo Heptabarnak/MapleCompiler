@@ -150,5 +150,3 @@ antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
     }
     return new Value(Type::INT64_T, stoi(ctx->INTEGER()->getText()));
 }
-
-StartVisitor::StartVisitor(Config *conf) : conf(conf) {}

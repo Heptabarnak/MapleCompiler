@@ -13,7 +13,7 @@ using std::cerr;
 using std::cout;
 using std::endl;
 
-int Runner::run(Config* conf) {
+int Runner::run(Config *conf) {
 
     std::fstream inputFile;
     inputFile.open(conf->fileToCompile, std::fstream::in);
@@ -48,7 +48,9 @@ int Runner::run(Config* conf) {
     try {
         ast = visitor.visit(tree);
         std::cout << "AST Generated !" << std::endl;
-        ast->getGlobalSymbolTable()->staticAnalysis();
+        if (conf->staticAnalysis) {
+            ast->getGlobalSymbolTable()->staticAnalysis();
+        }
     } catch (std::exception &exception) {
         std::cerr << "Error while creating AST :" << std::endl << exception.what();
         return 1;
@@ -70,16 +72,19 @@ int Runner::run(Config* conf) {
 
     // ASM Generation
 
-    try {
+    if (conf->generateAsm) {
+        try {
 
-        X86_64 target(conf, cfgs);
+            X86_64 target(conf, cfgs);
 
-        target.parse();
+            target.parse();
 
-        target.compile();
-    } catch (std::exception &exception) {
-        std::cerr << "Error in IR Generation :" << std::endl << exception.what();
-        return 1;
+            // TODO Add option for target.compile();
+        } catch (std::exception &exception) {
+            std::cerr << "Error in IR Generation :" << std::endl << exception.what();
+            return 1;
+        }
     }
+
     return 0;
 }

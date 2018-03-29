@@ -22,7 +22,7 @@ public:
 
     long simplify() override;
 
-    std::string buildIR(CFG* cfg);
+    std::string buildIR(CFG* cfg) override;
 
 };
 

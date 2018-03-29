@@ -1,5 +1,7 @@
 #include "IfStatement.h"
 
+using std::string;
+
 IfStatement::IfStatement(Expr *c, Instruction *st, Instruction *elseSt) : condition(c), statement(st),
                                                                           elseStatement(elseSt) {}
 

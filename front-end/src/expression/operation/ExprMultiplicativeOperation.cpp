@@ -1,10 +1,12 @@
 #include <str2int.h>
 #include <iostream>
+#include <stdexcept>
 #include <ir/instructions/OpInstr.h>
 #include "ExprMultiplicativeOperation.h"
 
 using std::cerr;
 using std::endl;
+using std::string;
 
 ExprMultiplicativeOperation::ExprMultiplicativeOperation(Expr *left, Expr *right, const string &op)
         : ExprOperation(left, right) {
@@ -21,7 +23,7 @@ ExprMultiplicativeOperation::ExprMultiplicativeOperation(Expr *left, Expr *right
             break;
         default:
             cerr << "Operator expected to be \"*\", \"/\" or \"%\" but did not match." << endl;
-            break;
+            throw std::runtime_error("[ExprMultiplicativeOperation] Unexpected operator");
     }
 }
 

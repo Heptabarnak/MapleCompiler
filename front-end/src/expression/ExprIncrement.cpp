@@ -1,5 +1,6 @@
 #include <str2int.h>
 #include <ostream>
+#include <stdexcept>
 #include <ir/instructions/LoadConstInstr.h>
 #include <ir/instructions/WMemInstr.h>
 #include <ir/instructions/OpInstr.h>
@@ -21,7 +22,7 @@ ExprIncrement::ExprIncrement(LeftValue *leftValue, string op_str, bool isPostfix
             break;
         default:
             cerr << "Operator expected to be \"++\" or \"--\" but did not match." << endl;
-            break;
+            throw std::runtime_error("[ExprIncrement] Unexpected operator");
     }
 
 }

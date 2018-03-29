@@ -11,13 +11,13 @@ private:
     Expr *expr;
 
 public:
-    ExprParenthesis(Expr *expr);
+    explicit ExprParenthesis(Expr *expr);
 
     bool isSimplifiable() override;
 
     long simplify() override;
 
-    std::string ExprParenthesis::buildIR(CFG *cfg);
+    std::string ExprParenthesis::buildIR(CFG *cfg) override;
 };
 
 

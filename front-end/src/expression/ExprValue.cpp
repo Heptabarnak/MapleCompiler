@@ -1,6 +1,7 @@
 #include <ir/instructions/LoadConstInstr.h>
 #include "ExprValue.h"
 
+using std::string;
 
 ExprValue::ExprValue(Value *v)
         : value(v) {

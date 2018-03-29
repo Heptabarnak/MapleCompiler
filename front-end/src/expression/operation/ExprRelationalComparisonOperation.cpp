@@ -1,5 +1,6 @@
 #include <str2int.h>
 #include <ostream>
+#include <stdexcept>
 #include <ir/instructions/OpInstr.h>
 #include <ir/instructions/UnaryOpInstr.h>
 #include "ExprRelationalComparisonOperation.h"
@@ -26,7 +27,7 @@ ExprRelationalComparisonOperation::ExprRelationalComparisonOperation(Expr *left,
             break;
         default:
             cerr << "Operator expected to be \"<\", \"<=\", \">\" or \">=\" but did not match." << endl;
-            break;
+            throw std::runtime_error("[ExprRelationalComparisonOperation] Unexpected operator");
     }
 }
 

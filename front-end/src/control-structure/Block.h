@@ -12,7 +12,7 @@ private:
     std::vector <Instruction *> instructions;
 
 public:
-    Block(const std::vector<Instruction *> &instructions);
+    explicit Block(const std::vector<Instruction *> &instructions);
     ~Block();
 
     std::string buildIR(CFG *cfg) override;

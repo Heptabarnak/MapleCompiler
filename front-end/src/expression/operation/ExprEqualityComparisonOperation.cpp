@@ -2,6 +2,7 @@
 #include <ir/instructions/OpInstr.h>
 #include <ir/instructions/UnaryOpInstr.h>
 #include <ostream>
+#include <stdexcept>
 #include "ExprEqualityComparisonOperation.h"
 
 using std::cerr;
@@ -21,7 +22,7 @@ ExprEqualityComparisonOperation::ExprEqualityComparisonOperation(Expr *left, Exp
             break;
         default:
             cerr << "Operator expected to be \"==\" or \"!=\" but did not match." << endl;
-            break;
+            throw std::runtime_error("[ExprEqualityComparisonOperation] Unexpected operator");
     }
 }
 

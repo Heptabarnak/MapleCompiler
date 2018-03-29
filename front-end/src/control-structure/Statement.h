@@ -6,7 +6,7 @@
 
 class Statement : public Instruction {
 public:
-    Statement(Expr *e);
+    explicit Statement(Expr *e);
     ~Statement();
 
 private:

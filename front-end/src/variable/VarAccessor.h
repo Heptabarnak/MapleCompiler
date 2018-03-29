@@ -10,7 +10,7 @@ private:
     VarDeclaration *declaration;
 
 public:
-    VarAccessor(VarDeclaration *dec);
+    explicit VarAccessor(VarDeclaration *dec);
 
     std::string getName();
 

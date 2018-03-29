@@ -11,7 +11,7 @@ private:
     TabAccessor *tabAccessor;
 
 public:
-    LeftValueTab(TabAccessor *tabAccessor);
+    explicit LeftValueTab(TabAccessor *tabAccessor);
     std::string getSymbolName() override;
 
     std::string buildIR(CFG *cfg) override;

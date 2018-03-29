@@ -1,5 +1,6 @@
 #include <str2int.h>
 #include <ostream>
+#include <stdexcept>
 #include <ir/instructions/UnaryOpInstr.h>
 #include "ExprPrefixUnary.h"
 
@@ -25,7 +26,7 @@ ExprPrefixUnary::ExprPrefixUnary(Expr *expr, const string &op) : ExprUnary(expr)
             break;
         default:
             cerr << "Operator expected to be \"+\", \"-\", \"!\" or \"~\" but did not match." << endl;
-            break;
+            throw std::runtime_error("[ExprPrefixUnary] Unexpected operator");
     }
 }
 

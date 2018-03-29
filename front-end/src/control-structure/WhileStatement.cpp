@@ -1,5 +1,7 @@
 #include "WhileStatement.h"
 
+using std::string;
+
 WhileStatement::WhileStatement(Expr *condition, Instruction *instruction) : condition(condition),
                                                                             instruction(instruction) {}
 

@@ -10,7 +10,7 @@ private:
     Accessor *accessor;
 
 public:
-    ExprAccessor(Accessor *accessor);
+    explicit ExprAccessor(Accessor *accessor);
     std::string buildIR(CFG* cfg);
 };
 

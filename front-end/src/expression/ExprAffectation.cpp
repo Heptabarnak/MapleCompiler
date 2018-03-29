@@ -1,5 +1,6 @@
 #include <str2int.h>
 #include <ostream>
+#include <stdexcept>
 #include <ir/instructions/OpInstr.h>
 #include <ir/instructions/WMemInstr.h>
 #include "ExprAffectation.h"
@@ -48,7 +49,7 @@ ExprAffectation::ExprAffectation(LeftValue *left, Expr *right, const string &op_
         default:
             cerr << "Operator expected to be \"=\", \"+=\", \"-=\", \"*=\", \"/=\", \"%=\", \"<<=\", \">>=\",";
             cerr << " \"&=\", \"^=\" or \"|=\" but did not match." << endl;
-            break;
+            throw std::runtime_error("[ExprAffectation] Unexpected operator");
     }
 }
 

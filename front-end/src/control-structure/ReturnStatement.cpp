@@ -1,5 +1,7 @@
 #include "ReturnStatement.h"
 
+using std::string;
+
 ReturnStatement::ReturnStatement(Expr *expr) : expr(expr) {}
 
 ReturnStatement::~ReturnStatement() {

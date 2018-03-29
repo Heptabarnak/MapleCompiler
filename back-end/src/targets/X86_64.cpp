@@ -1,5 +1,8 @@
 #include "X86_64.h"
 
+using std::string;
+using std::map;
+
 X86_64::X86_64(const string &filename, map<string, CFG *> &cfgs) : BaseTarget(filename, cfgs) {}
 
 void X86_64::parse() {

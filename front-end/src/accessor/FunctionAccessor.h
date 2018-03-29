@@ -11,7 +11,7 @@ private:
     AccessorFunction* accessorFunction;
 
 public:
-    FunctionAccessor(AccessorFunction *accessorFunction);
+    explicit FunctionAccessor(AccessorFunction *accessorFunction);
 
     std::string getSymbolName() override;
 

@@ -1,6 +1,7 @@
 #include <str2int.h>
 #include <ir/instructions/OpInstr.h>
 #include <ostream>
+#include <stdexcept>
 #include "ExprBinaryShiftOperation.h"
 
 using std::cerr;
@@ -19,7 +20,7 @@ ExprBinaryShiftOperation::ExprBinaryShiftOperation(Expr *left, Expr *right, cons
             break;
         default:
             cerr << "Operator expected to be \"<<\" or \">>\" but did not match." << endl;
-            break;
+            throw std::runtime_error("[ExprBinaryShiftOperation] Unexpected operator");
     }
 }
 

@@ -33,6 +33,18 @@ set(ANTLR4_GENERATED_GRAMMAR_FILES
         front-end/src/maple-parser/MapleGrammarVisitor.cpp
         )
 
+#-----------
+#   UTILS
+#-----------
+
+set(UTILS_SRC_FILES
+        utils/str2int.h
+        utils/mapContext2Vector.h
+        utils/typeHelper.cpp
+        utils/printDebugInfo.cpp
+        utils/parseConfig.h
+        )
+
 #---------------
 #   FRONT-END
 #---------------
@@ -115,16 +127,16 @@ set(BACK_SRC_FILES
         back-end/src/ir/instructions/UnaryOpInstr.cpp
         )
 
-#-----------
-#   UTILS
-#-----------
+#----------
+#   CLI
+#----------
+include_directories(cli)
 
-set(UTILS_SRC_FILES
-        utils/str2int.h
-        utils/mapContext2Vector.h
-        utils/typeHelper.cpp
-        utils/printDebugInfo.cpp
+set(CLI_SRC_FILES
+        cli/Runner.cpp
+        cli/Config.h
         )
+
 
 #----------------
 #   EXECUTABLE
@@ -137,5 +149,6 @@ add_executable(MapleCompiler
         ${ANTLR4_GENERATED_GRAMMAR_FILES}
         ${AST_SRC_FILES}
         ${BACK_SRC_FILES}
+        ${CLI_SRC_FILES}
         )
 target_link_libraries(MapleCompiler antlr4-runtime)

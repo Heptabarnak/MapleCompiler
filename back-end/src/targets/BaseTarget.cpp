@@ -4,13 +4,13 @@ using std::string;
 using std::map;
 using std::ofstream;
 
-BaseTarget::BaseTarget(const string filename, map<string, CFG *> &cfgs)
-        : filename(filename), cfgs(cfgs) {
+BaseTarget::BaseTarget(Config *config, map<string, CFG *> &cfgs)
+        : config(config), cfgs(cfgs) {
     output = new ofstream();
 }
 
 void BaseTarget::open() {
-    output->open(filename + ".s", std::ios_base::trunc);
+    output->open(config->fileToCompile + ".s", std::ios_base::trunc);
 
     if (!output->is_open()) {
         // TODO Throw error

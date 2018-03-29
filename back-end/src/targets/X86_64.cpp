@@ -3,7 +3,7 @@
 using std::string;
 using std::map;
 
-X86_64::X86_64(const string &filename, map<string, CFG *> &cfgs) : BaseTarget(filename, cfgs) {}
+X86_64::X86_64(Config *config, map<string, CFG *> &cfgs) : BaseTarget(config, cfgs) {}
 
 void X86_64::parse() {
     for (auto &&cfg : cfgs) {

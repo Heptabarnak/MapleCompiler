@@ -13,10 +13,11 @@
 #include <ir/instructions/RMemInstr.h>
 #include <ir/instructions/WMemInstr.h>
 #include <ir/instructions/UnaryOpInstr.h>
+#include <Config.h>
 
 class BaseTarget {
 public:
-    BaseTarget(std::string filename, std::map<std::string, CFG *> &cfgs);
+    BaseTarget(Config *config, std::map<std::string, CFG *> &cfgs);
 
     virtual void parse() = 0;
 
@@ -63,7 +64,7 @@ protected:
 
 private:
     std::ofstream *output;
-    std::string filename;
+    Config *config;
 };
 
 

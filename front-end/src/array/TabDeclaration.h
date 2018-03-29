@@ -18,6 +18,8 @@ private:
 public:
     TabDeclaration(Type type, unsigned long size, const std::string &name, const std::vector<Value *> &definition = {});
 
+    std::string buildIR(CFG *cfg) override;
+
     const std::string &getName() const;
 };
 

@@ -19,11 +19,7 @@ void FunctionDefinition::setArguments(const vector<FunctionParam *> &params) {
 }
 
 string FunctionDefinition::buildIR(CFG *cfg) {
-
-    // I don't know if I need to do something with arguments?
-
-    // Create instructions
-    block->buildIR(cfg);
+    return block->buildIR(cfg);
 }
 
 SymbolTable *FunctionDefinition::getSymbolTable() const {

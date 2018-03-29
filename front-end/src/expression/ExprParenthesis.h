@@ -17,7 +17,7 @@ public:
 
     long simplify() override;
 
-    std::string ExprParenthesis::buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
 };
 
 

@@ -101,6 +101,7 @@ include_directories(${BACK_END_FOLDER}/src)
 set(BACK_SRC_FILES
         back-end/src/ir/IRInstr.cpp
         back-end/src/ir/BasicBlock.cpp
+        back-end/src/ir/BuildIR.h
         back-end/src/ir/CFG.cpp
         back-end/src/ir/instructions/RMemArrayInstr.cpp
         back-end/src/ir/instructions/RMemInstr.cpp

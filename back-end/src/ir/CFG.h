@@ -5,13 +5,16 @@
 #include <string>
 #include <iostream>
 #include <map>
-
-#include <function/FunctionDefinition.h>
+#include <symbol-table/SymbolTable.h>
 
 #include "BasicBlock.h"
 #include "IRInstr.h"
 
 class BasicBlock;
+
+class IRInstr;
+
+class SymbolTable;
 
 class CFG {
 public:

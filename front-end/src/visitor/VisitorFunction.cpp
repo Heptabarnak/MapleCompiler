@@ -85,8 +85,7 @@ antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *c
 antlrcpp::Any StartVisitor::visitBlockFunction(MapleGrammarParser::BlockFunctionContext *ctx) {
     auto block = new BlockFunction(
             *mapContext2VectorFlat<MapleGrammarParser::DeclarationContext *, Declaration *>(ctx->declaration(), this),
-            *mapContext2Vector<MapleGrammarParser::InstructionContext *, Instruction *>(ctx->instruction(), this),
-            currentSymbolTable
+            *mapContext2Vector<MapleGrammarParser::InstructionContext *, Instruction *>(ctx->instruction(), this)
     );
 
     return block;

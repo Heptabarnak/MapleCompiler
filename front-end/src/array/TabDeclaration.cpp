@@ -9,3 +9,8 @@ TabDeclaration::TabDeclaration(Type type, unsigned long size, const string &name
 const string &TabDeclaration::getName() const {
     return name;
 }
+
+string TabDeclaration::buildIR(CFG *cfg) {
+    // TODO Loic TabDeclaration
+    return std::__cxx11::string();
+}

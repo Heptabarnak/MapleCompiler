@@ -18,7 +18,7 @@ private:
 public:
     ExprRelationalComparisonOperation(Expr *left, Expr *right, const std::string &op);
 
-    std::string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
 
     long simplify() override;
 };

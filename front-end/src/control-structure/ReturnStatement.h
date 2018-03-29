@@ -14,7 +14,7 @@ public:
     explicit ReturnStatement(Expr *expr);
     ~ReturnStatement();
 
-    std::string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
 };
 
 

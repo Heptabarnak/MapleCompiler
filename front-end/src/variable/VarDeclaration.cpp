@@ -8,3 +8,8 @@ VarDeclaration::VarDeclaration(const string &name, Type type, Expr *assignment) 
 const string &VarDeclaration::getName() const {
     return name;
 }
+
+string VarDeclaration::buildIR(CFG *cfg) {
+    // TODO Loic VarDeclaration
+    return std::__cxx11::string();
+}

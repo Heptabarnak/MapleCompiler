@@ -11,7 +11,9 @@
 #include "BlockFunction.h"
 #include "FunctionParam.h"
 
-class FunctionDefinition : public Declaration, public BuildIR {
+class SymbolTable;
+
+class FunctionDefinition : public Declaration {
 
 private:
     BlockFunction *block;
@@ -33,7 +35,7 @@ public:
 
     void setArguments(const std::vector<FunctionParam *> &params);
 
-    std::string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
 };
 
 

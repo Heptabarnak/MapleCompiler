@@ -13,7 +13,7 @@ private:
 public:
     IfStatement(Expr *c, Instruction *st, Instruction *elseSt = nullptr);
 
-    std::string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
 
     ~IfStatement();
 };

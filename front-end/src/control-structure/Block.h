@@ -15,7 +15,7 @@ public:
     explicit Block(const std::vector<Instruction *> &instructions);
     ~Block();
 
-    std::string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
 };
 
 

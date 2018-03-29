@@ -1,3 +1,4 @@
+#include <function/FunctionDefinition.h>
 #include "MapleTreeWalk.h"
 
 using std::string;

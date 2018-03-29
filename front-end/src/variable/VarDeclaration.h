@@ -17,6 +17,8 @@ public:
 
     VarDeclaration(const std::string &name, Type type, Expr *assignment = nullptr);
 
+    std::string buildIR(CFG *cfg) override;
+
 };
 
 

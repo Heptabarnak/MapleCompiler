@@ -1,7 +1,12 @@
 #include <str2int.h>
+#include <ostream>
 #include <ir/instructions/OpInstr.h>
 #include <ir/instructions/UnaryOpInstr.h>
 #include "ExprRelationalComparisonOperation.h"
+
+using std::cerr;
+using std::endl;
+using std::string;
 
 ExprRelationalComparisonOperation::ExprRelationalComparisonOperation(Expr *left, Expr *right, const string &op)
         : ExprOperation(left, right) {
@@ -20,7 +25,7 @@ ExprRelationalComparisonOperation::ExprRelationalComparisonOperation(Expr *left,
             operation = MORE_EQUAL;
             break;
         default:
-            // TODO Throw ERROR
+            cerr << "Operator expected to be \"<\", \"<=\", \">\" or \">=\" but did not match." << endl;
             break;
     }
 }

@@ -2,8 +2,9 @@
 #include <iostream>
 #include <variable/VarDeclaration.h>
 
-using std::make_pair;
-using namespace std;
+using std::cout;
+using std::endl;
+using std::string;
 
 SymbolTable::SymbolTable(SymbolTable *father) : father(father) {
     // Add to symbol table's children

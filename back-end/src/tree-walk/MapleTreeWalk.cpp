@@ -1,9 +1,12 @@
 #include "MapleTreeWalk.h"
 
+using std::string;
+using std::map;
+
 MapleTreeWalk::MapleTreeWalk(Start *start) : start(start) {}
 
-std::map<std::string, CFG *> MapleTreeWalk::generateIR() {
-    auto cfgs = std::map<std::string, CFG *>();
+map<string, CFG *> MapleTreeWalk::generateIR() {
+    auto cfgs = map<string, CFG *>();
     auto declarations = start->getDeclarations();
 
     for (auto &&declaration : declarations) {

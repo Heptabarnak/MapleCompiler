@@ -7,10 +7,6 @@
 #include <token/Type.h>
 #include "Symbol.h"
 
-using std::map;
-using std::string;
-using std::vector;
-
 class Symbol;
 
 
@@ -20,24 +16,24 @@ public:
 
     ~SymbolTable();
 
-    SymbolTable *insert(string name, Symbol *symbol);
+    SymbolTable *insert(std::string name, Symbol *symbol);
 
-    Symbol *lookup(string name);
+    Symbol *lookup(std::string name);
 
     void staticAnalysis();
 
     SymbolTable *getFather();
 
-    string createNewTmpVar(Type type);
+    std::string createNewTmpVar(Type type);
 
 private:
-    map<string, Symbol *> symbols;
+    std::map<std::string, Symbol *> symbols;
 
-    map<int, string> levels;
+    std::map<int, std::string> levels;
     int lastLevel = 0;
 
     SymbolTable *father;
-    vector<SymbolTable *> children;
+    std::vector<SymbolTable *> children;
 };
 
 

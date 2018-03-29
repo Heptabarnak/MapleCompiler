@@ -1,7 +1,13 @@
 #include <str2int.h>
 #include <ir/instructions/OpInstr.h>
 #include <ir/instructions/UnaryOpInstr.h>
+#include <ostream>
 #include "ExprEqualityComparisonOperation.h"
+
+using std::cerr;
+using std::endl;
+using std::string;
+
 
 ExprEqualityComparisonOperation::ExprEqualityComparisonOperation(Expr *left, Expr *right, const string &op)
         : ExprOperation(left, right) {
@@ -14,7 +20,7 @@ ExprEqualityComparisonOperation::ExprEqualityComparisonOperation(Expr *left, Exp
             operation = NOT_EQUAL;
             break;
         default:
-            // TODO Throw ERROR
+            cerr << "Operator expected to be \"==\" or \"!=\" but did not match." << endl;
             break;
     }
 }

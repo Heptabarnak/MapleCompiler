@@ -1,9 +1,12 @@
 #include "FunctionDefinition.h"
 
+using std::string;
+using std::vector;
+
 FunctionDefinition::FunctionDefinition(Type type, const string &name, SymbolTable *symbolTable)
         : type(type), name(name), symbolTable(symbolTable) {}
 
-std::string FunctionDefinition::getSymbolName() {
+string FunctionDefinition::getSymbolName() {
     return name;
 }
 
@@ -15,7 +18,7 @@ void FunctionDefinition::setArguments(const vector<FunctionParam *> &params) {
     this->params = params;
 }
 
-std::string FunctionDefinition::buildIR(CFG *cfg) {
+string FunctionDefinition::buildIR(CFG *cfg) {
 
     // I don't know if I need to do something with arguments?
 

@@ -5,11 +5,9 @@
 #include <token/Type.h>
 #include <variable/VarDeclaration.h>
 
-using std::string;
-
 class FunctionParam : public VarDeclaration {
 public:
-    FunctionParam(const string &name, Type type);
+    FunctionParam(const std::string &name, Type type);
 
 };
 

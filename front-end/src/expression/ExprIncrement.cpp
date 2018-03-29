@@ -1,10 +1,15 @@
 #include <str2int.h>
+#include <ostream>
 #include <ir/instructions/LoadConstInstr.h>
 #include <ir/instructions/WMemInstr.h>
 #include <ir/instructions/OpInstr.h>
 #include "ExprIncrement.h"
 
-ExprIncrement::ExprIncrement(LeftValue *leftValue, std::string op_str, bool isPostfix)
+using std::string;
+using std::cerr;
+using std::endl;
+
+ExprIncrement::ExprIncrement(LeftValue *leftValue, string op_str, bool isPostfix)
         : leftValue(leftValue), isPostfix(isPostfix) {
 
     switch (str2int(op_str.c_str())) {
@@ -15,7 +20,7 @@ ExprIncrement::ExprIncrement(LeftValue *leftValue, std::string op_str, bool isPo
             op = MINUS_MINUS;
             break;
         default:
-            // TODO Throw ERROR
+            cerr << "Operator expected to be \"++\" or \"--\" but did not match." << endl;
             break;
     }
 

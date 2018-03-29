@@ -1,8 +1,10 @@
 #include "VarAccessor.h"
 
+using std::string;
+
 VarAccessor::VarAccessor(VarDeclaration *dec) : declaration(dec) {}
 
-std::string VarAccessor::getName() {
+string VarAccessor::getName() {
     return declaration->getName();
 }
 

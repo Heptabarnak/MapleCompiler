@@ -1,8 +1,12 @@
 #include "BaseTarget.h"
 
-BaseTarget::BaseTarget(const std::string filename, std::map<std::string, CFG *> &cfgs)
+using std::string;
+using std::map;
+using std::ofstream;
+
+BaseTarget::BaseTarget(const string filename, map<string, CFG *> &cfgs)
         : filename(filename), cfgs(cfgs) {
-    output = new std::ofstream();
+    output = new ofstream();
 }
 
 void BaseTarget::open() {

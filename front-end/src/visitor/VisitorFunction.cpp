@@ -7,6 +7,8 @@
 #include "StartVisitor.h"
 
 
+using std::string;
+using std::vector;
 using std::cerr;
 using std::endl;
 
@@ -35,7 +37,8 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
 
     auto fDef = new FunctionDefinition(
             type,
-            name
+            name,
+            currentSymbolTable
     );
     currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fDef, true));
 

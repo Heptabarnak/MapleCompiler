@@ -1,16 +1,18 @@
 #include <ir/instructions/RMemArrayInstr.h>
 #include "TabAccessor.h"
 
+using std::string;
+
 TabAccessor::TabAccessor(TabDeclaration *declaration, Expr *pos) : declaration(declaration), pos(pos) {}
 
-std::string TabAccessor::getName() {
+string TabAccessor::getName() {
     return declaration->getName();
 }
 
-std::string TabAccessor::buildIR(CFG *cfg) {
-    std::string value = cfg->createNewTmpVar(Type::INT64_T);
-    std::string arrayName = declaration->getName();
-    std::string varPos = pos->buildIR(cfg);
+string TabAccessor::buildIR(CFG *cfg) {
+    string value = cfg->createNewTmpVar(Type::INT64_T);
+    string arrayName = declaration->getName();
+    string varPos = pos->buildIR(cfg);
 
     cfg->addIRInstr(new RMemArrayInstr(cfg->currentBB, value, arrayName, varPos));
 

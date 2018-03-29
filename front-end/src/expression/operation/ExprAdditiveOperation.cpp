@@ -1,6 +1,12 @@
 #include <str2int.h>
 #include <ir/instructions/OpInstr.h>
+#include <ostream>
 #include "ExprAdditiveOperation.h"
+
+using std::cerr;
+using std::endl;
+using std::string;
+
 
 ExprAdditiveOperation::ExprAdditiveOperation(Expr *left, Expr *right, const string &op) : ExprOperation(left, right) {
 
@@ -12,7 +18,7 @@ ExprAdditiveOperation::ExprAdditiveOperation(Expr *left, Expr *right, const stri
             operation = MINUS;
             break;
         default:
-            // TODO Throw ERROR
+            cerr << "Operator expected to be \"+\" or \"-\" but did not match." << endl;
             break;
     }
 }
@@ -27,9 +33,9 @@ long ExprAdditiveOperation::simplify() {
 }
 
 string ExprAdditiveOperation::buildIR(CFG *cfg) {
-    std::string var1 = leftExpr->buildIR(cfg);
-    std::string var2 = rightExpr->buildIR(cfg);
-    std::string var = cfg->createNewTmpVar(INT64_T);
+    string var1 = leftExpr->buildIR(cfg);
+    string var2 = rightExpr->buildIR(cfg);
+    string var = cfg->createNewTmpVar(INT64_T);
 
     OpInstr::OpType type = OpInstr::ADD;
     switch (operation) {

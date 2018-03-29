@@ -1,9 +1,14 @@
 #include <str2int.h>
+#include <ostream>
 #include <ir/instructions/OpInstr.h>
 #include <ir/instructions/WMemInstr.h>
 #include "ExprAffectation.h"
 
-ExprAffectation::ExprAffectation(LeftValue *left, Expr *right, const std::string &op_str)
+using std::cerr;
+using std::string;
+using std::endl;
+
+ExprAffectation::ExprAffectation(LeftValue *left, Expr *right, const string &op_str)
         : left(left), right(right) {
 
     switch (str2int(op_str.c_str())) {
@@ -41,15 +46,16 @@ ExprAffectation::ExprAffectation(LeftValue *left, Expr *right, const std::string
             op = OR_EQUAL;
             break;
         default:
-            // TODO Throw ERROR
+            cerr << "Operator expected to be \"=\", \"+=\", \"-=\", \"*=\", \"/=\", \"%=\", \"<<=\", \">>=\",";
+            cerr << " \"&=\", \"^=\" or \"|=\" but did not match." << endl;
             break;
     }
 }
 
 string ExprAffectation::buildIR(CFG *cfg) {
 
-    std::string value = right->buildIR(cfg);
-    std::string dest = left->buildIR(cfg);
+    string value = right->buildIR(cfg);
+    string dest = left->buildIR(cfg);
 
     if (op != EQUAL) {
         // We save the new value

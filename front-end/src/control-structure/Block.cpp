@@ -1,5 +1,8 @@
 #include "Block.h"
 
+using std::string;
+using std::vector;
+
 Block::Block(const vector<Instruction *> &instructions) : instructions(instructions) {}
 
 Block::~Block() {

@@ -1,6 +1,6 @@
-
-
 #include "FunctionAccessor.h"
+
+using std::string;
 
 FunctionAccessor::FunctionAccessor(AccessorFunction *accessorFunction) : accessorFunction(accessorFunction) {}
 

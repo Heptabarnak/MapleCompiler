@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <map>
-#include <symbol-table/SymbolTable.h>
+#include <token/Type.h>
 
 #include "BasicBlock.h"
 #include "IRInstr.h"
@@ -14,11 +14,11 @@ class BasicBlock;
 
 class IRInstr;
 
-class SymbolTable;
+class FunctionDefinition;
 
 class CFG {
 public:
-    explicit CFG(SymbolTable *symbolTable);
+    explicit CFG(FunctionDefinition *funcDef);
 
     void addBB(BasicBlock *bb);
 
@@ -39,10 +39,12 @@ public:
 
     long getOffset(std::string name);
 
+    FunctionDefinition *getFunctionDefinition();
+
 protected:
     int nextBBNumber; /**< just for naming */
 
-    SymbolTable *symbolTable;
+    FunctionDefinition *funcDef;
 
     std::vector<BasicBlock *> bbs; /**< all the basic blocks of this CFG*/
 };

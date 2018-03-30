@@ -1,3 +1,4 @@
+#include <function/FunctionDefinition.h>
 #include "CFG.h"
 
 using std::string;
@@ -6,13 +7,13 @@ BasicBlock *CFG::getRootBB() {
     return bbs.front();
 }
 
-CFG::CFG(SymbolTable *symbolTable) : symbolTable(symbolTable), nextBBNumber(0) {
+CFG::CFG(FunctionDefinition *funcDef) : funcDef(funcDef), nextBBNumber(0) {
     currentBB = new BasicBlock(this, newBBName());
     bbs.push_back(currentBB);
 }
 
 string CFG::createNewTmpVar(Type type) {
-    return symbolTable->createNewTmpVar(type);
+    return funcDef->getSymbolTable()->createNewTmpVar(type);
 }
 
 string CFG::newBBName() {
@@ -28,7 +29,7 @@ void CFG::addIRInstr(IRInstr *instr) {
 }
 
 long CFG::getAllocationSize() {
-    return symbolTable->getAllocationSize();
+    return funcDef->getSymbolTable()->getAllocationSize();
 }
 
 std::vector<BasicBlock *> &CFG::getBBs() {
@@ -36,5 +37,9 @@ std::vector<BasicBlock *> &CFG::getBBs() {
 }
 
 long CFG::getOffset(string name) {
-    return symbolTable->getOffset(name);
+    return funcDef->getSymbolTable()->getOffset(name);
+}
+
+FunctionDefinition *CFG::getFunctionDefinition() {
+    return funcDef;
 }

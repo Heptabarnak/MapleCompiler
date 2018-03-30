@@ -1,3 +1,4 @@
+#include <function/FunctionDefinition.h>
 #include "X86_64.h"
 
 using std::string;
@@ -49,6 +50,35 @@ void X86_64::prologue() {
 
     write(subq);
     write("");
+
+    // Load arguments
+    auto args = currentCFG->getFunctionDefinition()->getParams();
+    long size = args.size();
+
+    if (size > 0) {
+        write("\tmovq %rdi, -" + std::to_string(currentCFG->getOffset(args.at(0)->getName())) + "(%rbp)");
+    }
+    if (size > 1) {
+        write("\tmovq %rsi, -" + std::to_string(currentCFG->getOffset(args.at(1)->getName())) + "(%rbp)");
+    }
+    if (size > 2) {
+        write("\tmovq %rdx, -" + std::to_string(currentCFG->getOffset(args.at(2)->getName())) + "(%rbp)");
+    }
+    if (size > 3) {
+        write("\tmovq %rcx, -" + std::to_string(currentCFG->getOffset(args.at(3)->getName())) + "(%rbp)");
+    }
+    if (size > 4) {
+        write("\tmovq %r8, -" + std::to_string(currentCFG->getOffset(args.at(4)->getName())) + "(%rbp)");
+    }
+    if (size > 5) {
+        write("\tmovq %r9, -" + std::to_string(currentCFG->getOffset(args.at(5)->getName())) + "(%rbp)");
+    }
+    if (size > 6) {
+        for (auto it = args.begin() + 6; it != args.end(); ++it) {
+            write("\tpop -" + std::to_string(currentCFG->getOffset((*it)->getName())) + "(%rsp)");
+        }
+    }
+
 }
 
 void X86_64::epilogue() {
@@ -103,19 +133,19 @@ void X86_64::call(CallInstr *instr) {
         write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(1))) + "(%rbp), %rsi");
     }
     if (size > 2) {
-        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(1))) + "(%rbp), %rdx");
+        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(2))) + "(%rbp), %rdx");
     }
     if (size > 3) {
-        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(2))) + "(%rbp), %rcx");
+        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(3))) + "(%rbp), %rcx");
     }
     if (size > 4) {
-        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(3))) + "(%rbp), %r8");
+        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(4))) + "(%rbp), %r8");
     }
     if (size > 5) {
-        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(4))) + "(%rbp), %r9");
+        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(5))) + "(%rbp), %r9");
     }
     if (size > 6) {
-        for (auto it = args.rbegin(); it != (args.rend() + 6); ++it) {
+        for (auto it = args.rbegin(); it != (args.rend() - 6); ++it) {
             write("\tpush -" + std::to_string(currentCFG->getOffset((*it))) + "(%rsp)");
         }
     }

@@ -40,6 +40,8 @@ public:
     std::string buildIR(CFG *cfg);
 
     int getAllocationSize() override;
+
+    std::vector<FunctionParam *> getParams();
 };
 
 

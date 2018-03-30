@@ -38,3 +38,7 @@ int FunctionDefinition::getAllocationSize() {
 void FunctionDefinition::setSymbolTable(SymbolTable *symbolTable) {
     this->symbolTable = symbolTable;
 }
+
+std::vector<FunctionParam *> FunctionDefinition::getParams() {
+    return params;
+}

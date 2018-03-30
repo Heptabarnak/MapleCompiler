@@ -17,7 +17,7 @@ map<string, CFG *> MapleTreeWalk::generateIR() {
                 continue;
             }
 
-            auto newCfg = new CFG(funcDef->getSymbolTable());
+            auto newCfg = new CFG(funcDef);
             funcDef->buildIR(newCfg);
 
             cfgs.insert({funcDef->getSymbolName(), newCfg});

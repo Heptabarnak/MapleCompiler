@@ -35,7 +35,21 @@ void X86_64::parse() {
 }
 
 void X86_64::compile() {
+    if (!system(nullptr)) {
+        std::cerr << "[X86_64] Unable to create an executable, system() unavailable" << std::endl;
+        throw std::runtime_error("System unavailable");
+    }
 
+    // Close .s file
+    close();
+
+    system(("as -o " + conf->fileToCompile + ".o " + conf->fileToCompile + ".s").c_str());
+    auto result = system(("gcc -static -o " + conf->fileToCompile + ".out " + conf->fileToCompile + ".o").c_str());
+
+    if (result != 0) {
+        std::cerr << "[X86_64] Unable to link executable" << std::endl;
+        throw std::runtime_error("Error while linking executable");
+    }
 }
 
 void X86_64::prologue() {
@@ -74,9 +88,14 @@ void X86_64::prologue() {
         write("\tmovq %r9, -" + std::to_string(currentCFG->getOffset(args.at(5)->getName())) + "(%rbp)");
     }
     if (size > 6) {
-        for (auto it = args.begin() + 6; it != args.end(); ++it) {
+        // FIXME We should copy from the caller stack to our stack
+        // Don't know how to get the caller offset
+        /*for (auto it = args.begin() + 6; it != args.end(); ++it) {
             write("\tpop -" + std::to_string(currentCFG->getOffset((*it)->getName())) + "(%rsp)");
-        }
+        }*/
+
+        std::cerr << "We do not support functions with more than 6 arguments for now, sorry for the inconvenience"
+                  << std::endl;
     }
 
 }
@@ -172,4 +191,19 @@ void X86_64::instrDispacher(IRInstr *instr) {
     else if (auto i = dynamic_cast<RMemInstr *>(instr)) rmem(i);
     else if (auto i = dynamic_cast<WMemInstr *>(instr)) wmem(i);
     else if (auto i = dynamic_cast<UnaryOpInstr *>(instr)) unaryop(i);
+}
+
+
+static char getExtFromType(Type type) {
+    switch (type) {
+        case VOID:
+            // Not possible;
+            return 0;
+        case CHAR:
+            return 'b';
+        case INT32_T:
+            return 'l';
+        case INT64_T:
+            return 'q';
+    }
 }

@@ -22,15 +22,17 @@ string VarDeclaration::buildIR(CFG *cfg) {
 }
 
 int VarDeclaration::getAllocationSize() {
-    switch (type) {
-        case VOID:
-            // Should not append
-            throw std::runtime_error("VarDeclaration with VOID type");
-        case CHAR:
-            return 1;
-        case INT32_T:
-            return 4;
-        case INT64_T:
-            return 8;
-    }
+    return 8;
+    // TODO Handle all size!
+//    switch (type) {
+//        case VOID:
+//            // Should not append
+//            throw std::runtime_error("VarDeclaration with VOID type");
+//        case CHAR:
+//            return 1;
+//        case INT32_T:
+//            return 4;
+//        case INT64_T:
+//            return 8;
+//    }
 }

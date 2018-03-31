@@ -48,17 +48,19 @@ string TabDeclaration::buildIR(CFG *cfg) {
 }
 
 int TabDeclaration::getAllocationSize() {
-    switch (type) {
-        case VOID:
-            // Should not append
-            throw std::runtime_error("VarDeclaration with VOID type");
-        case CHAR:
-            return static_cast<int>(size);
-        case INT32_T:
-            return static_cast<int>(4 * size);
-        case INT64_T:
-            return static_cast<int>(8 * size);
-    }
+    return static_cast<int>(size * 8);
+    // TODO Hadle all size
+//    switch (type) {
+//        case VOID:
+//            // Should not append
+//            throw std::runtime_error("VarDeclaration with VOID type");
+//        case CHAR:
+//            return static_cast<int>(size);
+//        case INT32_T:
+//            return static_cast<int>(4 * size);
+//        case INT64_T:
+//            return static_cast<int>(8 * size);
+//    }
 }
 
 Type TabDeclaration::getType() const {

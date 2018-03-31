@@ -108,6 +108,9 @@ void X86_64::epilogue() {
 
 void X86_64::parseBasicBlocks() {
     for (auto &&bb : currentCFG->getBBs()) {
+
+        write("." + bb->label + ":");
+
         for (auto &&instr : bb->instrs) {
             instrDispacher(instr);
         }
@@ -130,6 +133,72 @@ void X86_64::parseBasicBlocks() {
 
 void X86_64::op(OpInstr *instr) {
 
+    auto left = instr->var1;
+    auto right = instr->var2;
+    auto dest = instr->var;
+
+    // Move to registers
+    write("\tmovq -" + std::to_string(currentCFG->getOffset(left)) + "(%rbp), %rax");
+    write("\tmovq -" + std::to_string(currentCFG->getOffset(right)) + "(%rbp), %rbx");
+
+    switch (instr->type) {
+        case OpInstr::ADD:
+            write("\taddq %rbx, %rax");
+            break;
+        case OpInstr::SUB:
+            write("\tsubq %rbx, %rax");
+            break;
+        case OpInstr::MULT:
+            write("\timulq %rbx, %rax");
+            break;
+        case OpInstr::DIV:
+            write("\tcdq");
+            write("\tidivq %rbx");
+            break;
+        case OpInstr::MOD:
+            write("\tcdq");
+            write("\tidivq %rbx");
+            write("\tmovq %rdx, %rax");
+            break;
+        case OpInstr::EQUAL_EQUAL:
+            write("\tcmp %rax, %rbx");
+            // 0 per default, 1 if equal
+            write("\tmovq $0, %rax");
+            write("\tmovq $1, %rbx");
+            write("\tcmove %rbx, %rax");
+            break;
+        case OpInstr::LESS_THAN:
+            write("\tcmp %rax, %rbx");
+            // 0 per default, 1 if >
+            write("\tmovq $0, %rax");
+            write("\tmovq $1, %rbx");
+            write("\tcmovb %rbx, %rax");
+            break;
+        case OpInstr::LESS_THAN_OR_EQ:
+            write("\tcmp %rax, %rbx");
+            // 0 per default, 1 if <=
+            write("\tmovq $0, %rax");
+            write("\tmovq $1, %rbx");
+            write("\tcmovbe %rbx, %rax");
+            break;
+        case OpInstr::AND:
+            write("\tandq %rax, %rbx");
+            break;
+        case OpInstr::OR:
+            write("\torq %rax, %rbx");
+            break;
+        case OpInstr::XOR:
+            write("\txorq %rax, %rbx");
+            break;
+        case OpInstr::SHIFT_LEFT:
+            write("\tshlq %rax, %rbx");
+            break;
+        case OpInstr::SHIFT_RIGHT:
+            write("\tshrq %rax, %rbx");
+            break;
+    }
+
+    write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(dest)) + "(%rbp)");
 }
 
 void X86_64::loadConst(LoadConstInstr *instr) {

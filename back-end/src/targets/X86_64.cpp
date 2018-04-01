@@ -249,11 +249,20 @@ void X86_64::call(CallInstr *instr) {
 }
 
 void X86_64::rmem(RMemInstr *instr) {
+    write("\tmovq -" +
+          std::to_string(currentCFG->getOffset(instr->var1)) +
+          "(%rbp), -" +
+          std::to_string(currentCFG->getOffset(instr->var2)) +
+          "(%rbp)");
 
 }
 
 void X86_64::wmem(WMemInstr *instr) {
-
+    write("\tmovq -" +
+          std::to_string(currentCFG->getOffset(instr->var2)) +
+          "(%rbp), -" +
+          std::to_string(currentCFG->getOffset(instr->var1)) +
+          "(%rbp)");
 }
 
 void X86_64::unaryop(UnaryOpInstr *instr) {

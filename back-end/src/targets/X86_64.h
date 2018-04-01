@@ -31,6 +31,7 @@ protected:
     void wmem(WMemInstr *instr) override;
 
     void unaryop(UnaryOpInstr *instr) override;
+    void incr(IncrInstr *instr) override;
 
 private:
     void instrDispacher(IRInstr *instr);

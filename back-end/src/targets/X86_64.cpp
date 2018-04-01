@@ -123,8 +123,15 @@ void X86_64::parseBasicBlocks() {
             return;
         }
 
+
         // Unconditional jump
         if (bb->exitFalse == nullptr) {
+            write("\tjmp ." + bb->exitFalse->label);
+        } else {
+            // Conditional jump
+            // TODO Check if last instr did a cmp
+            // If yes, just do a jne otherwise, do first a cmp
+
 
         }
     }
@@ -253,6 +260,26 @@ void X86_64::unaryop(UnaryOpInstr *instr) {
 
 }
 
+void X86_64::incr(IncrInstr *instr) {
+
+    write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rax");
+    write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rbx");
+    switch (instr->type) {
+        case IncrInstr::PLUS:
+            write("\tincq %rbx");
+            break;
+        case IncrInstr::MINUS:
+            write("\tdecq %rbx");
+            break;
+    }
+
+    write("\tmovq %rbx, -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp)");
+
+    if (!instr->isPostfix) {
+        write("\tmovq %rbx, %rax");
+    }
+}
+
 void X86_64::instrDispacher(IRInstr *instr) {
     if (auto i = dynamic_cast<OpInstr *>(instr)) op(i);
     else if (auto i = dynamic_cast<LoadConstInstr *>(instr)) loadConst(i);
@@ -260,6 +287,7 @@ void X86_64::instrDispacher(IRInstr *instr) {
     else if (auto i = dynamic_cast<RMemInstr *>(instr)) rmem(i);
     else if (auto i = dynamic_cast<WMemInstr *>(instr)) wmem(i);
     else if (auto i = dynamic_cast<UnaryOpInstr *>(instr)) unaryop(i);
+    else if (auto i = dynamic_cast<IncrInstr *>(instr)) incr(i);
 }
 
 

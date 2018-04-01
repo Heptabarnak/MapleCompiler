@@ -13,6 +13,7 @@
 #include <ir/instructions/WMemInstr.h>
 #include <ir/instructions/UnaryOpInstr.h>
 #include <Config.h>
+#include <ir/instructions/IncrInstr.h>
 
 class BaseTarget {
 public:
@@ -52,7 +53,9 @@ protected:
 
     virtual void wmem(WMemInstr *instr) = 0;
 
-    virtual void unaryop(UnaryOpInstr *instr) =0;
+    virtual void unaryop(UnaryOpInstr *instr) = 0;
+
+    virtual void incr(IncrInstr *instr) = 0;
 
     // Variables used during parsing
     CFG *currentCFG;

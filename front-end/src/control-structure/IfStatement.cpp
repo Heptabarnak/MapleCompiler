@@ -27,6 +27,7 @@ string IfStatement::buildIR(CFG *cfg) {
     // Add if inner statement to IR
     cfg->addBB(statementBB);
     cfg->currentBB = statementBB;
+    cfg->currentBB->exitTrue = afterIf;
 
     statement->buildIR(cfg);
 

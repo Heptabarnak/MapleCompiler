@@ -90,9 +90,9 @@ void X86_64::prologue() {
     if (size > 6) {
         // FIXME We should copy from the caller stack to our stack
         // Don't know how to get the caller offset
-        /*for (auto it = args.begin() + 6; it != args.end(); ++it) {
-            write("\tpop -" + std::to_string(currentCFG->getOffset((*it)->getName())) + "(%rsp)");
-        }*/
+        for (auto it = args.begin() + 6; it != args.end(); ++it) {
+            write("\tpopq -" + std::to_string(currentCFG->getOffset((*it)->getName())) + "(%rsp)");
+        }
 
         std::cerr << "We do not support functions with more than 6 arguments for now, sorry for the inconvenience"
                   << std::endl;
@@ -117,23 +117,23 @@ void X86_64::parseBasicBlocks() {
 
         // Jump to somewhere
 
-        // Last basic block
-        // TODO Check for return value ? return value go to %rax
+        // Last basic block (return value always go to %rax)
         if (bb->exitTrue == nullptr) {
             return;
         }
 
-
-        // Unconditional jump
-        if (bb->exitFalse == nullptr) {
-            write("\tjmp ." + bb->exitFalse->label);
-        } else {
+        if (bb->exitFalse != nullptr) {
             // Conditional jump
             // TODO Check if last instr did a cmp
             // If yes, just do a jne otherwise, do first a cmp
-
-
+            // For now, we add a cmp with %rax and 0
+            write("\tmovq $0, %rbx");
+            write("\tcmpq %rax, %rbx");
+            write("\tjz ." + bb->exitFalse->label);
         }
+
+        // Unconditional jump
+        write("\tjmp ." + bb->exitTrue->label);
     }
 }
 
@@ -168,21 +168,21 @@ void X86_64::op(OpInstr *instr) {
             write("\tmovq %rdx, %rax");
             break;
         case OpInstr::EQUAL_EQUAL:
-            write("\tcmp %rax, %rbx");
+            write("\tcmpq %rax, %rbx");
             // 0 per default, 1 if equal
             write("\tmovq $0, %rax");
             write("\tmovq $1, %rbx");
             write("\tcmove %rbx, %rax");
             break;
         case OpInstr::LESS_THAN:
-            write("\tcmp %rax, %rbx");
+            write("\tcmpq %rax, %rbx");
             // 0 per default, 1 if >
             write("\tmovq $0, %rax");
             write("\tmovq $1, %rbx");
             write("\tcmovb %rbx, %rax");
             break;
         case OpInstr::LESS_THAN_OR_EQ:
-            write("\tcmp %rax, %rbx");
+            write("\tcmpq %rax, %rbx");
             // 0 per default, 1 if <=
             write("\tmovq $0, %rax");
             write("\tmovq $1, %rbx");
@@ -241,7 +241,7 @@ void X86_64::call(CallInstr *instr) {
     }
     if (size > 6) {
         for (auto it = args.rbegin(); it != (args.rend() - 6); ++it) {
-            write("\tpush -" + std::to_string(currentCFG->getOffset((*it))) + "(%rsp)");
+            write("\tpushq -" + std::to_string(currentCFG->getOffset((*it))) + "(%rsp)");
         }
     }
 
@@ -249,20 +249,13 @@ void X86_64::call(CallInstr *instr) {
 }
 
 void X86_64::rmem(RMemInstr *instr) {
-    write("\tmovq -" +
-          std::to_string(currentCFG->getOffset(instr->var1)) +
-          "(%rbp), -" +
-          std::to_string(currentCFG->getOffset(instr->var2)) +
-          "(%rbp)");
-
+    write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var2)) + "(%rbp), %rax");
+    write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp)");
 }
 
 void X86_64::wmem(WMemInstr *instr) {
-    write("\tmovq -" +
-          std::to_string(currentCFG->getOffset(instr->var2)) +
-          "(%rbp), -" +
-          std::to_string(currentCFG->getOffset(instr->var1)) +
-          "(%rbp)");
+    write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var2)) + "(%rbp), %rax");
+    write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp)");
 }
 
 void X86_64::unaryop(UnaryOpInstr *instr) {

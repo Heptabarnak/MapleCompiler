@@ -5,6 +5,11 @@ void main() {
     int64_t y = 2;
     int64_t z = 3;
 
-    putchar ('0' + (1==2));
+    if (x == 2) {
+        putchar('Y');
+    } else {
+        putchar('N');
+    }
+
     putchar('\n');
 }

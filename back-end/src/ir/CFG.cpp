@@ -17,7 +17,7 @@ string CFG::createNewTmpVar(Type type) {
 }
 
 string CFG::newBBName() {
-    return "__BB__" + std::to_string(nextBBNumber++);
+    return "__BB__" + funcDef->getSymbolName() + "_" + std::to_string(nextBBNumber++);
 }
 
 void CFG::addBB(BasicBlock *bb) {

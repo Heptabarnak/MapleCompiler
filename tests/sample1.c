@@ -1,12 +1,13 @@
 #include<inttypes.h>
 
+int64_t get2() {
+    return 2;
+}
+
 void main() {
     int64_t x = 0;
 
-    while (x < 26) {
-        putchar('A' + x);
-        x++;
-    }
+    putchar('0' + get2());
 
     putchar('\n');
 }

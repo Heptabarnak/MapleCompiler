@@ -43,8 +43,14 @@ void X86_64::compile() {
     // Close .s file
     close();
 
-    system(("as -o " + conf->fileToCompile + ".o " + conf->fileToCompile + ".s").c_str());
-    auto result = system(("gcc -static -o " + conf->fileToCompile + ".out " + conf->fileToCompile + ".o").c_str());
+    int result = system(("as -o " + conf->fileToCompile + ".o " + conf->fileToCompile + ".s").c_str());
+
+    if (result != 0) {
+        std::cerr << "[X86_64] Unable to assemble asm" << std::endl;
+        throw std::runtime_error("Error while assemble source");
+    }
+
+    result = system(("gcc -static -o " + conf->fileToCompile + ".out " + conf->fileToCompile + ".o").c_str());
 
     if (result != 0) {
         std::cerr << "[X86_64] Unable to link executable" << std::endl;
@@ -255,6 +261,7 @@ void X86_64::call(CallInstr *instr) {
     }
 
     write("\tcall " + instr->label);
+    write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->dest)) + "(%rbp)");
 }
 
 void X86_64::rmem(RMemInstr *instr) {

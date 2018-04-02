@@ -15,6 +15,8 @@ public:
         EQUAL_EQUAL,
         LESS_THAN,
         LESS_THAN_OR_EQ,
+        MORE_THAN,
+        MORE_THAN_OR_EQ,
         AND,
         OR,
         XOR,

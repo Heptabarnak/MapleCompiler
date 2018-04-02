@@ -168,25 +168,38 @@ void X86_64::op(OpInstr *instr) {
             write("\tmovq %rdx, %rax");
             break;
         case OpInstr::EQUAL_EQUAL:
-            write("\tcmpq %rax, %rbx");
+            write("\tcmpq %rbx, %rax");
             // 0 per default, 1 if equal
             write("\tmovq $0, %rax");
             write("\tmovq $1, %rbx");
             write("\tcmove %rbx, %rax");
             break;
         case OpInstr::LESS_THAN:
-            write("\tcmpq %rax, %rbx");
+            write("\tcmpq %rbx, %rax");
             // 0 per default, 1 if >
             write("\tmovq $0, %rax");
             write("\tmovq $1, %rbx");
             write("\tcmovb %rbx, %rax");
             break;
         case OpInstr::LESS_THAN_OR_EQ:
-            write("\tcmpq %rax, %rbx");
+            write("\tcmpq %rbx, %rax");
             // 0 per default, 1 if <=
             write("\tmovq $0, %rax");
             write("\tmovq $1, %rbx");
             write("\tcmovbe %rbx, %rax");
+        case OpInstr::MORE_THAN:
+            write("\tcmpq %rbx, %rax");
+            // 0 per default, 1 if >
+            write("\tmovq $0, %rax");
+            write("\tmovq $1, %rbx");
+            write("\tcmova %rbx, %rax");
+            break;
+        case OpInstr::MORE_THAN_OR_EQ:
+            write("\tcmpq %rbx, %rax");
+            // 0 per default, 1 if >=
+            write("\tmovq $0, %rax");
+            write("\tmovq $1, %rbx");
+            write("\tcmovae %rbx, %rax");
             break;
         case OpInstr::AND:
             write("\tandq %rax, %rbx");
@@ -209,12 +222,8 @@ void X86_64::op(OpInstr *instr) {
 }
 
 void X86_64::loadConst(LoadConstInstr *instr) {
-    string ldCst = "\tmovq $" +
-                   std::to_string(instr->value) +
-                   ", -" +
-                   std::to_string(currentCFG->getOffset(instr->var)) +
-                   "(%rbp)";
-    write(ldCst);
+    write("\tmovq $" + std::to_string(instr->value) + ", %rax");
+    write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var)) + "(%rbp)");
 }
 
 void X86_64::call(CallInstr *instr) {

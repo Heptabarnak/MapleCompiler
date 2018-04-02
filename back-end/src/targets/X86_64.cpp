@@ -17,7 +17,7 @@ void X86_64::parse() {
 
     write(header);
 
-    for (auto &&cfg : cfgs) {
+    for (auto cfg : cfgs) {
         currentCFG = cfg.second;
 
         // Add new label for the function

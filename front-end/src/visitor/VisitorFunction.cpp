@@ -72,7 +72,7 @@ antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *c
 
 antlrcpp::Any StartVisitor::visitArgumentType(MapleGrammarParser::ArgumentTypeContext *ctx) {
 
-    if (ctx->argumentTypeVar) {
+    if (ctx->argumentTypeVar()) {
         return (FunctionParam *) visit(ctx->argumentTypeVar());
     }
 

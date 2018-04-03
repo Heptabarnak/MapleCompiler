@@ -165,6 +165,8 @@ void X86_64::wmem(WMemInstr *instr) {
 void X86_64::unaryop(UnaryOpInstr *instr) {
     switch (instr->type){
         case UnaryOpInstr::PLUS:
+            write("\tmovq "+std::to_string(currentCFG->getOffset(instr->var1))+", %rax");
+            write("\tmovq %rax, "+ std::to_string(currentCFG->getOffset(instr->var)));
             break;
         case UnaryOpInstr::MINUS:
             write("\tmovq "+std::to_string(currentCFG->getOffset(instr->var1))+ ", %rax");
@@ -172,9 +174,11 @@ void X86_64::unaryop(UnaryOpInstr *instr) {
             write("\tmovq %rax, "+ std::to_string(currentCFG->getOffset(instr->var)));
             break;
         case UnaryOpInstr::NOT :
-            write("\tcmpq "+std::to_string(currentCFG->getOffset(instr->var))+ ", $0");
-            write("\tcmoveq $1, %rax");
-            write("\tcmovneq $0, %rax");
+            write("\tmovq $0, %rax");
+            write("\tmovq "+std::to_string(currentCFG->getOffset(instr->var1))+", %rbx");
+            write("\tcmpq %rax, %rbx");
+            write("\tmovq $1, %rbx");
+            write("\tcmove %rbx, %rax");
             write("\tmovq %rax, "+ std::to_string(currentCFG->getOffset(instr->var)));
             break;
         case UnaryOpInstr::BITWISE_NOT :

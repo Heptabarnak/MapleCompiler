@@ -9,6 +9,8 @@ public:
     ExprBinaryOrOperation(Expr *left, Expr *right);
 
     long simplify() override;
+
+    std::string buildIR(CFG *cfg);
 };
 
 #endif //MAPLECOMPILER_EXPRBINARYOROPERATION_H

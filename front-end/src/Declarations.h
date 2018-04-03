@@ -1,5 +1,5 @@
-#ifndef MAPLECOMPILER_DELCARATIONS_H
-#define MAPLECOMPILER_DELCARATIONS_H
+#ifndef MAPLECOMPILER_DECLARATIONS_H
+#define MAPLECOMPILER_DECLARATIONS_H
 
 #include <accessor/Accessor.h>
 #include <accessor/FunctionAccessor.h>
@@ -47,4 +47,4 @@
 #include <variable/VarAccessor.h>
 #include <variable/VarDeclaration.h>
 
-#endif //MAPLECOMPILER_DELCARATIONS_H
+#endif //MAPLECOMPILER_DECLARATIONS_H

@@ -4,7 +4,6 @@
 #include <string>
 #include "ExprOperation.h"
 
-using std::string;
 
 class ExprMultiplicativeOperation : public ExprOperation {
 private:
@@ -17,7 +16,9 @@ private:
     MultiplicativeOperation operation;
 
 public:
-    ExprMultiplicativeOperation(Expr *left, Expr *right, const string &op);
+    ExprMultiplicativeOperation(Expr *left, Expr *right, const std::string &op);
+
+    std::string buildIR(CFG *cfg);
 
     long simplify() override;
 };

@@ -7,7 +7,7 @@ class ExprUnary : public Expr {
 protected:
     Expr *expr;
 
-    ExprUnary(Expr *expr) : expr(expr) {}
+    explicit ExprUnary(Expr *expr) : expr(expr) {}
 };
 
 

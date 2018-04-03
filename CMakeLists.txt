@@ -33,6 +33,18 @@ set(ANTLR4_GENERATED_GRAMMAR_FILES
         front-end/src/maple-parser/MapleGrammarVisitor.cpp
         )
 
+#-----------
+#   UTILS
+#-----------
+
+set(UTILS_SRC_FILES
+        utils/str2int.h
+        utils/mapContext2Vector.h
+        utils/typeHelper.cpp
+        utils/printDebugInfo.cpp
+        utils/parseConfig.h
+        )
+
 #---------------
 #   FRONT-END
 #---------------
@@ -90,7 +102,7 @@ set(AST_SRC_FILES
         front-end/src/visitor/VisitorFunction.cpp
         front-end/src/visitor/VisitorInstruction.cpp
         front-end/src/visitor/VisitorOp.cpp
-        )
+        front-end/src/expression/Expr.cpp)
 
 #---------------
 #   BACK-END
@@ -101,29 +113,29 @@ include_directories(${BACK_END_FOLDER}/src)
 set(BACK_SRC_FILES
         back-end/src/ir/IRInstr.cpp
         back-end/src/ir/BasicBlock.cpp
+        back-end/src/ir/BuildIR.h
         back-end/src/ir/CFG.cpp
-        back-end/src/ir/instructions/AddInstr.cpp
-        back-end/src/ir/instructions/SubInstr.cpp
-        back-end/src/ir/instructions/MulInstr.cpp
         back-end/src/ir/instructions/RMemInstr.cpp
         back-end/src/ir/instructions/WMemInstr.cpp
         back-end/src/ir/instructions/CallInstr.cpp
-        back-end/src/ir/instructions/CmpEqInstr.cpp
-        back-end/src/ir/instructions/CmpLtInstr.cpp
-        back-end/src/ir/instructions/CmpLeInstr.cpp
         back-end/src/ir/instructions/LoadConstInstr.cpp
-        back-end/src/targets/Target.h back-end/src/tree-walk/MapleTreeWalk.cpp back-end/src/tree-walk/MapleTreeWalk.h)
+        back-end/src/tree-walk/MapleTreeWalk.cpp
+        back-end/src/targets/X86_64.cpp
+        back-end/src/targets/BaseTarget.cpp
+        back-end/src/ir/instructions/OpInstr.cpp
+        back-end/src/ir/instructions/UnaryOpInstr.cpp
+        back-end/src/ir/instructions/IncrInstr.cpp back-end/src/ir/instructions/IncrInstr.h)
 
-#-----------
-#   UTILS
-#-----------
+#----------
+#   CLI
+#----------
+include_directories(cli)
 
-set(UTILS_SRC_FILES
-        utils/str2int.h
-        utils/mapContext2Vector.h
-        utils/typeHelper.cpp
-        utils/printDebugInfo.cpp
+set(CLI_SRC_FILES
+        cli/Runner.cpp
+        cli/Config.h
         )
+
 
 #----------------
 #   EXECUTABLE
@@ -136,5 +148,6 @@ add_executable(MapleCompiler
         ${ANTLR4_GENERATED_GRAMMAR_FILES}
         ${AST_SRC_FILES}
         ${BACK_SRC_FILES}
+        ${CLI_SRC_FILES}
         )
 target_link_libraries(MapleCompiler antlr4-runtime)

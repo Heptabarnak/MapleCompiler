@@ -1,7 +1,15 @@
 #include <str2int.h>
+#include <ostream>
+#include <stdexcept>
+#include <ir/instructions/OpInstr.h>
+#include <ir/instructions/WMemInstr.h>
 #include "ExprAffectation.h"
 
-ExprAffectation::ExprAffectation(LeftValue *left, Expr *right, const std::string &op_str)
+using std::cerr;
+using std::string;
+using std::endl;
+
+ExprAffectation::ExprAffectation(LeftValue *left, Expr *right, const string &op_str)
         : left(left), right(right) {
 
     switch (str2int(op_str.c_str())) {
@@ -39,7 +47,56 @@ ExprAffectation::ExprAffectation(LeftValue *left, Expr *right, const std::string
             op = OR_EQUAL;
             break;
         default:
-            // TODO Throw ERROR
-            break;
+            cerr << "Operator expected to be \"=\", \"+=\", \"-=\", \"*=\", \"/=\", \"%=\", \"<<=\", \">>=\",";
+            cerr << " \"&=\", \"^=\" or \"|=\" but did not match." << endl;
+            throw std::runtime_error("[ExprAffectation] Unexpected operator");
     }
+}
+
+string ExprAffectation::buildIR(CFG *cfg) {
+
+    string value = right->buildIR(cfg);
+    string dest = left->buildIR(cfg);
+
+    if (op != EQUAL) {
+        // We save the new value
+        OpInstr::OpType type;
+        switch (op) {
+            case PLUS_EQUAL:
+                type = OpInstr::ADD;
+                break;
+            case MINUS_EQUAL:
+                type = OpInstr::SUB;
+                break;
+            case MULT_EQUAL:
+                type = OpInstr::MULT;
+                break;
+            case DIV_EQUAL:
+                type = OpInstr::DIV;
+                break;
+            case MOD_EQUAL:
+                type = OpInstr::MOD;
+                break;
+            case LEFT_SHIFT_EQUAL:
+                type = OpInstr::SHIFT_LEFT;
+                break;
+            case RIGHT_SHIFT_EQUAL:
+                type = OpInstr::SHIFT_RIGHT;
+                break;
+            case AND_EQUAL:
+                type = OpInstr::AND;
+                break;
+            case XOR_EQUAL:
+                type = OpInstr::XOR;
+                break;
+            case OR_EQUAL:
+                type = OpInstr::OR;
+                break;
+        }
+
+        cfg->addIRInstr(new OpInstr(cfg->currentBB, type, value, dest, value));
+    }
+
+    cfg->addIRInstr(new WMemInstr(cfg->currentBB, dest, value));
+    return value;
 }

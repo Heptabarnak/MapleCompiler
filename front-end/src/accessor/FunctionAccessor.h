@@ -11,10 +11,11 @@ private:
     AccessorFunction* accessorFunction;
 
 public:
-    FunctionAccessor(AccessorFunction *accessorFunction);
+    explicit FunctionAccessor(AccessorFunction *accessorFunction);
 
-    string getSymbolName() override;
+    std::string getSymbolName() override;
 
+    std::string buildIR(CFG *cfg);
 };
 
 

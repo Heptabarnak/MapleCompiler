@@ -29,8 +29,14 @@ antlrcpp::Any StartVisitor::visitProgram(MapleGrammarParser::ProgramContext *ctx
     if (ctx->declaration()) {
         return (vector<Declaration *> *) visit(ctx->declaration());
     }
-    auto functions = new vector<Declaration *>(1);
+    auto functions = new vector<Declaration *>();
     functions->push_back((Declaration *) visit(ctx->functionDefinition()));
     return functions;
 }
 
+
+StartVisitor::StartVisitor(Config *conf) : conf(conf) {
+    // Configure Expr class for optimisation
+
+    Expr::setOptimisation(conf->optimisation);
+}

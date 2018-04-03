@@ -1,5 +1,7 @@
 #include "IfStatement.h"
 
+using std::string;
+
 IfStatement::IfStatement(Expr *c, Instruction *st, Instruction *elseSt) : condition(c), statement(st),
                                                                           elseStatement(elseSt) {}
 
@@ -10,33 +12,57 @@ IfStatement::~IfStatement() {
 }
 
 string IfStatement::buildIR(CFG *cfg) {
-    condition->buildIR(cfg);
 
-    auto conditionBB = cfg->currentBB;
-    auto statementBB = new BasicBlock(cfg, cfg->newBBName());
+    auto statementBB = new BasicBlock(cfg, cfg->newBBName() + "_INNER_IF");
+    auto afterIf = new BasicBlock(cfg, cfg->newBBName() + "_AFTER_IF");
+    auto elseBB = afterIf;
 
-    auto afterIf = new BasicBlock(cfg, cfg->newBBName());
-
-    // Affect to after if the current next BB of the function
-    afterIf->exitTrue = conditionBB->exitTrue;
-    afterIf->exitFalse = conditionBB->exitFalse;
-
-    // Add statement after the condition
-    conditionBB->exitTrue = statementBB;
-    // TODO Add instruction to the statement
-
-
-    // If there is an else, the condition will do a jump to it
-    // Otherwise, condition will jump directly after the if.
     if (elseStatement != nullptr) {
-        auto elseStatementBB = new BasicBlock(cfg, cfg->newBBName());
-
-        // TODO Add instruction to this basic block
-        conditionBB->exitFalse = elseStatementBB;
-        elseStatementBB->exitTrue = afterIf;
-    } else {
-        conditionBB->exitFalse = afterIf;
+        elseBB = new BasicBlock(cfg, cfg->newBBName() + "_INNER_ELSE");
     }
 
-    cfg->addBB(afterIf); // Set current BB after IF
+    // Save existing exits
+    afterIf->exitTrue = cfg->currentBB->exitTrue;
+    afterIf->exitFalse = cfg->currentBB->exitFalse;
+
+    //================
+    // CONDITION TEST
+    //================
+
+    condition->buildIR(cfg);
+
+    cfg->currentBB->exitTrue = statementBB;
+    cfg->currentBB->exitFalse = elseBB; // Will be afterIf if not else statement
+
+
+    //================
+    // INNER IF BB
+    //================
+
+    cfg->addBB(statementBB);
+    cfg->currentBB = statementBB;
+    cfg->currentBB->exitTrue = afterIf;
+
+    statement->buildIR(cfg);
+
+
+    //================
+    // INNER ELSE BB
+    //================
+
+    if (elseStatement != nullptr) {
+        cfg->addBB(elseBB);
+        cfg->currentBB = elseBB;
+        cfg->currentBB->exitTrue = afterIf;
+
+        elseStatement->buildIR(cfg);
+    }
+
+    //================
+    // AFTER IF BB
+    //================
+
+    cfg->addBB(afterIf);
+    cfg->currentBB = afterIf; // Set current BB after IF
+    return "";
 }

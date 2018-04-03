@@ -7,9 +7,11 @@
 class ExprAndOperation : public ExprOperation {
 
 public:
-    ExprAndOperation(Expr * left, Expr * right);
+    ExprAndOperation(Expr *left, Expr *right);
 
     long simplify() override;
+
+    std::string buildIR(CFG *cfg);
 };
 
 

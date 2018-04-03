@@ -4,8 +4,6 @@
 #include <string>
 #include "ExprOperation.h"
 
-using std::string;
-
 class ExprAdditiveOperation : public ExprOperation {
 private:
     enum AdditiveOperation {
@@ -16,10 +14,11 @@ private:
     AdditiveOperation operation;
 
 public:
-    ExprAdditiveOperation(Expr *left, Expr *right, const string &op);
+    ExprAdditiveOperation(Expr *left, Expr *right, const std::string &op);
 
     long simplify() override;
 
+    std::string buildIR(CFG *cfg);
 };
 
 

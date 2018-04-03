@@ -2,8 +2,9 @@
 #include <iostream>
 #include <variable/VarDeclaration.h>
 
-using std::make_pair;
-using namespace std;
+using std::cout;
+using std::endl;
+using std::string;
 
 SymbolTable::SymbolTable(SymbolTable *father) : father(father) {
     // Add to symbol table's children
@@ -27,8 +28,13 @@ SymbolTable::~SymbolTable() {
 
 SymbolTable *SymbolTable::insert(string name, Symbol *symbol) {
     symbols.insert({name, symbol});
-    levels.insert({lastLevel, name});
-    lastLevel++;
+    levels.insert({order, name});
+    order++;
+
+    // Offset handling
+    offset += symbol->getDeclaration()->getAllocationSize();
+    offsetTable.insert({name, offset});
+
     return this;
 }
 
@@ -68,7 +74,7 @@ SymbolTable *SymbolTable::getFather() {
 }
 
 string SymbolTable::createNewTmpVar(Type type) {
-    string name = "!tmp" + lastLevel;
+    string name = "!tmp" + std::to_string(order);
 
     auto declaration = new VarDeclaration(name, type);
 
@@ -80,4 +86,18 @@ string SymbolTable::createNewTmpVar(Type type) {
     this->insert(name, symbol);
 
     return name;
+}
+
+long SymbolTable::getAllocationSize() {
+    return offset;
+}
+
+long SymbolTable::getOffset(string &name) {
+    auto item = offsetTable.find(name);
+
+    if (item == offsetTable.end()) {
+        return -1;
+    }
+
+    return item->second;
 }

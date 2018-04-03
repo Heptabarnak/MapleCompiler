@@ -11,11 +11,10 @@ protected:
     Expr *leftExpr;
     Expr *rightExpr;
 
-protected:
     ExprOperation(Expr *left, Expr *right) {
         // We try to simplify expression when we construct.
 
-        if (dynamic_cast<ExprValue *>(left) || !left->isSimplifiable()) {
+        if (!Expr::optimisationEnable || dynamic_cast<ExprValue *>(left) || !left->isSimplifiable()) {
             leftExpr = left;
         } else {
             leftExpr = new ExprValue(new Value(
@@ -26,7 +25,7 @@ protected:
             delete left;
         }
 
-        if (dynamic_cast<ExprValue *>(right) || !right->isSimplifiable()) {
+        if (!Expr::optimisationEnable || dynamic_cast<ExprValue *>(right) || !right->isSimplifiable()) {
             rightExpr = right;
         } else {
             rightExpr = new ExprValue(new Value(
@@ -37,6 +36,7 @@ protected:
             delete right;
         }
     }
+
 
 public:
     bool isSimplifiable() override {

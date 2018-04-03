@@ -1,11 +1,17 @@
 #include <str2int.h>
+#include <ostream>
+#include <stdexcept>
 #include <ir/instructions/LoadConstInstr.h>
-#include <ir/instructions/AddInstr.h>
 #include <ir/instructions/WMemInstr.h>
-#include <ir/instructions/SubInstr.h>
+#include <ir/instructions/OpInstr.h>
+#include <ir/instructions/IncrInstr.h>
 #include "ExprIncrement.h"
 
-ExprIncrement::ExprIncrement(LeftValue *leftValue, std::string op_str, bool isPostfix)
+using std::string;
+using std::cerr;
+using std::endl;
+
+ExprIncrement::ExprIncrement(LeftValue *leftValue, string op_str, bool isPostfix)
         : leftValue(leftValue), isPostfix(isPostfix) {
 
     switch (str2int(op_str.c_str())) {
@@ -16,33 +22,23 @@ ExprIncrement::ExprIncrement(LeftValue *leftValue, std::string op_str, bool isPo
             op = MINUS_MINUS;
             break;
         default:
-            // TODO Throw ERROR
-            break;
+            cerr << "Operator expected to be \"++\" or \"--\" but did not match." << endl;
+            throw std::runtime_error("[ExprIncrement] Unexpected operator");
     }
 
 }
 
 string ExprIncrement::buildIR(CFG *cfg) {
     string var = cfg->createNewTmpVar(Type::INT64_T);
-    auto *instr = new LoadConstInstr(cfg->currentBB, Type::INT64_T); //avec un 1, pas encore fonctionnel
-    string var2 = leftValue->buildIR(cfg);
-    IRInstr *instr2;
-    switch (op) {
-        case PLUS_PLUS:
-            instr2 = new AddInstr(cfg->currentBB, Type::INT64_T); //pas encore fonctionnel
-            break;
-        case MINUS_MINUS:
-            instr2 = new SubInstr(cfg->currentBB, Type::INT64_T); //pas encore fonctionnel
-            break;
+    string var1 = leftValue->buildIR(cfg);
+
+    auto opInstr = IncrInstr::PLUS;
+
+    if (op == MINUS_MINUS) {
+        opInstr = IncrInstr::MINUS;
     }
-    auto *instr3 = new WMemInstr(cfg->currentBB, Type::INT64_T);//pas encore fonctionnel
-    cfg->currentBB->addIRInstr(instr);
-    if (isPostfix) {
-        cfg->currentBB->addIRInstr(instr3);
-        cfg->currentBB->addIRInstr(instr2);
-    } else {
-        cfg->currentBB->addIRInstr(instr2);
-        cfg->currentBB->addIRInstr(instr3);
-    }
+
+    cfg->addIRInstr(new IncrInstr(cfg->currentBB, opInstr, var, var1, isPostfix));
+
     return var;
 }

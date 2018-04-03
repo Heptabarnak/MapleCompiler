@@ -11,6 +11,8 @@ public:
 
     long simplify() override;
 
+    std::string buildIR(CFG *cfg);
+
 };
 
 

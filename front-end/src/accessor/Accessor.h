@@ -2,8 +2,9 @@
 #define MAPLECOMPILER_ACCESSOR_H
 
 #include <string>
+#include <ir/BuildIR.h>
 
-class Accessor {
+class Accessor : public BuildIR {
 public:
 
     virtual std::string getSymbolName()=0;

@@ -1,5 +1,7 @@
 #include "Start.h"
 
+using std::vector;
+
 Start::Start(const vector<Declaration *> &declarations, SymbolTable *globalSymbolTable)
         : declarations(declarations), globalSymbolTable(globalSymbolTable) {}
 

@@ -1,63 +1,15 @@
-#include <iostream>
-#include <antlr4-runtime.h>
-#include <maple-parser/MapleGrammarParser.h>
-#include <maple-parser/MapleGrammarLexer.h>
-#include <visitor/StartVisitor.h>
-#include <cstring>
-#include <exception>
-#include <typeinfo>
-#include <stdexcept>
+#include <Runner.h>
+#include <parseConfig.h>
 
 
-using namespace antlr4;
+int main(int argc, char *const *argv) {
 
-using std::cerr;
-using std::cout;
-using std::endl;
+    Config* conf = parseConfig(argc, argv);
 
-int main(int argc, const char **argv) {
-
-    if (argc != 2) {
-        std::cerr << "Not enough arguments" << std::endl;
+    if (conf == nullptr) {
         return 1;
     }
+    Runner runner;
 
-    std::fstream inputFile;
-    inputFile.open(argv[1], std::fstream::in);
-
-    std::cout << "Opening file: " << argv[1] << std::endl;
-
-    if (!inputFile) {
-        std::cerr << "Error opening input file: " << strerror(errno);
-        return 1;
-    }
-
-
-    ANTLRInputStream input(inputFile);
-    MapleGrammarLexer lexer(&input);
-    CommonTokenStream tokens(&lexer);
-    MapleGrammarParser parser(&tokens);
-
-    tree::ParseTree *tree = parser.start();
-
-    if (parser.getNumberOfSyntaxErrors() != 0) {
-        cerr << "Error while parsing" << endl;
-        return 1;
-    }
-
-    StartVisitor visitor;
-    Start *ast;
-
-    try {
-        ast = visitor.visit(tree);
-        cout << "AST Generated !" << endl;
-        ast->getGlobalSymbolTable()->staticAnalysis();
-    } catch (std::exception &exception) {
-        cerr << "Error while creating AST :" << endl << exception.what();
-        return 1;
-    }
-
-    // TODO Send AST to back-end (it already contains a symbol table)
-
-    return 0;
+    return runner.run(conf);
 }

@@ -4,8 +4,6 @@
 #include <string>
 #include "ExprOperation.h"
 
-using std::string;
-
 class ExprEqualityComparisonOperation : public ExprOperation {
 private:
     enum EqualityComparisonOperation {
@@ -16,7 +14,9 @@ private:
     EqualityComparisonOperation operation;
 
 public:
-    ExprEqualityComparisonOperation(Expr *left, Expr *right, const string &op);
+    ExprEqualityComparisonOperation(Expr *left, Expr *right, const std::string &op);
+
+    std::string buildIR(CFG *cfg);
 
     long simplify() override;
 };

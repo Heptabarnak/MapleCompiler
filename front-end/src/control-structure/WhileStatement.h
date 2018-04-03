@@ -14,6 +14,8 @@ private:
 public:
     WhileStatement(Expr *condition, Instruction *instruction);
     ~WhileStatement();
+
+    std::string buildIR(CFG *cfg);
 };
 
 

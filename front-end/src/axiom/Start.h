@@ -6,19 +6,17 @@
 #include <symbol-table/SymbolTable.h>
 #include <declaration/Declaration.h>
 
-using std::vector;
-
 class Start {
 
 protected:
-    vector<Declaration *> declarations;
+    std::vector<Declaration *> declarations;
     SymbolTable *globalSymbolTable;
 public:
     SymbolTable *getGlobalSymbolTable() const;
 
-    const vector<Declaration *> &getDeclarations() const;
+    const std::vector<Declaration *> &getDeclarations() const;
 
-    Start(const vector<Declaration *> &declarations, SymbolTable *globalSymbolTable);
+    Start(const std::vector<Declaration *> &declarations, SymbolTable *globalSymbolTable);
 };
 
 

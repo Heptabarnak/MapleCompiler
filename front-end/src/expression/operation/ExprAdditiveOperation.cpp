@@ -1,5 +1,13 @@
 #include <str2int.h>
+#include <ir/instructions/OpInstr.h>
+#include <ostream>
+#include <stdexcept>
 #include "ExprAdditiveOperation.h"
+
+using std::cerr;
+using std::endl;
+using std::string;
+
 
 ExprAdditiveOperation::ExprAdditiveOperation(Expr *left, Expr *right, const string &op) : ExprOperation(left, right) {
 
@@ -11,8 +19,8 @@ ExprAdditiveOperation::ExprAdditiveOperation(Expr *left, Expr *right, const stri
             operation = MINUS;
             break;
         default:
-            // TODO Throw ERROR
-            break;
+            cerr << "Operator expected to be \"+\" or \"-\" but did not match." << endl;
+            throw std::runtime_error("[ExprAdditiveOperation] Unexpected operator");
     }
 }
 
@@ -23,4 +31,20 @@ long ExprAdditiveOperation::simplify() {
         case MINUS:
             return leftExpr->simplify() - rightExpr->simplify();
     }
+}
+
+string ExprAdditiveOperation::buildIR(CFG *cfg) {
+    string var1 = leftExpr->buildIR(cfg);
+    string var2 = rightExpr->buildIR(cfg);
+    string var = cfg->createNewTmpVar(INT64_T);
+
+    OpInstr::OpType type = OpInstr::ADD;
+    switch (operation) {
+        case MINUS:
+            type = OpInstr::SUB;
+            break;
+    }
+
+    cfg->addIRInstr(new OpInstr(cfg->currentBB, type, var, var1, var2));
+    return var;
 }

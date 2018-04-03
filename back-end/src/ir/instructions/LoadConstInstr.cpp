@@ -1,3 +1,6 @@
 #include "LoadConstInstr.h"
 
-LoadConstInstr::LoadConstInstr(BasicBlock *bb_, Type t) : IRInstr(bb_, t) {}
+using std::string;
+
+LoadConstInstr::LoadConstInstr(BasicBlock *bb_, string var, long value, Type type)
+        : IRInstr(bb_), var(var), value(value), type(type) {}

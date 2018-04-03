@@ -5,47 +5,46 @@
 #include <string>
 #include <iostream>
 #include <map>
-
-#include <function/FunctionDefinition.h>
+#include <token/Type.h>
 
 #include "BasicBlock.h"
+#include "IRInstr.h"
 
 class BasicBlock;
 
+class IRInstr;
+
+class FunctionDefinition;
+
 class CFG {
 public:
-    CFG(FunctionDefinition *ast);
-
-    FunctionDefinition *ast; /**< The AST this CFG comes from */
+    explicit CFG(FunctionDefinition *funcDef);
 
     void addBB(BasicBlock *bb);
 
-    // x86 code generation: could be encapsulated in a processor class in a retargetable compiler
-    void genAsm(std::ostream &o);
+    void addIRInstr(IRInstr *instr);
 
-    std::string IRRegToAsm(
-            std::string reg); /**< helper method: inputs a IR reg or input variable, returns e.g. "-24(%rbp)" for the proper value of 24 */
-
-    void genAsmPrologue(std::ostream &o);
-
-    void genAsmEpilogue(std::ostream &o);
-
-    // symbol table methods
-    void addToSymbolTable(std::string name, Type t);
-
-    int getVarIndex(std::string name);
-
-    Type getVarType(std::string name);
+    std::string createNewTmpVar(Type type);
 
     // basic block management
     std::string newBBName();
 
-    std::string createNewTmpVar(Type type);
-
     BasicBlock *currentBB;
 
+    BasicBlock *getRootBB();
+
+    long getAllocationSize();
+
+    std::vector<BasicBlock *> &getBBs();
+
+    long getOffset(std::string name);
+
+    FunctionDefinition *getFunctionDefinition();
+
 protected:
-    int nextBBnumber; /**< just for naming */
+    int nextBBNumber; /**< just for naming */
+
+    FunctionDefinition *funcDef;
 
     std::vector<BasicBlock *> bbs; /**< all the basic blocks of this CFG*/
 };

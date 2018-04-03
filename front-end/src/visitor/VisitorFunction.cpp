@@ -7,6 +7,8 @@
 #include "StartVisitor.h"
 
 
+using std::string;
+using std::vector;
 using std::cerr;
 using std::endl;
 
@@ -43,6 +45,8 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
     // Add a new scoped env
     currentSymbolTable = new SymbolTable(currentSymbolTable);
 
+    fDef->setSymbolTable(currentSymbolTable);
+
     if (ctx->typeList() != nullptr) {
         fDef->setArguments(*(vector<FunctionParam *> *) visit(ctx->typeList()));
     }
@@ -56,7 +60,7 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
 }
 
 antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *ctx) {
-    auto fParams = new vector<FunctionParam *>(ctx->ID().size());
+    auto fParams = new vector<FunctionParam *>();
 
     for (std::size_t i = 0; i != ctx->ID().size(); i++) {
         const string &name = ctx->ID(i)->getText();
@@ -82,8 +86,7 @@ antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *c
 antlrcpp::Any StartVisitor::visitBlockFunction(MapleGrammarParser::BlockFunctionContext *ctx) {
     auto block = new BlockFunction(
             *mapContext2VectorFlat<MapleGrammarParser::DeclarationContext *, Declaration *>(ctx->declaration(), this),
-            *mapContext2Vector<MapleGrammarParser::InstructionContext *, Instruction *>(ctx->instruction(), this),
-            currentSymbolTable
+            *mapContext2Vector<MapleGrammarParser::InstructionContext *, Instruction *>(ctx->instruction(), this)
     );
 
     return block;

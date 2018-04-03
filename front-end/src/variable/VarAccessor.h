@@ -1,17 +1,20 @@
 #ifndef MAPLECOMPILER_VARACCESSOR_H
 #define MAPLECOMPILER_VARACCESSOR_H
 
-
+#include <ir/BuildIR.h>
 #include "VarDeclaration.h"
 
-class VarAccessor {
+class VarAccessor : public BuildIR {
 
 private:
     VarDeclaration *declaration;
 
 public:
-    VarAccessor(VarDeclaration *dec);
-    std::string getName ();
+    explicit VarAccessor(VarDeclaration *dec);
+
+    std::string getName();
+
+    std::string buildIR(CFG *cfg);
 };
 
 

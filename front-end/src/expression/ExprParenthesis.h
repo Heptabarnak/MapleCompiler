@@ -3,6 +3,7 @@
 
 
 #include "Expr.h"
+#include <string>
 
 class ExprParenthesis : public Expr {
 
@@ -10,11 +11,13 @@ private:
     Expr *expr;
 
 public:
-    ExprParenthesis(Expr *expr);
+    explicit ExprParenthesis(Expr *expr);
 
     bool isSimplifiable() override;
 
     long simplify() override;
+
+    std::string buildIR(CFG *cfg);
 };
 
 

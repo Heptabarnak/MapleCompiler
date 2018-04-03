@@ -5,16 +5,17 @@
 #include <vector>
 #include "Instruction.h"
 
-using std::vector;
 
 class Block : public Instruction {
 
 private:
-    vector <Instruction *> instructions;
+    std::vector <Instruction *> instructions;
 
 public:
-    Block(const vector<Instruction *> &instructions);
+    explicit Block(const std::vector<Instruction *> &instructions);
     ~Block();
+
+    std::string buildIR(CFG *cfg);
 };
 
 

@@ -61,22 +61,22 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
 }
 
 antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *ctx) {
-    auto fParams = new vector<FunctionParam *>();
+    auto fParams = new vector<FunctionParam *>;
 
-    for (std::size_t i = 0; i != ctx->argumentTypeVar().size(); i++) {
-
-        auto fParam = (FunctionParam*) visit(ctx->argumentTypeVar(i));
-
-        fParams->push_back(fParam);
+    for (auto &&item : ctx->argumentType()) {
+        fParams->push_back((FunctionParam *) visit(item));
     }
 
-    for (std::size_t i = 0; i != ctx->argumentTypeArray().size(); i++) {
-
-        auto fParamTab = (FunctionParamTab*) visit(ctx->argumentTypeArray(i));
-
-        fParams->push_back(fParamTab);
-    }
     return fParams;
+}
+
+antlrcpp::Any StartVisitor::visitArgumentType(MapleGrammarParser::ArgumentTypeContext *ctx) {
+
+    if (ctx->argumentTypeVar) {
+        return (FunctionParam *) visit(ctx->argumentTypeVar());
+    }
+
+    return (FunctionParam *) visit(ctx->argumentTypeArray());
 }
 
 antlrcpp::Any StartVisitor::visitArgumentTypeVar(MapleGrammarParser::ArgumentTypeVarContext *ctx) {

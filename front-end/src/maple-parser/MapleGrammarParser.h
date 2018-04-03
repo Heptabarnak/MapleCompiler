@@ -34,8 +34,8 @@ public:
     RuleAccessorFunction = 25, RuleLeftValue = 26, RuleAccessor = 27, RuleIfStatement = 28, 
     RuleElseStatement = 29, RuleWhileStatement = 30, RuleFunctionDefinition = 31, 
     RuleReturnStatement = 32, RuleBlockFunction = 33, RuleArgumentList = 34, 
-    RuleTypeList = 35, RuleArgumentTypeVar = 36, RuleArgumentTypeArray = 37, 
-    RuleBlock = 38, RuleStatement = 39, RuleInstruction = 40
+    RuleTypeList = 35, RuleArgumentType = 36, RuleArgumentTypeVar = 37, 
+    RuleArgumentTypeArray = 38, RuleBlock = 39, RuleStatement = 40, RuleInstruction = 41
   };
 
   MapleGrammarParser(antlr4::TokenStream *input);
@@ -84,6 +84,7 @@ public:
   class BlockFunctionContext;
   class ArgumentListContext;
   class TypeListContext;
+  class ArgumentTypeContext;
   class ArgumentTypeVarContext;
   class ArgumentTypeArrayContext;
   class BlockContext;
@@ -695,16 +696,27 @@ public:
   public:
     TypeListContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    std::vector<ArgumentTypeVarContext *> argumentTypeVar();
-    ArgumentTypeVarContext* argumentTypeVar(size_t i);
-    std::vector<ArgumentTypeArrayContext *> argumentTypeArray();
-    ArgumentTypeArrayContext* argumentTypeArray(size_t i);
+    std::vector<ArgumentTypeContext *> argumentType();
+    ArgumentTypeContext* argumentType(size_t i);
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
   TypeListContext* typeList();
+
+  class  ArgumentTypeContext : public antlr4::ParserRuleContext {
+  public:
+    ArgumentTypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    ArgumentTypeVarContext *argumentTypeVar();
+    ArgumentTypeArrayContext *argumentTypeArray();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  ArgumentTypeContext* argumentType();
 
   class  ArgumentTypeVarContext : public antlr4::ParserRuleContext {
   public:

@@ -129,6 +129,8 @@ public:
 
     antlrcpp::Any visitArgumentTypeArray(MapleGrammarParser::ArgumentTypeArrayContext *context) override;
 
+    antlrcpp::Any visitArgumentType(MapleGrammarParser::ArgumentTypeContext *context) override;
+
     explicit StartVisitor(Config *conf);
 };
 

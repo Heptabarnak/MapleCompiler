@@ -3,6 +3,7 @@
 #include <mapContext2Vector.h>
 #include <typeHelper.h>
 #include <printDebugInfo.h>
+#include <function/FunctionParamTab.h>
 
 #include "StartVisitor.h"
 
@@ -63,27 +64,23 @@ antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *c
     auto fParams = new vector<FunctionParam *>();
 
     for (std::size_t i = 0; i != ctx->argumentTypeVar().size(); i++) {
-        const string &name = ctx->ID(i)->getText();
 
-        if (auto symbol = currentSymbolTable->lookup(name)) {
-            cerr << "Duplicate declaration of " << name << endl;
-            cerr << "Found : " << symbol->getDeclaration() << endl;
-            printDebugInfo(cerr, ctx);
-            throw std::runtime_error("Duplicated declaration");
-        }
+        auto fParam = (FunctionParam*) visit(ctx->argumentTypeVar(i));
 
-        auto fParam = new FunctionParam(
-                name,
-                getTypeFromString(ctx->TYPE(i)->getText())
-        );
-
-        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));
         fParams->push_back(fParam);
+    }
+
+    for (std::size_t i = 0; i != ctx->argumentTypeArray().size(); i++) {
+
+        auto fParamTab = (FunctionParamTab*) visit(ctx->argumentTypeArray(i));
+
+        fParams->push_back(fParamTab);
     }
     return fParams;
 }
 
 antlrcpp::Any StartVisitor::visitArgumentTypeVar(MapleGrammarParser::ArgumentTypeVarContext *ctx) {
+
     const string &name = ctx->ID()->getText();
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
@@ -104,7 +101,24 @@ antlrcpp::Any StartVisitor::visitArgumentTypeVar(MapleGrammarParser::ArgumentTyp
 }
 
 antlrcpp::Any StartVisitor::visitArgumentTypeArray(MapleGrammarParser::ArgumentTypeArrayContext *ctx) {
-    return antlrcpp::Any();
+    const string &name = ctx->ID()->getText();
+
+    if (auto symbol = currentSymbolTable->lookup(name)) {
+        cerr << "Duplicate declaration of " << name << endl;
+        cerr << "Found : " << symbol->getDeclaration() << endl;
+        printDebugInfo(cerr, ctx);
+        throw std::runtime_error("Duplicated declaration");
+    }
+
+    auto fParam = new FunctionParamTab(
+            name,
+            getTypeFromString(ctx->TYPE()->getText()),
+            (int) ctx->INTEGER()
+    );
+
+    currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));
+
+    return fParam;
 }
 
 antlrcpp::Any StartVisitor::visitBlockFunction(MapleGrammarParser::BlockFunctionContext *ctx) {

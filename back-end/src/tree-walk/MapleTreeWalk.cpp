@@ -13,6 +13,8 @@ MapleTreeWalk::MapleTreeWalk(Start *start) : start(start) {}
 IRStruct *MapleTreeWalk::generateIR() {
     auto irStruct = new IRStruct;
 
+    irStruct->globalSymbolTable = start->getGlobalSymbolTable();
+
     auto declarations = start->getDeclarations();
 
     for (auto &&declaration : declarations) {

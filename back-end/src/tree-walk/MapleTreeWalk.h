@@ -10,6 +10,7 @@
 typedef struct IRStruct {
     std::map<std::string, CFG *> cfgs;
     std::map<std::string, GlobalDeclaration *> globals;
+    SymbolTable* globalSymbolTable;
 } IRStruct;
 
 class MapleTreeWalk {

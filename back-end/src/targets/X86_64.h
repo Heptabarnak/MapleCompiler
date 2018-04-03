@@ -35,6 +35,8 @@ protected:
 
 private:
     void instrDispacher(IRInstr *instr);
+
+    std::string getAsmForVar(std::string var);
 };
 
 

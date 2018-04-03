@@ -298,46 +298,46 @@ void X86_64::call(CallInstr *instr) {
 }
 
 void X86_64::rmem(RMemInstr *instr) {
-    write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var2)) + "(%rbp), %rax");
-    write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp)");
+    write("\tmovq " + getAsmForVar(instr->var2) + ", %rax");
+    write("\tmovq %rax, " + getAsmForVar(instr->var1));
 }
 
 void X86_64::wmem(WMemInstr *instr) {
-    write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var2)) + "(%rbp), %rax");
-    write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp)");
+    write("\tmovq " + getAsmForVar(instr->var2) + ", %rax");
+    write("\tmovq %rax, " + getAsmForVar(instr->var1));
 }
 
 void X86_64::unaryop(UnaryOpInstr *instr) {
     switch (instr->type) {
         case UnaryOpInstr::PLUS:
-            write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rax");
-            write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var)) + "(%rbp)");
+            write("\tmovq " + getAsmForVar(instr->var1) + ", %rax");
+            write("\tmovq %rax, " + getAsmForVar(instr->var));
             break;
         case UnaryOpInstr::MINUS:
-            write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rax");
+            write("\tmovq " + getAsmForVar(instr->var1) + ", %rax");
             write("\tnegq %rax");
-            write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var)) + "(%rbp)");
+            write("\tmovq %rax, " + getAsmForVar(instr->var));
             break;
         case UnaryOpInstr::NOT :
             write("\tmovq $0, %rax");
-            write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rbx");
+            write("\tmovq " + getAsmForVar(instr->var1) + ", %rbx");
             write("\tcmpq %rax, %rbx");
             write("\tmovq $1, %rbx");
             write("\tcmove %rbx, %rax");
-            write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var)) + "(%rbp)");
+            write("\tmovq %rax, " + getAsmForVar(instr->var));
             break;
         case UnaryOpInstr::BITWISE_NOT :
-            write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rax");
+            write("\tmovq " + getAsmForVar(instr->var1) + ", %rax");
             write("\tnotq %rax");
-            write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var)) + "(%rbp)");
+            write("\tmovq %rax, " + getAsmForVar(instr->var));
             break;
     }
 }
 
 void X86_64::incr(IncrInstr *instr) {
 
-    write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rax");
-    write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rbx");
+    write("\tmovq " + getAsmForVar(instr->var1) + ", %rax");
+    write("\tmovq " + getAsmForVar(instr->var1) + ", %rbx");
     switch (instr->type) {
         case IncrInstr::PLUS:
             write("\tincq %rbx");
@@ -347,11 +347,11 @@ void X86_64::incr(IncrInstr *instr) {
             break;
     }
 
-    write("\tmovq %rbx, -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp)");
+    write("\tmovq %rbx, " + getAsmForVar(instr->var1));
 
     string reg = instr->isPostfix ? "%rax" : "%rbx";
 
-    write("\tmovq " + reg + ", -" + std::to_string(currentCFG->getOffset(instr->var)) + "(%rbp)");
+    write("\tmovq " + reg + ", " + getAsmForVar(instr->var));
 
 }
 
@@ -365,6 +365,14 @@ void X86_64::instrDispacher(IRInstr *instr) {
     else if (auto i = dynamic_cast<IncrInstr *>(instr)) incr(i);
 }
 
+string X86_64::getAsmForVar(string var) {
+    auto offset = currentCFG->getOffset(var);
+
+    if (offset != -1) {
+        return "-" + std::to_string(offset) + "(%rbp)";
+    }
+    return var + "(%rip)";
+}
 
 static char getExtFromType(Type type) {
     switch (type) {

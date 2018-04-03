@@ -3,6 +3,7 @@
 #include <mapContext2Vector.h>
 #include <typeHelper.h>
 #include <printDebugInfo.h>
+#include <function/FunctionParamTab.h>
 
 #include "StartVisitor.h"
 
@@ -173,27 +174,82 @@ antlrcpp::Any StartVisitor::visitFunctionDeclaration(MapleGrammarParser::Functio
 }
 
 antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *ctx) {
-    auto fParams = new vector<FunctionParam *>();
+    auto fParams = new vector<FunctionParam *>;
 
-    for (std::size_t i = 0; i != ctx->ID().size(); i++) {
-        const string &name = ctx->ID(i)->getText();
-
-        if (auto symbol = currentSymbolTable->lookup(name)) {
-            cerr << "Duplicate declaration of " << name << endl;
-            cerr << "Found : " << symbol->getDeclaration() << endl;
-            printDebugInfo(cerr, ctx);
-            throw std::runtime_error("Duplicated declaration");
-        }
-
-        auto fParam = new FunctionParam(
-                name,
-                getTypeFromString(ctx->TYPE(i)->getText())
-        );
-
-        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));
-        fParams->push_back(fParam);
+    for (auto &&item : ctx->argumentType()) {
+        fParams->push_back((FunctionParam *) visit(item));
     }
+
     return fParams;
+}
+
+antlrcpp::Any StartVisitor::visitArgumentType(MapleGrammarParser::ArgumentTypeContext *ctx) {
+
+    if (ctx->argumentTypeVar()) {
+        return (FunctionParam *) visit(ctx->argumentTypeVar());
+    }
+
+    return (FunctionParam *) visit(ctx->argumentTypeArray());
+}
+
+antlrcpp::Any StartVisitor::visitArgumentTypeVar(MapleGrammarParser::ArgumentTypeVarContext *ctx) {
+
+    const string &name = ctx->ID()->getText();
+
+    if (auto symbol = currentSymbolTable->lookup(name)) {
+        cerr << "Duplicate declaration of " << name << endl;
+        cerr << "Found : " << symbol->getDeclaration() << endl;
+        printDebugInfo(cerr, ctx);
+        throw std::runtime_error("Duplicated declaration");
+    }
+
+    auto fParam = new FunctionParam(
+            name,
+            getTypeFromString(ctx->TYPE()->getText())
+    );
+
+    currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));
+
+    return fParam;
+}
+
+antlrcpp::Any StartVisitor::visitArgumentTypeArray(MapleGrammarParser::ArgumentTypeArrayContext *ctx) {
+    const string &name = ctx->ID()->getText();
+
+    if (auto symbol = currentSymbolTable->lookup(name)) {
+        cerr << "Duplicate declaration of " << name << endl;
+        cerr << "Found : " << symbol->getDeclaration() << endl;
+        printDebugInfo(cerr, ctx);
+        throw std::runtime_error("Duplicated declaration");
+    }
+
+    Expr *expr = visit(ctx->expr());
+
+    if (!expr->isSimplifiable()) {
+        delete(expr);
+        cerr << "Unable to simplify expression for " << name << endl;
+        printDebugInfo(cerr, ctx);
+        throw std::runtime_error("Not simplifiable declaration");
+    }
+
+    const long tabSize = expr->simplify();
+
+    delete(expr);
+    if (tabSize < 1) {
+        cerr << "Array size must be more than 0, got : " << tabSize << endl;
+        printDebugInfo(cerr, ctx);
+        throw std::runtime_error("Array size must > 1");
+    }
+
+    auto fParam = new FunctionParamTab(
+            name,
+            getTypeFromString(ctx->TYPE()->getText()),
+            tabSize
+    );
+
+    currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));
+
+    return fParam;
 }
 
 antlrcpp::Any StartVisitor::visitTypeListWithoutName(MapleGrammarParser::TypeListWithoutNameContext *ctx) {

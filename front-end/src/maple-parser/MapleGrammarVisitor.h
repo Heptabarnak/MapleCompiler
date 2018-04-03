@@ -131,6 +131,12 @@ public:
 
     virtual antlrcpp::Any visitTypeListWithoutName(MapleGrammarParser::TypeListWithoutNameContext *context) = 0;
 
+    virtual antlrcpp::Any visitArgumentType(MapleGrammarParser::ArgumentTypeContext *context) = 0;
+
+    virtual antlrcpp::Any visitArgumentTypeVar(MapleGrammarParser::ArgumentTypeVarContext *context) = 0;
+
+    virtual antlrcpp::Any visitArgumentTypeArray(MapleGrammarParser::ArgumentTypeArrayContext *context) = 0;
+
     virtual antlrcpp::Any visitBlock(MapleGrammarParser::BlockContext *context) = 0;
 
     virtual antlrcpp::Any visitStatement(MapleGrammarParser::StatementContext *context) = 0;

@@ -33,7 +33,7 @@ opBinaryOr : '|' ;
 opAnd : '&&' ;
 opOr : '||' ;
 opAffectation : '=' | '+=' | '-=' | '*=' | '/=' | '%=' | '<<=' | '>>=' | '&=' | '^=' | '|=' ;
-opComma : ',';
+opComma : ',' ;
 
 // Expression
 expr : accessor                         # exprAccessor
@@ -90,8 +90,13 @@ functionDefinition : (TYPE | TYPE_VOID) ID '(' (typeList | TYPE_VOID)? ')' block
 returnStatement : 'return' expr SC ;
 blockFunction : '{' declaration* instruction* '}' ;
 argumentList : ((expr ',')* expr)? ;
-typeList : ((TYPE ID ',')* TYPE ID) ;
+
+typeList : (argumentType ',')*  argumentType ;
 typeListWithoutName : ((TYPE ID? ',')* TYPE ID?) ;
+
+argumentType: argumentTypeVar | argumentTypeArray ;
+argumentTypeVar : TYPE ID ;
+argumentTypeArray : TYPE ID '[' expr? ']' ;
 
 
 // Autres structures

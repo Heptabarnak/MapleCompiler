@@ -6,7 +6,20 @@
 #define MAPLECOMPILER_EXPRCOMMAOPERATION_H
 
 
-class ExprCommaOperation {
+#include "ExprOperation.h"
+
+class ExprCommaOperation : ExprOperation{
+private:
+
+public:
+    ExprCommaOperation(Expr *left, Expr *right);
+
+private:
+    std::string buildIR(CFG *cfg) override;
+
+    bool isSimplifiable() override;
+
+    long simplify() override;
 
 };
 

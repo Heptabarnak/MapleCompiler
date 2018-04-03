@@ -51,6 +51,8 @@ public:
 
     virtual antlrcpp::Any visitOpAffectation(MapleGrammarParser::OpAffectationContext *context) = 0;
 
+    virtual antlrcpp::Any visitOpComma(MapleGrammarParser::OpCommaContext *context) = 0;
+
     virtual antlrcpp::Any visitExprAdditive(MapleGrammarParser::ExprAdditiveContext *context) = 0;
 
     virtual antlrcpp::Any visitExprValue(MapleGrammarParser::ExprValueContext *context) = 0;
@@ -70,6 +72,8 @@ public:
     virtual antlrcpp::Any visitExprMultiplicative(MapleGrammarParser::ExprMultiplicativeContext *context) = 0;
 
     virtual antlrcpp::Any visitExprAccessor(MapleGrammarParser::ExprAccessorContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprComma(MapleGrammarParser::ExprCommaContext *context) = 0;
 
     virtual antlrcpp::Any visitExprAnd(MapleGrammarParser::ExprAndContext *context) = 0;
 

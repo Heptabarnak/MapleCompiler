@@ -73,6 +73,8 @@ public:
 
     antlrcpp::Any visitExprValue(MapleGrammarParser::ExprValueContext *ctx) override;
 
+    antlrcpp::Any visitExprComma(MapleGrammarParser::ExprCommaContext *context) override;
+
     antlrcpp::Any visitFunctionDefinition(MapleGrammarParser::FunctionDefinitionContext *ctx) override;
 
     antlrcpp::Any visitIfStatement(MapleGrammarParser::IfStatementContext *ctx) override;
@@ -116,6 +118,8 @@ public:
     antlrcpp::Any visitOpAnd(MapleGrammarParser::OpAndContext *context) override;
 
     antlrcpp::Any visitOpOr(MapleGrammarParser::OpOrContext *context) override;
+
+    antlrcpp::Any visitOpComma(MapleGrammarParser::OpCommaContext *context) override;
 
     antlrcpp::Any visitOpAffectation(MapleGrammarParser::OpAffectationContext *context) override;
 

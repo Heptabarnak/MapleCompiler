@@ -1,20 +1,10 @@
 #include<inttypes.h>
 
-void b(char);
-
-void a() {
-    b();
-}
-
-void b(char c) {
-    a();
-}
-
 void main() {
-    int64_t x = 0;
+    int64_t x = 2;
 
-    a();
-    putchar('0' + x);
+
+    putchar('0' + ++x);
 
     putchar('\n');
 }

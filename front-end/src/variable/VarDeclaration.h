@@ -12,13 +12,13 @@ private:
     std::string name;
     Type type;
     Expr *assignment;
-protected:
-    VarDeclaration(Type type);
 
 public:
     const std::string &getName() const;
 
     VarDeclaration(const std::string &name, Type type, Expr *assignment = nullptr);
+
+    VarDeclaration(Type type);
 
     std::string buildIR(CFG *cfg) override;
 

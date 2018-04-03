@@ -31,10 +31,14 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
             name
     );
 
-    auto params = *(vector<FunctionParam *> *) visit(ctx->typeList());
+    vector<FunctionParam *> params;
+
+    if(ctx->typeList()!= nullptr) {
+        params = *(vector<FunctionParam *> *) visit(ctx->typeList());
+    }
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
-        FunctionDefinition *temp = (FunctionDefinition *) symbol->getDeclaration();
+        FunctionDefinition *temp = dynamic_cast<FunctionDefinition*> (symbol->getDeclaration());
         if (auto block = temp->getBlock()) {
             cerr << "Duplicate declaration of " << name << endl;
             cerr << "Found : " << symbol->getDeclaration() << endl;
@@ -70,9 +74,7 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
 
     fDef->setSymbolTable(currentSymbolTable);
 
-    if (ctx->typeList() != nullptr) {
-        fDef->setArguments(params);
-    }
+    fDef->setArguments(params);
 
     fDef->setBlockFunction((BlockFunction *) visit(ctx->blockFunction()));
 
@@ -96,10 +98,14 @@ antlrcpp::Any StartVisitor::visitFunctionDeclaration(MapleGrammarParser::Functio
             name
     );
 
-    auto params = *(vector<FunctionParam *> *) visit(ctx->typeListWithoutName());
+    vector<FunctionParam *> params;
+
+    if(ctx->typeListWithoutName()!= nullptr) {
+        params = *(vector<FunctionParam *> *) visit(ctx->typeListWithoutName());
+    }
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
-        FunctionDefinition *temp = (FunctionDefinition *) symbol->getDeclaration();
+        FunctionDefinition *temp = dynamic_cast<FunctionDefinition*> (symbol->getDeclaration());
         if (auto block = temp->getBlock()) {
             if (temp->getParams().size() != params.size()) {
                 cerr << "Function declaration has not the same number of arguments as Function definition " << endl;
@@ -130,18 +136,7 @@ antlrcpp::Any StartVisitor::visitFunctionDeclaration(MapleGrammarParser::Functio
 
     currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fDef, true));
 
-
-    // Add a new scoped env
-    currentSymbolTable = new SymbolTable(currentSymbolTable);
-
-    if (ctx->typeListWithoutName() != nullptr) {
-        fDef->setArguments(params);
-    }
-
-    /*fDef->setBlockFunction((BlockFunction *) visit(ctx->blockFunction()));
-
-    currentSymbolTable = currentSymbolTable->getFather();
-    // Close scoped env*/
+    fDef->setArguments(params);
 
     return (Declaration *) fDef;
 }
@@ -174,14 +169,6 @@ antlrcpp::Any StartVisitor::visitTypeListWithoutName(MapleGrammarParser::TypeLis
     auto fParams = new vector<FunctionParam *>(ctx->ID().size());
 
     for (std::size_t i = 0; i != ctx->ID().size(); i++) {
-        const string &name = ctx->ID(i)->getText();
-
-        if (auto symbol = currentSymbolTable->lookup(name)) {
-            cerr << "Duplicate declaration of " << name << endl;
-            cerr << "Found : " << symbol->getDeclaration() << endl;
-            printDebugInfo(cerr, ctx);
-            throw std::runtime_error("Duplicated declaration");
-        }
 
         auto fParam = new FunctionParam(
                 getTypeFromString(ctx->TYPE(i)->getText())

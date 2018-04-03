@@ -59,11 +59,11 @@ int Runner::run(Config *conf) {
 
     // TreeWalk
 
-    std::map<std::string, CFG *> cfgs;
+    IRStruct* irStruct;
 
     try {
         MapleTreeWalk treeWalk(ast);
-        cfgs = treeWalk.generateIR();
+        irStruct = treeWalk.generateIR();
     } catch (std::exception &exception) {
         std::cerr << "Error in TreeWalk :" << std::endl << exception.what();
         return 1;
@@ -77,7 +77,7 @@ int Runner::run(Config *conf) {
             BaseTarget *target = nullptr;
             switch (conf->target) {
                 case Target::X86_64:
-                    target = new X86_64(conf, cfgs);
+                    target = new X86_64(conf, irStruct);
                     break;
                 case Target::JAVA:
                 case Target::MSP430:

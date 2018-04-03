@@ -104,7 +104,6 @@ set(AST_SRC_FILES
         front-end/src/visitor/VisitorOp.cpp
         front-end/src/expression/Expr.cpp
         front-end/src/function/FunctionParamTab.cpp
-        front-end/src/function/FunctionParamTab.h
         front-end/src/expression/operation/ExprCommaOperation.cpp
         )
 
@@ -128,7 +127,11 @@ set(BACK_SRC_FILES
         back-end/src/targets/BaseTarget.cpp
         back-end/src/ir/instructions/OpInstr.cpp
         back-end/src/ir/instructions/UnaryOpInstr.cpp
-        back-end/src/ir/instructions/IncrInstr.cpp back-end/src/ir/instructions/IncrInstr.h back-end/src/ir/GlobalDeclaration.cpp back-end/src/ir/GlobalDeclaration.h)
+        back-end/src/ir/instructions/IncrInstr.cpp
+        back-end/src/ir/GlobalDeclaration.cpp
+        back-end/src/ir/globals/GlobalDeclarationVar.cpp
+        back-end/src/ir/globals/GlobalDeclarationTab.cpp
+        )
 
 #----------
 #   CLI

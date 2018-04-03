@@ -70,3 +70,7 @@ Type TabDeclaration::getType() const {
 unsigned long TabDeclaration::getSize() const {
     return size;
 }
+
+vector<Value *> *TabDeclaration::getDefinition() const {
+    return definition;
+}

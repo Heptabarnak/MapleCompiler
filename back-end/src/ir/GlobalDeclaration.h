@@ -2,10 +2,15 @@
 #define MAPLECOMPILER_GLOBALDECLARATION_H
 
 
+#include <string>
+
 class GlobalDeclaration {
 public:
+    std::string name;
 
+    explicit GlobalDeclaration(const std::string &name);
 
+    virtual ~GlobalDeclaration() = default;
 };
 
 

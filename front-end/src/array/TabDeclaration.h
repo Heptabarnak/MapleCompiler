@@ -27,6 +27,8 @@ public:
     unsigned long getSize() const;
 
     int getAllocationSize() override;
+
+    std::vector<Value *> *getDefinition() const;
 };
 
 

@@ -24,6 +24,8 @@ public:
 
     int getAllocationSize() override;
 
+    Expr *getAssignment() const;
+
     Type getType() const;
 
 };

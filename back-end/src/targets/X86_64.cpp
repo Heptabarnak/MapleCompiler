@@ -5,7 +5,7 @@
 using std::string;
 using std::map;
 
-X86_64::X86_64(Config *config, map<string, CFG *> &cfgs) : BaseTarget(config, cfgs) {}
+X86_64::X86_64(Config *config, IRStruct *irStruct) : BaseTarget(config, irStruct) {}
 
 void X86_64::parse() {
     open();
@@ -18,7 +18,11 @@ void X86_64::parse() {
 
     write(header);
 
-    for (auto cfg : cfgs) {
+    for (auto &&global : irStruct->globals) {
+
+    }
+
+    for (auto cfg : irStruct->cfgs) {
         currentCFG = cfg.second;
 
         // Add new label for the function

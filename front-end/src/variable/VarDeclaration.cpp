@@ -44,3 +44,7 @@ VarDeclaration::VarDeclaration(Type type) : type(type){
 Type VarDeclaration::getType() const {
     return type;
 }
+
+Expr *VarDeclaration::getAssignment() const {
+    return assignment;
+}

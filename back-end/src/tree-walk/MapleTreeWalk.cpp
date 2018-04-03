@@ -1,13 +1,18 @@
 #include <function/FunctionDefinition.h>
+#include <array/TabDeclaration.h>
+#include <ir/globals/GlobalDeclarationVar.h>
+#include <ir/globals/GlobalDeclarationTab.h>
 #include "MapleTreeWalk.h"
 
 using std::string;
+using std::vector;
 using std::map;
 
 MapleTreeWalk::MapleTreeWalk(Start *start) : start(start) {}
 
-map<string, CFG *> MapleTreeWalk::generateIR() {
-    auto cfgs = map<string, CFG *>();
+IRStruct *MapleTreeWalk::generateIR() {
+    auto irStruct = new IRStruct;
+
     auto declarations = start->getDeclarations();
 
     for (auto &&declaration : declarations) {
@@ -20,10 +25,30 @@ map<string, CFG *> MapleTreeWalk::generateIR() {
             auto newCfg = new CFG(funcDef);
             funcDef->buildIR(newCfg);
 
-            cfgs.insert({funcDef->getSymbolName(), newCfg});
-        } else {
-            // TODO Global var to IR
+            irStruct->cfgs.insert({funcDef->getSymbolName(), newCfg});
+        } else if (auto varDef = dynamic_cast<VarDeclaration *>(declaration)) {
+            long val = 0;
+
+            if (varDef->getAssignment() != nullptr) {
+                // Always simplifiable
+                val = varDef->getAssignment()->simplify();
+            }
+
+            irStruct->globals.insert(
+                    {varDef->getName(), new GlobalDeclarationVar(varDef->getName(), val)});
+        } else if (auto tabDef = dynamic_cast<TabDeclaration *>(declaration)) {
+
+            vector<long> *values = new vector<long>();
+
+            if (auto defs = tabDef->getDefinition()) {
+                for (auto &&def : *defs) {
+                    values->push_back(def->getValue());
+                }
+            }
+
+            irStruct->globals.insert(
+                    {tabDef->getName(), new GlobalDeclarationTab(tabDef->getName(), values)});
         }
     }
-    return cfgs;
+    return irStruct;
 }

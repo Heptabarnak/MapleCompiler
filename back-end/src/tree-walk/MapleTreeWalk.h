@@ -17,7 +17,7 @@ class MapleTreeWalk {
 public:
     explicit MapleTreeWalk(Start *start);
 
-    std::map<std::string, CFG *> generateIR();
+    IRStruct* generateIR();
 
 private:
     Start *start;

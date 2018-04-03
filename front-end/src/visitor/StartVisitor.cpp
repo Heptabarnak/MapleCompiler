@@ -13,7 +13,9 @@ antlrcpp::Any StartVisitor::visitStart(MapleGrammarParser::StartContext *ctx) {
     FunctionDefinition *putchar = new FunctionDefinition(Type::VOID, "putchar");
     FunctionDefinition *getchar = new FunctionDefinition(Type::CHAR, "getchar");
 
-    putchar->setArguments({new FunctionParam("char", Type::CHAR)});
+    auto params = new vector<FunctionParam*>();
+    params->push_back(new FunctionParam("char", Type::CHAR));
+    putchar->setArguments(params);
 
     currentSymbolTable->insert("putchar", new Symbol(currentSymbolTable, putchar, true, true));
     currentSymbolTable->insert("getchar", new Symbol(currentSymbolTable, getchar, true, true));
@@ -30,7 +32,8 @@ antlrcpp::Any StartVisitor::visitProgram(MapleGrammarParser::ProgramContext *ctx
         return (vector<Declaration *> *) visit(ctx->declaration());
     }
     if(ctx->functionDeclaration()){
-        return {};
+        visit(ctx->functionDeclaration());
+        return new vector<Declaration *>();
     }
     auto functions = new vector<Declaration *>();
     functions->push_back((Declaration *) visit(ctx->functionDefinition()));

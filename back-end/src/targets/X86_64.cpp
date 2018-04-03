@@ -74,30 +74,30 @@ void X86_64::prologue() {
 
     // Load arguments
     auto args = currentCFG->getFunctionDefinition()->getParams();
-    long size = args.size();
+    long size = args->size();
 
     if (size > 0) {
-        write("\tmovq %rdi, -" + std::to_string(currentCFG->getOffset(args.at(0)->getName())) + "(%rbp)");
+        write("\tmovq %rdi, -" + std::to_string(currentCFG->getOffset(args->at(0)->getName())) + "(%rbp)");
     }
     if (size > 1) {
-        write("\tmovq %rsi, -" + std::to_string(currentCFG->getOffset(args.at(1)->getName())) + "(%rbp)");
+        write("\tmovq %rsi, -" + std::to_string(currentCFG->getOffset(args->at(1)->getName())) + "(%rbp)");
     }
     if (size > 2) {
-        write("\tmovq %rdx, -" + std::to_string(currentCFG->getOffset(args.at(2)->getName())) + "(%rbp)");
+        write("\tmovq %rdx, -" + std::to_string(currentCFG->getOffset(args->at(2)->getName())) + "(%rbp)");
     }
     if (size > 3) {
-        write("\tmovq %rcx, -" + std::to_string(currentCFG->getOffset(args.at(3)->getName())) + "(%rbp)");
+        write("\tmovq %rcx, -" + std::to_string(currentCFG->getOffset(args->at(3)->getName())) + "(%rbp)");
     }
     if (size > 4) {
-        write("\tmovq %r8, -" + std::to_string(currentCFG->getOffset(args.at(4)->getName())) + "(%rbp)");
+        write("\tmovq %r8, -" + std::to_string(currentCFG->getOffset(args->at(4)->getName())) + "(%rbp)");
     }
     if (size > 5) {
-        write("\tmovq %r9, -" + std::to_string(currentCFG->getOffset(args.at(5)->getName())) + "(%rbp)");
+        write("\tmovq %r9, -" + std::to_string(currentCFG->getOffset(args->at(5)->getName())) + "(%rbp)");
     }
     if (size > 6) {
         // FIXME We should copy from the caller stack to our stack
         // Don't know how to get the caller offset
-        for (auto it = args.begin() + 6; it != args.end(); ++it) {
+        for (auto it = args->begin() + 6; it != args->end(); ++it) {
             write("\tpopq -" + std::to_string(currentCFG->getOffset((*it)->getName())) + "(%rsp)");
         }
 

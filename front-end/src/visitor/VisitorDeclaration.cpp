@@ -25,12 +25,16 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
         throw std::runtime_error("Duplicate definition");
     }
 
-    if (ctx->expr() == nullptr) {
-        vector<Value *> tabList = visit(ctx->definitionTab());
+    vector<Value *>* tabList = {};
+    if(ctx->definitionTab()){
+        tabList = visit(ctx->definitionTab());
+    }
 
+
+    if (ctx->expr() == nullptr) {
         Declaration *declaration = new TabDeclaration(
                 getTypeFromString(ctx->TYPE()->getText()),
-                tabList.size(),
+                tabList->size(),
                 name,
                 tabList
         );
@@ -57,16 +61,10 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
         throw std::runtime_error("Array size must > 1");
     }
 
-    vector<Value *> tabList = {};
-
-    if(ctx->definitionTab() != nullptr){
-        tabList = visit(ctx->definitionTab());
-
-        if(tabList.size() > tabSize){
-            cerr << "Array of value size must be lower or equal to the array size, got : " << tabList.size() << " > " << tabSize << endl;
-            printDebugInfo(cerr, ctx);
-            throw std::runtime_error("Array of value size must < array size");
-        }
+    if(tabList->size() > tabSize){
+        cerr << "Array of value size must be lower or equal to the array size, got : " << tabList->size() << " > " << tabSize << endl;
+        printDebugInfo(cerr, ctx);
+        throw std::runtime_error("Array of value size must < array size");
     }
 
 

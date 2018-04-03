@@ -1,12 +1,23 @@
 #include "BlockFunction.h"
 
-BlockFunction::BlockFunction(const vector<Declaration *> &declarations, const vector<Instruction *> &instructions,
-                             SymbolTable *symbolTable) : declarations(declarations), instructions(instructions),
-                                                         symbolTable(symbolTable) {}
+using std::string;
+using std::vector;
+
+BlockFunction::BlockFunction(const vector<Declaration *> &declarations,
+                             const vector<Instruction *> &instructions)
+        : declarations(declarations), instructions(instructions) {}
 
 string BlockFunction::buildIR(CFG *cfg) {
-    // Let's build a basic block for each ~instruction (not exactly)
+    // First, we need to add default values of declarations
+
+    for (auto &&declaration : declarations) {
+        declaration->buildIR(cfg);
+    }
+
+    // Now, we can just add every instruction for the block
     for (auto &&instruction : instructions) {
         instruction->buildIR(cfg);
     }
+
+    return "";
 }

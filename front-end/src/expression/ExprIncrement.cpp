@@ -1,10 +1,17 @@
 #include <str2int.h>
+#include <ostream>
+#include <stdexcept>
 #include <ir/instructions/LoadConstInstr.h>
 #include <ir/instructions/WMemInstr.h>
 #include <ir/instructions/OpInstr.h>
+#include <ir/instructions/IncrInstr.h>
 #include "ExprIncrement.h"
 
-ExprIncrement::ExprIncrement(LeftValue *leftValue, std::string op_str, bool isPostfix)
+using std::string;
+using std::cerr;
+using std::endl;
+
+ExprIncrement::ExprIncrement(LeftValue *leftValue, string op_str, bool isPostfix)
         : leftValue(leftValue), isPostfix(isPostfix) {
 
     switch (str2int(op_str.c_str())) {
@@ -15,42 +22,23 @@ ExprIncrement::ExprIncrement(LeftValue *leftValue, std::string op_str, bool isPo
             op = MINUS_MINUS;
             break;
         default:
-            // TODO Throw ERROR
-            break;
+            cerr << "Operator expected to be \"++\" or \"--\" but did not match." << endl;
+            throw std::runtime_error("[ExprIncrement] Unexpected operator");
     }
 
 }
 
 string ExprIncrement::buildIR(CFG *cfg) {
     string var = cfg->createNewTmpVar(Type::INT64_T);
-
-    string var2 = cfg->createNewTmpVar(Type::INT64_T);
-    auto loadConstant = new LoadConstInstr(cfg->currentBB, var2, 1);
-
     string var1 = leftValue->buildIR(cfg);
 
-    auto opInstr = OpInstr::ADD;
+    auto opInstr = IncrInstr::PLUS;
 
     if (op == MINUS_MINUS) {
-        opInstr = OpInstr::SUB;
+        opInstr = IncrInstr::MINUS;
     }
 
+    cfg->addIRInstr(new IncrInstr(cfg->currentBB, opInstr, var, var1, isPostfix));
 
-    IRInstr *addition = new OpInstr(cfg->currentBB, opInstr, var, var1, var2);
-
-    auto *saveVar = new WMemInstr(cfg->currentBB, var1, var);
-
-    cfg->addIRInstr(loadConstant);
-    cfg->addIRInstr(addition);
-    cfg->addIRInstr(saveVar);
-
-
-    if (!isPostfix) {
-        return var1;
-    }
-
-    // FIXME See to send value before addition
-
-
-    return "<not_implemented>";
+    return var;
 }

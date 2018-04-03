@@ -10,7 +10,7 @@ WS : [ \t\n\r]+ -> skip ;
 SC :  ';' ;
 TYPE : 'char'| ('int'('32'|'64')'_t') ;
 TYPE_VOID : 'void' ;
-CHAR : '\'' [\u0000-\u00FF] '\'' ;
+CHAR : '\'' '\\'? [\u0000-\u00FF] '\'' ;
 INTEGER : [0-9]+ ('e' [0-9]+)?;
 ID : [a-zA-Z_]+ [a-zA-Z0-9_]* ;
 value : INTEGER | CHAR ;

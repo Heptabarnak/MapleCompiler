@@ -12,17 +12,15 @@ string AccessorFunction::getSymbolName() {
 }
 
 string AccessorFunction::buildIR(CFG *cfg) {
-    vector<string> args(arguments.size());
+    vector<string> args;
 
     for (auto &&argument : arguments) {
         args.push_back(argument->buildIR(cfg));
     }
 
-    auto returnName = cfg->createNewTmpVar(declaration->getType());
-
-    auto instr = new CallInstr(cfg->currentBB, cfg->newBBName(), returnName, args);
-
+    auto dest = cfg->createNewTmpVar(Type::INT64_T);
+    auto instr = new CallInstr(cfg->currentBB, dest, declaration->getSymbolName(), args);
     cfg->addIRInstr(instr);
 
-    return returnName;
+    return dest;
 }

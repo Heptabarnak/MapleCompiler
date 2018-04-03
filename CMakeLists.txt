@@ -33,6 +33,18 @@ set(ANTLR4_GENERATED_GRAMMAR_FILES
         front-end/src/maple-parser/MapleGrammarVisitor.cpp
         )
 
+#-----------
+#   UTILS
+#-----------
+
+set(UTILS_SRC_FILES
+        utils/str2int.h
+        utils/mapContext2Vector.h
+        utils/typeHelper.cpp
+        utils/printDebugInfo.cpp
+        utils/parseConfig.h
+        )
+
 #---------------
 #   FRONT-END
 #---------------
@@ -90,7 +102,7 @@ set(AST_SRC_FILES
         front-end/src/visitor/VisitorFunction.cpp
         front-end/src/visitor/VisitorInstruction.cpp
         front-end/src/visitor/VisitorOp.cpp
-        )
+        front-end/src/expression/Expr.cpp)
 
 #---------------
 #   BACK-END
@@ -101,8 +113,8 @@ include_directories(${BACK_END_FOLDER}/src)
 set(BACK_SRC_FILES
         back-end/src/ir/IRInstr.cpp
         back-end/src/ir/BasicBlock.cpp
+        back-end/src/ir/BuildIR.h
         back-end/src/ir/CFG.cpp
-        back-end/src/ir/instructions/RMemArrayInstr.cpp
         back-end/src/ir/instructions/RMemInstr.cpp
         back-end/src/ir/instructions/WMemInstr.cpp
         back-end/src/ir/instructions/CallInstr.cpp
@@ -112,18 +124,18 @@ set(BACK_SRC_FILES
         back-end/src/targets/BaseTarget.cpp
         back-end/src/ir/instructions/OpInstr.cpp
         back-end/src/ir/instructions/UnaryOpInstr.cpp
+        back-end/src/ir/instructions/IncrInstr.cpp back-end/src/ir/instructions/IncrInstr.h)
+
+#----------
+#   CLI
+#----------
+include_directories(cli)
+
+set(CLI_SRC_FILES
+        cli/Runner.cpp
+        cli/Config.h
         )
 
-#-----------
-#   UTILS
-#-----------
-
-set(UTILS_SRC_FILES
-        utils/str2int.h
-        utils/mapContext2Vector.h
-        utils/typeHelper.cpp
-        utils/printDebugInfo.cpp
-        )
 
 #----------------
 #   EXECUTABLE
@@ -136,5 +148,6 @@ add_executable(MapleCompiler
         ${ANTLR4_GENERATED_GRAMMAR_FILES}
         ${AST_SRC_FILES}
         ${BACK_SRC_FILES}
+        ${CLI_SRC_FILES}
         )
 target_link_libraries(MapleCompiler antlr4-runtime)

@@ -4,7 +4,6 @@
 #include <string>
 #include "ExprBinaryOperation.h"
 
-using std::string;
 
 class ExprBinaryShiftOperation : public ExprBinaryOperation {
 private:
@@ -15,11 +14,11 @@ private:
 
     BinaryShiftOperation operation;
 public:
-    ExprBinaryShiftOperation(Expr *left, Expr *right, const string &op);
+    ExprBinaryShiftOperation(Expr *left, Expr *right, const std::string &op);
 
     long simplify() override;
 
-    string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
 };
 
 

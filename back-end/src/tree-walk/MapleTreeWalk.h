@@ -9,7 +9,7 @@
 class MapleTreeWalk {
 
 public:
-    MapleTreeWalk(Start *start);
+    explicit MapleTreeWalk(Start *start);
 
     std::map<std::string, CFG *> generateIR();
 

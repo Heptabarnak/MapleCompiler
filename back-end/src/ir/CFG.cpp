@@ -1,17 +1,23 @@
+#include <function/FunctionDefinition.h>
 #include "CFG.h"
+
+using std::string;
 
 BasicBlock *CFG::getRootBB() {
     return bbs.front();
 }
 
-CFG::CFG(SymbolTable *symbolTable) : symbolTable(symbolTable), nextBBNumber(0) {}
-
-std::string CFG::createNewTmpVar(Type type) {
-    return symbolTable->createNewTmpVar(type);
+CFG::CFG(FunctionDefinition *funcDef) : funcDef(funcDef), nextBBNumber(0) {
+    currentBB = new BasicBlock(this, newBBName());
+    bbs.push_back(currentBB);
 }
 
-std::string CFG::newBBName() {
-    return "__BB__" + nextBBNumber++;
+string CFG::createNewTmpVar(Type type) {
+    return funcDef->getSymbolTable()->createNewTmpVar(type);
+}
+
+string CFG::newBBName() {
+    return "__BB__" + funcDef->getSymbolName() + "_" + std::to_string(nextBBNumber++);
 }
 
 void CFG::addBB(BasicBlock *bb) {
@@ -20,4 +26,20 @@ void CFG::addBB(BasicBlock *bb) {
 
 void CFG::addIRInstr(IRInstr *instr) {
     currentBB->addIRInstr(instr);
+}
+
+long CFG::getAllocationSize() {
+    return funcDef->getSymbolTable()->getAllocationSize();
+}
+
+std::vector<BasicBlock *> &CFG::getBBs() {
+    return bbs;
+}
+
+long CFG::getOffset(string name) {
+    return funcDef->getSymbolTable()->getOffset(name);
+}
+
+FunctionDefinition *CFG::getFunctionDefinition() {
+    return funcDef;
 }

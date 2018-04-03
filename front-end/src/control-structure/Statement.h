@@ -6,8 +6,10 @@
 
 class Statement : public Instruction {
 public:
-    Statement(Expr *e);
+    explicit Statement(Expr *e);
     ~Statement();
+
+    std::string buildIR(CFG *cfg) override;
 
 private:
     Expr *expr;

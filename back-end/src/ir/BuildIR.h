@@ -4,6 +4,8 @@
 #include <string>
 #include "CFG.h"
 
+class CFG;
+
 class BuildIR {
 
 public:

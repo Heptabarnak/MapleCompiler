@@ -1,7 +1,13 @@
 #include <str2int.h>
+#include <ostream>
+#include <stdexcept>
 #include <ir/instructions/OpInstr.h>
 #include <ir/instructions/UnaryOpInstr.h>
 #include "ExprRelationalComparisonOperation.h"
+
+using std::cerr;
+using std::endl;
+using std::string;
 
 ExprRelationalComparisonOperation::ExprRelationalComparisonOperation(Expr *left, Expr *right, const string &op)
         : ExprOperation(left, right) {
@@ -20,8 +26,8 @@ ExprRelationalComparisonOperation::ExprRelationalComparisonOperation(Expr *left,
             operation = MORE_EQUAL;
             break;
         default:
-            // TODO Throw ERROR
-            break;
+            cerr << "Operator expected to be \"<\", \"<=\", \">\" or \">=\" but did not match." << endl;
+            throw std::runtime_error("[ExprRelationalComparisonOperation] Unexpected operator");
     }
 }
 
@@ -43,31 +49,21 @@ string ExprRelationalComparisonOperation::buildIR(CFG *cfg) {
     string var1 = leftExpr->buildIR(cfg);
     string var2 = rightExpr->buildIR(cfg);
 
-    bool mustBeInverted = false;
     OpInstr::OpType type = OpInstr::LESS_THAN;
     switch (operation) {
         case LESS_EQUAL:
             type = OpInstr::LESS_THAN_OR_EQ;
             break;
         case MORE:
-            mustBeInverted = true;
-            type = OpInstr::LESS_THAN_OR_EQ;
+            type = OpInstr::MORE_THAN;
             break;
         case MORE_EQUAL:
-            mustBeInverted = true;
-            type = OpInstr::LESS_THAN;
+            type = OpInstr::MORE_THAN_OR_EQ;
             break;
     }
 
     string var = cfg->createNewTmpVar(INT64_T);
     cfg->addIRInstr(new OpInstr(cfg->currentBB, type, var, var1, var2));
 
-    if (!mustBeInverted) {
-        return var;
-    }
-
-    auto notVar = cfg->createNewTmpVar(Type::INT64_T);
-    cfg->addIRInstr(new UnaryOpInstr(cfg->currentBB, UnaryOpInstr::NOT, notVar, var));
-
-    return notVar;
+    return var;
 }

@@ -6,7 +6,7 @@
 
 class X86_64 : public BaseTarget {
 public:
-    X86_64(const string &filename, map<string, CFG *> &cfgs);
+    X86_64(Config *config, std::map<std::string, CFG *> &cfgs);
 
     void parse() override;
 
@@ -26,14 +26,15 @@ protected:
 
     void call(CallInstr *instr) override;
 
-    void rmemarray(RMemArrayInstr *instr) override;
-
     void rmem(RMemInstr *instr) override;
 
     void wmem(WMemInstr *instr) override;
 
     void unaryop(UnaryOpInstr *instr) override;
+    void incr(IncrInstr *instr) override;
 
+private:
+    void instrDispacher(IRInstr *instr);
 };
 
 

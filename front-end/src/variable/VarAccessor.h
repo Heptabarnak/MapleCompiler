@@ -10,11 +10,11 @@ private:
     VarDeclaration *declaration;
 
 public:
-    VarAccessor(VarDeclaration *dec);
+    explicit VarAccessor(VarDeclaration *dec);
 
     std::string getName();
 
-    string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
 };
 
 

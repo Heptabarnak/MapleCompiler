@@ -1,16 +1,13 @@
-#include<stdio.h>
+#include<inttypes.h>
 
-int64_t lol() {
-    char a = 2;
+int64_t get2() {
+    return 2;
 }
 
-
 void main() {
-    char a = 2;
+    int64_t x = 0;
 
-    int64_t b = 15*52+5*(5);
+    putchar('0' + get2());
 
-    if (a == 1) a = 2;
-
-    return a;
+    putchar('\n');
 }

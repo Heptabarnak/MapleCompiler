@@ -12,10 +12,10 @@ private:
     VarAccessor *varAccessor;
 
 public:
-    LeftValueVar(VarAccessor *varAccessor);
+    explicit LeftValueVar(VarAccessor *varAccessor);
     std::string getSymbolName() override;
 
-    string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
 };
 
 

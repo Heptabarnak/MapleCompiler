@@ -5,12 +5,14 @@
 #include <axiom/Start.h>
 #include <symbol-table/SymbolTable.h>
 #include <maple-parser/MapleGrammarVisitor.h>
+#include <Config.h>
 
 class StartVisitor : public MapleGrammarVisitor {
 
 private:
     Start *start;
     SymbolTable *currentSymbolTable;
+    Config *conf;
 
 public:
     antlrcpp::Any visitAccessor(MapleGrammarParser::AccessorContext *ctx) override;
@@ -123,6 +125,7 @@ public:
 
     antlrcpp::Any visitExprIncrementPrefix(MapleGrammarParser::ExprIncrementPrefixContext *context) override;
 
+    explicit StartVisitor(Config *conf);
 };
 
 

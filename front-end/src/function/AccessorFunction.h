@@ -17,7 +17,7 @@ public:
 
     std::string getSymbolName();
 
-    string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
 };
 
 

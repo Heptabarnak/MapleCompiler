@@ -33,7 +33,7 @@ public:
 
     ExprAffectation(LeftValue *left, Expr *right, const std::string &op);
 
-    string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
 };
 
 

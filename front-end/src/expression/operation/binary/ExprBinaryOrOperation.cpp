@@ -1,6 +1,7 @@
 #include <ir/instructions/OpInstr.h>
 #include "ExprBinaryOrOperation.h"
 
+using std::string;
 
 ExprBinaryOrOperation::ExprBinaryOrOperation(Expr *left, Expr *right) : ExprBinaryOperation(left, right) {
 

@@ -11,32 +11,37 @@
 #include "BlockFunction.h"
 #include "FunctionParam.h"
 
-using std::string;
-using std::vector;
+class SymbolTable;
 
-class FunctionDefinition : public Declaration, public BuildIR {
+class FunctionDefinition : public Declaration {
 
 private:
     BlockFunction *block;
     Type type;
-    vector<FunctionParam *> params;
-    string name;
+    std::vector<FunctionParam *> params;
+    std::string name;
     SymbolTable *symbolTable;
 
 public:
-    FunctionDefinition(Type type, const string &name, SymbolTable *symbolTable);
+    FunctionDefinition(Type type, const std::string &name);
 
-    string getSymbolName();
+    std::string getSymbolName();
 
     Type getType() const;
 
     SymbolTable *getSymbolTable() const;
 
+    void setSymbolTable(SymbolTable *symbolTable);
+
     void setBlockFunction(BlockFunction *block);
 
-    void setArguments(const vector<FunctionParam *> &params);
+    void setArguments(const std::vector<FunctionParam *> &params);
 
-    std::string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
+
+    int getAllocationSize() override;
+
+    std::vector<FunctionParam *> getParams();
 };
 
 

@@ -1,12 +1,16 @@
 #include "BaseTarget.h"
 
-BaseTarget::BaseTarget(const std::string filename, std::map<std::string, CFG *> &cfgs)
-        : filename(filename), cfgs(cfgs) {
-    output = new std::ofstream();
+using std::string;
+using std::map;
+using std::ofstream;
+
+BaseTarget::BaseTarget(Config *config, map<string, CFG *> &cfgs)
+        : conf(config), cfgs(cfgs) {
+    output = new ofstream();
 }
 
 void BaseTarget::open() {
-    output->open(filename + ".s", std::ios_base::trunc);
+    output->open(conf->fileToCompile + ".s", std::ios_base::trunc);
 
     if (!output->is_open()) {
         // TODO Throw error

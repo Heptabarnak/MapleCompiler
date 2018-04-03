@@ -1,6 +1,11 @@
+#include <iostream>
+#include <stdexcept>
 #include <Declarations.h>
+#include <printDebugInfo.h>
 #include "StartVisitor.h"
 
+using std::cerr;
+using std::endl;
 
 antlrcpp::Any StartVisitor::visitExprValue(MapleGrammarParser::ExprValueContext *ctx) {
     return (Expr *) new ExprValue(
@@ -146,7 +151,29 @@ antlrcpp::Any StartVisitor::visitExprIncrementPrefix(MapleGrammarParser::ExprInc
 
 antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
     if (ctx->INTEGER() == nullptr) {
-        return new Value(Type::CHAR, ctx->CHAR()->getText().at(0));
+        auto val = ctx->CHAR()->getText();
+        char c;
+
+        if (val.size() > 3) {
+            switch (val.at(2)) {
+                case 'n':
+                    c = '\n';
+                    break;
+                case 't':
+                    c = '\t';
+                    break;
+                default:
+                    cerr << "Unable to parse escaped character " << val << "!" << endl;
+                    printDebugInfo(cerr, ctx);
+                    throw std::runtime_error("Unable to parse escaped character");
+            }
+        } else {
+            c = val.at(1);
+        }
+        return new Value(Type::CHAR, c);
     }
-    return new Value(Type::INT64_T, stoi(ctx->INTEGER()->getText()));
+
+    return new
+            Value(Type::INT64_T, stoi(ctx->INTEGER()->getText())
+    );
 }

@@ -1,6 +1,8 @@
 #include <ir/instructions/OpInstr.h>
 #include "ExprBinaryAndOperation.h"
 
+using std::string;
+
 ExprBinaryAndOperation::ExprBinaryAndOperation(Expr *left, Expr *right) : ExprBinaryOperation(left, right) {
 
 }

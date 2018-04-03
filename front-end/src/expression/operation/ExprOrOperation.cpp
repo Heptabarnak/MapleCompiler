@@ -1,6 +1,8 @@
 #include <ir/instructions/LoadConstInstr.h>
 #include "ExprOrOperation.h"
 
+using std::string;
+
 ExprOrOperation::ExprOrOperation(Expr *left, Expr *right) : ExprOperation(left, right) {
 
 }

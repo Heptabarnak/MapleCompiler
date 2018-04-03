@@ -4,8 +4,6 @@
 #include <string>
 #include "ExprOperation.h"
 
-using std::string;
-
 class ExprRelationalComparisonOperation : public ExprOperation {
 private:
     enum RelationalComparisonOperation {
@@ -18,9 +16,9 @@ private:
     RelationalComparisonOperation operation;
 
 public:
-    ExprRelationalComparisonOperation(Expr *left, Expr *right, const string &op);
+    ExprRelationalComparisonOperation(Expr *left, Expr *right, const std::string &op);
 
-    string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
 
     long simplify() override;
 };

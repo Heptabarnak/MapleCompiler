@@ -23,7 +23,7 @@ antlrcpp::Any StartVisitor::visitAccessor(MapleGrammarParser::AccessorContext *c
     if (auto symbol = currentSymbolTable->lookup(name)) {
         symbol->doRead();
 
-        if (!symbol->getAffectation()) {
+        if (conf->staticAnalysis && !symbol->getAffectation()) {
             cout << "Warning : " << endl
                  << "\tSymbol '" << name << "' used before affectation" << endl;
             printDebugInfo(cout, ctx);

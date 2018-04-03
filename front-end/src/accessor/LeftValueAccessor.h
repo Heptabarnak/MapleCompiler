@@ -10,9 +10,11 @@ private:
     LeftValue *leftValue;
 
 public:
-    LeftValueAccessor(LeftValue *leftValue);
+    explicit LeftValueAccessor(LeftValue *leftValue);
 
     std::string getSymbolName() override;
+
+    std::string buildIR(CFG *cfg) override;
 };
 
 

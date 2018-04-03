@@ -6,8 +6,6 @@
 #include "Expr.h"
 #include "Value.h"
 
-using std::string;
-
 class ExprValue : public Expr {
 private:
     Value *value;
@@ -19,7 +17,7 @@ public:
 
     long simplify() override;
 
-    string buildIR(CFG* cfg);
+    std::string buildIR(CFG* cfg) override;
 
 };
 

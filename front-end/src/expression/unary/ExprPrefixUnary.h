@@ -4,8 +4,6 @@
 #include <string>
 #include "ExprUnary.h"
 
-using std::string;
-
 class ExprPrefixUnary : public ExprUnary {
 private:
     enum PrefixOperation {
@@ -18,13 +16,13 @@ private:
     PrefixOperation prefixOp;
 
 public:
-    ExprPrefixUnary(Expr *expr, const string &op);
+    ExprPrefixUnary(Expr *expr, const std::string &op);
 
     bool isSimplifiable() override;
 
     long simplify() override;
 
-    string buildIR(CFG* cfg);
+    std::string buildIR(CFG* cfg) override;
 
 };
 

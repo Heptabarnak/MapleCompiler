@@ -15,7 +15,7 @@ public:
     WhileStatement(Expr *condition, Instruction *instruction);
     ~WhileStatement();
 
-    string buildIR(CFG *cfg) override;
+    std::string buildIR(CFG *cfg);
 };
 
 

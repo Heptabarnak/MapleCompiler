@@ -1,7 +1,13 @@
 #include "LeftValueAccessor.h"
 
+using std::string;
+
 LeftValueAccessor::LeftValueAccessor(LeftValue *leftValue) : leftValue(leftValue) {}
 
-std::string LeftValueAccessor::getSymbolName() {
+string LeftValueAccessor::getSymbolName() {
     return leftValue->getSymbolName();
+}
+
+string LeftValueAccessor::buildIR(CFG *cfg) {
+    return leftValue->buildIR(cfg);
 }

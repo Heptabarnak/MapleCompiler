@@ -8,24 +8,30 @@
 #include <declaration/Declaration.h>
 #include <ir/BuildIR.h>
 
-
-using std::vector;
-using std::string;
-
 class TabDeclaration : public Declaration {
 
 private:
     Type type;
-    string name;
+    std::string name;
     unsigned long size;
-    vector<Value *> definition;
+    std::vector<Value *> definition;
 
 public:
-    TabDeclaration(Type type, unsigned long size, const string &name, const vector<Value *> &definition = {});
+    TabDeclaration(Type type, unsigned long size, const std::string &name, const std::vector<Value *> &definition = {});
+
+    std::string buildIR(CFG *cfg) override;
+
+    const std::string &getName() const;
+
+    Type getType() const;
 
     string buildIR(CFG *cfg) override;
 
     const string &getName() const;
+
+    unsigned long getSize() const;
+
+    int getAllocationSize() override;
 };
 
 

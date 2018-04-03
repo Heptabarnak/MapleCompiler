@@ -1,4 +1,7 @@
 #include "CallInstr.h"
 
-CallInstr::CallInstr(BasicBlock *bb_, std::string label, std::string var, std::vector<std::string> &arguments)
-        : IRInstr(bb_), label(label), var(var), arguments(arguments) {}
+using std::string;
+using std::vector;
+
+CallInstr::CallInstr(BasicBlock *bb_, string dest, string label, vector<string> &arguments)
+        : IRInstr(bb_), dest(dest), label(label), arguments(arguments) {}

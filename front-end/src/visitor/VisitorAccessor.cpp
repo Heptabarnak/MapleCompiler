@@ -87,9 +87,12 @@ antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFu
                 printDebugInfo(cerr, ctx);
                 throw std::runtime_error("Differents numbers of arguments");
             }
-            for (auto it = argument.begin(); it != argument.end(); ++i){
-                if (argument == );
-
+            for (auto it = argument.begin(); it != argument.end(); ++it){
+                if ((*it)->getType() != symbolFun->getParams().(*it)->getType()){
+                    cerr << "Parameter ha not the same type as Function Definition" << endl;
+                    cerr << "Found : " << (*it)->getType() << endl;
+                    cerr << "Expected : " << symbolFun->getParams().(*it)->getType() << endl;
+                }
             }
             symbol->doRead();
             return new AccessorFunction(

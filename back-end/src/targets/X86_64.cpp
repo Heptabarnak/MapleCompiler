@@ -1,5 +1,6 @@
 #include <function/FunctionDefinition.h>
 #include "X86_64.h"
+#include <ir/instructions/UnaryOpInstr.h>
 
 using std::string;
 using std::map;
@@ -275,7 +276,30 @@ void X86_64::wmem(WMemInstr *instr) {
 }
 
 void X86_64::unaryop(UnaryOpInstr *instr) {
-
+    switch (instr->type){
+        case UnaryOpInstr::PLUS:
+            write("\tmovq -"+std::to_string(currentCFG->getOffset(instr->var1))+"(%rbp), %rax");
+            write("\tmovq %rax, -"+ std::to_string(currentCFG->getOffset(instr->var))+"(%rbp)");
+            break;
+        case UnaryOpInstr::MINUS:
+            write("\tmovq -"+std::to_string(currentCFG->getOffset(instr->var1))+ "(%rbp), %rax");
+            write("\tnegq %rax");
+            write("\tmovq %rax, -"+ std::to_string(currentCFG->getOffset(instr->var))+"(%rbp)");
+            break;
+        case UnaryOpInstr::NOT :
+            write("\tmovq $0, %rax");
+            write("\tmovq -"+std::to_string(currentCFG->getOffset(instr->var1))+"(%rbp), %rbx");
+            write("\tcmpq %rax, %rbx");
+            write("\tmovq $1, %rbx");
+            write("\tcmove %rbx, %rax");
+            write("\tmovq %rax, -"+ std::to_string(currentCFG->getOffset(instr->var))+"(%rbp)");
+            break;
+        case UnaryOpInstr::BITWISE_NOT :
+            write("\tmovq -"+std::to_string(currentCFG->getOffset(instr->var1))+ "(%rbp), %rax");
+            write("\tnotq %rax");
+            write("\tmovq %rax, -"+ std::to_string(currentCFG->getOffset(instr->var))+"(%rbp)");
+            break;
+    }
 }
 
 void X86_64::incr(IncrInstr *instr) {

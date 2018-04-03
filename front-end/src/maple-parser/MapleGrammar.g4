@@ -33,6 +33,7 @@ opBinaryOr : '|' ;
 opAnd : '&&' ;
 opOr : '||' ;
 opAffectation : '=' | '+=' | '-=' | '*=' | '/=' | '%=' | '<<=' | '>>=' | '&=' | '^=' | '|=' ;
+opComma : ',';
 
 // Expression
 expr : accessor                         # exprAccessor
@@ -52,6 +53,7 @@ expr : accessor                         # exprAccessor
     | expr opAnd expr                   # exprAnd
     | expr opOr expr                    # exprOr
     | leftValue opAffectation expr      # exprAffectation
+    | expr opComma expr                 # exprComma
     ;
 
 // Déclaration

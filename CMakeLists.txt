@@ -102,7 +102,7 @@ set(AST_SRC_FILES
         front-end/src/visitor/VisitorFunction.cpp
         front-end/src/visitor/VisitorInstruction.cpp
         front-end/src/visitor/VisitorOp.cpp
-        front-end/src/expression/Expr.cpp)
+        front-end/src/expression/Expr.cpp front-end/src/function/FunctionParamTab.cpp front-end/src/function/FunctionParamTab.h)
 
 #---------------
 #   BACK-END

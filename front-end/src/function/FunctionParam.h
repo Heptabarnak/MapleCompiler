@@ -7,7 +7,7 @@
 
 class FunctionParam : public VarDeclaration {
 public:
-    FunctionParam(const std::string &name, Type type);
+    FunctionParam(const std::string &name = "param", Type type = INT64_T);
 
 };
 

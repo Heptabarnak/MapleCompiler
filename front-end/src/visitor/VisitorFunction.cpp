@@ -62,7 +62,7 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
 antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *ctx) {
     auto fParams = new vector<FunctionParam *>();
 
-    for (std::size_t i = 0; i != ctx->ID().size(); i++) {
+    for (std::size_t i = 0; i != ctx->argumentTypeVar().size(); i++) {
         const string &name = ctx->ID(i)->getText();
 
         if (auto symbol = currentSymbolTable->lookup(name)) {
@@ -84,7 +84,23 @@ antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *c
 }
 
 antlrcpp::Any StartVisitor::visitArgumentTypeVar(MapleGrammarParser::ArgumentTypeVarContext *ctx) {
-    return antlrcpp::Any();
+    const string &name = ctx->ID()->getText();
+
+    if (auto symbol = currentSymbolTable->lookup(name)) {
+        cerr << "Duplicate declaration of " << name << endl;
+        cerr << "Found : " << symbol->getDeclaration() << endl;
+        printDebugInfo(cerr, ctx);
+        throw std::runtime_error("Duplicated declaration");
+    }
+
+    auto fParam = new FunctionParam(
+            name,
+            getTypeFromString(ctx->TYPE()->getText())
+    );
+
+    currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));
+
+    return fParam;
 }
 
 antlrcpp::Any StartVisitor::visitArgumentTypeArray(MapleGrammarParser::ArgumentTypeArrayContext *ctx) {

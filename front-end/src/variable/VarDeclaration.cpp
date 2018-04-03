@@ -36,3 +36,11 @@ int VarDeclaration::getAllocationSize() {
 //            return 8;
 //    }
 }
+
+VarDeclaration::VarDeclaration(Type type) : type(type){
+
+}
+
+Type VarDeclaration::getType() const {
+    return type;
+}

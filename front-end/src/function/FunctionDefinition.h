@@ -18,7 +18,7 @@ class FunctionDefinition : public Declaration {
 private:
     BlockFunction *block;
     Type type;
-    std::vector<FunctionParam *> params;
+    std::vector<FunctionParam *> *params;
     std::string name;
     SymbolTable *symbolTable;
 
@@ -35,13 +35,15 @@ public:
 
     void setBlockFunction(BlockFunction *block);
 
-    void setArguments(const std::vector<FunctionParam *> &params);
+    void setArguments(std::vector<FunctionParam *> *params);
+
+    BlockFunction *getBlock() const;
 
     std::string buildIR(CFG *cfg);
 
     int getAllocationSize() override;
 
-    std::vector<FunctionParam *> getParams();
+    std::vector<FunctionParam *> *getParams();
 };
 
 

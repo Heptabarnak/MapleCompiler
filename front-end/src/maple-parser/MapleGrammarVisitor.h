@@ -1,5 +1,5 @@
 
-// Generated from /home/tbourret/CLionProjects/MapleCompiler/front-end/src/maple-parser/MapleGrammar.g4 by ANTLR 4.7
+// Generated from F:/Downloads/MapleCompiler/front-end/src/maple-parser\MapleGrammar.g4 by ANTLR 4.7
 
 #pragma once
 
@@ -51,6 +51,8 @@ public:
 
     virtual antlrcpp::Any visitOpAffectation(MapleGrammarParser::OpAffectationContext *context) = 0;
 
+    virtual antlrcpp::Any visitOpComma(MapleGrammarParser::OpCommaContext *context) = 0;
+
     virtual antlrcpp::Any visitExprAdditive(MapleGrammarParser::ExprAdditiveContext *context) = 0;
 
     virtual antlrcpp::Any visitExprValue(MapleGrammarParser::ExprValueContext *context) = 0;
@@ -70,6 +72,8 @@ public:
     virtual antlrcpp::Any visitExprMultiplicative(MapleGrammarParser::ExprMultiplicativeContext *context) = 0;
 
     virtual antlrcpp::Any visitExprAccessor(MapleGrammarParser::ExprAccessorContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprComma(MapleGrammarParser::ExprCommaContext *context) = 0;
 
     virtual antlrcpp::Any visitExprAnd(MapleGrammarParser::ExprAndContext *context) = 0;
 
@@ -113,6 +117,8 @@ public:
 
     virtual antlrcpp::Any visitWhileStatement(MapleGrammarParser::WhileStatementContext *context) = 0;
 
+    virtual antlrcpp::Any visitFunctionDeclaration(MapleGrammarParser::FunctionDeclarationContext *context) = 0;
+
     virtual antlrcpp::Any visitFunctionDefinition(MapleGrammarParser::FunctionDefinitionContext *context) = 0;
 
     virtual antlrcpp::Any visitReturnStatement(MapleGrammarParser::ReturnStatementContext *context) = 0;
@@ -123,11 +129,7 @@ public:
 
     virtual antlrcpp::Any visitTypeList(MapleGrammarParser::TypeListContext *context) = 0;
 
-    virtual antlrcpp::Any visitArgumentType(MapleGrammarParser::ArgumentTypeContext *context) = 0;
-
-    virtual antlrcpp::Any visitArgumentTypeVar(MapleGrammarParser::ArgumentTypeVarContext *context) = 0;
-
-    virtual antlrcpp::Any visitArgumentTypeArray(MapleGrammarParser::ArgumentTypeArrayContext *context) = 0;
+    virtual antlrcpp::Any visitTypeListWithoutName(MapleGrammarParser::TypeListWithoutNameContext *context) = 0;
 
     virtual antlrcpp::Any visitBlock(MapleGrammarParser::BlockContext *context) = 0;
 

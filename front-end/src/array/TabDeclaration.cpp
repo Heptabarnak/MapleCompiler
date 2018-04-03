@@ -6,7 +6,7 @@
 using std::vector;
 using std::string;
 
-TabDeclaration::TabDeclaration(Type type, unsigned long size, const string &name, const vector<Value *> &definition)
+TabDeclaration::TabDeclaration(Type type, unsigned long size, const string &name, vector<Value *>* definition)
         : type(type), size(size), name(name), definition(definition) {}
 
 const string &TabDeclaration::getName() const {
@@ -15,12 +15,12 @@ const string &TabDeclaration::getName() const {
 
 string TabDeclaration::buildIR(CFG *cfg) {
     // FIXME Try to write everything in one instruction
-    if (definition.empty()) return "";
+    if (definition->empty()) return "";
 
     // Mem[i] = Mem + i * sizeof(type)
     // Mem[i] = Mem + byteDistance
-    for (auto &&it = definition.begin(); it != definition.end(); it++) {
-        long byteDistance = (it - definition.begin());
+    for (auto &&it = definition->begin(); it != definition->end(); it++) {
+        long byteDistance = (it - definition->begin());
         switch (type) {
             case VOID:
                 throw std::runtime_error("[TabDeclaration] Should not have type VOID");

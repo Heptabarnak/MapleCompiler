@@ -83,6 +83,14 @@ antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *c
     return fParams;
 }
 
+antlrcpp::Any StartVisitor::visitArgumentTypeVar(MapleGrammarParser::ArgumentTypeVarContext *ctx) {
+    return antlrcpp::Any();
+}
+
+antlrcpp::Any StartVisitor::visitArgumentTypeArray(MapleGrammarParser::ArgumentTypeArrayContext *ctx) {
+    return antlrcpp::Any();
+}
+
 antlrcpp::Any StartVisitor::visitBlockFunction(MapleGrammarParser::BlockFunctionContext *ctx) {
     auto block = new BlockFunction(
             *mapContext2VectorFlat<MapleGrammarParser::DeclarationContext *, Declaration *>(ctx->declaration(), this),

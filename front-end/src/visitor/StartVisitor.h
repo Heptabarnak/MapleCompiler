@@ -125,6 +125,10 @@ public:
 
     antlrcpp::Any visitExprIncrementPrefix(MapleGrammarParser::ExprIncrementPrefixContext *context) override;
 
+    antlrcpp::Any visitArgumentTypeVar(MapleGrammarParser::ArgumentTypeVarContext *context) override;
+
+    antlrcpp::Any visitArgumentTypeArray(MapleGrammarParser::ArgumentTypeArrayContext *context) override;
+
     explicit StartVisitor(Config *conf);
 };
 

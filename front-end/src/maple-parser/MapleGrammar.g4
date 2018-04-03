@@ -86,8 +86,9 @@ functionDefinition : (TYPE | TYPE_VOID) ID '(' (typeList | TYPE_VOID)? ')' block
 returnStatement : 'return' expr SC ;
 blockFunction : '{' declaration* instruction* '}' ;
 argumentList : ((expr ',')* expr)? ;
-typeList : ((TYPE ID ',')* TYPE ID) ;
-
+typeList : ((argumentTypeVar | argumentTypeArray) ',')*  (argumentTypeVar | argumentTypeArray);
+argumentTypeVar : TYPE ID;
+argumentTypeArray : TYPE ID '[' INTEGER? ']';
 
 // Autres structures
 block: '{' instruction* '}' ;

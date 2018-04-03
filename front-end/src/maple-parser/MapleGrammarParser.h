@@ -1,5 +1,5 @@
 
-// Generated from N:/MapleCompiler/front-end/src/maple-parser\MapleGrammar.g4 by ANTLR 4.7
+// Generated from /home/tbourret/CLionProjects/MapleCompiler/front-end/src/maple-parser/MapleGrammar.g4 by ANTLR 4.7
 
 #pragma once
 
@@ -34,7 +34,8 @@ public:
     RuleAccessorFunction = 25, RuleLeftValue = 26, RuleAccessor = 27, RuleIfStatement = 28, 
     RuleElseStatement = 29, RuleWhileStatement = 30, RuleFunctionDefinition = 31, 
     RuleReturnStatement = 32, RuleBlockFunction = 33, RuleArgumentList = 34, 
-    RuleTypeList = 35, RuleBlock = 36, RuleStatement = 37, RuleInstruction = 38
+    RuleTypeList = 35, RuleArgumentTypeVar = 36, RuleArgumentTypeArray = 37, 
+    RuleBlock = 38, RuleStatement = 39, RuleInstruction = 40
   };
 
   MapleGrammarParser(antlr4::TokenStream *input);
@@ -83,6 +84,8 @@ public:
   class BlockFunctionContext;
   class ArgumentListContext;
   class TypeListContext;
+  class ArgumentTypeVarContext;
+  class ArgumentTypeArrayContext;
   class BlockContext;
   class StatementContext;
   class InstructionContext; 
@@ -692,16 +695,43 @@ public:
   public:
     TypeListContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    std::vector<antlr4::tree::TerminalNode *> TYPE();
-    antlr4::tree::TerminalNode* TYPE(size_t i);
-    std::vector<antlr4::tree::TerminalNode *> ID();
-    antlr4::tree::TerminalNode* ID(size_t i);
+    std::vector<ArgumentTypeVarContext *> argumentTypeVar();
+    ArgumentTypeVarContext* argumentTypeVar(size_t i);
+    std::vector<ArgumentTypeArrayContext *> argumentTypeArray();
+    ArgumentTypeArrayContext* argumentTypeArray(size_t i);
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
   };
 
   TypeListContext* typeList();
+
+  class  ArgumentTypeVarContext : public antlr4::ParserRuleContext {
+  public:
+    ArgumentTypeVarContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *TYPE();
+    antlr4::tree::TerminalNode *ID();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  ArgumentTypeVarContext* argumentTypeVar();
+
+  class  ArgumentTypeArrayContext : public antlr4::ParserRuleContext {
+  public:
+    ArgumentTypeArrayContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *TYPE();
+    antlr4::tree::TerminalNode *ID();
+    antlr4::tree::TerminalNode *INTEGER();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  ArgumentTypeArrayContext* argumentTypeArray();
 
   class  BlockContext : public antlr4::ParserRuleContext {
   public:

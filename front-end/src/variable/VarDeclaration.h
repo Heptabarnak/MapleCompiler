@@ -22,7 +22,6 @@ public:
 
     int getAllocationSize() override;
 
-    string buildIR(CFG *cfg) override ;
 
 };
 

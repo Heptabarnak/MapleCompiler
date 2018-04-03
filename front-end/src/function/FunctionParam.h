@@ -9,6 +9,7 @@ class FunctionParam : public VarDeclaration {
 public:
     FunctionParam(const std::string &name, Type type);
 
+    FunctionParam(Type type);
 };
 
 

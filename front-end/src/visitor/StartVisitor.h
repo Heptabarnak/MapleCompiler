@@ -37,7 +37,9 @@ public:
 
     antlrcpp::Any visitDeclarationVar(MapleGrammarParser::DeclarationVarContext *ctx) override;
 
-    antlrcpp::Any visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDefinitionContext *context) override;
+    antlrcpp::Any visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDefinitionContext *ctx) override;
+
+    antlrcpp::Any visitFunctionDeclaration(MapleGrammarParser::FunctionDeclarationContext *ctx) override ;
 
     antlrcpp::Any visitDefinitionTab(MapleGrammarParser::DefinitionTabContext *ctx) override;
 
@@ -92,6 +94,8 @@ public:
     antlrcpp::Any visitStatement(MapleGrammarParser::StatementContext *ctx) override;
 
     antlrcpp::Any visitTypeList(MapleGrammarParser::TypeListContext *ctx) override;
+
+    antlrcpp::Any visitTypeListWithoutName(MapleGrammarParser::TypeListWithoutNameContext *ctx) override;
 
     antlrcpp::Any visitValue(MapleGrammarParser::ValueContext *ctx) override;
 

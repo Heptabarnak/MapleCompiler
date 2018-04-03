@@ -42,3 +42,7 @@ void FunctionDefinition::setSymbolTable(SymbolTable *symbolTable) {
 std::vector<FunctionParam *> FunctionDefinition::getParams() {
     return params;
 }
+
+BlockFunction *FunctionDefinition::getBlock() const {
+    return block;
+}

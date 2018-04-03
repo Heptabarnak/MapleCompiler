@@ -1,6 +1,3 @@
-
-// Generated from C:/Users/Ordinateur/Documents/INSA/4IF/PLD Compilo/MapleCompiler/front-end/src/maple-parser\MapleGrammar.g4 by ANTLR 4.7
-
 #pragma once
 
 
@@ -117,6 +114,8 @@ public:
 
     virtual antlrcpp::Any visitWhileStatement(MapleGrammarParser::WhileStatementContext *context) = 0;
 
+    virtual antlrcpp::Any visitFunctionDeclaration(MapleGrammarParser::FunctionDeclarationContext *context) = 0;
+
     virtual antlrcpp::Any visitFunctionDefinition(MapleGrammarParser::FunctionDefinitionContext *context) = 0;
 
     virtual antlrcpp::Any visitReturnStatement(MapleGrammarParser::ReturnStatementContext *context) = 0;
@@ -126,6 +125,8 @@ public:
     virtual antlrcpp::Any visitArgumentList(MapleGrammarParser::ArgumentListContext *context) = 0;
 
     virtual antlrcpp::Any visitTypeList(MapleGrammarParser::TypeListContext *context) = 0;
+
+    virtual antlrcpp::Any visitTypeListWithoutName(MapleGrammarParser::TypeListWithoutNameContext *context) = 0;
 
     virtual antlrcpp::Any visitBlock(MapleGrammarParser::BlockContext *context) = 0;
 

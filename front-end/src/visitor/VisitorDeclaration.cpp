@@ -57,11 +57,24 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
         throw std::runtime_error("Array size must > 1");
     }
 
+    vector<Value *> tabList = {};
+
+    if(ctx->definitionTab() != nullptr){
+        tabList = visit(ctx->definitionTab());
+
+        if(tabList.size() > tabSize){
+            cerr << "Array of value size must be lower or equal to the array size, got : " << tabList.size() << " > " << tabSize << endl;
+            printDebugInfo(cerr, ctx);
+            throw std::runtime_error("Array of value size must < array size");
+        }
+    }
+
 
     Declaration *declaration = new TabDeclaration(
             getTypeFromString(ctx->TYPE()->getText()),
             (unsigned long) tabSize,
-            name
+            name,
+            tabList
     );
 
     currentSymbolTable->insert(name, new Symbol(currentSymbolTable, declaration));

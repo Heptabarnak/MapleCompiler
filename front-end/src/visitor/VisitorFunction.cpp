@@ -38,8 +38,8 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
     }
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
-        FunctionDefinition *temp = dynamic_cast<FunctionDefinition*> (symbol->getDeclaration());
-        if (auto block = temp->getBlock()) {
+        auto *temp = dynamic_cast<FunctionDefinition*> (symbol->getDeclaration());
+        if ( temp== nullptr || temp->getBlock()!= nullptr) {
             cerr << "Duplicate declaration of " << name << endl;
             cerr << "Found : " << symbol->getDeclaration() << endl;
             printDebugInfo(cerr, ctx);
@@ -106,6 +106,12 @@ antlrcpp::Any StartVisitor::visitFunctionDeclaration(MapleGrammarParser::Functio
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
         FunctionDefinition *temp = dynamic_cast<FunctionDefinition*> (symbol->getDeclaration());
+        if ( temp== nullptr) {
+            cerr << "Duplicate declaration of " << name << endl;
+            cerr << "Found : " << symbol->getDeclaration() << endl;
+            printDebugInfo(cerr, ctx);
+            throw std::runtime_error("Duplicate definition");
+        }
         if (auto block = temp->getBlock()) {
             if (temp->getParams().size() != params.size()) {
                 cerr << "Function declaration has not the same number of arguments as Function definition " << endl;
@@ -126,19 +132,12 @@ antlrcpp::Any StartVisitor::visitFunctionDeclaration(MapleGrammarParser::Functio
                 i++;
             }
             fDef = temp;
-        } else {
-            cerr << "Duplicate declaration of " << name << endl;
-            cerr << "Found : " << symbol->getDeclaration() << endl;
-            printDebugInfo(cerr, ctx);
-            throw std::runtime_error("Duplicate definition");
         }
     }
 
     currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fDef, true));
 
-    fDef->setArguments(params);
-
-    return (Declaration *) fDef;
+    return nullptr;
 }
 
 antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *ctx) {

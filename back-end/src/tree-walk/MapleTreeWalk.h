@@ -4,7 +4,13 @@
 #include <map>
 #include <string>
 #include <ir/CFG.h>
+#include <ir/GlobalDeclaration.h>
 #include <axiom/Start.h>
+
+typedef struct IRStruct {
+    std::map<std::string, CFG *> cfgs;
+    std::map<std::string, GlobalDeclaration *> globals;
+} IRStruct;
 
 class MapleTreeWalk {
 

@@ -128,7 +128,7 @@ set(BACK_SRC_FILES
         back-end/src/targets/BaseTarget.cpp
         back-end/src/ir/instructions/OpInstr.cpp
         back-end/src/ir/instructions/UnaryOpInstr.cpp
-        back-end/src/ir/instructions/IncrInstr.cpp back-end/src/ir/instructions/IncrInstr.h)
+        back-end/src/ir/instructions/IncrInstr.cpp back-end/src/ir/instructions/IncrInstr.h back-end/src/ir/GlobalDeclaration.cpp back-end/src/ir/GlobalDeclaration.h)
 
 #----------
 #   CLI

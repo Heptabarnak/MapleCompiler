@@ -46,7 +46,7 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
     Expr *expr = visit(ctx->expr());
 
     if (!expr->isSimplifiable()) {
-        delete(expr);
+        delete (expr);
         cerr << "Unable to simplify expression for " << name << endl;
         printDebugInfo(cerr, ctx);
         throw std::runtime_error("Not simplifiable declaration");
@@ -54,17 +54,20 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
 
     const long tabSize = expr->simplify();
 
-    delete(expr);
+    delete (expr);
     if (tabSize < 1) {
         cerr << "Array size must be more than 0, got : " << tabSize << endl;
         printDebugInfo(cerr, ctx);
         throw std::runtime_error("Array size must > 1");
     }
 
-    if(tabList->size() > tabSize){
-        cerr << "Array of value size must be lower or equal to the array size, got : " << tabList->size() << " > " << tabSize << endl;
-        printDebugInfo(cerr, ctx);
-        throw std::runtime_error("Array of value size must < array size");
+
+
+        if(tabList->size() > tabSize){
+            cerr << "Array of value size must be lower or equal to the array size, got : " << tabList->size() << " > " << tabSize << endl;
+            printDebugInfo(cerr, ctx);
+            throw std::runtime_error("Array of value size must < array size");
+
     }
 
 

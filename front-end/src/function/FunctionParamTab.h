@@ -6,9 +6,9 @@
 class FunctionParamTab : public FunctionParam {
 
 public:
-    int size;
+    long size;
 
-    explicit FunctionParamTab(const std::string &name, Type type, int size = -1);
+    explicit FunctionParamTab(const std::string &name, Type type, long size = -1);
 };
 
 

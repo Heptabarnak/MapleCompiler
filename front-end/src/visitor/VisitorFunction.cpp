@@ -223,10 +223,28 @@ antlrcpp::Any StartVisitor::visitArgumentTypeArray(MapleGrammarParser::ArgumentT
         throw std::runtime_error("Duplicated declaration");
     }
 
+    Expr *expr = visit(ctx->expr());
+
+    if (!expr->isSimplifiable()) {
+        delete(expr);
+        cerr << "Unable to simplify expression for " << name << endl;
+        printDebugInfo(cerr, ctx);
+        throw std::runtime_error("Not simplifiable declaration");
+    }
+
+    const long tabSize = expr->simplify();
+
+    delete(expr);
+    if (tabSize < 1) {
+        cerr << "Array size must be more than 0, got : " << tabSize << endl;
+        printDebugInfo(cerr, ctx);
+        throw std::runtime_error("Array size must > 1");
+    }
+
     auto fParam = new FunctionParamTab(
             name,
             getTypeFromString(ctx->TYPE()->getText()),
-            (int) ctx->INTEGER()
+            tabSize
     );
 
     currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));

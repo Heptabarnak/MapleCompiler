@@ -92,10 +92,11 @@ blockFunction : '{' declaration* instruction* '}' ;
 argumentList : ((expr ',')* expr)? ;
 
 typeList : (argumentType ',')*  argumentType ;
+typeListWithoutName : ((TYPE ID? ',')* TYPE ID?) ;
+
 argumentType: argumentTypeVar | argumentTypeArray ;
 argumentTypeVar : TYPE ID ;
-argumentTypeArray : TYPE ID '[' INTEGER? ']' ;
-typeListWithoutName : ((TYPE ID? ',')* TYPE ID?) ;
+argumentTypeArray : TYPE ID '[' expr? ']' ;
 
 
 // Autres structures

@@ -7,8 +7,9 @@
 class GlobalDeclarationTab : public GlobalDeclaration {
 public:
     std::vector<long> *values;
+    unsigned long size;
 
-    GlobalDeclarationTab(const std::string &name, std::vector<long> *values);
+    GlobalDeclarationTab(const std::string &name, Type type, unsigned long size, std::vector<long> *values);
 };
 
 

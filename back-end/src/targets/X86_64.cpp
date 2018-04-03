@@ -1,6 +1,9 @@
 #include <function/FunctionDefinition.h>
 #include "X86_64.h"
 #include <ir/instructions/UnaryOpInstr.h>
+#include <ir/globals/GlobalDeclarationVar.h>
+#include <ir/globals/GlobalDeclarationTab.h>
+#include <typeHelper.h>
 
 using std::string;
 using std::map;
@@ -11,19 +14,44 @@ void X86_64::parse() {
     open();
 
     // First the file header
-    string header = "\t.file \"" + conf->fileToCompile + "\"\n";
-    header += "\t.text\n";
-    header += "\t.globl main\n";
-    header += "\t.type main, @function\n";
-
-    write(header);
+    write("\t.file \"" + conf->fileToCompile + "\"");
 
     for (auto &&global : irStruct->globals) {
+        write("\t.globl " + global.first);
+        write("\t.data");
+        write("\t.align 8"); // FIXME Alignment ?
+        write("\t.type " + global.first + ", @object");
 
+        if (auto var = dynamic_cast<GlobalDeclarationVar *>(global.second)) {
+            write("\t.size " + var->name + ", " + std::to_string(getTypeAllocationSize(var->type)));
+
+            write(var->name + ":");
+            write("\t.quad " + std::to_string(var->value));
+
+        } else if (auto tab = dynamic_cast<GlobalDeclarationTab *>(global.second)) {
+            write("\t.size " + tab->name + ", " + std::to_string(tab->size * getTypeAllocationSize(tab->type)));
+
+            write(tab->name + ":");
+
+            for (auto &&value : *tab->values) {
+                write("\t.quad " + std::to_string(value));
+            }
+
+            if (tab->size > tab->values->size()) {
+                write("\t.zero " +
+                      std::to_string(getTypeAllocationSize(tab->type) *
+                                     (tab->size - tab->values->size()))
+                );
+            }
+        }
     }
 
     for (auto cfg : irStruct->cfgs) {
         currentCFG = cfg.second;
+
+        write("\t.text");
+        write("\t.globl " + cfg.first);
+        write("\t.type " + cfg.first + ", @function");
 
         // Add new label for the function
         write(cfg.first + ":");

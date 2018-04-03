@@ -1,4 +1,4 @@
 #include "GlobalDeclarationVar.h"
 
-GlobalDeclarationVar::GlobalDeclarationVar(const std::string &name, long value)
-        : GlobalDeclaration(name), value(value) {}
+GlobalDeclarationVar::GlobalDeclarationVar(const std::string &name, Type type, long value)
+        : GlobalDeclaration(name, type), value(value) {}

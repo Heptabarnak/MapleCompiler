@@ -19,3 +19,8 @@ Type getTypeFromString(const std::string &str) {
             throw std::runtime_error("Unable to parse TYPE");
     }
 }
+
+int getTypeAllocationSize(Type type) {
+    return 8;
+    // TODO Different size
+}

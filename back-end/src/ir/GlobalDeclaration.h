@@ -3,12 +3,15 @@
 
 
 #include <string>
+#include <token/Type.h>
 
 class GlobalDeclaration {
 public:
     std::string name;
 
-    explicit GlobalDeclaration(const std::string &name);
+    Type type;
+
+    explicit GlobalDeclaration(const std::string &name, Type type);
 
     virtual ~GlobalDeclaration() = default;
 };

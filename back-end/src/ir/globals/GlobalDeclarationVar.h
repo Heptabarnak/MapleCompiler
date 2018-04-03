@@ -8,7 +8,7 @@ class GlobalDeclarationVar : public GlobalDeclaration {
 public:
     long value = 0;
 
-    explicit GlobalDeclarationVar(const std::string &name, long value);
+    explicit GlobalDeclarationVar(const std::string &name, Type type, long value);
 
 };
 

@@ -35,7 +35,7 @@ IRStruct *MapleTreeWalk::generateIR() {
             }
 
             irStruct->globals.insert(
-                    {varDef->getName(), new GlobalDeclarationVar(varDef->getName(), val)});
+                    {varDef->getName(), new GlobalDeclarationVar(varDef->getName(), varDef->getType(), val)});
         } else if (auto tabDef = dynamic_cast<TabDeclaration *>(declaration)) {
 
             vector<long> *values = new vector<long>();
@@ -47,7 +47,8 @@ IRStruct *MapleTreeWalk::generateIR() {
             }
 
             irStruct->globals.insert(
-                    {tabDef->getName(), new GlobalDeclarationTab(tabDef->getName(), values)});
+                    {tabDef->getName(),
+                     new GlobalDeclarationTab(tabDef->getName(), tabDef->getType(), tabDef->getSize(), values)});
         }
     }
     return irStruct;

@@ -29,6 +29,9 @@ antlrcpp::Any StartVisitor::visitProgram(MapleGrammarParser::ProgramContext *ctx
     if (ctx->declaration()) {
         return (vector<Declaration *> *) visit(ctx->declaration());
     }
+    if(ctx->functionDeclaration()){
+        return {};
+    }
     auto functions = new vector<Declaration *>();
     functions->push_back((Declaration *) visit(ctx->functionDefinition()));
     return functions;

@@ -20,25 +20,52 @@ antlrcpp::Any StartVisitor::visitArgumentList(MapleGrammarParser::ArgumentListCo
 antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::FunctionDefinitionContext *ctx) {
     const string &name = ctx->ID()->getText();
 
-    if (auto symbol = currentSymbolTable->lookup(name)) {
-        cerr << "Duplicate declaration of " << name << endl;
-        cerr << "Found : " << symbol->getDeclaration() << endl;
-        printDebugInfo(cerr, ctx);
-        throw std::runtime_error("Duplicate definition");
-    }
-
-
     Type type = Type::VOID;
 
     if (ctx->TYPE() != nullptr) {
         type = getTypeFromString(ctx->TYPE()->getText());
     }
 
-
     auto fDef = new FunctionDefinition(
             type,
             name
     );
+
+    vector<FunctionParam *>* params;
+
+    if(ctx->typeList()!= nullptr) {
+        params = (vector<FunctionParam *> *) visit(ctx->typeList());
+    }
+
+    if (auto symbol = currentSymbolTable->lookup(name)) {
+        auto *temp = dynamic_cast<FunctionDefinition*> (symbol->getDeclaration());
+        if ( temp== nullptr || temp->getBlock()!= nullptr) {
+            cerr << "Duplicate declaration of " << name << endl;
+            cerr << "Found : " << symbol->getDeclaration() << endl;
+            printDebugInfo(cerr, ctx);
+            throw std::runtime_error("Duplicate definition");
+        }
+        if (temp->getParams().size() != params->size()) {
+            cerr << "Function definition has not the same number of arguments as Function declaration " << endl;
+            cerr << "Found : " << params->size() << endl;
+            cerr << "Expected : " << temp->getParams().size() << endl;
+            printDebugInfo(cerr, ctx);
+            throw std::runtime_error("Different number of arguments");
+        }
+        int i=0;
+        for (auto &&param : *params) {
+            if(param->getType() != temp->getParams().at(i)->getType()){
+                cerr << "Parameter "<< param->getName() <<" in function definition has not the same type as in function declaration" << endl;
+                cerr << "Found : " << param->getType() << endl;
+                cerr << "Expected : " << temp->getParams().at(i)->getType() << endl;
+                printDebugInfo(cerr, ctx);
+                throw std::runtime_error("Different type of arguments");
+            }
+            i++;
+        }
+        fDef = temp;
+    }
+
     currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fDef, true));
 
 
@@ -47,9 +74,7 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
 
     fDef->setSymbolTable(currentSymbolTable);
 
-    if (ctx->typeList() != nullptr) {
-        fDef->setArguments(*(vector<FunctionParam *> *) visit(ctx->typeList()));
-    }
+    fDef->setArguments(*params);
 
     fDef->setBlockFunction((BlockFunction *) visit(ctx->blockFunction()));
 
@@ -57,6 +82,62 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
     // Close scoped env
 
     return (Declaration *) fDef;
+}
+
+antlrcpp::Any StartVisitor::visitFunctionDeclaration(MapleGrammarParser::FunctionDeclarationContext *ctx) {
+    const string &name = ctx->ID()->getText();
+
+    Type type = Type::VOID;
+
+    if (ctx->TYPE() != nullptr) {
+        type = getTypeFromString(ctx->TYPE()->getText());
+    }
+
+    auto fDef = new FunctionDefinition(
+            type,
+            name
+    );
+
+    vector<FunctionParam *>* params;
+
+    if(ctx->typeListWithoutName()!= nullptr) {
+        params = (vector<FunctionParam *> *) visit(ctx->typeListWithoutName());
+    }
+
+    if (auto symbol = currentSymbolTable->lookup(name)) {
+        FunctionDefinition *temp = dynamic_cast<FunctionDefinition*> (symbol->getDeclaration());
+        if ( temp== nullptr) {
+            cerr << "Duplicate declaration of " << name << endl;
+            cerr << "Found : " << symbol->getDeclaration() << endl;
+            printDebugInfo(cerr, ctx);
+            throw std::runtime_error("Duplicate definition");
+        }
+        if (auto block = temp->getBlock()) {
+            if (temp->getParams().size() != params->size()) {
+                cerr << "Function declaration has not the same number of arguments as Function definition " << endl;
+                cerr << "Found : " << params->size() << endl;
+                cerr << "Expected : " << temp->getParams().size() << endl;
+                printDebugInfo(cerr, ctx);
+                throw std::runtime_error("Different number of arguments");
+            }
+            int i=0;
+            for (auto &&param : *params) {
+                if(param->getType() != temp->getParams().at(i)->getType()){
+                    cerr << "Parameter "<< param->getName() <<" in function declaration has not the same type as in function definition" << endl;
+                    cerr << "Found : " << param->getType() << endl;
+                    cerr << "Expected : " << temp->getParams().at(i)->getType() << endl;
+                    printDebugInfo(cerr, ctx);
+                    throw std::runtime_error("Different type of arguments");
+                }
+                i++;
+            }
+            fDef = temp;
+        }
+    }
+
+    currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fDef, true));
+
+    return nullptr;
 }
 
 antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *ctx) {
@@ -78,6 +159,20 @@ antlrcpp::Any StartVisitor::visitTypeList(MapleGrammarParser::TypeListContext *c
         );
 
         currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));
+        fParams->push_back(fParam);
+    }
+    return fParams;
+}
+
+antlrcpp::Any StartVisitor::visitTypeListWithoutName(MapleGrammarParser::TypeListWithoutNameContext *ctx) {
+    auto fParams = new vector<FunctionParam *>(ctx->ID().size());
+
+    for (std::size_t i = 0; i != ctx->ID().size(); i++) {
+
+        auto fParam = new FunctionParam(
+                getTypeFromString(ctx->TYPE(i)->getText())
+        );
+
         fParams->push_back(fParam);
     }
     return fParams;

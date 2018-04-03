@@ -56,7 +56,7 @@ expr : accessor                         # exprAccessor
 
 // Déclaration
 declarationVar : TYPE (declarationVarDefinition ',')* declarationVarDefinition SC ;
-declarationTab : TYPE ID '[' ((expr ']')  | (']' definitionTab)) SC;
+declarationTab : TYPE ID '[' ((expr ']')|(expr? ']' definitionTab)) SC;
 declaration : declarationVar
     | declarationTab  ;
 declarationVarDefinition : ID assignment? ;

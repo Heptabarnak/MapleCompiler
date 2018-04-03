@@ -169,22 +169,18 @@ void X86_64::unaryop(UnaryOpInstr *instr) {
         case UnaryOpInstr::MINUS:
             write("\tmovq "+std::to_string(currentCFG->getOffset(instr->var1))+ ", %rax");
             write("\tnegq %rax");
-            write("\tmovq %rax, %rbx");
-            write("\tmovq %rbx, "+ std::to_string(currentCFG->getOffset(instr->var)));
+            write("\tmovq %rax, "+ std::to_string(currentCFG->getOffset(instr->var)));
             break;
         case UnaryOpInstr::NOT :
-            if(std::stoi(instr->var1) != 0){
-                write("\tmovq $0, %rbx");
-            }else{
-                write("\tmovq $1, %rbx");
-            }
-            write("\tmovq %rbx, "+ std::to_string(currentCFG->getOffset(instr->var)));
+            write("\tcmpq "+std::to_string(currentCFG->getOffset(instr->var))+ ", $0");
+            write("\tcmoveq $1, %rax");
+            write("\tcmovneq $0, %rax");
+            write("\tmovq %rax, "+ std::to_string(currentCFG->getOffset(instr->var)));
             break;
         case UnaryOpInstr::BITWISE_NOT :
             write("\tmovq "+std::to_string(currentCFG->getOffset(instr->var1))+ ", %rax");
             write("\tnotq %rax");
-            write("\tmovq %rax, %rbx");
-            write("\tmovq %rbx, "+ std::to_string(currentCFG->getOffset(instr->var)));
+            write("\tmovq %rax, "+ std::to_string(currentCFG->getOffset(instr->var)));
             break;
     }
 }

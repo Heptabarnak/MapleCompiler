@@ -6,6 +6,7 @@
 #include "StartVisitor.h"
 
 using std::string;
+using std::vector;
 using std::cerr;
 using std::cout;
 using std::endl;
@@ -78,6 +79,18 @@ antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFu
     if (auto symbol = currentSymbolTable->lookup(name)) {
         if (auto symbolFun = dynamic_cast<FunctionDefinition *>(symbol->getDeclaration())) {
 
+            vector<FunctionParam*> argument = visit(ctx->argumentList());
+            if (argument.size() != symbolFun->getParams().size()) {
+                cerr << "Function declaration has not the same number of arguments as Function definition" << endl;
+                cerr << "Found : " << argument.size() << endl;
+                cerr << "Expected : " << symbolFun->getParams().size() << endl;
+                printDebugInfo(cerr, ctx);
+                throw std::runtime_error("Differents numbers of arguments");
+            }
+            for (auto it = argument.begin(); it != argument.end(); ++i){
+                if (argument == );
+
+            }
             symbol->doRead();
             return new AccessorFunction(
                     symbolFun,

@@ -1,5 +1,5 @@
 
-// Generated from N:/MapleCompiler/front-end/src/maple-parser\MapleGrammar.g4 by ANTLR 4.7
+// Generated from /home/julien/Documents/Travail/4IF/PLD COMP/MapleCompiler/front-end/src/maple-parser/MapleGrammar.g4 by ANTLR 4.7
 
 #pragma once
 
@@ -32,9 +32,10 @@ public:
     RuleDeclarationTab = 18, RuleDeclaration = 19, RuleDeclarationVarDefinition = 20, 
     RuleDefinitionTab = 21, RuleAssignment = 22, RuleAccessorTab = 23, RuleAccessorVar = 24, 
     RuleAccessorFunction = 25, RuleLeftValue = 26, RuleAccessor = 27, RuleIfStatement = 28, 
-    RuleElseStatement = 29, RuleWhileStatement = 30, RuleFunctionDefinition = 31, 
-    RuleReturnStatement = 32, RuleBlockFunction = 33, RuleArgumentList = 34, 
-    RuleTypeList = 35, RuleBlock = 36, RuleStatement = 37, RuleInstruction = 38
+    RuleElseStatement = 29, RuleWhileStatement = 30, RuleFunctionDeclaration = 31, 
+    RuleFunctionDefinition = 32, RuleReturnStatement = 33, RuleBlockFunction = 34, 
+    RuleArgumentList = 35, RuleTypeList = 36, RuleTypeListWithoutName = 37, 
+    RuleBlock = 38, RuleStatement = 39, RuleInstruction = 40
   };
 
   MapleGrammarParser(antlr4::TokenStream *input);
@@ -78,11 +79,13 @@ public:
   class IfStatementContext;
   class ElseStatementContext;
   class WhileStatementContext;
+  class FunctionDeclarationContext;
   class FunctionDefinitionContext;
   class ReturnStatementContext;
   class BlockFunctionContext;
   class ArgumentListContext;
   class TypeListContext;
+  class TypeListWithoutNameContext;
   class BlockContext;
   class StatementContext;
   class InstructionContext; 
@@ -105,6 +108,7 @@ public:
     ProgramContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     FunctionDefinitionContext *functionDefinition();
+    FunctionDeclarationContext *functionDeclaration();
     DeclarationContext *declaration();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -630,6 +634,23 @@ public:
 
   WhileStatementContext* whileStatement();
 
+  class  FunctionDeclarationContext : public antlr4::ParserRuleContext {
+  public:
+    FunctionDeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *ID();
+    antlr4::tree::TerminalNode *SC();
+    antlr4::tree::TerminalNode *TYPE();
+    std::vector<antlr4::tree::TerminalNode *> TYPE_VOID();
+    antlr4::tree::TerminalNode* TYPE_VOID(size_t i);
+    TypeListWithoutNameContext *typeListWithoutName();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  FunctionDeclarationContext* functionDeclaration();
+
   class  FunctionDefinitionContext : public antlr4::ParserRuleContext {
   public:
     FunctionDefinitionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -702,6 +723,21 @@ public:
   };
 
   TypeListContext* typeList();
+
+  class  TypeListWithoutNameContext : public antlr4::ParserRuleContext {
+  public:
+    TypeListWithoutNameContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    std::vector<antlr4::tree::TerminalNode *> TYPE();
+    antlr4::tree::TerminalNode* TYPE(size_t i);
+    std::vector<antlr4::tree::TerminalNode *> ID();
+    antlr4::tree::TerminalNode* ID(size_t i);
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  TypeListWithoutNameContext* typeListWithoutName();
 
   class  BlockContext : public antlr4::ParserRuleContext {
   public:

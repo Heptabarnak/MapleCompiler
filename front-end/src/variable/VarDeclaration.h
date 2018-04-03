@@ -12,6 +12,9 @@ private:
     std::string name;
     Type type;
     Expr *assignment;
+protected:
+    VarDeclaration(Type type);
+
 public:
     const std::string &getName() const;
 
@@ -20,6 +23,8 @@ public:
     std::string buildIR(CFG *cfg) override;
 
     int getAllocationSize() override;
+
+    Type getType() const;
 
 };
 

@@ -44,6 +44,7 @@ std::string ForStatement::buildIR(CFG *cfg) {
         condition->buildIR(cfg);
     }
     else{
+        // TODO Faire sans la comparaison le FOR
         string var = cfg->createNewTmpVar(INT64_T);
         auto *instr = new LoadConstInstr(cfg->currentBB, var, 1, INT64_T);
         cfg->addIRInstr(instr);

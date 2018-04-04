@@ -7,13 +7,13 @@ antlrcpp::Any StartVisitor::visitIfStatement(MapleGrammarParser::IfStatementCont
 
     if (ctx->elseStatement() == nullptr) {
         return (Instruction *) new IfStatement(
-                visit(ctx->expr()),
+                visit(ctx->possibleCommaExpr()),
                 visit(ctx->instruction())
         );
     }
 
     return (Instruction *) new IfStatement(
-            visit(ctx->expr()),
+            visit(ctx->possibleCommaExpr()),
             visit(ctx->instruction()),
             visit(ctx->elseStatement())
     );
@@ -25,14 +25,14 @@ antlrcpp::Any StartVisitor::visitElseStatement(MapleGrammarParser::ElseStatement
 
 antlrcpp::Any StartVisitor::visitWhileStatement(MapleGrammarParser::WhileStatementContext *ctx) {
     return (Instruction *) new WhileStatement(
-            visit(ctx->expr()),
+            visit(ctx->possibleCommaExpr()),
             visit(ctx->instruction())
     );
 }
 
 antlrcpp::Any StartVisitor::visitReturnStatement(MapleGrammarParser::ReturnStatementContext *ctx) {
     return (Instruction *) new ReturnStatement(
-            (Expr *) visit(ctx->expr())
+            (Expr *) visit(ctx->possibleCommaExpr())
     );
 }
 
@@ -44,7 +44,7 @@ antlrcpp::Any StartVisitor::visitBlock(MapleGrammarParser::BlockContext *ctx) {
 
 antlrcpp::Any StartVisitor::visitStatement(MapleGrammarParser::StatementContext *ctx) {
     return (Instruction *) new Statement(
-            (Expr *) visit(ctx->expr())
+            (Expr *) visit(ctx->possibleCommaExpr())
     );
 }
 

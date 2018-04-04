@@ -1,5 +1,5 @@
 
-// Generated from F:/Downloads/MapleCompiler/front-end/src/maple-parser\MapleGrammar.g4 by ANTLR 4.7
+// Generated from C:/Users/Ordinateur/Documents/INSA/4IF/PLD Compilo/MapleCompiler/front-end/src/maple-parser\MapleGrammar.g4 by ANTLR 4.7
 
 #pragma once
 
@@ -73,8 +73,6 @@ public:
 
     virtual antlrcpp::Any visitExprAccessor(MapleGrammarParser::ExprAccessorContext *context) = 0;
 
-    virtual antlrcpp::Any visitExprComma(MapleGrammarParser::ExprCommaContext *context) = 0;
-
     virtual antlrcpp::Any visitExprAnd(MapleGrammarParser::ExprAndContext *context) = 0;
 
     virtual antlrcpp::Any visitExprParenthesis(MapleGrammarParser::ExprParenthesisContext *context) = 0;
@@ -88,6 +86,10 @@ public:
     virtual antlrcpp::Any visitExprIncrementPrefix(MapleGrammarParser::ExprIncrementPrefixContext *context) = 0;
 
     virtual antlrcpp::Any visitExprUnaryPrefix(MapleGrammarParser::ExprUnaryPrefixContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprComma(MapleGrammarParser::ExprCommaContext *context) = 0;
+
+    virtual antlrcpp::Any visitExprNoComma(MapleGrammarParser::ExprNoCommaContext *context) = 0;
 
     virtual antlrcpp::Any visitDeclarationVar(MapleGrammarParser::DeclarationVarContext *context) = 0;
 

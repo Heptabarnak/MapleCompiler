@@ -150,6 +150,8 @@ public:
 
     antlrcpp::Any visitArgumentType(MapleGrammarParser::ArgumentTypeContext *context) override;
 
+    antlrcpp::Any visitExprNoComma(MapleGrammarParser::ExprNoCommaContext *context) override;
+
     explicit StartVisitor(Config *conf);
 };
 

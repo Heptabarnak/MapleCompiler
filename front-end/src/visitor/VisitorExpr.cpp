@@ -88,7 +88,7 @@ antlrcpp::Any StartVisitor::visitExprAnd(MapleGrammarParser::ExprAndContext *ctx
 
 antlrcpp::Any StartVisitor::visitExprParenthesis(MapleGrammarParser::ExprParenthesisContext *ctx) {
     return (Expr *) new ExprParenthesis(
-            (Expr *) visit(ctx->expr())
+            (Expr *) visit(ctx->possibleCommaExpr())
     );
 }
 
@@ -152,8 +152,8 @@ antlrcpp::Any StartVisitor::visitExprIncrementPrefix(MapleGrammarParser::ExprInc
 
 antlrcpp::Any StartVisitor::visitExprComma(MapleGrammarParser::ExprCommaContext *context) {
     return (Expr *) new ExprCommaOperation(
-            visit(context->expr(0)),
-            visit(context->expr(1))
+            visit(context->possibleCommaExpr()),
+            visit(context->expr())
             );
 }
 
@@ -203,5 +203,10 @@ antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
             Value(Type::INT64_T, stoi(ctx->INTEGER()->getText())
     );
 }
+
+antlrcpp::Any StartVisitor::visitExprNoComma(MapleGrammarParser::ExprNoCommaContext *context) {
+    return (Expr *) visit(context->expr());
+}
+
 
 

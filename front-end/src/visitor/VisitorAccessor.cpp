@@ -40,7 +40,7 @@ antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabCont
         if (auto symbolTab = dynamic_cast<TabDeclaration *>(symbol->getDeclaration())) {
             return (LeftValueAccessor *) new TabAccessor(
                     symbolTab,
-                    visit(ctx->expr())
+                    visit(ctx->possibleCommaExpr())
             );
         }
         cerr << "Wanted array but got :" << symbol->getDeclaration() << endl;

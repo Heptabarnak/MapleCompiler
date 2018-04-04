@@ -31,7 +31,7 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
     }
 
 
-    if (ctx->expr() == nullptr) {
+    if (ctx->possibleCommaExpr() == nullptr) {
         Declaration *declaration = new TabDeclaration(
                 getTypeFromString(ctx->TYPE()->getText()),
                 tabList->size(),
@@ -43,7 +43,7 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
         return declaration;
     }
 
-    Expr *expr = visit(ctx->expr());
+    Expr *expr = visit(ctx->possibleCommaExpr());
 
     if (!expr->isSimplifiable()) {
         delete (expr);
@@ -214,5 +214,5 @@ antlrcpp::Any StartVisitor::visitDeclarationVar(MapleGrammarParser::DeclarationV
 
 
 antlrcpp::Any StartVisitor::visitAssignment(MapleGrammarParser::AssignmentContext *ctx) {
-    return (Expr *) visit(ctx->expr());
+    return (Expr *) visit(ctx->possibleCommaExpr());
 }

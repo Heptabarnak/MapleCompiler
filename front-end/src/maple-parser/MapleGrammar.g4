@@ -100,7 +100,7 @@ argumentTypeArray : TYPE ID '[' expr? ']' ;
 
 argumentTypeWithoutName : argumentTypeVarWithoutName | argumentTypeArrayWithoutName ;
 argumentTypeVarWithoutName : TYPE ID? ;
-argumentTypeArrayWithoutName : TYPE ID? '[' expr? ']' ;
+argumentTypeArrayWithoutName : TYPE ID? '[]' ;
 
 // Autres structures
 block: '{' instruction* '}' ;

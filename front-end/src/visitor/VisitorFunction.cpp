@@ -154,11 +154,24 @@ antlrcpp::Any StartVisitor::visitFunctionDeclaration(MapleGrammarParser::Functio
         unsigned long i = 0;
 
         for (auto &&param : *params) {
-            if (param->getType() != def->getParams()->at(i)->getType()) {
+            if ((param->getType() != def->getParams()->at(i)->getType())) {
                 cerr << "Parameter " << param->getName()
                      << " in function declaration has not the same type as in function definition" << endl;
                 cerr << "Found : " << param->getType() << endl;
                 cerr << "Expected : " << def->getParams()->at(i)->getType() << endl;
+                printDebugInfo(cerr, ctx);
+                throw std::runtime_error("Different type of arguments");
+            } else if (dynamic_cast<FunctionParamTab *> (param) !=
+                       dynamic_cast<FunctionParamTab *> (def->getParams()->at(i))) {
+                cerr << "Parameter " << param->getName()
+                     << " in function declaration has not the same type as in function definition" << endl;
+                if (dynamic_cast<FunctionParamTab *> (param) == nullptr){
+                    cerr << "Found : " << param->getType() << endl;
+                    cerr << "Expected : " << def->getParams()->at(i)->getType() << "[]" << endl;
+                } else {
+                    cerr << "Found : " << param->getType() << "[]" << endl;
+                    cerr << "Expected : " << def->getParams()->at(i)->getType() << endl;
+                }
                 printDebugInfo(cerr, ctx);
                 throw std::runtime_error("Different type of arguments");
             }
@@ -275,8 +288,7 @@ StartVisitor::visitArgumentTypeVarWithoutName(MapleGrammarParser::ArgumentTypeVa
 
     auto fParam;
 
-    if(ctx->ID()->getText() != nullptr)
-    {
+    if (ctx->ID() != nullptr) {
         const string &name = ctx->ID()->getText();
 
         if (auto symbol = currentSymbolTable->lookup(name)) {
@@ -291,12 +303,8 @@ StartVisitor::visitArgumentTypeVarWithoutName(MapleGrammarParser::ArgumentTypeVa
                 getTypeFromString(ctx->TYPE()->getText())
         );
 
-        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));
-
-    }else {
-                        //TODO : Check if else block is needed (usefulness ?)
+    } else {
         fParam = new FunctionParam(
-                NULL, //TODO : Check if not bancal
                 getTypeFromString(ctx->TYPE()->getText())
         );
     }
@@ -307,7 +315,7 @@ antlrcpp::Any
 StartVisitor::visitArgumentTypeArrayWithoutName(MapleGrammarParser::ArgumentTypeArrayWithoutNameContext *ctx) {
     auto fParam;
 
-    if(ctx->ID()->getText() != nullptr) {
+    if (ctx->ID() != nullptr) {
 
         const string &name = ctx->ID()->getText();
 
@@ -317,8 +325,6 @@ StartVisitor::visitArgumentTypeArrayWithoutName(MapleGrammarParser::ArgumentType
             printDebugInfo(cerr, ctx);
             throw std::runtime_error("Duplicated declaration");
         }
-
-        Expr *expr = visit(ctx->expr());
 
         if (!expr->isSimplifiable()) {
             delete (expr);
@@ -342,18 +348,10 @@ StartVisitor::visitArgumentTypeArrayWithoutName(MapleGrammarParser::ArgumentType
                 tabSize
         );
 
-        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));
-
     } else {
-
-                    //TODO : Check if else block is needed (usefulness ?)
         fParam = new FunctionParamTab(
-                NULL,   //TODO : Check if not bancal
-                getTypeFromString(ctx->TYPE()->getText()),
-                NULL
+                getTypeFromString(ctx->TYPE()->getText())
         );
-
-        currentSymbolTable->insert(NULL, new Symbol(currentSymbolTable, fParam, true));
 
     }
 

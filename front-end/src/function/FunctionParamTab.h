@@ -9,6 +9,8 @@ public:
     long size;
 
     explicit FunctionParamTab(const std::string &name, Type type, long size = -1);
+
+    FunctionParamTab(Type type);
 };
 
 

@@ -1,5 +1,6 @@
 #include <Declarations.h>
 #include <mapContext2Vector.h>
+#include <control-structure/ForStatement.h>
 #include "StartVisitor.h"
 
 antlrcpp::Any StartVisitor::visitIfStatement(MapleGrammarParser::IfStatementContext *ctx) {
@@ -47,6 +48,14 @@ antlrcpp::Any StartVisitor::visitStatement(MapleGrammarParser::StatementContext 
     );
 }
 
+antlrcpp::Any StartVisitor::visitForStatement(MapleGrammarParser::ForStatementContext *context) {
+    return (Instruction *) new ForStatement((Expr *) visit(context->expr(0)),
+                                            (Expr *) visit(context->expr(1)),
+                                            (Expr *) visit(context->expr(2)),
+                                            (Instruction *) visit(context->instruction())
+    );
+}
+
 antlrcpp::Any StartVisitor::visitInstruction(MapleGrammarParser::InstructionContext *ctx) {
     if (ctx->statement() != nullptr) {
         return (Instruction *) visit(ctx->statement());
@@ -56,6 +65,9 @@ antlrcpp::Any StartVisitor::visitInstruction(MapleGrammarParser::InstructionCont
     }
     if (ctx->whileStatement() != nullptr) {
         return (Instruction *) visit(ctx->whileStatement());
+    }
+    if (ctx->forStatement() != nullptr){
+        return (Instruction *) visit(ctx->forStatement());
     }
     if (ctx->block() != nullptr) {
         return (Instruction *) visit(ctx->block());

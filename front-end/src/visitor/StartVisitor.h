@@ -73,6 +73,8 @@ public:
 
     antlrcpp::Any visitExprUnaryPrefix(MapleGrammarParser::ExprUnaryPrefixContext *ctx) override;
 
+    antlrcpp::Any visitForStatement(MapleGrammarParser::ForStatementContext *context) override;
+
     antlrcpp::Any visitExprValue(MapleGrammarParser::ExprValueContext *ctx) override;
 
     antlrcpp::Any visitExprComma(MapleGrammarParser::ExprCommaContext *context) override;

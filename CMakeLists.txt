@@ -105,6 +105,7 @@ set(AST_SRC_FILES
         front-end/src/expression/Expr.cpp
         front-end/src/function/FunctionParamTab.cpp
         front-end/src/expression/operation/ExprCommaOperation.cpp
+        front-end/src/control-structure/ForStatement.cpp
         )
 
 #---------------
@@ -140,8 +141,7 @@ include_directories(cli)
 
 set(CLI_SRC_FILES
         cli/Runner.cpp
-        cli/Config.h
-        )
+        cli/Config.h)
 
 
 #----------------

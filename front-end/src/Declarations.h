@@ -2,11 +2,7 @@
 #define MAPLECOMPILER_DECLARATIONS_H
 
 #include <accessor/Accessor.h>
-#include <accessor/FunctionAccessor.h>
-#include <accessor/LeftValue.h>
 #include <accessor/LeftValueAccessor.h>
-#include <accessor/LeftValueTab.h>
-#include <accessor/LeftValueVar.h>
 #include <array/TabAccessor.h>
 #include <array/TabDeclaration.h>
 #include <axiom/Start.h>
@@ -42,6 +38,8 @@
 #include <function/BlockFunction.h>
 #include <function/FunctionDefinition.h>
 #include <function/FunctionParam.h>
+#include <function/FunctionParamVar.h>
+#include <function/FunctionParamTab.h>
 #include <symbol-table/SymbolTable.h>
 #include <symbol-table/Symbol.h>
 #include <variable/VarAccessor.h>

@@ -152,6 +152,7 @@ void X86_64::parseBasicBlocks() {
 
         for (auto &&instr : bb->instrs) {
             instrDispacher(instr);
+            write("");
         }
 
         // Jump to somewhere
@@ -307,6 +308,19 @@ void X86_64::wmem(WMemInstr *instr) {
     write("\tmovq %rax, " + getAsmForVar(instr->var1));
 }
 
+void X86_64::rmemarray(RMemArrayInstr *instr) {
+    write("\tmovq " + getAsmForVar(instr->pos) + ", %rcx");
+    write("\tmovq " + getAsmForVar(instr->tab, true, instr->type) + ", %rax");
+    write("\tmovq %rax, " + getAsmForVar(instr->dest));
+}
+
+void X86_64::wmemarray(WMemArrayInstr *instr) {
+    write("\tmovq " + getAsmForVar(instr->value) + ", %rax");
+    write("\tmovq " + getAsmForVar(instr->pos) + ", %rcx");
+    write("\tmovq %rax, " + getAsmForVar(instr->tab, true, instr->type));
+}
+
+
 void X86_64::unaryop(UnaryOpInstr *instr) {
     switch (instr->type) {
         case UnaryOpInstr::PLUS:
@@ -355,23 +369,20 @@ void X86_64::incr(IncrInstr *instr) {
 
 }
 
-void X86_64::instrDispacher(IRInstr *instr) {
-    if (auto i = dynamic_cast<OpInstr *>(instr)) op(i);
-    else if (auto i = dynamic_cast<LoadConstInstr *>(instr)) loadConst(i);
-    else if (auto i = dynamic_cast<CallInstr *>(instr)) call(i);
-    else if (auto i = dynamic_cast<RMemInstr *>(instr)) rmem(i);
-    else if (auto i = dynamic_cast<WMemInstr *>(instr)) wmem(i);
-    else if (auto i = dynamic_cast<UnaryOpInstr *>(instr)) unaryop(i);
-    else if (auto i = dynamic_cast<IncrInstr *>(instr)) incr(i);
-}
 
-string X86_64::getAsmForVar(string var) {
+string X86_64::getAsmForVar(string var, bool isArray, Type type) {
     auto offset = currentCFG->getOffset(var);
 
-    if (offset != -1) {
-        return "-" + std::to_string(offset) + "(%rbp)";
+    std::string ending = ")";
+
+    if (isArray) {
+        ending = ", %rcx, " + std::to_string(getTypeAllocationSize(type)) + ")";
     }
-    return var + "(%rip)";
+
+    if (offset != -1) {
+        return "-" + std::to_string(offset) + "(%rbp" + ending;
+    }
+    return var + "(%rip" + ending;
 }
 
 static char getExtFromType(Type type) {

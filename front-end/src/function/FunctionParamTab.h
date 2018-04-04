@@ -1,16 +1,19 @@
 #ifndef MAPLECOMPILER_FUNCTIONPARAMTAB_H
 #define MAPLECOMPILER_FUNCTIONPARAMTAB_H
 
+#include <array/TabDeclaration.h>
 #include "FunctionParam.h"
 
-class FunctionParamTab : public FunctionParam {
-
+class FunctionParamTab : public FunctionParam, public TabDeclaration {
 public:
-    long size;
-
-    explicit FunctionParamTab(const std::string &name, Type type, long size = -1);
+    FunctionParamTab(Type type, long size, const std::string &name);
 
     FunctionParamTab(Type type);
+
+    Type getType() override;
+
+    std::string getName() override;
+
 };
 
 

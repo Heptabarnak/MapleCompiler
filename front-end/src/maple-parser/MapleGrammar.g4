@@ -39,7 +39,7 @@ opComma : ',' ;
 // Expression
 expr : accessor                         # exprAccessor
     | value                             # exprValue
-    | '(' possibleCommaExpr ')'                      # exprParenthesis
+    | '(' possibleCommaExpr ')'         # exprParenthesis
     | leftValue opIncrement             # exprIncrementPostfix
     | opIncrement leftValue             # exprIncrementPrefix
     | opUnaryPrefix expr                # exprUnaryPrefix

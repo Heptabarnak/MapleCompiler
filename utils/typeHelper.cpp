@@ -21,7 +21,7 @@ Type getTypeFromString(const std::string &str) {
 }
 
 int getTypeAllocationSize(Type type) {
-    switch (type){
+    /*switch (type){
         case INT64_T:
             return 8;
         case INT32_T:
@@ -31,5 +31,6 @@ int getTypeAllocationSize(Type type) {
         case VOID:
             //Impossible
             return 0;
-    }
+    }*/
+    return 8;
 }

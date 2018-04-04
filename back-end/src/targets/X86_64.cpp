@@ -126,11 +126,13 @@ void X86_64::prologue() {
     if (size > 5) {
         write("\tmovq %r9, " + getAsmForVar(args->at(5)->getName()));
     }
+    auto size_offset = 8;
     if (size > 6) {
         // FIXME We should copy from the caller stack to our stack
         // Don't know how to get the caller offset
         for (auto it = args->begin() + 6; it != args->end(); ++it) {
-            write("\tpopq " + getAsmForVar((*it)->getName()));
+            write("\tmovq " + std::to_string(size_offset) + "%rbp" + getAsmForVar((*it)->getName()));
+            // size_offset += //TODO
         }
 
         std::cerr << "We do not support functions with more than 6 arguments for now, sorry for the inconvenience"

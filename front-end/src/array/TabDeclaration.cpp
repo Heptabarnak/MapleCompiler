@@ -1,7 +1,6 @@
-#include <ir/instructions/WMemInstr.h>
-#include <ir/instructions/OpInstr.h>
 #include <ir/instructions/LoadConstInstr.h>
 #include <typeHelper.h>
+#include <ir/instructions/WMemArrayInstr.h>
 #include "TabDeclaration.h"
 
 using std::vector;
@@ -18,18 +17,14 @@ string TabDeclaration::buildIR(CFG *cfg) {
     // FIXME Try to write everything in one instruction
     if (definition->empty()) return "";
 
-    // Mem[i] = Mem + i * sizeof(type)
-    // Mem[i] = Mem + byteDistance
     for (auto &&it = definition->begin(); it != definition->end(); it++) {
-        long byteDistance = (it - definition->begin()) * getTypeAllocationSize(type);
-
         auto index = cfg->createNewTmpVar(Type::INT64_T);
-        cfg->addIRInstr(new LoadConstInstr(cfg->currentBB, index, byteDistance));
-        cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::ADD, index, name, index));
+        cfg->addIRInstr(new LoadConstInstr(cfg->currentBB, index, it - definition->begin()));
 
         auto cst = cfg->createNewTmpVar(Type::INT64_T);
         cfg->addIRInstr(new LoadConstInstr(cfg->currentBB, cst, (*it)->getValue(), type));
-        cfg->addIRInstr(new WMemInstr(cfg->currentBB, index, cst));
+
+        cfg->addIRInstr(new WMemArrayInstr(cfg->currentBB, cst, name, index, type));
     }
 
     return "";

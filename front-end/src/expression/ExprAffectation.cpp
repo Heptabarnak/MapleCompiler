@@ -3,6 +3,9 @@
 #include <stdexcept>
 #include <ir/instructions/OpInstr.h>
 #include <ir/instructions/WMemInstr.h>
+#include <accessor/LeftValueVar.h>
+#include <accessor/LeftValueTab.h>
+#include <ir/instructions/WMemArrayInstr.h>
 #include "ExprAffectation.h"
 
 using std::cerr;
@@ -97,6 +100,15 @@ string ExprAffectation::buildIR(CFG *cfg) {
         cfg->addIRInstr(new OpInstr(cfg->currentBB, type, value, dest, value));
     }
 
-    cfg->addIRInstr(new WMemInstr(cfg->currentBB, dest, value));
+    if (auto leftVar = dynamic_cast<LeftValueVar *>(left)) {
+        cfg->addIRInstr(new WMemInstr(cfg->currentBB, dest, value));
+    } else if (auto leftTab = dynamic_cast<LeftValueTab *>(left)) {
+        auto acc = leftTab->getTabAccessor();
+        string pos = acc->getPos()->buildIR(cfg);
+
+        cfg->addIRInstr(
+                new WMemArrayInstr(cfg->currentBB, value, acc->getDeclaration()->getName(), pos,
+                                   acc->getDeclaration()->getType()));
+    }
     return value;
 }

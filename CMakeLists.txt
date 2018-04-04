@@ -131,6 +131,8 @@ set(BACK_SRC_FILES
         back-end/src/ir/GlobalDeclaration.cpp
         back-end/src/ir/globals/GlobalDeclarationVar.cpp
         back-end/src/ir/globals/GlobalDeclarationTab.cpp
+        back-end/src/ir/instructions/RMemArrayInstr.cpp
+        back-end/src/ir/instructions/WMemArrayInstr.cpp
         )
 
 #----------

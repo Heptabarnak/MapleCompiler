@@ -15,6 +15,8 @@
 #include <Config.h>
 #include <ir/instructions/IncrInstr.h>
 #include <tree-walk/MapleTreeWalk.h>
+#include <ir/instructions/RMemArrayInstr.h>
+#include <ir/instructions/WMemArrayInstr.h>
 
 class BaseTarget {
 public:
@@ -54,9 +56,17 @@ protected:
 
     virtual void wmem(WMemInstr *instr) = 0;
 
+    virtual void rmemarray(RMemArrayInstr *instr) = 0;
+
+    virtual void wmemarray(WMemArrayInstr *instr) = 0;
+
     virtual void unaryop(UnaryOpInstr *instr) = 0;
 
     virtual void incr(IncrInstr *instr) = 0;
+
+
+    void instrDispacher(IRInstr *instr);
+
 
     // Variables used during parsing
     CFG *currentCFG;

@@ -19,8 +19,8 @@ public:
     T__26 = 27, T__27 = 28, T__28 = 29, T__29 = 30, T__30 = 31, T__31 = 32, 
     T__32 = 33, T__33 = 34, T__34 = 35, T__35 = 36, T__36 = 37, T__37 = 38, 
     T__38 = 39, T__39 = 40, T__40 = 41, T__41 = 42, T__42 = 43, T__43 = 44, 
-    T__44 = 45, T__45 = 46, MACRO = 47, WS = 48, SC = 49, TYPE = 50, TYPE_VOID = 51, 
-    CHAR = 52, INTEGER = 53, ID = 54, STRING = 55, COMMENT = 56, LINE_COMMENT = 57
+    T__44 = 45, MACRO = 46, WS = 47, SC = 48, TYPE = 49, TYPE_VOID = 50, 
+    CHAR = 51, INTEGER = 52, ID = 53, STRING = 54, COMMENT = 55, LINE_COMMENT = 56
   };
 
   enum {
@@ -29,17 +29,17 @@ public:
     RuleOpBinaryShift = 7, RuleOpCompareRelational = 8, RuleOpCompareEquality = 9, 
     RuleOpBinaryAnd = 10, RuleOpBinaryXor = 11, RuleOpBinaryOr = 12, RuleOpAnd = 13, 
     RuleOpOr = 14, RuleOpAffectation = 15, RuleOpComma = 16, RuleExpr = 17, 
-    RuleDeclarationVar = 18, RuleDeclarationTab = 19, RuleDeclaration = 20, 
-    RuleDeclarationVarDefinition = 21, RuleDefinitionTab = 22, RuleAssignment = 23, 
-    RuleAccessorTab = 24, RuleAccessorVar = 25, RuleAccessorFunction = 26, 
-    RuleLeftValue = 27, RuleAccessor = 28, RuleIfStatement = 29, RuleElseStatement = 30, 
-    RuleWhileStatement = 31, RuleForStatement = 32, RuleFunctionDeclaration = 33, 
-    RuleFunctionDefinition = 34, RuleReturnStatement = 35, RuleBlockFunction = 36, 
-    RuleArgumentList = 37, RuleTypeList = 38, RuleTypeListWithoutName = 39, 
-    RuleArgumentType = 40, RuleArgumentTypeVar = 41, RuleArgumentTypeArray = 42, 
-    RuleArgumentTypeWithoutName = 43, RuleArgumentTypeVarWithoutName = 44, 
-    RuleArgumentTypeArrayWithoutName = 45, RuleBlock = 46, RuleStatement = 47, 
-    RuleInstruction = 48
+    RulePossibleCommaExpr = 18, RuleDeclarationVar = 19, RuleDeclarationTab = 20, 
+    RuleDeclaration = 21, RuleDeclarationVarDefinition = 22, RuleDefinitionTab = 23, 
+    RuleAssignment = 24, RuleAccessorTab = 25, RuleAccessorVar = 26, RuleAccessorFunction = 27, 
+    RuleLeftValue = 28, RuleAccessor = 29, RuleIfStatement = 30, RuleElseStatement = 31, 
+    RuleWhileStatement = 32, RuleForStatement = 33, RuleFunctionDeclaration = 34, 
+    RuleFunctionDefinition = 35, RuleReturnStatement = 36, RuleBlockFunction = 37, 
+    RuleArgumentList = 38, RuleTypeList = 39, RuleTypeListWithoutName = 40, 
+    RuleArgumentType = 41, RuleArgumentTypeVar = 42, RuleArgumentTypeArray = 43, 
+    RuleArgumentTypeWithoutName = 44, RuleArgumentTypeVarWithoutName = 45, 
+    RuleArgumentTypeArrayWithoutName = 46, RuleBlock = 47, RuleStatement = 48, 
+    RuleInstruction = 49
   };
 
   MapleGrammarParser(antlr4::TokenStream *input);
@@ -70,6 +70,7 @@ public:
   class OpAffectationContext;
   class OpCommaContext;
   class ExprContext;
+  class PossibleCommaExprContext;
   class DeclarationVarContext;
   class DeclarationTabContext;
   class DeclarationContext;
@@ -404,16 +405,6 @@ public:
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  class  ExprCommaContext : public ExprContext {
-  public:
-    ExprCommaContext(ExprContext *ctx);
-
-    std::vector<ExprContext *> expr();
-    ExprContext* expr(size_t i);
-    OpCommaContext *opComma();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
   class  ExprAndContext : public ExprContext {
   public:
     ExprAndContext(ExprContext *ctx);
@@ -428,7 +419,7 @@ public:
   public:
     ExprParenthesisContext(ExprContext *ctx);
 
-    ExprContext *expr();
+    PossibleCommaExprContext *possibleCommaExpr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
@@ -482,6 +473,39 @@ public:
 
   ExprContext* expr();
   ExprContext* expr(int precedence);
+  class  PossibleCommaExprContext : public antlr4::ParserRuleContext {
+  public:
+    PossibleCommaExprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    PossibleCommaExprContext() : antlr4::ParserRuleContext() { }
+    void copyFrom(PossibleCommaExprContext *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  ExprCommaContext : public PossibleCommaExprContext {
+  public:
+    ExprCommaContext(PossibleCommaExprContext *ctx);
+
+    PossibleCommaExprContext *possibleCommaExpr();
+    OpCommaContext *opComma();
+    ExprContext *expr();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ExprNoCommaContext : public PossibleCommaExprContext {
+  public:
+    ExprNoCommaContext(PossibleCommaExprContext *ctx);
+
+    ExprContext *expr();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  PossibleCommaExprContext* possibleCommaExpr();
+  PossibleCommaExprContext* possibleCommaExpr(int precedence);
   class  DeclarationVarContext : public antlr4::ParserRuleContext {
   public:
     DeclarationVarContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -504,7 +528,7 @@ public:
     antlr4::tree::TerminalNode *TYPE();
     antlr4::tree::TerminalNode *ID();
     antlr4::tree::TerminalNode *SC();
-    ExprContext *expr();
+    PossibleCommaExprContext *possibleCommaExpr();
     DefinitionTabContext *definitionTab();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -557,7 +581,7 @@ public:
   public:
     AssignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    ExprContext *expr();
+    PossibleCommaExprContext *possibleCommaExpr();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
@@ -570,7 +594,7 @@ public:
     AccessorTabContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *ID();
-    ExprContext *expr();
+    PossibleCommaExprContext *possibleCommaExpr();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
@@ -633,7 +657,7 @@ public:
   public:
     IfStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    ExprContext *expr();
+    PossibleCommaExprContext *possibleCommaExpr();
     InstructionContext *instruction();
     ElseStatementContext *elseStatement();
 
@@ -659,7 +683,7 @@ public:
   public:
     WhileStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    ExprContext *expr();
+    PossibleCommaExprContext *possibleCommaExpr();
     InstructionContext *instruction();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -670,16 +694,16 @@ public:
 
   class  ForStatementContext : public antlr4::ParserRuleContext {
   public:
-    MapleGrammarParser::ExprContext *init = nullptr;;
-    MapleGrammarParser::ExprContext *cond = nullptr;;
-    MapleGrammarParser::ExprContext *post = nullptr;;
+    MapleGrammarParser::PossibleCommaExprContext *init = nullptr;;
+    MapleGrammarParser::PossibleCommaExprContext *cond = nullptr;;
+    MapleGrammarParser::PossibleCommaExprContext *post = nullptr;;
     ForStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     std::vector<antlr4::tree::TerminalNode *> SC();
     antlr4::tree::TerminalNode* SC(size_t i);
     InstructionContext *instruction();
-    std::vector<ExprContext *> expr();
-    ExprContext* expr(size_t i);
+    std::vector<PossibleCommaExprContext *> possibleCommaExpr();
+    PossibleCommaExprContext* possibleCommaExpr(size_t i);
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
@@ -725,7 +749,7 @@ public:
   public:
     ReturnStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    ExprContext *expr();
+    PossibleCommaExprContext *possibleCommaExpr();
     antlr4::tree::TerminalNode *SC();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -820,7 +844,7 @@ public:
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *TYPE();
     antlr4::tree::TerminalNode *ID();
-    ExprContext *expr();
+    PossibleCommaExprContext *possibleCommaExpr();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
@@ -884,7 +908,7 @@ public:
   public:
     StatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    ExprContext *expr();
+    PossibleCommaExprContext *possibleCommaExpr();
     antlr4::tree::TerminalNode *SC();
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -913,6 +937,7 @@ public:
 
   virtual bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
   bool exprSempred(ExprContext *_localctx, size_t predicateIndex);
+  bool possibleCommaExprSempred(PossibleCommaExprContext *_localctx, size_t predicateIndex);
 
 private:
   static std::vector<antlr4::dfa::DFA> _decisionToDFA;

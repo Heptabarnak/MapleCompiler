@@ -39,7 +39,7 @@ opComma : ',' ;
 // Expression
 expr : accessor                         # exprAccessor
     | value                             # exprValue
-    | '(' expr ')'                      # exprParenthesis
+    | '(' possibleCommaExpr ')'         # exprParenthesis
     | leftValue opIncrement             # exprIncrementPostfix
     | opIncrement leftValue             # exprIncrementPrefix
     | opUnaryPrefix expr                # exprUnaryPrefix
@@ -54,22 +54,24 @@ expr : accessor                         # exprAccessor
     | expr opAnd expr                   # exprAnd
     | expr opOr expr                    # exprOr
     | leftValue opAffectation expr      # exprAffectation
-    | expr opComma expr                 # exprComma
+    ;
+possibleCommaExpr : expr               # exprNoComma
+    | possibleCommaExpr opComma expr   # exprComma
     ;
 
 // Déclaration
 declarationVar : TYPE (declarationVarDefinition ',')* declarationVarDefinition SC ;
-declarationTab : TYPE ID '[' ((expr ']')|(expr? ']' definitionTab)) SC;
+declarationTab : TYPE ID '[' ((possibleCommaExpr ']')|(possibleCommaExpr? ']' definitionTab)) SC;
 declaration : declarationVar
     | declarationTab  ;
 declarationVarDefinition : ID assignment? ;
 
 // Affectation
 definitionTab : '=' (('{' ((value ',')* value)? '}') | STRING) ;
-assignment: '=' expr ;
+assignment: '=' possibleCommaExpr ;
 
 // Accesseurs
-accessorTab : ID '[' expr ']' ;
+accessorTab : ID '[' possibleCommaExpr ']' ;
 accessorVar : ID ;
 accessorFunction : ID '(' argumentList ')' ;
 
@@ -80,16 +82,16 @@ accessor : leftValue
     | accessorFunction ;
 
 // Structures de contrôle
-ifStatement: 'if' '(' expr ')' instruction elseStatement? ;
+ifStatement: 'if' '(' possibleCommaExpr ')' instruction elseStatement? ;
 elseStatement: 'else' instruction ;
-whileStatement: 'while' '(' expr ')' instruction ;
-forStatement: 'for' '(' init=expr? SC cond=expr? SC post=expr? ')' instruction ;
+whileStatement: 'while' '(' possibleCommaExpr ')' instruction ;
+forStatement: 'for' '(' init=possibleCommaExpr? SC cond=possibleCommaExpr? SC post=possibleCommaExpr? ')' instruction ;
 
 // Fonctions
 
 functionDeclaration: (TYPE | TYPE_VOID) ID '(' (typeListWithoutName | TYPE_VOID)? ')' SC;
 functionDefinition : (TYPE | TYPE_VOID) ID '(' (typeList | TYPE_VOID)? ')' blockFunction ;
-returnStatement : 'return' expr SC ;
+returnStatement : 'return' possibleCommaExpr SC ;
 blockFunction : '{' declaration* instruction* '}' ;
 argumentList : ((expr ',')* expr)? ;
 
@@ -98,15 +100,15 @@ typeListWithoutName : ((argumentTypeWithoutName ',')* argumentTypeWithoutName) ;
 
 argumentType: argumentTypeVar | argumentTypeArray ;
 argumentTypeVar : TYPE ID ;
-argumentTypeArray : TYPE ID '[' expr? ']' ;
+argumentTypeArray : TYPE ID '[' possibleCommaExpr? ']' ;
 
 argumentTypeWithoutName : argumentTypeVarWithoutName | argumentTypeArrayWithoutName ;
 argumentTypeVarWithoutName : TYPE ID? ;
-argumentTypeArrayWithoutName : TYPE ID? '[]' ;
+argumentTypeArrayWithoutName : TYPE ID? '['']' ;
 
 // Autres structures
 block: '{' instruction* '}' ;
-statement : expr SC ;
+statement : possibleCommaExpr SC ;
 
 instruction : statement
     | ifStatement

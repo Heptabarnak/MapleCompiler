@@ -31,7 +31,7 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
     }
 
 
-    if (ctx->expr() == nullptr) {
+    if (ctx->possibleCommaExpr() == nullptr) {
         Declaration *declaration = new TabDeclaration(
                 getTypeFromString(ctx->TYPE()->getText()),
                 tabList->size(),
@@ -43,7 +43,7 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
         return declaration;
     }
 
-    Expr *expr = visit(ctx->expr());
+    Expr *expr = visit(ctx->possibleCommaExpr());
 
     if (!expr->isSimplifiable()) {
         delete (expr);
@@ -72,7 +72,7 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
 
     Declaration *declaration = new TabDeclaration(
             getTypeFromString(ctx->TYPE()->getText()),
-            (unsigned long) tabSize,
+            tabSize,
             name,
             tabList
     );
@@ -94,8 +94,11 @@ antlrcpp::Any StartVisitor::visitDefinitionTab(MapleGrammarParser::DefinitionTab
     if (ctx->STRING() != nullptr) {
         auto values = new vector<Value *>();
 
+        auto s = ctx->STRING()->getText();
+        s = s.substr(1, s.size() - 2);
+
         char lastC = 0;
-        for (auto &&aChar :ctx->STRING()->getText()) {
+        for (auto &&aChar : s) {
 
             if (lastC == '\\') {
                 switch (aChar) {
@@ -214,5 +217,5 @@ antlrcpp::Any StartVisitor::visitDeclarationVar(MapleGrammarParser::DeclarationV
 
 
 antlrcpp::Any StartVisitor::visitAssignment(MapleGrammarParser::AssignmentContext *ctx) {
-    return (Expr *) visit(ctx->expr());
+    return (Expr *) visit(ctx->possibleCommaExpr());
 }

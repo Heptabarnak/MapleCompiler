@@ -41,10 +41,14 @@ public:
 
     FunctionDefinition *getFunctionDefinition();
 
+    BasicBlock* getReturnBlock();
+
 protected:
     int nextBBNumber; /**< just for naming */
 
     FunctionDefinition *funcDef;
+
+    BasicBlock* returnBlock;
 
     std::vector<BasicBlock *> bbs; /**< all the basic blocks of this CFG*/
 };

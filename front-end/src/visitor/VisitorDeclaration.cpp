@@ -72,7 +72,7 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
 
     Declaration *declaration = new TabDeclaration(
             getTypeFromString(ctx->TYPE()->getText()),
-            (unsigned long) tabSize,
+            tabSize,
             name,
             tabList
     );

@@ -38,10 +38,14 @@ Type TabDeclaration::getType() const {
     return type;
 }
 
-unsigned long TabDeclaration::getSize() const {
+long TabDeclaration::getSize() const {
     return size;
 }
 
 vector<Value *> *TabDeclaration::getDefinition() const {
     return definition;
+}
+
+TabDeclaration::TabDeclaration(Type type) {
+
 }

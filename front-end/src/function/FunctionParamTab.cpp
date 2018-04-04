@@ -3,7 +3,7 @@
 FunctionParamTab::FunctionParamTab(Type type, long size, const std::string &name)
         : TabDeclaration(type, size, name) {}
 
-FunctionParamTab::FunctionParamTab(Type type) : FunctionParam(type) {}
+FunctionParamTab::FunctionParamTab(Type type) : TabDeclaration(type) {}
 
 Type FunctionParamTab::getType() {
     return type;

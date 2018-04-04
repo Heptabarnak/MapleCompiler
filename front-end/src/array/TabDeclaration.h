@@ -11,6 +11,7 @@
 class TabDeclaration : public Declaration {
 
 protected:
+    TabDeclaration(Type type);
     Type type;
     std::string name;
     long size;
@@ -25,7 +26,7 @@ public:
 
     Type getType() const;
 
-    unsigned long getSize() const;
+    long getSize() const;
 
     int getAllocationSize() override;
 

@@ -176,7 +176,7 @@ antlrcpp::Any StartVisitor::visitFunctionDeclaration(MapleGrammarParser::Functio
                        dynamic_cast<FunctionParamTab *> (def->getParams()->at(i))) {
                 cerr << "Parameter " << param->getName()
                      << " in function declaration has not the same type as in function definition" << endl;
-                if (dynamic_cast<FunctionParamTab *> (param) == nullptr){
+                if (dynamic_cast<FunctionParamTab *> (param) == nullptr) {
                     cerr << "Found : " << param->getType() << endl;
                     cerr << "Expected : " << def->getParams()->at(i)->getType() << "[]" << endl;
                 } else {
@@ -301,7 +301,7 @@ antlrcpp::Any StartVisitor::visitArgumentTypeWithoutName(MapleGrammarParser::Arg
 antlrcpp::Any
 StartVisitor::visitArgumentTypeVarWithoutName(MapleGrammarParser::ArgumentTypeVarWithoutNameContext *ctx) {
 
-    auto fParam;
+    FunctionParam *fParam;
 
     if (ctx->ID() != nullptr) {
         const string &name = ctx->ID()->getText();
@@ -313,13 +313,13 @@ StartVisitor::visitArgumentTypeVarWithoutName(MapleGrammarParser::ArgumentTypeVa
             throw std::runtime_error("Duplicated declaration");
         }
 
-        fParam = new FunctionParam(
+        fParam = new FunctionParamVar(
                 name,
                 getTypeFromString(ctx->TYPE()->getText())
         );
 
     } else {
-        fParam = new FunctionParam(
+        fParam = new FunctionParamVar(
                 getTypeFromString(ctx->TYPE()->getText())
         );
     }
@@ -328,7 +328,7 @@ StartVisitor::visitArgumentTypeVarWithoutName(MapleGrammarParser::ArgumentTypeVa
 
 antlrcpp::Any
 StartVisitor::visitArgumentTypeArrayWithoutName(MapleGrammarParser::ArgumentTypeArrayWithoutNameContext *ctx) {
-    auto fParam;
+    FunctionParam *fParam;
 
     if (ctx->ID() != nullptr) {
 
@@ -342,7 +342,6 @@ StartVisitor::visitArgumentTypeArrayWithoutName(MapleGrammarParser::ArgumentType
         }
 
         fParam = new FunctionParamTab(
-                name,
                 getTypeFromString(ctx->TYPE()->getText())
         );
 

@@ -117,6 +117,8 @@ public:
 
     virtual antlrcpp::Any visitWhileStatement(MapleGrammarParser::WhileStatementContext *context) = 0;
 
+    virtual antlrcpp::Any visitForStatement(MapleGrammarParser::ForStatementContext *context) = 0;
+
     virtual antlrcpp::Any visitFunctionDeclaration(MapleGrammarParser::FunctionDeclarationContext *context) = 0;
 
     virtual antlrcpp::Any visitFunctionDefinition(MapleGrammarParser::FunctionDefinitionContext *context) = 0;
@@ -136,6 +138,12 @@ public:
     virtual antlrcpp::Any visitArgumentTypeVar(MapleGrammarParser::ArgumentTypeVarContext *context) = 0;
 
     virtual antlrcpp::Any visitArgumentTypeArray(MapleGrammarParser::ArgumentTypeArrayContext *context) = 0;
+
+    virtual antlrcpp::Any visitArgumentTypeWithoutName(MapleGrammarParser::ArgumentTypeWithoutNameContext *context) = 0;
+
+    virtual antlrcpp::Any visitArgumentTypeVarWithoutName(MapleGrammarParser::ArgumentTypeVarWithoutNameContext *context) = 0;
+
+    virtual antlrcpp::Any visitArgumentTypeArrayWithoutName(MapleGrammarParser::ArgumentTypeArrayWithoutNameContext *context) = 0;
 
     virtual antlrcpp::Any visitBlock(MapleGrammarParser::BlockContext *context) = 0;
 

@@ -73,6 +73,8 @@ public:
 
     antlrcpp::Any visitExprUnaryPrefix(MapleGrammarParser::ExprUnaryPrefixContext *ctx) override;
 
+    antlrcpp::Any visitForStatement(MapleGrammarParser::ForStatementContext *context) override;
+
     antlrcpp::Any visitExprValue(MapleGrammarParser::ExprValueContext *ctx) override;
 
     antlrcpp::Any visitExprComma(MapleGrammarParser::ExprCommaContext *context) override;
@@ -80,6 +82,7 @@ public:
     antlrcpp::Any visitFunctionDefinition(MapleGrammarParser::FunctionDefinitionContext *ctx) override;
 
     antlrcpp::Any visitIfStatement(MapleGrammarParser::IfStatementContext *ctx) override;
+
 
     antlrcpp::Any visitInstruction(MapleGrammarParser::InstructionContext *ctx) override;
 
@@ -114,6 +117,14 @@ public:
     antlrcpp::Any visitOpCompareEquality(MapleGrammarParser::OpCompareEqualityContext *context) override;
 
     antlrcpp::Any visitOpBinaryAnd(MapleGrammarParser::OpBinaryAndContext *context) override;
+
+    antlrcpp::Any visitArgumentTypeWithoutName(MapleGrammarParser::ArgumentTypeWithoutNameContext *context) override;
+
+    antlrcpp::Any
+    visitArgumentTypeVarWithoutName(MapleGrammarParser::ArgumentTypeVarWithoutNameContext *context) override;
+
+    antlrcpp::Any
+    visitArgumentTypeArrayWithoutName(MapleGrammarParser::ArgumentTypeArrayWithoutNameContext *context) override;
 
     antlrcpp::Any visitOpBinaryXor(MapleGrammarParser::OpBinaryXorContext *context) override;
 

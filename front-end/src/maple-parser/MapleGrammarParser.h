@@ -19,8 +19,8 @@ public:
     T__26 = 27, T__27 = 28, T__28 = 29, T__29 = 30, T__30 = 31, T__31 = 32, 
     T__32 = 33, T__33 = 34, T__34 = 35, T__35 = 36, T__36 = 37, T__37 = 38, 
     T__38 = 39, T__39 = 40, T__40 = 41, T__41 = 42, T__42 = 43, T__43 = 44, 
-    MACRO = 45, WS = 46, SC = 47, TYPE = 48, TYPE_VOID = 49, CHAR = 50, 
-    INTEGER = 51, ID = 52, COMMENT = 53, LINE_COMMENT = 54
+    T__44 = 45, T__45 = 46, MACRO = 47, WS = 48, SC = 49, TYPE = 50, TYPE_VOID = 51, 
+    CHAR = 52, INTEGER = 53, ID = 54, STRING = 55, COMMENT = 56, LINE_COMMENT = 57
   };
 
   enum {
@@ -33,11 +33,13 @@ public:
     RuleDeclarationVarDefinition = 21, RuleDefinitionTab = 22, RuleAssignment = 23, 
     RuleAccessorTab = 24, RuleAccessorVar = 25, RuleAccessorFunction = 26, 
     RuleLeftValue = 27, RuleAccessor = 28, RuleIfStatement = 29, RuleElseStatement = 30, 
-    RuleWhileStatement = 31, RuleFunctionDeclaration = 32, RuleFunctionDefinition = 33, 
-    RuleReturnStatement = 34, RuleBlockFunction = 35, RuleArgumentList = 36, 
-    RuleTypeList = 37, RuleTypeListWithoutName = 38, RuleArgumentType = 39, 
-    RuleArgumentTypeVar = 40, RuleArgumentTypeArray = 41, RuleBlock = 42, 
-    RuleStatement = 43, RuleInstruction = 44
+    RuleWhileStatement = 31, RuleForStatement = 32, RuleFunctionDeclaration = 33, 
+    RuleFunctionDefinition = 34, RuleReturnStatement = 35, RuleBlockFunction = 36, 
+    RuleArgumentList = 37, RuleTypeList = 38, RuleTypeListWithoutName = 39, 
+    RuleArgumentType = 40, RuleArgumentTypeVar = 41, RuleArgumentTypeArray = 42, 
+    RuleArgumentTypeWithoutName = 43, RuleArgumentTypeVarWithoutName = 44, 
+    RuleArgumentTypeArrayWithoutName = 45, RuleBlock = 46, RuleStatement = 47, 
+    RuleInstruction = 48
   };
 
   MapleGrammarParser(antlr4::TokenStream *input);
@@ -82,6 +84,7 @@ public:
   class IfStatementContext;
   class ElseStatementContext;
   class WhileStatementContext;
+  class ForStatementContext;
   class FunctionDeclarationContext;
   class FunctionDefinitionContext;
   class ReturnStatementContext;
@@ -92,6 +95,9 @@ public:
   class ArgumentTypeContext;
   class ArgumentTypeVarContext;
   class ArgumentTypeArrayContext;
+  class ArgumentTypeWithoutNameContext;
+  class ArgumentTypeVarWithoutNameContext;
+  class ArgumentTypeArrayWithoutNameContext;
   class BlockContext;
   class StatementContext;
   class InstructionContext; 
@@ -537,6 +543,7 @@ public:
   public:
     DefinitionTabContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *STRING();
     std::vector<ValueContext *> value();
     ValueContext* value(size_t i);
 
@@ -661,6 +668,25 @@ public:
 
   WhileStatementContext* whileStatement();
 
+  class  ForStatementContext : public antlr4::ParserRuleContext {
+  public:
+    MapleGrammarParser::ExprContext *init = nullptr;;
+    MapleGrammarParser::ExprContext *cond = nullptr;;
+    MapleGrammarParser::ExprContext *post = nullptr;;
+    ForStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    std::vector<antlr4::tree::TerminalNode *> SC();
+    antlr4::tree::TerminalNode* SC(size_t i);
+    InstructionContext *instruction();
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  ForStatementContext* forStatement();
+
   class  FunctionDeclarationContext : public antlr4::ParserRuleContext {
   public:
     FunctionDeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -753,10 +779,8 @@ public:
   public:
     TypeListWithoutNameContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    std::vector<antlr4::tree::TerminalNode *> TYPE();
-    antlr4::tree::TerminalNode* TYPE(size_t i);
-    std::vector<antlr4::tree::TerminalNode *> ID();
-    antlr4::tree::TerminalNode* ID(size_t i);
+    std::vector<ArgumentTypeWithoutNameContext *> argumentTypeWithoutName();
+    ArgumentTypeWithoutNameContext* argumentTypeWithoutName(size_t i);
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    
@@ -804,6 +828,45 @@ public:
 
   ArgumentTypeArrayContext* argumentTypeArray();
 
+  class  ArgumentTypeWithoutNameContext : public antlr4::ParserRuleContext {
+  public:
+    ArgumentTypeWithoutNameContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    ArgumentTypeVarWithoutNameContext *argumentTypeVarWithoutName();
+    ArgumentTypeArrayWithoutNameContext *argumentTypeArrayWithoutName();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  ArgumentTypeWithoutNameContext* argumentTypeWithoutName();
+
+  class  ArgumentTypeVarWithoutNameContext : public antlr4::ParserRuleContext {
+  public:
+    ArgumentTypeVarWithoutNameContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *TYPE();
+    antlr4::tree::TerminalNode *ID();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  ArgumentTypeVarWithoutNameContext* argumentTypeVarWithoutName();
+
+  class  ArgumentTypeArrayWithoutNameContext : public antlr4::ParserRuleContext {
+  public:
+    ArgumentTypeArrayWithoutNameContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *TYPE();
+    antlr4::tree::TerminalNode *ID();
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  ArgumentTypeArrayWithoutNameContext* argumentTypeArrayWithoutName();
+
   class  BlockContext : public antlr4::ParserRuleContext {
   public:
     BlockContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -837,6 +900,7 @@ public:
     StatementContext *statement();
     IfStatementContext *ifStatement();
     WhileStatementContext *whileStatement();
+    ForStatementContext *forStatement();
     BlockContext *block();
     ReturnStatementContext *returnStatement();
 

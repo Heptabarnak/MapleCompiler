@@ -15,9 +15,9 @@ antlrcpp::Any StartVisitor::visitAccessor(MapleGrammarParser::AccessorContext *c
     Accessor *accessor = nullptr;
 
     if (ctx->accessorFunction() == nullptr) {
-        accessor = new LeftValueAccessor((LeftValue *) (visit(ctx->leftValue())));
+        accessor = (LeftValueAccessor *) visit(ctx->leftValue());
     } else {
-        accessor = new FunctionAccessor((AccessorFunction *) (visit(ctx->accessorFunction())));
+        accessor = visit(ctx->accessorFunction());
     }
 
     const string &name = accessor->getSymbolName();
@@ -34,12 +34,11 @@ antlrcpp::Any StartVisitor::visitAccessor(MapleGrammarParser::AccessorContext *c
 }
 
 antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabContext *ctx) {
-    // We should note that we could allow access to a variable as an array is technically a variable !
     const string &name = ctx->ID()->getText();
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
         if (auto symbolTab = dynamic_cast<TabDeclaration *>(symbol->getDeclaration())) {
-            return new TabAccessor(
+            return (LeftValueAccessor *) new TabAccessor(
                     symbolTab,
                     visit(ctx->expr())
             );
@@ -55,12 +54,13 @@ antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabCont
 }
 
 antlrcpp::Any StartVisitor::visitAccessorVar(MapleGrammarParser::AccessorVarContext *ctx) {
-    // We should note that we could allow access to an array as its not far from a variable !
     const string &name = ctx->ID()->getText();
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
         if (auto symbolVar = dynamic_cast<VarDeclaration *>(symbol->getDeclaration())) {
-            return new VarAccessor(symbolVar);
+            return (LeftValueAccessor *) new VarAccessor(symbolVar);
+        } else if (auto symbolTab = dynamic_cast<TabDeclaration *>(symbol->getDeclaration())) {
+            return (LeftValueAccessor *) new TabAccessor(symbolTab);
         }
 
         cerr << "Wanted a variable but got :" << symbol->getDeclaration() << endl;
@@ -96,7 +96,7 @@ antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFu
             }
 
             symbol->doRead();
-            return new AccessorFunction(
+            return (Accessor *) new AccessorFunction(
                     symbolFun,
                     visit(ctx->argumentList())
             );
@@ -114,7 +114,7 @@ antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFu
 
 antlrcpp::Any StartVisitor::visitLeftValue(MapleGrammarParser::LeftValueContext *ctx) {
     if (ctx->accessorTab() == nullptr) {
-        return (LeftValue *) new LeftValueVar((VarAccessor *) visit(ctx->accessorVar()));
+        return (LeftValueAccessor *) visit(ctx->accessorVar());
     }
-    return (LeftValue *) new LeftValueTab((TabAccessor *) visit(ctx->accessorTab()));
+    return (LeftValueAccessor *) visit(ctx->accessorTab());
 }

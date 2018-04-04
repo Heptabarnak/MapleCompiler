@@ -253,15 +253,111 @@ antlrcpp::Any StartVisitor::visitArgumentTypeArray(MapleGrammarParser::ArgumentT
 }
 
 antlrcpp::Any StartVisitor::visitTypeListWithoutName(MapleGrammarParser::TypeListWithoutNameContext *ctx) {
-    auto fParams = new vector<FunctionParam *>();
+    auto fParams = new vector<FunctionParam *>;
 
-    for (auto &&type :ctx->TYPE()) {
-        fParams->push_back(new FunctionParam(
-                getTypeFromString(type->getText())
-        ));
+    for (auto &&item : ctx->argumentTypeWithoutName()) {
+        fParams->push_back((FunctionParam *) visit(item));
     }
 
     return fParams;
+}
+
+antlrcpp::Any StartVisitor::visitArgumentTypeWithoutName(MapleGrammarParser::ArgumentTypeWithoutNameContext *ctx) {
+    if (ctx->argumentTypeVarWithoutName()) {
+        return (FunctionParam *) visit(ctx->argumentTypeVarWithoutName());
+    }
+
+    return (FunctionParam *) visit(ctx->argumentTypeArrayWithoutName());
+}
+
+antlrcpp::Any
+StartVisitor::visitArgumentTypeVarWithoutName(MapleGrammarParser::ArgumentTypeVarWithoutNameContext *ctx) {
+
+    auto fParam;
+
+    if(ctx->ID()->getText() != nullptr)
+    {
+        const string &name = ctx->ID()->getText();
+
+        if (auto symbol = currentSymbolTable->lookup(name)) {
+            cerr << "Duplicate declaration of " << name << endl;
+            cerr << "Found : " << symbol->getDeclaration() << endl;
+            printDebugInfo(cerr, ctx);
+            throw std::runtime_error("Duplicated declaration");
+        }
+
+        fParam = new FunctionParam(
+                name,
+                getTypeFromString(ctx->TYPE()->getText())
+        );
+
+        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));
+
+    }else {
+                        //TODO : Check if else block is needed (usefulness ?)
+        fParam = new FunctionParam(
+                NULL, //TODO : Check if not bancal
+                getTypeFromString(ctx->TYPE()->getText())
+        );
+    }
+    return fParam;
+}
+
+antlrcpp::Any
+StartVisitor::visitArgumentTypeArrayWithoutName(MapleGrammarParser::ArgumentTypeArrayWithoutNameContext *ctx) {
+    auto fParam;
+
+    if(ctx->ID()->getText() != nullptr) {
+
+        const string &name = ctx->ID()->getText();
+
+        if (auto symbol = currentSymbolTable->lookup(name)) {
+            cerr << "Duplicate declaration of " << name << endl;
+            cerr << "Found : " << symbol->getDeclaration() << endl;
+            printDebugInfo(cerr, ctx);
+            throw std::runtime_error("Duplicated declaration");
+        }
+
+        Expr *expr = visit(ctx->expr());
+
+        if (!expr->isSimplifiable()) {
+            delete (expr);
+            cerr << "Unable to simplify expression for " << name << endl;
+            printDebugInfo(cerr, ctx);
+            throw std::runtime_error("Not simplifiable declaration");
+        }
+
+        const long tabSize = expr->simplify();
+
+        delete (expr);
+        if (tabSize < 1) {
+            cerr << "Array size must be more than 0, got : " << tabSize << endl;
+            printDebugInfo(cerr, ctx);
+            throw std::runtime_error("Array size must > 1");
+        }
+
+        fParam = new FunctionParamTab(
+                name,
+                getTypeFromString(ctx->TYPE()->getText()),
+                tabSize
+        );
+
+        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));
+
+    } else {
+
+                    //TODO : Check if else block is needed (usefulness ?)
+        fParam = new FunctionParamTab(
+                NULL,   //TODO : Check if not bancal
+                getTypeFromString(ctx->TYPE()->getText()),
+                NULL
+        );
+
+        currentSymbolTable->insert(NULL, new Symbol(currentSymbolTable, fParam, true));
+
+    }
+
+    return fParam;
 }
 
 antlrcpp::Any StartVisitor::visitBlockFunction(MapleGrammarParser::BlockFunctionContext *ctx) {

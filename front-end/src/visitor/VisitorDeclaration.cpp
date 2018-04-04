@@ -94,8 +94,11 @@ antlrcpp::Any StartVisitor::visitDefinitionTab(MapleGrammarParser::DefinitionTab
     if (ctx->STRING() != nullptr) {
         auto values = new vector<Value *>();
 
+        auto s = ctx->STRING()->getText();
+        s = s.substr(1, s.size() - 2);
+
         char lastC = 0;
-        for (auto &&aChar :ctx->STRING()->getText()) {
+        for (auto &&aChar : s) {
 
             if (lastC == '\\') {
                 switch (aChar) {

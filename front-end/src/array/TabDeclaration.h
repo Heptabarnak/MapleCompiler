@@ -10,14 +10,14 @@
 
 class TabDeclaration : public Declaration {
 
-private:
+protected:
     Type type;
     std::string name;
-    unsigned long size;
+    long size;
     std::vector<Value *>* definition;
 
 public:
-    TabDeclaration(Type type, unsigned long size, const std::string &name, std::vector<Value *>* definition = nullptr);
+    TabDeclaration(Type type, long size, const std::string &name, std::vector<Value *>* definition = nullptr);
 
     std::string buildIR(CFG *cfg) override;
 

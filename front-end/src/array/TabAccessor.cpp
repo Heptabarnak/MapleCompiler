@@ -5,10 +5,6 @@ using std::string;
 
 TabAccessor::TabAccessor(TabDeclaration *declaration, Expr *pos) : declaration(declaration), pos(pos) {}
 
-string TabAccessor::getName() {
-    return declaration->getName();
-}
-
 string TabAccessor::buildIR(CFG *cfg) {
     string value = cfg->createNewTmpVar(declaration->getType());
     string varPos = pos->buildIR(cfg);
@@ -24,4 +20,8 @@ TabDeclaration *TabAccessor::getDeclaration() const {
 
 Expr *TabAccessor::getPos() const {
     return pos;
+}
+
+string TabAccessor::getSymbolName() {
+    return declaration->getName();
 }

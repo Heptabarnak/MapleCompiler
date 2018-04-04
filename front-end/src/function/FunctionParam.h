@@ -5,11 +5,14 @@
 #include <token/Type.h>
 #include <variable/VarDeclaration.h>
 
-class FunctionParam : public VarDeclaration {
+class FunctionParam {
 public:
-    FunctionParam(const std::string &name, Type type);
 
-    FunctionParam(Type type);
+    virtual Type getType() = 0;
+
+    virtual std::string getName() = 0;
+
+    virtual ~FunctionParam() = default;
 };
 
 

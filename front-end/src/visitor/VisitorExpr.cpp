@@ -23,7 +23,7 @@ antlrcpp::Any StartVisitor::visitExprBinaryShift(MapleGrammarParser::ExprBinaryS
 }
 
 antlrcpp::Any StartVisitor::visitExprAffectation(MapleGrammarParser::ExprAffectationContext *ctx) {
-    LeftValue *leftValue = visit(ctx->leftValue());
+    LeftValueAccessor *leftValue = visit(ctx->leftValue());
 
     if (auto symbol = currentSymbolTable->lookup(leftValue->getSymbolName())) {
         symbol->doAffectation();
@@ -123,7 +123,7 @@ antlrcpp::Any StartVisitor::visitExprUnaryPrefix(MapleGrammarParser::ExprUnaryPr
 }
 
 antlrcpp::Any StartVisitor::visitExprIncrementPostfix(MapleGrammarParser::ExprIncrementPostfixContext *ctx) {
-    LeftValue *leftValue = visit(ctx->leftValue());
+    LeftValueAccessor *leftValue = visit(ctx->leftValue());
 
     if (auto symbol = currentSymbolTable->lookup(leftValue->getSymbolName())) {
         symbol->doAffectation();
@@ -137,7 +137,7 @@ antlrcpp::Any StartVisitor::visitExprIncrementPostfix(MapleGrammarParser::ExprIn
 }
 
 antlrcpp::Any StartVisitor::visitExprIncrementPrefix(MapleGrammarParser::ExprIncrementPrefixContext *ctx) {
-    LeftValue *leftValue = visit(ctx->leftValue());
+    LeftValueAccessor *leftValue = visit(ctx->leftValue());
 
     if (auto symbol = currentSymbolTable->lookup(leftValue->getSymbolName())) {
         symbol->doAffectation();

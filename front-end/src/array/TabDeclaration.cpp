@@ -6,7 +6,7 @@
 using std::vector;
 using std::string;
 
-TabDeclaration::TabDeclaration(Type type, unsigned long size, const string &name, vector<Value *> *definition)
+TabDeclaration::TabDeclaration(Type type, long size, const string &name, vector<Value *> *definition)
         : type(type), size(size), name(name), definition(definition) {}
 
 const string &TabDeclaration::getName() const {

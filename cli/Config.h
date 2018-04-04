@@ -17,6 +17,7 @@ typedef struct Config {
 
     Target target = Target::X86_64;
     std::string fileToCompile{};
+    std::string fileWithPath{};
 
 } Config;
 

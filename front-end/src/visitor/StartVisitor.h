@@ -37,7 +37,9 @@ public:
 
     antlrcpp::Any visitDeclarationVar(MapleGrammarParser::DeclarationVarContext *ctx) override;
 
-    antlrcpp::Any visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDefinitionContext *context) override;
+    antlrcpp::Any visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDefinitionContext *ctx) override;
+
+    antlrcpp::Any visitFunctionDeclaration(MapleGrammarParser::FunctionDeclarationContext *ctx) override ;
 
     antlrcpp::Any visitDefinitionTab(MapleGrammarParser::DefinitionTabContext *ctx) override;
 
@@ -73,6 +75,8 @@ public:
 
     antlrcpp::Any visitExprValue(MapleGrammarParser::ExprValueContext *ctx) override;
 
+    antlrcpp::Any visitExprComma(MapleGrammarParser::ExprCommaContext *context) override;
+
     antlrcpp::Any visitFunctionDefinition(MapleGrammarParser::FunctionDefinitionContext *ctx) override;
 
     antlrcpp::Any visitIfStatement(MapleGrammarParser::IfStatementContext *ctx) override;
@@ -90,6 +94,8 @@ public:
     antlrcpp::Any visitStatement(MapleGrammarParser::StatementContext *ctx) override;
 
     antlrcpp::Any visitTypeList(MapleGrammarParser::TypeListContext *ctx) override;
+
+    antlrcpp::Any visitTypeListWithoutName(MapleGrammarParser::TypeListWithoutNameContext *ctx) override;
 
     antlrcpp::Any visitValue(MapleGrammarParser::ValueContext *ctx) override;
 
@@ -117,6 +123,8 @@ public:
 
     antlrcpp::Any visitOpOr(MapleGrammarParser::OpOrContext *context) override;
 
+    antlrcpp::Any visitOpComma(MapleGrammarParser::OpCommaContext *context) override;
+
     antlrcpp::Any visitOpAffectation(MapleGrammarParser::OpAffectationContext *context) override;
 
     antlrcpp::Any visitOpIncrement(MapleGrammarParser::OpIncrementContext *context) override;
@@ -124,6 +132,12 @@ public:
     antlrcpp::Any visitExprIncrementPostfix(MapleGrammarParser::ExprIncrementPostfixContext *context) override;
 
     antlrcpp::Any visitExprIncrementPrefix(MapleGrammarParser::ExprIncrementPrefixContext *context) override;
+
+    antlrcpp::Any visitArgumentTypeVar(MapleGrammarParser::ArgumentTypeVarContext *context) override;
+
+    antlrcpp::Any visitArgumentTypeArray(MapleGrammarParser::ArgumentTypeArrayContext *context) override;
+
+    antlrcpp::Any visitArgumentType(MapleGrammarParser::ArgumentTypeContext *context) override;
 
     explicit StartVisitor(Config *conf);
 };

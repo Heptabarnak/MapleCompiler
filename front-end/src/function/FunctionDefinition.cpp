@@ -15,7 +15,7 @@ void FunctionDefinition::setBlockFunction(BlockFunction *block) {
     this->block = block;
 }
 
-void FunctionDefinition::setArguments(const vector<FunctionParam *> &params) {
+void FunctionDefinition::setArguments(vector<FunctionParam *> *params) {
     this->params = params;
 }
 
@@ -39,6 +39,10 @@ void FunctionDefinition::setSymbolTable(SymbolTable *symbolTable) {
     this->symbolTable = symbolTable;
 }
 
-std::vector<FunctionParam *> FunctionDefinition::getParams() {
+std::vector<FunctionParam *>* FunctionDefinition::getParams() {
     return params;
+}
+
+BlockFunction *FunctionDefinition::getBlock() const {
+    return block;
 }

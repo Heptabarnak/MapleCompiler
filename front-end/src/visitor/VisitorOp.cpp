@@ -51,3 +51,7 @@ antlrcpp::Any StartVisitor::visitOpOr(MapleGrammarParser::OpOrContext *ctx) {
 antlrcpp::Any StartVisitor::visitOpAffectation(MapleGrammarParser::OpAffectationContext *ctx) {
     return ctx->getText();
 }
+
+antlrcpp::Any StartVisitor::visitOpComma(MapleGrammarParser::OpCommaContext *ctx) {
+    return ctx->getText();
+}

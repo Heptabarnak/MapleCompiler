@@ -14,10 +14,10 @@ private:
     Type type;
     std::string name;
     unsigned long size;
-    std::vector<Value *> definition;
+    std::vector<Value *>* definition;
 
 public:
-    TabDeclaration(Type type, unsigned long size, const std::string &name, const std::vector<Value *> &definition = {});
+    TabDeclaration(Type type, unsigned long size, const std::string &name, std::vector<Value *>* definition = nullptr);
 
     std::string buildIR(CFG *cfg) override;
 

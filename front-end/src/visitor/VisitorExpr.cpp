@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <Declarations.h>
 #include <printDebugInfo.h>
+#include <expression/operation/ExprCommaOperation.h>
 #include "StartVisitor.h"
 
 using std::cerr;
@@ -149,6 +150,13 @@ antlrcpp::Any StartVisitor::visitExprIncrementPrefix(MapleGrammarParser::ExprInc
     );
 }
 
+antlrcpp::Any StartVisitor::visitExprComma(MapleGrammarParser::ExprCommaContext *context) {
+    return (Expr *) new ExprCommaOperation(
+            visit(context->expr(0)),
+            visit(context->expr(1))
+            );
+}
+
 antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
     if (ctx->INTEGER() == nullptr) {
         auto val = ctx->CHAR()->getText();
@@ -177,3 +185,5 @@ antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
             Value(Type::INT64_T, stoi(ctx->INTEGER()->getText())
     );
 }
+
+

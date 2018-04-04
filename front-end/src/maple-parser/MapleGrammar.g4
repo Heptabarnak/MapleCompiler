@@ -2,7 +2,7 @@ grammar MapleGrammar;
 
 // axiom
 start : program+ ;
-program : functionDefinition | declaration ;
+program : functionDefinition | functionDeclaration | declaration ;
 
 // Terminaux
 MACRO : '#' .+? [\n\r] -> skip ;
@@ -33,6 +33,7 @@ opBinaryOr : '|' ;
 opAnd : '&&' ;
 opOr : '||' ;
 opAffectation : '=' | '+=' | '-=' | '*=' | '/=' | '%=' | '<<=' | '>>=' | '&=' | '^=' | '|=' ;
+opComma : ',' ;
 
 // Expression
 expr : accessor                         # exprAccessor
@@ -52,11 +53,12 @@ expr : accessor                         # exprAccessor
     | expr opAnd expr                   # exprAnd
     | expr opOr expr                    # exprOr
     | leftValue opAffectation expr      # exprAffectation
+    | expr opComma expr                 # exprComma
     ;
 
 // Déclaration
 declarationVar : TYPE (declarationVarDefinition ',')* declarationVarDefinition SC ;
-declarationTab : TYPE ID '[' ((expr ']')  | (']' definitionTab)) SC;
+declarationTab : TYPE ID '[' ((expr ']')|(expr? ']' definitionTab)) SC;
 declaration : declarationVar
     | declarationTab  ;
 declarationVarDefinition : ID assignment? ;
@@ -82,11 +84,19 @@ elseStatement: 'else' instruction ;
 whileStatement: 'while' '(' expr ')' instruction ;
 
 // Fonctions
+
+functionDeclaration: (TYPE | TYPE_VOID) ID '(' (typeListWithoutName | TYPE_VOID)? ')' SC;
 functionDefinition : (TYPE | TYPE_VOID) ID '(' (typeList | TYPE_VOID)? ')' blockFunction ;
 returnStatement : 'return' expr SC ;
 blockFunction : '{' declaration* instruction* '}' ;
 argumentList : ((expr ',')* expr)? ;
-typeList : ((TYPE ID ',')* TYPE ID) ;
+
+typeList : (argumentType ',')*  argumentType ;
+typeListWithoutName : ((TYPE ID? ',')* TYPE ID?) ;
+
+argumentType: argumentTypeVar | argumentTypeArray ;
+argumentTypeVar : TYPE ID ;
+argumentTypeArray : TYPE ID '[' expr? ']' ;
 
 
 // Autres structures

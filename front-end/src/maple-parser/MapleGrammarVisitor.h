@@ -1,5 +1,5 @@
 
-// Generated from F:/Downloads/MapleCompiler/front-end/src/maple-parser\MapleGrammar.g4 by ANTLR 4.7
+// Generated from C:/Users/Vince/CLionProjects/MapleCompiler/front-end/src/maple-parser\MapleGrammar.g4 by ANTLR 4.7
 
 #pragma once
 
@@ -136,6 +136,12 @@ public:
     virtual antlrcpp::Any visitArgumentTypeVar(MapleGrammarParser::ArgumentTypeVarContext *context) = 0;
 
     virtual antlrcpp::Any visitArgumentTypeArray(MapleGrammarParser::ArgumentTypeArrayContext *context) = 0;
+
+    virtual antlrcpp::Any visitArgumentTypeWithoutName(MapleGrammarParser::ArgumentTypeWithoutNameContext *context) = 0;
+
+    virtual antlrcpp::Any visitArgumentTypeVarWithoutName(MapleGrammarParser::ArgumentTypeVarWithoutNameContext *context) = 0;
+
+    virtual antlrcpp::Any visitArgumentTypeArrayWithoutName(MapleGrammarParser::ArgumentTypeArrayWithoutNameContext *context) = 0;
 
     virtual antlrcpp::Any visitBlock(MapleGrammarParser::BlockContext *context) = 0;
 

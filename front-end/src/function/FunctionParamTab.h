@@ -8,9 +8,12 @@ class FunctionParamTab : public FunctionParam, public TabDeclaration {
 public:
     FunctionParamTab(Type type, long size, const std::string &name);
 
+    FunctionParamTab(Type type);
+
     Type getType() override;
 
     std::string getName() override;
+
 };
 
 

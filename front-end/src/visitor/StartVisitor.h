@@ -115,6 +115,14 @@ public:
 
     antlrcpp::Any visitOpBinaryAnd(MapleGrammarParser::OpBinaryAndContext *context) override;
 
+    antlrcpp::Any visitArgumentTypeWithoutName(MapleGrammarParser::ArgumentTypeWithoutNameContext *context) override;
+
+    antlrcpp::Any
+    visitArgumentTypeVarWithoutName(MapleGrammarParser::ArgumentTypeVarWithoutNameContext *context) override;
+
+    antlrcpp::Any
+    visitArgumentTypeArrayWithoutName(MapleGrammarParser::ArgumentTypeArrayWithoutNameContext *context) override;
+
     antlrcpp::Any visitOpBinaryXor(MapleGrammarParser::OpBinaryXorContext *context) override;
 
     antlrcpp::Any visitOpBinaryOr(MapleGrammarParser::OpBinaryOrContext *context) override;

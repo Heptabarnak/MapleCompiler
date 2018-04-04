@@ -122,3 +122,6 @@ CTestTestfile.cmake
 # Executables
 
 .idea/
+
+# Tests
+tests/sample1.c

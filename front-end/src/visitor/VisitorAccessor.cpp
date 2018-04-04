@@ -15,7 +15,7 @@ antlrcpp::Any StartVisitor::visitAccessor(MapleGrammarParser::AccessorContext *c
     Accessor *accessor = nullptr;
 
     if (ctx->accessorFunction() == nullptr) {
-        accessor = visit(ctx->leftValue());
+        accessor = (LeftValueAccessor *) visit(ctx->leftValue());
     } else {
         accessor = visit(ctx->accessorFunction());
     }
@@ -54,7 +54,6 @@ antlrcpp::Any StartVisitor::visitAccessorTab(MapleGrammarParser::AccessorTabCont
 }
 
 antlrcpp::Any StartVisitor::visitAccessorVar(MapleGrammarParser::AccessorVarContext *ctx) {
-    // We should note that we could allow access to an array as its not far from a variable !
     const string &name = ctx->ID()->getText();
 
     if (auto symbol = currentSymbolTable->lookup(name)) {
@@ -97,7 +96,7 @@ antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFu
             }
 
             symbol->doRead();
-            return new AccessorFunction(
+            return (Accessor *) new AccessorFunction(
                     symbolFun,
                     visit(ctx->argumentList())
             );
@@ -115,7 +114,7 @@ antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFu
 
 antlrcpp::Any StartVisitor::visitLeftValue(MapleGrammarParser::LeftValueContext *ctx) {
     if (ctx->accessorTab() == nullptr) {
-        return visit(ctx->accessorVar());
+        return (LeftValueAccessor *) visit(ctx->accessorVar());
     }
-    return visit(ctx->accessorTab());
+    return (LeftValueAccessor *) visit(ctx->accessorTab());
 }

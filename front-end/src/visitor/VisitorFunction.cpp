@@ -221,7 +221,7 @@ antlrcpp::Any StartVisitor::visitArgumentTypeVar(MapleGrammarParser::ArgumentTyp
 
     currentSymbolTable->insert(name, new Symbol(currentSymbolTable, fParam, true));
 
-    return fParam;
+    return (FunctionParam *) fParam;
 }
 
 antlrcpp::Any StartVisitor::visitArgumentTypeArray(MapleGrammarParser::ArgumentTypeArrayContext *ctx) {

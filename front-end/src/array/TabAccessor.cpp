@@ -7,6 +7,9 @@ TabAccessor::TabAccessor(TabDeclaration *declaration, Expr *pos) : declaration(d
 
 string TabAccessor::buildIR(CFG *cfg) {
     string value = cfg->createNewTmpVar(declaration->getType());
+    if (pos == nullptr) {
+        return declaration->getName();
+    }
     string varPos = pos->buildIR(cfg);
 
     cfg->addIRInstr(new RMemArrayInstr(cfg->currentBB, value, declaration->getName(), varPos, declaration->getType()));

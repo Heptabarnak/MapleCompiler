@@ -16,7 +16,7 @@ using std::endl;
 int Runner::run(Config *conf) {
 
     std::fstream inputFile;
-    inputFile.open(conf->fileToCompile, std::fstream::in);
+    inputFile.open(conf->fileWithPath, std::fstream::in);
 
     std::cout << "Opening file: " << conf->fileToCompile << std::endl;
 

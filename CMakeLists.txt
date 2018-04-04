@@ -43,7 +43,7 @@ set(UTILS_SRC_FILES
         utils/typeHelper.cpp
         utils/printDebugInfo.cpp
         utils/parseConfig.h
-        )
+        utils/filename.h)
 
 #---------------
 #   FRONT-END

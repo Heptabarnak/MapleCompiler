@@ -5,6 +5,7 @@
 #include <iostream>
 #include <unistd.h>
 #include "str2int.h"
+#include "filename.h"
 
 Config *parseConfig(int argc, char *const *argv) {
     const static auto usage = "Usage: ./mapleCompiler [-a] [-o] [-c] [-t <x64|msp430|java>] <file.c>";
@@ -52,7 +53,8 @@ Config *parseConfig(int argc, char *const *argv) {
                 }
                 break;
             case '\1':
-                config->fileToCompile = std::string(optarg);
+                config->fileToCompile = filename(std::string(optarg));
+                config->fileWithPath = std::string(optarg);
                 break;
             case '?':
                 std::cerr << "Unknown option: '" << char(optopt) << "'!" << std::endl;

@@ -9,6 +9,10 @@ BasicBlock *CFG::getRootBB() {
 
 CFG::CFG(FunctionDefinition *funcDef) : funcDef(funcDef), nextBBNumber(0) {
     currentBB = new BasicBlock(this, newBBName());
+    returnBlock = new BasicBlock(this, newBBName() + "_RETURN");
+
+    currentBB->exitTrue = returnBlock;
+
     bbs.push_back(currentBB);
 }
 
@@ -42,4 +46,8 @@ long CFG::getOffset(string name) {
 
 FunctionDefinition *CFG::getFunctionDefinition() {
     return funcDef;
+}
+
+BasicBlock *CFG::getReturnBlock() {
+    return returnBlock;
 }

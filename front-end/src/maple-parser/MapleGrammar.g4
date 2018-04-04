@@ -104,7 +104,7 @@ argumentTypeArray : TYPE ID '[' possibleCommaExpr? ']' ;
 
 argumentTypeWithoutName : argumentTypeVarWithoutName | argumentTypeArrayWithoutName ;
 argumentTypeVarWithoutName : TYPE ID? ;
-argumentTypeArrayWithoutName : TYPE ID? '[]' ;
+argumentTypeArrayWithoutName : TYPE ID? '['']' ;
 
 // Autres structures
 block: '{' instruction* '}' ;

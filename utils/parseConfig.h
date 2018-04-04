@@ -8,7 +8,7 @@
 #include "filename.h"
 
 Config *parseConfig(int argc, char *const *argv) {
-    const static auto usage = "Usage: ./mapleCompiler [-a] [-o] [-c] [-t <x64|msp430|java>] <file.c>";
+    const static auto usage = "Usage: ./mapleCompiler [-a] [-o] [-c] [-t <x64|msp430|java>] [-l] <file.c>";
     if (argc < 2) {
         std::cerr << "Not enough arguments" << std::endl;
         std::cerr << usage << std::endl;

@@ -31,6 +31,9 @@ string TabDeclaration::buildIR(CFG *cfg) {
 }
 
 int TabDeclaration::getAllocationSize() {
+    if (size == -1) {
+        return getTypeAllocationSize(Type::INT64_T);
+    }
     return static_cast<int>(getTypeAllocationSize(type) * size);
 }
 

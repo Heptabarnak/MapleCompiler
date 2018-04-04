@@ -27,6 +27,8 @@ IRStruct *MapleTreeWalk::generateIR() {
             auto newCfg = new CFG(funcDef);
             funcDef->buildIR(newCfg);
 
+            newCfg->addBB(newCfg->getReturnBlock());
+
             irStruct->cfgs.insert({funcDef->getSymbolName(), newCfg});
         } else if (auto varDef = dynamic_cast<VarDeclaration *>(declaration)) {
             long val = 0;

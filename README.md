@@ -20,8 +20,14 @@ The project use `cmake` to compile.
 
 ## Usage
 ```
-./mapleCompiler [-a] [-o] [-c] [-t <x64|msp430|java>] <file.c>
+./mapleCompiler [-a] [-o] [-c] [-l] [-t <x64|msp430|java>] <file.c>
 ```
+
+* `-a` for static analysis
+* `-o` for optimisation
+* `-c` to generate ASM
+* `-l` to create the executable
+* `-t` to select target with x86 as default value
 
 ## Differences with the subject
 

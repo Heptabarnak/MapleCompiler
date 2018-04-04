@@ -664,13 +664,16 @@ public:
 
   class  ForStatementContext : public antlr4::ParserRuleContext {
   public:
+    MapleGrammarParser::ExprContext *init = nullptr;;
+    MapleGrammarParser::ExprContext *cond = nullptr;;
+    MapleGrammarParser::ExprContext *post = nullptr;;
     ForStatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    std::vector<ExprContext *> expr();
-    ExprContext* expr(size_t i);
     std::vector<antlr4::tree::TerminalNode *> SC();
     antlr4::tree::TerminalNode* SC(size_t i);
     InstructionContext *instruction();
+    std::vector<ExprContext *> expr();
+    ExprContext* expr(size_t i);
 
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
    

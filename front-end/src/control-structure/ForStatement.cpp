@@ -1,4 +1,8 @@
+#include <expression/ExprValue.h>
+#include <ir/instructions/LoadConstInstr.h>
 #include "ForStatement.h"
+
+using std::string;
 
 ForStatement::ForStatement(Expr *init, Expr *condition, Expr *post, Instruction *statement) : init(init),
                                                                                               condition(condition),
@@ -17,15 +21,17 @@ std::string ForStatement::buildIR(CFG *cfg) {
     // Save existing exits
     afterForBB->exitTrue = cfg->currentBB->exitTrue;
     afterForBB->exitFalse = cfg->currentBB->exitFalse;
-    init->buildIR(cfg);
+    if(init){
+        init->buildIR(cfg);
+    }
 
     //=================
     // JUMP TO COND BB
     //=================
 
+
     cfg->currentBB->exitFalse = nullptr;
     cfg->currentBB->exitTrue = conditionBB;
-
 
     //================
     // CONDITION TEST
@@ -34,22 +40,36 @@ std::string ForStatement::buildIR(CFG *cfg) {
     cfg->addBB(conditionBB);
     cfg->currentBB = conditionBB;
 
-    condition->buildIR(cfg);
+    if(condition) {
+        condition->buildIR(cfg);
+    }
+    else{
+        string var = cfg->createNewTmpVar(INT64_T);
+        auto *instr = new LoadConstInstr(cfg->currentBB, var, 1, INT64_T);
+        cfg->addIRInstr(instr);
+    }
+
+
+
 
     cfg->currentBB->exitTrue = statementBB;
     cfg->currentBB->exitFalse = afterForBB;
 
 
     //================
-    // INNER WHILE BB
+    // INNER FOR BB
     //================
 
     cfg->addBB(statementBB);
     cfg->currentBB = statementBB;
     cfg->currentBB->exitTrue = conditionBB;
 
+
     statement->buildIR(cfg);
-    post->buildIR(cfg);
+
+    if(post){
+        post->buildIR(cfg);
+    }
 
 
     //================

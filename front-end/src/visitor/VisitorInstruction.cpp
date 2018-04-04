@@ -49,9 +49,21 @@ antlrcpp::Any StartVisitor::visitStatement(MapleGrammarParser::StatementContext 
 }
 
 antlrcpp::Any StartVisitor::visitForStatement(MapleGrammarParser::ForStatementContext *context) {
-    return (Instruction *) new ForStatement((Expr *) visit(context->expr(0)),
-                                            (Expr *) visit(context->expr(1)),
-                                            (Expr *) visit(context->expr(2)),
+    Expr *init = nullptr;
+    Expr *cond = nullptr;
+    Expr *post = nullptr;
+    if(context->init){
+        init = visit(context->init);
+    }
+    if(context->cond){
+        cond = visit(context->cond);
+    }
+    if(context->post){
+        post = visit(context->post);
+    }
+    return (Instruction *) new ForStatement(init,
+                                            cond,
+                                            post,
                                             (Instruction *) visit(context->instruction())
     );
 }

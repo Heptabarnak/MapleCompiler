@@ -83,6 +83,7 @@ public:
 
     antlrcpp::Any visitIfStatement(MapleGrammarParser::IfStatementContext *ctx) override;
 
+
     antlrcpp::Any visitInstruction(MapleGrammarParser::InstructionContext *ctx) override;
 
     antlrcpp::Any visitLeftValue(MapleGrammarParser::LeftValueContext *ctx) override;

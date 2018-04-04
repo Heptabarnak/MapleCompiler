@@ -3,7 +3,7 @@
 
 #include <ir/BuildIR.h>
 
-class Declaration : public BuildIR {
+class Declaration : public BuildIR{
 
 public:
     virtual ~Declaration() = default;

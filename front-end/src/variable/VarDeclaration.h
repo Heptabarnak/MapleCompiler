@@ -5,6 +5,7 @@
 #include <expression/Expr.h>
 #include <token/Type.h>
 #include <declaration/Declaration.h>
+#include <ir/CFG.h>
 
 class VarDeclaration : public Declaration {
 

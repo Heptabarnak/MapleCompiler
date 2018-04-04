@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <declaration/Declaration.h>
+#include <ir/BuildIR.h>
 
 class TabDeclaration : public Declaration {
 
@@ -23,6 +24,8 @@ public:
     const std::string &getName() const;
 
     Type getType() const;
+
+    const string &getName() const;
 
     unsigned long getSize() const;
 

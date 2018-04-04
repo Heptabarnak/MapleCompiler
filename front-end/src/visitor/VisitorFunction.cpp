@@ -249,8 +249,8 @@ antlrcpp::Any StartVisitor::visitArgumentTypeArray(MapleGrammarParser::ArgumentT
 
     long tabSize = -1;
 
-    if (ctx->expr() != nullptr) {
-        Expr *expr = visit(ctx->expr());
+    if (ctx->possibleCommaExpr() != nullptr) {
+        Expr *expr = visit(ctx->possibleCommaExpr());
 
         if (!expr->isSimplifiable()) {
             delete (expr);

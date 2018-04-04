@@ -1,9 +1,8 @@
 #ifndef MAPLECOMPILER_EXPRINCREMENT_H
 #define MAPLECOMPILER_EXPRINCREMENT_H
 
-
-#include <accessor/LeftValue.h>
 #include <string>
+#include <accessor/LeftValueAccessor.h>
 #include "Expr.h"
 
 class ExprIncrement : public Expr {
@@ -15,12 +14,12 @@ private:
     };
 
 
-    LeftValue* leftValue;
+    LeftValueAccessor* leftValue;
     OP op;
     bool isPostfix;
 
 public:
-    ExprIncrement(LeftValue *leftValue, std::string op_str, bool isPostfix);
+    ExprIncrement(LeftValueAccessor *leftValue, std::string op_str, bool isPostfix);
     std::string buildIR(CFG* cfg);
 };
 

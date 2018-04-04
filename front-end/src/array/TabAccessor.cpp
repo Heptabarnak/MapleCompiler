@@ -1,33 +1,30 @@
-#include <ir/instructions/OpInstr.h>
-#include <ir/instructions/LoadConstInstr.h>
-#include <ir/instructions/RMemInstr.h>
+#include <ir/instructions/RMemArrayInstr.h>
 #include "TabAccessor.h"
 
 using std::string;
 
 TabAccessor::TabAccessor(TabDeclaration *declaration, Expr *pos) : declaration(declaration), pos(pos) {}
 
-string TabAccessor::getName() {
-    return declaration->getName();
-}
-
 string TabAccessor::buildIR(CFG *cfg) {
-    string value = cfg->createNewTmpVar(Type::INT64_T);
-    string arrayName = declaration->getName();
+    string value = cfg->createNewTmpVar(declaration->getType());
+    if (pos == nullptr) {
+        return declaration->getName();
+    }
     string varPos = pos->buildIR(cfg);
 
-
-    // Mem[i] == Mem + i * sizeof(type)
-
-    unsigned long sizeofTab = declaration->getAllocationSize() / declaration->getSize();
-
-    auto unitSize = cfg->createNewTmpVar(Type::INT64_T);
-    cfg->addIRInstr(new LoadConstInstr(cfg->currentBB, unitSize, sizeofTab));
-
-    cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::MULT, varPos, varPos, unitSize));
-    cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::ADD, varPos, varPos, declaration->getName()));
-
-    cfg->addIRInstr(new RMemInstr(cfg->currentBB, value, varPos));
+    cfg->addIRInstr(new RMemArrayInstr(cfg->currentBB, value, declaration->getName(), varPos, declaration->getType()));
 
     return value;
+}
+
+TabDeclaration *TabAccessor::getDeclaration() const {
+    return declaration;
+}
+
+Expr *TabAccessor::getPos() const {
+    return pos;
+}
+
+string TabAccessor::getSymbolName() {
+    return declaration->getName();
 }

@@ -13,6 +13,7 @@ TYPE_VOID : 'void' ;
 CHAR : '\'' '\\'? [\u0000-\u00FF] '\'' ;
 INTEGER : [0-9]+ ('e' [0-9]+)?;
 ID : [a-zA-Z_]+ [a-zA-Z0-9_]* ;
+STRING : '"' ('\\'? [\u0000-\u00FF])+ '"' ;
 value : INTEGER | CHAR ;
 
 // Comments
@@ -64,7 +65,7 @@ declaration : declarationVar
 declarationVarDefinition : ID assignment? ;
 
 // Affectation
-definitionTab : '=' '{' ((value ',')* value)? '}' ;
+definitionTab : '=' (('{' ((value ',')* value)? '}') | STRING) ;
 assignment: '=' expr ;
 
 // Accesseurs
@@ -93,12 +94,15 @@ blockFunction : '{' declaration* instruction* '}' ;
 argumentList : ((expr ',')* expr)? ;
 
 typeList : (argumentType ',')*  argumentType ;
-typeListWithoutName : ((TYPE ID? ',')* TYPE ID?) ;
+typeListWithoutName : ((argumentTypeWithoutName ',')* argumentTypeWithoutName) ;
 
 argumentType: argumentTypeVar | argumentTypeArray ;
 argumentTypeVar : TYPE ID ;
 argumentTypeArray : TYPE ID '[' expr? ']' ;
 
+argumentTypeWithoutName : argumentTypeVarWithoutName | argumentTypeArrayWithoutName ;
+argumentTypeVarWithoutName : TYPE ID? ;
+argumentTypeArrayWithoutName : TYPE ID? '[]' ;
 
 // Autres structures
 block: '{' instruction* '}' ;

@@ -2,21 +2,23 @@
 #define MAPLECOMPILER_TABACCESSOR_H
 
 #include <expression/Expr.h>
-#include <ir/BuildIR.h>
+#include <accessor/LeftValueAccessor.h>
 #include "TabDeclaration.h"
 
-class TabAccessor : public BuildIR {
+class TabAccessor : public LeftValueAccessor {
 
 private:
     TabDeclaration *declaration;
     Expr *pos;
 
 public:
-    TabAccessor(TabDeclaration *declaration, Expr *pos);
-
-    std::string getName();
+    TabAccessor(TabDeclaration *declaration, Expr *pos = nullptr);
 
     std::string buildIR(CFG *cfg);
+
+    TabDeclaration *getDeclaration() const;
+    std::string getSymbolName() override;
+    Expr *getPos() const;
 };
 
 

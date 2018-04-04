@@ -23,7 +23,7 @@ antlrcpp::Any StartVisitor::visitExprBinaryShift(MapleGrammarParser::ExprBinaryS
 }
 
 antlrcpp::Any StartVisitor::visitExprAffectation(MapleGrammarParser::ExprAffectationContext *ctx) {
-    LeftValue *leftValue = visit(ctx->leftValue());
+    LeftValueAccessor *leftValue = visit(ctx->leftValue());
 
     if (auto symbol = currentSymbolTable->lookup(leftValue->getSymbolName())) {
         symbol->doAffectation();
@@ -123,7 +123,7 @@ antlrcpp::Any StartVisitor::visitExprUnaryPrefix(MapleGrammarParser::ExprUnaryPr
 }
 
 antlrcpp::Any StartVisitor::visitExprIncrementPostfix(MapleGrammarParser::ExprIncrementPostfixContext *ctx) {
-    LeftValue *leftValue = visit(ctx->leftValue());
+    LeftValueAccessor *leftValue = visit(ctx->leftValue());
 
     if (auto symbol = currentSymbolTable->lookup(leftValue->getSymbolName())) {
         symbol->doAffectation();
@@ -137,7 +137,7 @@ antlrcpp::Any StartVisitor::visitExprIncrementPostfix(MapleGrammarParser::ExprIn
 }
 
 antlrcpp::Any StartVisitor::visitExprIncrementPrefix(MapleGrammarParser::ExprIncrementPrefixContext *ctx) {
-    LeftValue *leftValue = visit(ctx->leftValue());
+    LeftValueAccessor *leftValue = visit(ctx->leftValue());
 
     if (auto symbol = currentSymbolTable->lookup(leftValue->getSymbolName())) {
         symbol->doAffectation();
@@ -164,14 +164,32 @@ antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
 
         if (val.size() > 3) {
             switch (val.at(2)) {
-                case 'n':
-                    c = '\n';
+                case 'a':
+                    c = '\a';
+                    break;
+                case 'b':
+                    c = '\b';
                     break;
                 case 't':
                     c = '\t';
                     break;
+                case 'n':
+                    c = '\n';
+                    break;
+                case 'v':
+                    c = '\v';
+                    break;
+                case 'f':
+                    c = '\f';
+                    break;
+                case 'r':
+                    c = '\r';
+                    break;
+                case '"':
+                    c = '\"';
+                    break;
                 default:
-                    cerr << "Unable to parse escaped character " << val << "!" << endl;
+                    cerr << "Unable to parse escaped character " << val.at(2) << "!" << endl;
                     printDebugInfo(cerr, ctx);
                     throw std::runtime_error("Unable to parse escaped character");
             }

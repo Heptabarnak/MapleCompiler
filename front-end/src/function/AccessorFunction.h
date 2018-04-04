@@ -4,9 +4,10 @@
 #include <vector>
 #include <expression/Expr.h>
 #include <ir/BuildIR.h>
+#include <accessor/Accessor.h>
 #include "FunctionDefinition.h"
 
-class AccessorFunction : public BuildIR {
+class AccessorFunction : public Accessor {
 
 private:
     FunctionDefinition *declaration;

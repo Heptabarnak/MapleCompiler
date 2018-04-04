@@ -6,7 +6,7 @@
 
 class X86_64 : public BaseTarget {
 public:
-    X86_64(Config *config, IRStruct* irStruct);
+    X86_64(Config *config, IRStruct *irStruct);
 
     void parse() override;
 
@@ -30,13 +30,16 @@ protected:
 
     void wmem(WMemInstr *instr) override;
 
+    void rmemarray(RMemArrayInstr *instr) override;
+
+    void wmemarray(WMemArrayInstr *instr) override;
+
     void unaryop(UnaryOpInstr *instr) override;
+
     void incr(IncrInstr *instr) override;
 
 private:
-    void instrDispacher(IRInstr *instr);
-
-    std::string getAsmForVar(std::string var);
+    std::string getAsmForVar(std::string var, bool isArray = false, Type type = Type::INT64_T);
 };
 
 

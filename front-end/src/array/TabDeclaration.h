@@ -25,8 +25,6 @@ public:
 
     Type getType() const;
 
-    const string &getName() const;
-
     unsigned long getSize() const;
 
     int getAllocationSize() override;

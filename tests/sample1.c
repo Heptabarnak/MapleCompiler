@@ -9,6 +9,6 @@ int64_t globD[10];
 void main() {
     int64_t x = 2;
 
-    putchar('0' + globA);
+    putchar('0' + globC[1]);
     putchar('\n');
 }

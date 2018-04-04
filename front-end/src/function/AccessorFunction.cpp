@@ -4,7 +4,7 @@
 using std::vector;
 using std::string;
 
-AccessorFunction::AccessorFunction(FunctionDefinition *declaration, vector<Expr *> const &arguments)
+AccessorFunction::AccessorFunction(FunctionDefinition *declaration, vector<Expr *> *arguments)
         : declaration(declaration), arguments(arguments) {}
 
 string AccessorFunction::getSymbolName() {
@@ -14,7 +14,7 @@ string AccessorFunction::getSymbolName() {
 string AccessorFunction::buildIR(CFG *cfg) {
     vector<string> args;
 
-    for (auto &&argument : arguments) {
+    for (auto &&argument : *arguments) {
         args.push_back(argument->buildIR(cfg));
     }
 

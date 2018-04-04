@@ -15,7 +15,7 @@ using std::cout;
 using std::endl;
 
 antlrcpp::Any StartVisitor::visitArgumentList(MapleGrammarParser::ArgumentListContext *ctx) {
-    return *mapContext2Vector<MapleGrammarParser::ExprContext *, Expr *>(ctx->expr(), this);
+    return mapContext2Vector<MapleGrammarParser::ExprContext *, Expr *>(ctx->expr(), this);
 }
 
 
@@ -226,7 +226,7 @@ antlrcpp::Any StartVisitor::visitArgumentTypeArray(MapleGrammarParser::ArgumentT
     Expr *expr = visit(ctx->expr());
 
     if (!expr->isSimplifiable()) {
-        delete(expr);
+        delete (expr);
         cerr << "Unable to simplify expression for " << name << endl;
         printDebugInfo(cerr, ctx);
         throw std::runtime_error("Not simplifiable declaration");
@@ -234,7 +234,7 @@ antlrcpp::Any StartVisitor::visitArgumentTypeArray(MapleGrammarParser::ArgumentT
 
     const long tabSize = expr->simplify();
 
-    delete(expr);
+    delete (expr);
     if (tabSize < 1) {
         cerr << "Array size must be more than 0, got : " << tabSize << endl;
         printDebugInfo(cerr, ctx);
@@ -266,8 +266,8 @@ antlrcpp::Any StartVisitor::visitTypeListWithoutName(MapleGrammarParser::TypeLis
 
 antlrcpp::Any StartVisitor::visitBlockFunction(MapleGrammarParser::BlockFunctionContext *ctx) {
     auto block = new BlockFunction(
-            *mapContext2VectorFlat<MapleGrammarParser::DeclarationContext *, Declaration *>(ctx->declaration(), this),
-            *mapContext2Vector<MapleGrammarParser::InstructionContext *, Instruction *>(ctx->instruction(), this)
+            mapContext2VectorFlat<MapleGrammarParser::DeclarationContext *, Declaration *>(ctx->declaration(), this),
+            mapContext2Vector<MapleGrammarParser::InstructionContext *, Instruction *>(ctx->instruction(), this)
     );
 
     return block;

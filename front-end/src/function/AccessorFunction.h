@@ -10,10 +10,10 @@ class AccessorFunction : public BuildIR {
 
 private:
     FunctionDefinition *declaration;
-    std::vector<Expr *> arguments;
+    std::vector<Expr *> *arguments;
 
 public:
-    AccessorFunction(FunctionDefinition *declaration, std::vector<Expr *> const &arguments);
+    AccessorFunction(FunctionDefinition *declaration, std::vector<Expr *> *arguments);
 
     std::string getSymbolName();
 

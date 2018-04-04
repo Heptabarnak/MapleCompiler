@@ -13,11 +13,11 @@ class SymbolTable;
 class BlockFunction : public BuildIR {
 
 private:
-    std::vector<Declaration *> declarations;
-    std::vector<Instruction *> instructions;
+    std::vector<Declaration *> *declarations;
+    std::vector<Instruction *> *instructions;
 
 public:
-    BlockFunction(const std::vector<Declaration *> &declarations, const std::vector<Instruction *> &instructions);
+    BlockFunction(std::vector<Declaration *> *declarations, std::vector<Instruction *> *instructions);
 
     std::string buildIR(CFG *cfg);
 

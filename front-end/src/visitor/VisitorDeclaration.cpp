@@ -62,12 +62,11 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
     }
 
 
-    if (tabList->size() > tabSize) {
+    if (tabList != nullptr && tabList->size() > tabSize) {
         cerr << "Array of value size must be lower or equal to the array size, got : " << tabList->size() << " > "
              << tabSize << endl;
         printDebugInfo(cerr, ctx);
         throw std::runtime_error("Array of value size must < array size");
-
     }
 
 

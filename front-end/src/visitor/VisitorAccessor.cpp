@@ -96,10 +96,10 @@ antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFu
             }
 
             for (auto it = argument.begin(); it != argument.end(); ++it){
-                if ((*it)->getType() != symbolFun->getParams().(*it)->getType()){
+                if ((*it)->getType() != symbolFun->getParams().at(*it)->getType()){
                     cerr << "Parameter does not have the same type as Function Definition" << endl;
                     cerr << "Found : " << (*it)->getType() << endl;
-                    cerr << "Expected : " << symbolFun->getParams().(*it)->getType() << endl;
+                    cerr << "Expected : " << symbolFun->getParams().at(*it)->getType() << endl;
                 }
             }
             symbol->doRead();

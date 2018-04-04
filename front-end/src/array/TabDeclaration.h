@@ -25,8 +25,6 @@ public:
 
     Type getType() const;
 
-    string buildIR(CFG *cfg) override;
-
     const string &getName() const;
 
     unsigned long getSize() const;

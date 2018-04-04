@@ -1,6 +1,7 @@
 #include <ir/instructions/OpInstr.h>
 #include <ir/instructions/LoadConstInstr.h>
 #include <ir/instructions/RMemInstr.h>
+#include <typeHelper.h>
 #include "TabAccessor.h"
 
 using std::string;
@@ -12,20 +13,20 @@ string TabAccessor::getName() {
 }
 
 string TabAccessor::buildIR(CFG *cfg) {
-    string value = cfg->createNewTmpVar(Type::INT64_T);
+    string value = cfg->createNewTmpVar(declaration->getType());
     string arrayName = declaration->getName();
     string varPos = pos->buildIR(cfg);
 
 
     // Mem[i] == Mem + i * sizeof(type)
 
-    unsigned long sizeofTab = declaration->getAllocationSize() / declaration->getSize();
+    int typeSize = getTypeAllocationSize(declaration->getType());
 
     auto unitSize = cfg->createNewTmpVar(Type::INT64_T);
-    cfg->addIRInstr(new LoadConstInstr(cfg->currentBB, unitSize, sizeofTab));
+    cfg->addIRInstr(new LoadConstInstr(cfg->currentBB, unitSize, typeSize));
 
     cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::MULT, varPos, varPos, unitSize));
-    cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::ADD, varPos, varPos, declaration->getName()));
+    cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::ADD, varPos, varPos, arrayName));
 
     cfg->addIRInstr(new RMemInstr(cfg->currentBB, value, varPos));
 

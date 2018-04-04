@@ -164,14 +164,32 @@ antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
 
         if (val.size() > 3) {
             switch (val.at(2)) {
-                case 'n':
-                    c = '\n';
+                case 'a':
+                    c = '\a';
+                    break;
+                case 'b':
+                    c = '\b';
                     break;
                 case 't':
                     c = '\t';
                     break;
+                case 'n':
+                    c = '\n';
+                    break;
+                case 'v':
+                    c = '\v';
+                    break;
+                case 'f':
+                    c = '\f';
+                    break;
+                case 'r':
+                    c = '\r';
+                    break;
+                case '"':
+                    c = '\"';
+                    break;
                 default:
-                    cerr << "Unable to parse escaped character " << val << "!" << endl;
+                    cerr << "Unable to parse escaped character " << val.at(2) << "!" << endl;
                     printDebugInfo(cerr, ctx);
                     throw std::runtime_error("Unable to parse escaped character");
             }

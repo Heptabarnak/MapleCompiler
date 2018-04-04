@@ -21,27 +21,14 @@ string TabDeclaration::buildIR(CFG *cfg) {
     // Mem[i] = Mem + i * sizeof(type)
     // Mem[i] = Mem + byteDistance
     for (auto &&it = definition->begin(); it != definition->end(); it++) {
-        long byteDistance = (it - definition->begin());
-        switch (type) {
-            case VOID:
-                throw std::runtime_error("[TabDeclaration] Should not have type VOID");
-            case CHAR:
-                // Do nothing
-                break;
-            case INT32_T:
-                byteDistance *= 4;
-                break;
-            case INT64_T:
-                byteDistance *= 8;
-                break;
-        }
+        long byteDistance = (it - definition->begin()) * getTypeAllocationSize(type);
 
         auto index = cfg->createNewTmpVar(Type::INT64_T);
         cfg->addIRInstr(new LoadConstInstr(cfg->currentBB, index, byteDistance));
         cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::ADD, index, name, index));
 
         auto cst = cfg->createNewTmpVar(Type::INT64_T);
-        cfg->addIRInstr(new LoadConstInstr(cfg->currentBB, cst, (*it)->getType(), type));
+        cfg->addIRInstr(new LoadConstInstr(cfg->currentBB, cst, (*it)->getValue(), type));
         cfg->addIRInstr(new WMemInstr(cfg->currentBB, index, cst));
     }
 

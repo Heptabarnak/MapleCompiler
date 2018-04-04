@@ -152,6 +152,7 @@ void X86_64::parseBasicBlocks() {
 
         for (auto &&instr : bb->instrs) {
             instrDispacher(instr);
+            write("");
         }
 
         // Jump to somewhere
@@ -298,6 +299,7 @@ void X86_64::call(CallInstr *instr) {
 }
 
 void X86_64::rmem(RMemInstr *instr) {
+    write("\tmovq " + getAsmForVar(instr->var2) + ", %rax");
     write("\tmovq " + getAsmForVar(instr->var2) + ", %rax");
     write("\tmovq %rax, " + getAsmForVar(instr->var1));
 }

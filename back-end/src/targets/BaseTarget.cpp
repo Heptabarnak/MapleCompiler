@@ -4,8 +4,8 @@ using std::string;
 using std::map;
 using std::ofstream;
 
-BaseTarget::BaseTarget(Config *config, map<string, CFG *> &cfgs)
-        : conf(config), cfgs(cfgs) {
+BaseTarget::BaseTarget(Config *config, IRStruct* irStruct)
+        : conf(config), irStruct(irStruct) {
     output = new ofstream();
 }
 

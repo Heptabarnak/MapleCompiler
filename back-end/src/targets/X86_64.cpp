@@ -1,25 +1,57 @@
 #include <function/FunctionDefinition.h>
 #include "X86_64.h"
 #include <ir/instructions/UnaryOpInstr.h>
+#include <ir/globals/GlobalDeclarationVar.h>
+#include <ir/globals/GlobalDeclarationTab.h>
+#include <typeHelper.h>
 
 using std::string;
 using std::map;
 
-X86_64::X86_64(Config *config, map<string, CFG *> &cfgs) : BaseTarget(config, cfgs) {}
+X86_64::X86_64(Config *config, IRStruct *irStruct) : BaseTarget(config, irStruct) {}
 
 void X86_64::parse() {
     open();
 
     // First the file header
-    string header = "\t.file \"" + conf->fileToCompile + "\"\n";
-    header += "\t.text\n";
-    header += "\t.globl main\n";
-    header += "\t.type main, @function\n";
+    write("\t.file \"" + conf->fileToCompile + "\"");
 
-    write(header);
+    for (auto &&global : irStruct->globals) {
+        write("\t.globl " + global.first);
+        write("\t.data");
+        write("\t.align 8"); // FIXME Alignment ?
+        write("\t.type " + global.first + ", @object");
 
-    for (auto cfg : cfgs) {
+        if (auto var = dynamic_cast<GlobalDeclarationVar *>(global.second)) {
+            write("\t.size " + var->name + ", " + std::to_string(getTypeAllocationSize(var->type)));
+
+            write(var->name + ":");
+            write("\t.quad " + std::to_string(var->value));
+
+        } else if (auto tab = dynamic_cast<GlobalDeclarationTab *>(global.second)) {
+            write("\t.size " + tab->name + ", " + std::to_string(tab->size * getTypeAllocationSize(tab->type)));
+
+            write(tab->name + ":");
+
+            for (auto &&value : *tab->values) {
+                write("\t.quad " + std::to_string(value));
+            }
+
+            if (tab->size > tab->values->size()) {
+                write("\t.zero " +
+                      std::to_string(getTypeAllocationSize(tab->type) *
+                                     (tab->size - tab->values->size()))
+                );
+            }
+        }
+    }
+
+    for (auto cfg : irStruct->cfgs) {
         currentCFG = cfg.second;
+
+        write("\t.text");
+        write("\t.globl " + cfg.first);
+        write("\t.type " + cfg.first + ", @function");
 
         // Add new label for the function
         write(cfg.first + ":");
@@ -77,28 +109,28 @@ void X86_64::prologue() {
     long size = args->size();
 
     if (size > 0) {
-        write("\tmovq %rdi, -" + std::to_string(currentCFG->getOffset(args->at(0)->getName())) + "(%rbp)");
+        write("\tmovq %rdi, " + getAsmForVar(args->at(0)->getName()));
     }
     if (size > 1) {
-        write("\tmovq %rsi, -" + std::to_string(currentCFG->getOffset(args->at(1)->getName())) + "(%rbp)");
+        write("\tmovq %rsi, " + getAsmForVar(args->at(1)->getName()));
     }
     if (size > 2) {
-        write("\tmovq %rdx, -" + std::to_string(currentCFG->getOffset(args->at(2)->getName())) + "(%rbp)");
+        write("\tmovq %rdx, " + getAsmForVar(args->at(2)->getName()));
     }
     if (size > 3) {
-        write("\tmovq %rcx, -" + std::to_string(currentCFG->getOffset(args->at(3)->getName())) + "(%rbp)");
+        write("\tmovq %rcx, " + getAsmForVar(args->at(3)->getName()));
     }
     if (size > 4) {
-        write("\tmovq %r8, -" + std::to_string(currentCFG->getOffset(args->at(4)->getName())) + "(%rbp)");
+        write("\tmovq %r8, " + getAsmForVar(args->at(4)->getName()));
     }
     if (size > 5) {
-        write("\tmovq %r9, -" + std::to_string(currentCFG->getOffset(args->at(5)->getName())) + "(%rbp)");
+        write("\tmovq %r9, " + getAsmForVar(args->at(5)->getName()));
     }
     if (size > 6) {
         // FIXME We should copy from the caller stack to our stack
         // Don't know how to get the caller offset
         for (auto it = args->begin() + 6; it != args->end(); ++it) {
-            write("\tpopq -" + std::to_string(currentCFG->getOffset((*it)->getName())) + "(%rsp)");
+            write("\tpopq " + getAsmForVar((*it)->getName()));
         }
 
         std::cerr << "We do not support functions with more than 6 arguments for now, sorry for the inconvenience"
@@ -152,8 +184,8 @@ void X86_64::op(OpInstr *instr) {
     auto dest = instr->var;
 
     // Move to registers
-    write("\tmovq -" + std::to_string(currentCFG->getOffset(left)) + "(%rbp), %rax");
-    write("\tmovq -" + std::to_string(currentCFG->getOffset(right)) + "(%rbp), %rbx");
+    write("\tmovq " + getAsmForVar(left) + ", %rax");
+    write("\tmovq " + getAsmForVar(right) + ", %rbx");
 
     switch (instr->type) {
         case OpInstr::ADD:
@@ -225,12 +257,12 @@ void X86_64::op(OpInstr *instr) {
             break;
     }
 
-    write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(dest)) + "(%rbp)");
+    write("\tmovq %rax, " + getAsmForVar(dest));
 }
 
 void X86_64::loadConst(LoadConstInstr *instr) {
     write("\tmovq $" + std::to_string(instr->value) + ", %rax");
-    write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var)) + "(%rbp)");
+    write("\tmovq %rax, " + getAsmForVar(instr->var));
 }
 
 void X86_64::call(CallInstr *instr) {
@@ -238,74 +270,74 @@ void X86_64::call(CallInstr *instr) {
     long size = args.size();
 
     if (size > 0) {
-        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(0))) + "(%rbp), %rdi");
+        write("\tmovq " + getAsmForVar(args.at(0)) + ", %rdi");
     }
     if (size > 1) {
-        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(1))) + "(%rbp), %rsi");
+        write("\tmovq " + getAsmForVar(args.at(1)) + ", %rsi");
     }
     if (size > 2) {
-        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(2))) + "(%rbp), %rdx");
+        write("\tmovq " + getAsmForVar(args.at(2)) + ", %rdx");
     }
     if (size > 3) {
-        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(3))) + "(%rbp), %rcx");
+        write("\tmovq " + getAsmForVar(args.at(3)) + ", %rcx");
     }
     if (size > 4) {
-        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(4))) + "(%rbp), %r8");
+        write("\tmovq " + getAsmForVar(args.at(4)) + ", %r8");
     }
     if (size > 5) {
-        write("\tmovq -" + std::to_string(currentCFG->getOffset(args.at(5))) + "(%rbp), %r9");
+        write("\tmovq " + getAsmForVar(args.at(5)) + ", %r9");
     }
     if (size > 6) {
         for (auto it = args.rbegin(); it != (args.rend() - 6); ++it) {
-            write("\tpushq -" + std::to_string(currentCFG->getOffset((*it))) + "(%rsp)");
+            write("\tpushq " + getAsmForVar((*it)));
         }
     }
 
     write("\tcall " + instr->label);
-    write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->dest)) + "(%rbp)");
+    write("\tmovq %rax, " + getAsmForVar(instr->dest));
 }
 
 void X86_64::rmem(RMemInstr *instr) {
-    write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var2)) + "(%rbp), %rax");
-    write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp)");
+    write("\tmovq " + getAsmForVar(instr->var2) + ", %rax");
+    write("\tmovq %rax, " + getAsmForVar(instr->var1));
 }
 
 void X86_64::wmem(WMemInstr *instr) {
-    write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var2)) + "(%rbp), %rax");
-    write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp)");
+    write("\tmovq " + getAsmForVar(instr->var2) + ", %rax");
+    write("\tmovq %rax, " + getAsmForVar(instr->var1));
 }
 
 void X86_64::unaryop(UnaryOpInstr *instr) {
     switch (instr->type) {
         case UnaryOpInstr::PLUS:
-            write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rax");
-            write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var)) + "(%rbp)");
+            write("\tmovq " + getAsmForVar(instr->var1) + ", %rax");
+            write("\tmovq %rax, " + getAsmForVar(instr->var));
             break;
         case UnaryOpInstr::MINUS:
-            write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rax");
+            write("\tmovq " + getAsmForVar(instr->var1) + ", %rax");
             write("\tnegq %rax");
-            write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var)) + "(%rbp)");
+            write("\tmovq %rax, " + getAsmForVar(instr->var));
             break;
         case UnaryOpInstr::NOT :
             write("\tmovq $0, %rax");
-            write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rbx");
+            write("\tmovq " + getAsmForVar(instr->var1) + ", %rbx");
             write("\tcmpq %rax, %rbx");
             write("\tmovq $1, %rbx");
             write("\tcmove %rbx, %rax");
-            write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var)) + "(%rbp)");
+            write("\tmovq %rax, " + getAsmForVar(instr->var));
             break;
         case UnaryOpInstr::BITWISE_NOT :
-            write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rax");
+            write("\tmovq " + getAsmForVar(instr->var1) + ", %rax");
             write("\tnotq %rax");
-            write("\tmovq %rax, -" + std::to_string(currentCFG->getOffset(instr->var)) + "(%rbp)");
+            write("\tmovq %rax, " + getAsmForVar(instr->var));
             break;
     }
 }
 
 void X86_64::incr(IncrInstr *instr) {
 
-    write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rax");
-    write("\tmovq -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp), %rbx");
+    write("\tmovq " + getAsmForVar(instr->var1) + ", %rax");
+    write("\tmovq " + getAsmForVar(instr->var1) + ", %rbx");
     switch (instr->type) {
         case IncrInstr::PLUS:
             write("\tincq %rbx");
@@ -315,11 +347,11 @@ void X86_64::incr(IncrInstr *instr) {
             break;
     }
 
-    write("\tmovq %rbx, -" + std::to_string(currentCFG->getOffset(instr->var1)) + "(%rbp)");
+    write("\tmovq %rbx, " + getAsmForVar(instr->var1));
 
     string reg = instr->isPostfix ? "%rax" : "%rbx";
 
-    write("\tmovq " + reg + ", -" + std::to_string(currentCFG->getOffset(instr->var)) + "(%rbp)");
+    write("\tmovq " + reg + ", " + getAsmForVar(instr->var));
 
 }
 
@@ -333,6 +365,14 @@ void X86_64::instrDispacher(IRInstr *instr) {
     else if (auto i = dynamic_cast<IncrInstr *>(instr)) incr(i);
 }
 
+string X86_64::getAsmForVar(string var) {
+    auto offset = currentCFG->getOffset(var);
+
+    if (offset != -1) {
+        return "-" + std::to_string(offset) + "(%rbp)";
+    }
+    return var + "(%rip)";
+}
 
 static char getExtFromType(Type type) {
     switch (type) {

@@ -1,12 +1,13 @@
 #include <ir/instructions/WMemInstr.h>
 #include <ir/instructions/OpInstr.h>
 #include <ir/instructions/LoadConstInstr.h>
+#include <typeHelper.h>
 #include "TabDeclaration.h"
 
 using std::vector;
 using std::string;
 
-TabDeclaration::TabDeclaration(Type type, unsigned long size, const string &name, vector<Value *>* definition)
+TabDeclaration::TabDeclaration(Type type, unsigned long size, const string &name, vector<Value *> *definition)
         : type(type), size(size), name(name), definition(definition) {}
 
 const string &TabDeclaration::getName() const {
@@ -48,19 +49,7 @@ string TabDeclaration::buildIR(CFG *cfg) {
 }
 
 int TabDeclaration::getAllocationSize() {
-    return static_cast<int>(size * 8);
-    // TODO Hadle all size
-//    switch (type) {
-//        case VOID:
-//            // Should not append
-//            throw std::runtime_error("VarDeclaration with VOID type");
-//        case CHAR:
-//            return static_cast<int>(size);
-//        case INT32_T:
-//            return static_cast<int>(4 * size);
-//        case INT64_T:
-//            return static_cast<int>(8 * size);
-//    }
+    return static_cast<int>(getTypeAllocationSize(type) * size);
 }
 
 Type TabDeclaration::getType() const {
@@ -69,4 +58,8 @@ Type TabDeclaration::getType() const {
 
 unsigned long TabDeclaration::getSize() const {
     return size;
+}
+
+vector<Value *> *TabDeclaration::getDefinition() const {
+    return definition;
 }

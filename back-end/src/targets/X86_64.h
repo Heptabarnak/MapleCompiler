@@ -6,7 +6,7 @@
 
 class X86_64 : public BaseTarget {
 public:
-    X86_64(Config *config, std::map<std::string, CFG *> &cfgs);
+    X86_64(Config *config, IRStruct* irStruct);
 
     void parse() override;
 
@@ -35,6 +35,8 @@ protected:
 
 private:
     void instrDispacher(IRInstr *instr);
+
+    std::string getAsmForVar(std::string var);
 };
 
 

@@ -14,10 +14,11 @@
 #include <ir/instructions/UnaryOpInstr.h>
 #include <Config.h>
 #include <ir/instructions/IncrInstr.h>
+#include <tree-walk/MapleTreeWalk.h>
 
 class BaseTarget {
 public:
-    BaseTarget(Config *config, std::map<std::string, CFG *> &cfgs);
+    BaseTarget(Config *config, IRStruct* irStruct);
 
     virtual void parse() = 0;
 
@@ -60,7 +61,7 @@ protected:
     // Variables used during parsing
     CFG *currentCFG;
 
-    std::map<std::string, CFG *> cfgs;
+    IRStruct* irStruct;
 
     Config *conf;
 

@@ -154,7 +154,7 @@ antlrcpp::Any StartVisitor::visitFunctionDeclaration(MapleGrammarParser::Functio
         unsigned long i = 0;
 
         for (auto &&param : *params) {
-            if ((param->getType() != def->getParams()->at(i)->getType())) {
+            if (param->getType() != def->getParams()->at(i)->getType()) {
                 cerr << "Parameter " << param->getName()
                      << " in function declaration has not the same type as in function definition" << endl;
                 cerr << "Found : " << param->getType() << endl;

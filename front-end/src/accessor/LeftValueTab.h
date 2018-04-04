@@ -15,6 +15,8 @@ public:
     std::string getSymbolName() override;
 
     std::string buildIR(CFG *cfg);
+
+    TabAccessor *getTabAccessor() const;
 };
 
 

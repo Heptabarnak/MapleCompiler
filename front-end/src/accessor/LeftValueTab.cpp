@@ -11,3 +11,7 @@ string LeftValueTab::getSymbolName() {
 string LeftValueTab::buildIR(CFG *cfg) {
     return tabAccessor->buildIR(cfg);
 }
+
+TabAccessor *LeftValueTab::getTabAccessor() const {
+    return tabAccessor;
+}

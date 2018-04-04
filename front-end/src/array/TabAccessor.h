@@ -17,6 +17,10 @@ public:
     std::string getName();
 
     std::string buildIR(CFG *cfg);
+
+    TabDeclaration *getDeclaration() const;
+
+    Expr *getPos() const;
 };
 
 

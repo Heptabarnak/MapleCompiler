@@ -91,6 +91,53 @@ antlrcpp::Any StartVisitor::visitDeclaration(MapleGrammarParser::DeclarationCont
 }
 
 antlrcpp::Any StartVisitor::visitDefinitionTab(MapleGrammarParser::DefinitionTabContext *ctx) {
+    if (ctx->STRING() != nullptr) {
+        auto values = new vector<Value *>();
+
+        char lastC = 0;
+        for (auto &&aChar :ctx->STRING()->getText()) {
+
+            if (lastC == '\\') {
+                switch (aChar) {
+                    case 'a':
+                        aChar = '\a';
+                        break;
+                    case 'b':
+                        aChar = '\b';
+                        break;
+                    case 't':
+                        aChar = '\t';
+                        break;
+                    case 'n':
+                        aChar = '\n';
+                        break;
+                    case 'v':
+                        aChar = '\v';
+                        break;
+                    case 'f':
+                        aChar = '\f';
+                        break;
+                    case 'r':
+                        aChar = '\r';
+                        break;
+                    case '"':
+                        aChar = '\"';
+                        break;
+                    default:
+                        cerr << "Unable to parse escaped character " << aChar << "!" << endl;
+                        printDebugInfo(cerr, ctx);
+                        throw std::runtime_error("Unable to parse escaped character");
+                }
+            }
+
+            if (aChar != '\\') {
+                values->push_back(new Value(Type::CHAR, aChar));
+            }
+            lastC = aChar;
+        }
+
+        return values;
+    }
     return mapContext2Vector<MapleGrammarParser::ValueContext *, Value *>(ctx->value(), this);
 }
 
@@ -120,7 +167,7 @@ StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDe
     Expr *expr = visit(ctx->assignment());
 
     // Global var must be simplifiable
-    if (currentSymbolTable->getFather() == nullptr ) {
+    if (currentSymbolTable->getFather() == nullptr) {
         if (expr->isSimplifiable()) {
             Expr *newExpr = new ExprValue(new Value(
                     Type::INT64_T,

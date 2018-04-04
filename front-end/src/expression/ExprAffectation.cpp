@@ -3,13 +3,16 @@
 #include <stdexcept>
 #include <ir/instructions/OpInstr.h>
 #include <ir/instructions/WMemInstr.h>
+#include <ir/instructions/WMemArrayInstr.h>
+#include <variable/VarAccessor.h>
+#include <array/TabAccessor.h>
 #include "ExprAffectation.h"
 
 using std::cerr;
 using std::string;
 using std::endl;
 
-ExprAffectation::ExprAffectation(LeftValue *left, Expr *right, const string &op_str)
+ExprAffectation::ExprAffectation(LeftValueAccessor *left, Expr *right, const string &op_str)
         : left(left), right(right) {
 
     switch (str2int(op_str.c_str())) {
@@ -97,6 +100,14 @@ string ExprAffectation::buildIR(CFG *cfg) {
         cfg->addIRInstr(new OpInstr(cfg->currentBB, type, value, dest, value));
     }
 
-    cfg->addIRInstr(new WMemInstr(cfg->currentBB, dest, value));
+    if (auto leftVar = dynamic_cast<VarAccessor *>(left)) {
+        cfg->addIRInstr(new WMemInstr(cfg->currentBB, dest, value));
+    } else if (auto leftTab = dynamic_cast<TabAccessor *>(left)) {
+        string pos = leftTab->getPos()->buildIR(cfg);
+
+        cfg->addIRInstr(
+                new WMemArrayInstr(cfg->currentBB, value, leftTab->getDeclaration()->getName(), pos,
+                                   leftTab->getDeclaration()->getType()));
+    }
     return value;
 }

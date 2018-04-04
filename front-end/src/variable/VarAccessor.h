@@ -1,10 +1,10 @@
 #ifndef MAPLECOMPILER_VARACCESSOR_H
 #define MAPLECOMPILER_VARACCESSOR_H
 
-#include <ir/BuildIR.h>
+#include <accessor/LeftValueAccessor.h>
 #include "VarDeclaration.h"
 
-class VarAccessor : public BuildIR {
+class VarAccessor : public LeftValueAccessor {
 
 private:
     VarDeclaration *declaration;
@@ -12,9 +12,9 @@ private:
 public:
     explicit VarAccessor(VarDeclaration *dec);
 
-    std::string getName();
-
     std::string buildIR(CFG *cfg);
+
+    std::string getSymbolName() override;
 };
 
 

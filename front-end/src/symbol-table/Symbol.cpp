@@ -26,3 +26,7 @@ bool Symbol::getAffectation() {
 bool Symbol::getRead() {
     return read;
 }
+
+void Symbol::setDeclaration(Declaration *dec) {
+    declaration = dec;
+}

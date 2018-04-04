@@ -9,7 +9,7 @@
 
 class VarDeclaration : public Declaration {
 
-private:
+protected:
     std::string name;
     Type type;
     Expr *assignment;

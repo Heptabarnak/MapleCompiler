@@ -20,7 +20,7 @@ public:
     T__32 = 33, T__33 = 34, T__34 = 35, T__35 = 36, T__36 = 37, T__37 = 38, 
     T__38 = 39, T__39 = 40, T__40 = 41, T__41 = 42, T__42 = 43, T__43 = 44, 
     MACRO = 45, WS = 46, SC = 47, TYPE = 48, TYPE_VOID = 49, CHAR = 50, 
-    INTEGER = 51, ID = 52, COMMENT = 53, LINE_COMMENT = 54
+    INTEGER = 51, ID = 52, STRING = 53, COMMENT = 54, LINE_COMMENT = 55
   };
 
   enum {
@@ -537,6 +537,7 @@ public:
   public:
     DefinitionTabContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *STRING();
     std::vector<ValueContext *> value();
     ValueContext* value(size_t i);
 

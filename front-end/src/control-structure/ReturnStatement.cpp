@@ -13,7 +13,6 @@ string ReturnStatement::buildIR(CFG *cfg) {
         expr->buildIR(cfg);
     }
 
-    cfg->currentBB->exitTrue = nullptr;
-    cfg->currentBB->exitFalse = nullptr;
+    cfg->currentBB->exitTrue = cfg->getReturnBlock();
     return "";
 }

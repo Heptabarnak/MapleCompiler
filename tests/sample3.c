@@ -1,18 +1,24 @@
 #include<inttypes.h>
 
-void displayString(char tab[], int64_t size) {
-    int64_t i = 0;
-
-    for (; i < size; i++) {
-        putchar(tab[i]);
+int64_t recursiveFact(int64_t fact) {
+    if (fact > 1) {
+        return (fact * recursiveFact(fact - 1));
+    } else {
+        return 1;
     }
 }
 
-void main() {
-    char tab[] = "Hello";
-    int64_t size = 5;
+int64_t main() {
+    int64_t n = 4;
 
-    displayString(tab[2], size);
+    int64_t result = recursiveFact(n);
+    int64_t digit;
+
+    while (result > 0) {
+        digit = result % 10;
+        putchar('0' + digit);
+        result /= 10;
+    }
 
     putchar('\n');
 }

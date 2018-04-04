@@ -52,15 +52,14 @@ set(UTILS_SRC_FILES
 include_directories(${FRONT_END_FOLDER}/src)
 
 set(AST_SRC_FILES
+        front-end/src/Declarations.h
+
         front-end/src/declaration/Declaration.h
         front-end/src/expression/Expr.h
         front-end/src/expression/operation/binary/ExprBinaryOperation.h
         front-end/src/expression/operation/ExprOperation.h
         front-end/src/expression/unary/ExprUnary.h
 
-        front-end/src/accessor/FunctionAccessor.cpp
-        front-end/src/accessor/LeftValueTab.cpp
-        front-end/src/accessor/LeftValueVar.cpp
         front-end/src/accessor/LeftValueAccessor.cpp
         front-end/src/array/TabAccessor.cpp
         front-end/src/array/TabDeclaration.cpp
@@ -91,6 +90,8 @@ set(AST_SRC_FILES
         front-end/src/function/BlockFunction.cpp
         front-end/src/function/FunctionDefinition.cpp
         front-end/src/function/FunctionParam.cpp
+        front-end/src/function/FunctionParamTab.cpp
+        front-end/src/function/FunctionParamVar.cpp
         front-end/src/symbol-table/Symbol.cpp
         front-end/src/symbol-table/SymbolTable.cpp
         front-end/src/variable/VarAccessor.cpp
@@ -105,6 +106,7 @@ set(AST_SRC_FILES
         front-end/src/expression/Expr.cpp
         front-end/src/function/FunctionParamTab.cpp
         front-end/src/expression/operation/ExprCommaOperation.cpp
+        front-end/src/control-structure/ForStatement.cpp
         )
 
 #---------------
@@ -131,6 +133,8 @@ set(BACK_SRC_FILES
         back-end/src/ir/GlobalDeclaration.cpp
         back-end/src/ir/globals/GlobalDeclarationVar.cpp
         back-end/src/ir/globals/GlobalDeclarationTab.cpp
+        back-end/src/ir/instructions/RMemArrayInstr.cpp
+        back-end/src/ir/instructions/WMemArrayInstr.cpp
         )
 
 #----------
@@ -140,8 +144,7 @@ include_directories(cli)
 
 set(CLI_SRC_FILES
         cli/Runner.cpp
-        cli/Config.h
-        )
+        cli/Config.h)
 
 
 #----------------

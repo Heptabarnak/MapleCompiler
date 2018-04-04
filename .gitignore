@@ -125,3 +125,4 @@ CTestTestfile.cmake
 
 # Tests
 tests/sample1.c
+tests/sample1.s

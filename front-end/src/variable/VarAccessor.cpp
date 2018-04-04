@@ -1,15 +1,13 @@
-
-
 #include "VarAccessor.h"
 
 using std::string;
 
 VarAccessor::VarAccessor(VarDeclaration *dec) : declaration(dec) {}
 
-string VarAccessor::getName() {
+string VarAccessor::buildIR(CFG *cfg) {
     return declaration->getName();
 }
 
-string VarAccessor::buildIR(CFG *cfg) {
+string VarAccessor::getSymbolName() {
     return declaration->getName();
 }

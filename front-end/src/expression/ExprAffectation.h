@@ -5,7 +5,7 @@
 #include <expression/Expr.h>
 #include <expression/ExprAccessor.h>
 #include <string>
-#include <accessor/LeftValue.h>
+#include <accessor/LeftValueAccessor.h>
 
 
 class ExprAffectation : public Expr {
@@ -24,14 +24,14 @@ class ExprAffectation : public Expr {
     };
 
 
-    LeftValue *left;
+    LeftValueAccessor *left;
     Expr *right;
 
     OP op;
 
 public:
 
-    ExprAffectation(LeftValue *left, Expr *right, const std::string &op);
+    ExprAffectation(LeftValueAccessor *left, Expr *right, const std::string &op);
 
     std::string buildIR(CFG *cfg);
 };

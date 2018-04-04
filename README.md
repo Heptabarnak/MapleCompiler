@@ -19,7 +19,20 @@ It is written in C++.
 The project use `cmake` to compile.
 
 ## Usage
+```
+./mapleCompiler [-a] [-o] [-c] [-l] [-t <x64|msp430|java>] <file.c>
+```
 
-TODO...
+* `-a` for static analysis
+* `-o` for optimisation
+* `-c` to generate ASM
+* `-l` to create the executable
+* `-t` to select target with x86 as default value
+
+## Differences with the subject
+
+* For blocks are implemented in the front
+* Function declarations are implemented
+* Array initialization for strings are implemented (no check for `char` type)
 
 ## [License](./LICENSE)

@@ -31,7 +31,7 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
     }
 
 
-    if (ctx->expr() == nullptr) {
+    if (ctx->possibleCommaExpr() == nullptr) {
         Declaration *declaration = new TabDeclaration(
                 getTypeFromString(ctx->TYPE()->getText()),
                 tabList->size(),
@@ -43,7 +43,7 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
         return declaration;
     }
 
-    Expr *expr = visit(ctx->expr());
+    Expr *expr = visit(ctx->possibleCommaExpr());
 
     if (!expr->isSimplifiable()) {
         delete (expr);
@@ -72,7 +72,7 @@ antlrcpp::Any StartVisitor::visitDeclarationTab(MapleGrammarParser::DeclarationT
 
     Declaration *declaration = new TabDeclaration(
             getTypeFromString(ctx->TYPE()->getText()),
-            (unsigned long) tabSize,
+            tabSize,
             name,
             tabList
     );
@@ -91,6 +91,56 @@ antlrcpp::Any StartVisitor::visitDeclaration(MapleGrammarParser::DeclarationCont
 }
 
 antlrcpp::Any StartVisitor::visitDefinitionTab(MapleGrammarParser::DefinitionTabContext *ctx) {
+    if (ctx->STRING() != nullptr) {
+        auto values = new vector<Value *>();
+
+        auto s = ctx->STRING()->getText();
+        s = s.substr(1, s.size() - 2);
+
+        char lastC = 0;
+        for (auto &&aChar : s) {
+
+            if (lastC == '\\') {
+                switch (aChar) {
+                    case 'a':
+                        aChar = '\a';
+                        break;
+                    case 'b':
+                        aChar = '\b';
+                        break;
+                    case 't':
+                        aChar = '\t';
+                        break;
+                    case 'n':
+                        aChar = '\n';
+                        break;
+                    case 'v':
+                        aChar = '\v';
+                        break;
+                    case 'f':
+                        aChar = '\f';
+                        break;
+                    case 'r':
+                        aChar = '\r';
+                        break;
+                    case '"':
+                        aChar = '\"';
+                        break;
+                    default:
+                        cerr << "Unable to parse escaped character " << aChar << "!" << endl;
+                        printDebugInfo(cerr, ctx);
+                        throw std::runtime_error("Unable to parse escaped character");
+                }
+            }
+
+            if (aChar != '\\') {
+                values->push_back(new Value(Type::CHAR, aChar));
+            }
+            lastC = aChar;
+        }
+
+        return values;
+    }
     return mapContext2Vector<MapleGrammarParser::ValueContext *, Value *>(ctx->value(), this);
 }
 
@@ -120,7 +170,7 @@ StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDe
     Expr *expr = visit(ctx->assignment());
 
     // Global var must be simplifiable
-    if (currentSymbolTable->getFather() == nullptr ) {
+    if (currentSymbolTable->getFather() == nullptr) {
         if (expr->isSimplifiable()) {
             Expr *newExpr = new ExprValue(new Value(
                     Type::INT64_T,
@@ -167,5 +217,5 @@ antlrcpp::Any StartVisitor::visitDeclarationVar(MapleGrammarParser::DeclarationV
 
 
 antlrcpp::Any StartVisitor::visitAssignment(MapleGrammarParser::AssignmentContext *ctx) {
-    return (Expr *) visit(ctx->expr());
+    return (Expr *) visit(ctx->possibleCommaExpr());
 }

@@ -23,6 +23,7 @@ public:
 
     void doAffectation();
 
+    void setDeclaration(Declaration *dec);
 private:
     SymbolTable *table;
     Declaration *declaration;

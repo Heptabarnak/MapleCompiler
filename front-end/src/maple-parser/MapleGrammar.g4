@@ -82,6 +82,7 @@ accessor : leftValue
 ifStatement: 'if' '(' expr ')' instruction elseStatement? ;
 elseStatement: 'else' instruction ;
 whileStatement: 'while' '(' expr ')' instruction ;
+forStatment: 'for' '(' expr SC expr SC expr ')' instruction ;
 
 // Fonctions
 
@@ -106,5 +107,6 @@ statement : expr SC ;
 instruction : statement
     | ifStatement
     | whileStatement
+    | forStatment
     | block
     | returnStatement ;

@@ -188,6 +188,9 @@ antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
                 case '"':
                     c = '\"';
                     break;
+                case '0':
+                    c = '\0';
+                    break;
                 default:
                     cerr << "Unable to parse escaped character " << val.at(2) << "!" << endl;
                     printDebugInfo(cerr, ctx);

@@ -126,6 +126,9 @@ antlrcpp::Any StartVisitor::visitDefinitionTab(MapleGrammarParser::DefinitionTab
                     case '"':
                         aChar = '\"';
                         break;
+                    case '0':
+                        aChar = '\0';
+                        break;
                     default:
                         cerr << "Unable to parse escaped character " << aChar << "!" << endl;
                         printDebugInfo(cerr, ctx);

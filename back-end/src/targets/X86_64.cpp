@@ -254,10 +254,10 @@ void X86_64::op(OpInstr *instr) {
             write("\tandq %rbx, %rax");
             break;
         case OpInstr::OR:
-            write("\torq %rax, %rbx");
+            write("\torq %rbx, %rax");
             break;
         case OpInstr::XOR:
-            write("\txorq %rax, %rbx");
+            write("\txorq %rbx, %rax");
             break;
         case OpInstr::SHIFT_LEFT:
             write("\tsalq %bl, %rax");

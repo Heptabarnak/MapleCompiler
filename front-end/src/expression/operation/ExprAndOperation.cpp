@@ -38,7 +38,6 @@ string ExprAndOperation::buildIR(CFG *cfg) {
     nextBB->exitTrue = cfg->currentBB->exitTrue;
     nextBB->exitFalse = cfg->currentBB->exitFalse;
 
-
     // Left test
     leftExpr->buildIR(cfg);
 
@@ -46,8 +45,6 @@ string ExprAndOperation::buildIR(CFG *cfg) {
     cfg->currentBB->exitFalse = falseBB; // If not, directly jump to 'finalResult = 0'
 
     cfg->addBB(rightTestBB);
-    cfg->addBB(falseBB);
-
     cfg->currentBB = rightTestBB; // Set rightBB as current BB before 'rightExpr#buildIR()'
 
     // Right test
@@ -56,12 +53,11 @@ string ExprAndOperation::buildIR(CFG *cfg) {
     cfg->currentBB->exitTrue = trueBB; // If right test is ok, jump to 'finalResult = 1'
     cfg->currentBB->exitFalse = falseBB; // If not, jump to 'finalResult = 0'
 
-    cfg->addBB(falseBB);
-
     falseBB->exitTrue = nextBB; // Anyway, after all this, jump to a new BasicBlock
     trueBB->exitTrue = nextBB;
 
     cfg->addBB(falseBB);
+    cfg->addBB(trueBB);
     cfg->addBB(nextBB);
     cfg->currentBB = nextBB; // Set the currentBB to a new BB
 

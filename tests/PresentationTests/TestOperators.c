@@ -32,10 +32,10 @@ void main(){
     putchar('0' + (i % 3));
     putchar('\n');
     putchar('\n');
-    /*putchar('0' + (i >> 2));
+    putchar('0' + (i >> 2));
     putchar('\n');
-    putchar('0' + (i << 2));
-    putchar('\n');*/
+    putchar('0' + (i << 1));
+    putchar('\n');
     putchar('\n');
     putchar('0' + (i++));
     putchar('\n');
@@ -61,10 +61,11 @@ void main(){
     putchar('0' + (i %= 2));
     putchar('\n');
     putchar('\n');
-    /*putchar('0' + (i <<= 3));
+    putchar('0' + (i <<= 3));
     putchar('\n');
-    putchar('0' + (i >>= 3));
-    putchar('\n');*/
+    putchar('0' + (i >>= 1));
+    putchar('\n');
+    putchar('\n');
     putchar('0' + (i = 5));
     putchar('\n');
     i &= 2;
@@ -79,10 +80,11 @@ void main(){
     putchar('0' + (i));
     putchar('\n');
     putchar('\n');
+    putchar('\n');
     i = 3;
-    /*putchar('0' + (i == 3 && i >= 1));
-    putchar('\n');*/
-    putchar('0' +  (i == 3 || i >= 9));
+    putchar('0' + (i == 3 && i >= 1));
+    putchar('\n');
+    putchar('0' +  (i == 2 || i <= 9));
     putchar('\n');
     putchar('\n');
     putchar('0' + ((-i) + 6));

@@ -260,10 +260,12 @@ void X86_64::op(OpInstr *instr) {
             write("\txorq %rbx, %rax");
             break;
         case OpInstr::SHIFT_LEFT:
-            write("\tsalq %bl, %rax");
+            write("\tmovq %rbx, %rcx");
+            write("\tsalq %cl, %rax");
             break;
         case OpInstr::SHIFT_RIGHT:
-            write("\tsarq %bl, %rax");
+            write("\tmovq %rbx, %rcx");
+            write("\tsarq %cl, %rax");
             break;
     }
 

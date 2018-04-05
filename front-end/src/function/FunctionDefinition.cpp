@@ -5,7 +5,7 @@ using std::string;
 using std::vector;
 
 FunctionDefinition::FunctionDefinition(Type type, const string &name)
-        : type(type), name(name), symbolTable(nullptr) {}
+        : type(type), name(name), symbolTable(nullptr), params(nullptr) {}
 
 string FunctionDefinition::getSymbolName() {
     return name;
@@ -39,7 +39,7 @@ void FunctionDefinition::setSymbolTable(SymbolTable *symbolTable) {
     this->symbolTable = symbolTable;
 }
 
-std::vector<FunctionParam *>* FunctionDefinition::getParams() {
+std::vector<FunctionParam *> *FunctionDefinition::getParams() {
     return params;
 }
 

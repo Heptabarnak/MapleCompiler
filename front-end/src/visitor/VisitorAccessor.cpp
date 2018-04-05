@@ -80,25 +80,28 @@ antlrcpp::Any StartVisitor::visitAccessorFunction(MapleGrammarParser::AccessorFu
         if (auto symbolFun = dynamic_cast<FunctionDefinition *>(symbol->getDeclaration())) {
 
             auto args = (vector<Expr *> *) visit(ctx->argumentList());
-            if (args->size() < symbolFun->getParams()->size()) {
-                cerr << "Too few arguments" << endl;
-                cerr << "Found : " << args->size() << endl;
-                cerr << "Expected : " << symbolFun->getParams()->size() << endl;
-                printDebugInfo(cerr, ctx);
-                throw std::runtime_error("Different numbers of arguments");
-            }
-            if (args->size() > symbolFun->getParams()->size()) {
-                cerr << "Too much arguments" << endl;
-                cerr << "Found : " << args->size() << endl;
-                cerr << "Expected : " << symbolFun->getParams()->size() << endl;
-                printDebugInfo(cerr, ctx);
-                throw std::runtime_error("Different numbers of arguments");
+
+            if (args && symbolFun->getParams()) {
+                if (args->size() < symbolFun->getParams()->size()) {
+                    cerr << "Too few arguments" << endl;
+                    cerr << "Found : " << args->size() << endl;
+                    cerr << "Expected : " << symbolFun->getParams()->size() << endl;
+                    printDebugInfo(cerr, ctx);
+                    throw std::runtime_error("Different numbers of arguments");
+                }
+                if (args->size() > symbolFun->getParams()->size()) {
+                    cerr << "Too much arguments" << endl;
+                    cerr << "Found : " << args->size() << endl;
+                    cerr << "Expected : " << symbolFun->getParams()->size() << endl;
+                    printDebugInfo(cerr, ctx);
+                    throw std::runtime_error("Different numbers of arguments");
+                }
             }
 
             symbol->doRead();
             return (Accessor *) new AccessorFunction(
                     symbolFun,
-                    visit(ctx->argumentList())
+                    args
             );
         }
 

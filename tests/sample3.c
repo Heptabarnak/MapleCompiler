@@ -1,23 +1,21 @@
 #include<inttypes.h>
 
-int64_t recursiveFact(int64_t fact) {
-    if (fact > 1) {
-        return (fact * recursiveFact(fact - 1));
-    } else {
-        return 1;
+
+void main() {
+    int64_t i = 5;
+    int64_t j = 2;
+
+//    putchar('0' + (i << j));
+//    putchar('0' + (i >> j));
+    char a[10];
+
+    for (i = 0; i < 10; i++) {
+        a[i] = getchar();
     }
-}
+    putchar('\n');
 
-int64_t main() {
-    int64_t n = 4;
-
-    int64_t result = recursiveFact(n);
-    int64_t digit;
-
-    while (result > 0) {
-        digit = result % 10;
-        putchar('0' + digit);
-        result /= 10;
+    for (i = 0; i < 10; i++) {
+        putchar(a[i]);
     }
 
     putchar('\n');

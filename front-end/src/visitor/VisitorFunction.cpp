@@ -51,13 +51,6 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
             throw std::runtime_error("Different return type");
         }
 
-        if (decl->getParams()->size() != params->size()) {
-            cerr << "Function definition has not the same number of arguments as Function declaration " << endl;
-            cerr << "Found : " << params->size() << endl;
-            cerr << "Expected : " << decl->getParams()->size() << endl;
-            printDebugInfo(cerr, ctx);
-            throw std::runtime_error("Different number of arguments");
-        }
 
         currentSymbolTable->insert(name, new Symbol(currentSymbolTable, decl, true));
 
@@ -67,6 +60,15 @@ antlrcpp::Any StartVisitor::visitFunctionDefinition(MapleGrammarParser::Function
         if (ctx->typeList() != nullptr) {
             delete params;
             params = (vector<FunctionParam *> *) visit(ctx->typeList());
+        }
+
+
+        if (decl->getParams()->size() != params->size()) {
+            cerr << "Function definition has not the same number of arguments as Function declaration " << endl;
+            cerr << "Found : " << params->size() << endl;
+            cerr << "Expected : " << decl->getParams()->size() << endl;
+            printDebugInfo(cerr, ctx);
+            throw std::runtime_error("Different number of arguments");
         }
 
         unsigned long i = 0;

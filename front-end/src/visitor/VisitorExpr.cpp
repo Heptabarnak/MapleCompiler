@@ -154,7 +154,7 @@ antlrcpp::Any StartVisitor::visitExprComma(MapleGrammarParser::ExprCommaContext 
     return (Expr *) new ExprCommaOperation(
             visit(context->possibleCommaExpr()),
             visit(context->expr())
-            );
+    );
 }
 
 antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
@@ -202,8 +202,16 @@ antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
         return new Value(Type::CHAR, c);
     }
 
+    auto val = ctx->INTEGER()->getText();
+    long parsedVal = 0;
+
+    if (val.find('e') != std::string::npos) {
+        parsedVal = static_cast<long>(std::stod(val));
+    } else {
+        parsedVal = stoi(val);
+    }
     return new
-            Value(Type::INT64_T, stoi(ctx->INTEGER()->getText())
+            Value(Type::INT64_T, parsedVal
     );
 }
 

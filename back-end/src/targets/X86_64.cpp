@@ -14,7 +14,7 @@ static string gInstrExt(Type type) {
     switch (type) {
         case VOID:
             // Not possible;
-            return 0;
+            return "q";
         case CHAR:
             return "b";
         case INT32_T:
@@ -33,76 +33,76 @@ static string gReg(string reg, Type type) {
         case CHAR:
             switch (str2int(reg.c_str())) {
                 case str2int("rax"):
-                    return "al";
+                    return "%al";
                 case str2int("rbx"):
-                    return "bl";
+                    return "%bl";
                 case str2int("rcx"):
-                    return "cl";
+                    return "%cl";
                 case str2int("rdx"):
-                    return "dl";
+                    return "%dl";
                 case str2int("rsi"):
-                    return "sil";
+                    return "%sil";
                 case str2int("rdi"):
-                    return "dil";
+                    return "%dil";
                 case str2int("rbp"):
-                    return "bpl";
+                    return "%bpl";
                 case str2int("rsp"):
-                    return "spl";
+                    return "%spl";
                 case str2int("r8"):
-                    return "r8b";
+                    return "%r8b";
                 case str2int("r9"):
-                    return "r9b";
+                    return "%r9b";
                 case str2int("r10"):
-                    return "r10b";
+                    return "%r10b";
                 case str2int("r11"):
-                    return "r11b";
+                    return "%r11b";
                 case str2int("r12"):
-                    return "r12b";
+                    return "%r12b";
                 case str2int("r13"):
-                    return "r13b";
+                    return "%r13b";
                 case str2int("r14"):
-                    return "r14b";
+                    return "%r14b";
                 case str2int("r15"):
-                    return "r15b";
+                    return "%r15b";
             }
         case INT32_T:
             switch (str2int(reg.c_str())) {
                 case str2int("rax"):
-                    return "eax";
+                    return "%eax";
                 case str2int("rbx"):
-                    return "ebx";
+                    return "%ebx";
                 case str2int("rcx"):
-                    return "ecx";
+                    return "%ecx";
                 case str2int("rdx"):
-                    return "edx";
+                    return "%edx";
                 case str2int("rsi"):
-                    return "esi";
+                    return "%esi";
                 case str2int("rdi"):
-                    return "edi";
+                    return "%edi";
                 case str2int("rbp"):
-                    return "ebp";
+                    return "%ebp";
                 case str2int("rsp"):
-                    return "esp";
+                    return "%esp";
                 case str2int("r8"):
-                    return "r8d";
+                    return "%r8d";
                 case str2int("r9"):
-                    return "r9d";
+                    return "%r9d";
                 case str2int("r10"):
-                    return "r10d";
+                    return "%r10d";
                 case str2int("r11"):
-                    return "r11d";
+                    return "%r11d";
                 case str2int("r12"):
-                    return "r12d";
+                    return "%r12d";
                 case str2int("r13"):
-                    return "r13d";
+                    return "%r13d";
                 case str2int("r14"):
-                    return "r14d";
+                    return "%r14d";
                 case str2int("r15"):
-                    return "r15d";
+                    return "%r15d";
             }
             return 0;
         case INT64_T:
-            return reg;
+            return "%" + reg;
     }
 }
 
@@ -419,7 +419,9 @@ void X86_64::call(CallInstr *instr) {
     }
 
     write("\tcall " + instr->label);
-    write("\tmov" + gInstrExt(instr->varType) + " %rax, " + getAsmForVar(instr->dest));
+    if (instr->varType != Type::VOID) {
+        write("\tmov" + gInstrExt(instr->varType) + " %rax, " + getAsmForVar(instr->dest));
+    }
 }
 
 void X86_64::rmem(RMemInstr *instr) {

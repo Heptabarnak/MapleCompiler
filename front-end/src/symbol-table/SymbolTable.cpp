@@ -52,10 +52,13 @@ Symbol *SymbolTable::lookup(string name) {
 void SymbolTable::staticAnalysis() {
     for (auto &&name : levels) {
         auto &&symbol = symbols.find(name.second)->second;
+
+        // Skip main function
+        if (name.second == "main") continue;
+
         if (!symbol->getRead()) {
+
             if (!symbol->getAffectation()) {
-                // Skip main function
-                if (name.second == "main") continue;
 
                 cout << "Warning : " << name.second << " is not used." << endl;
             } else {

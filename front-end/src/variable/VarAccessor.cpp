@@ -11,3 +11,7 @@ string VarAccessor::buildIR(CFG *cfg) {
 string VarAccessor::getSymbolName() {
     return declaration->getName();
 }
+
+Type VarAccessor::getType() {
+    return declaration->getType();
+}

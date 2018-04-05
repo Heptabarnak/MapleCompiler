@@ -19,6 +19,8 @@ public:
     TabDeclaration *getDeclaration() const;
     std::string getSymbolName() override;
     Expr *getPos() const;
+
+    Type getType() override;
 };
 
 

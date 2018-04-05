@@ -1,10 +1,12 @@
 #include "SymbolTable.h"
 #include <iostream>
 #include <variable/VarDeclaration.h>
+#include <typeHelper.h>
 
 using std::cout;
 using std::endl;
 using std::string;
+using std::map;
 
 SymbolTable::SymbolTable(SymbolTable *father) : father(father) {
     // Add to symbol table's children
@@ -100,4 +102,34 @@ long SymbolTable::getOffset(string &name) {
     }
 
     return item->second;
+}
+
+void SymbolTable::sortByType() {
+    map<string, long> newMap;
+    long newOffset = 8; // Counting rbp
+
+    for (auto &&item : offsetTable) {
+        int allocationSize = symbols.at(item.first)->getDeclaration()->getAllocationSize();
+        // Everything greater than an INT64_T
+        if (allocationSize > getTypeAllocationSize(Type::INT64_T)) {
+            newOffset += allocationSize;
+            newMap.insert({item.first, newOffset});
+        }
+    }
+
+    for (int typeInt = Type::INT64_T; typeInt != VOID; typeInt--) {
+        auto type = static_cast<Type>(typeInt);
+        for (auto &&item : offsetTable) {
+            int allocationSize = symbols.at(item.first)->getDeclaration()->getAllocationSize();
+            if (allocationSize == getTypeAllocationSize(type)) {
+                newOffset += allocationSize;
+                newMap.insert({item.first, newOffset});
+            }
+        }
+    }
+    offsetTable = newMap;
+
+    // Align to a multiple of 8
+    // 8 should be a target variable
+    offset = newOffset + (8 - newOffset % 8);
 }

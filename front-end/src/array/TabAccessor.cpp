@@ -28,3 +28,7 @@ Expr *TabAccessor::getPos() const {
 string TabAccessor::getSymbolName() {
     return declaration->getName();
 }
+
+Type TabAccessor::getType() {
+    return declaration->getType();
+}

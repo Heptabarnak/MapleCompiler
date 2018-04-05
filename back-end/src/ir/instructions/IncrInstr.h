@@ -12,13 +12,14 @@ public:
         MINUS
     };
 
-    IncrInstr(BasicBlock *bb_, OpType type, std::string var, std::string var1, bool isPostfix);
+    IncrInstr(BasicBlock *bb_, OpType type, std::string var, std::string var1, bool isPostfix, Type varType);
 
 
     bool isPostfix;
     OpType type;
     std::string var;
     std::string var1;
+    Type varType;
 
 };
 

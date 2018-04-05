@@ -30,6 +30,8 @@ public:
 
     long getAllocationSize();
 
+    void sortByType();
+
 private:
     std::map<std::string, Symbol *> symbols;
     std::map<int, std::string> levels;

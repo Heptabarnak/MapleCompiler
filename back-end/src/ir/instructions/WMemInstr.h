@@ -6,10 +6,11 @@
 
 class WMemInstr : public IRInstr {
 public:
-    WMemInstr(BasicBlock *bb_, std::string var1, std::string var2);
+    WMemInstr(BasicBlock *bb_, std::string var1, std::string var2, Type varType);
 
     std::string var1;
     std::string var2;
+    Type varType;
 };
 
 

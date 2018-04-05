@@ -7,11 +7,12 @@
 
 class CallInstr : public IRInstr {
 public:
-    CallInstr(BasicBlock *bb_,std::string dest, std::string label, std::vector<std::string> &arguments);
+    CallInstr(BasicBlock *bb_,std::string dest, std::string label, std::vector<std::string> &arguments, Type varType);
 
     std::string dest;
     std::string label;
     std::vector<std::string> arguments;
+    Type varType;
 };
 
 

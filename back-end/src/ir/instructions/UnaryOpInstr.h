@@ -13,12 +13,13 @@ public:
         BITWISE_NOT
     };
 
-    UnaryOpInstr(BasicBlock *bb_, UnaryOpType type, std::string var, std::string var1);
+    UnaryOpInstr(BasicBlock *bb_, UnaryOpType type, std::string var, std::string var1, Type varType);
 
 
     UnaryOpType type;
     std::string var;
     std::string var1;
+    Type varType;
 };
 
 

@@ -29,7 +29,7 @@ ExprIncrement::ExprIncrement(LeftValueAccessor *leftValue, string op_str, bool i
 }
 
 string ExprIncrement::buildIR(CFG *cfg) {
-    string var = cfg->createNewTmpVar(Type::INT64_T);
+    string var = cfg->createNewTmpVar(leftValue->getType());
     string var1 = leftValue->buildIR(cfg);
 
     auto opInstr = IncrInstr::PLUS;
@@ -38,7 +38,7 @@ string ExprIncrement::buildIR(CFG *cfg) {
         opInstr = IncrInstr::MINUS;
     }
 
-    cfg->addIRInstr(new IncrInstr(cfg->currentBB, opInstr, var, var1, isPostfix));
+    cfg->addIRInstr(new IncrInstr(cfg->currentBB, opInstr, var, var1, isPostfix,leftValue->getType() ));
 
     return var;
 }

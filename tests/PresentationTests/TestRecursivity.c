@@ -1,5 +1,5 @@
 void recursiveFact(int64_t i){
-    if(i > 0)   //FIXME : marche pas avec i > (-1) ?
+    if(i > 0)
     {
         putchar('0' + i);
         i = i - 1;

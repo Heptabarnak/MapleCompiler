@@ -220,27 +220,28 @@ void X86_64::op(OpInstr *instr) {
             // 0 per default, 1 if >
             write("\tmovq $0, %rax");
             write("\tmovq $1, %rbx");
-            write("\tcmovb %rbx, %rax");
+            write("\tcmovl %rbx, %rax");
             break;
         case OpInstr::LESS_THAN_OR_EQ:
             write("\tcmpq %rbx, %rax");
             // 0 per default, 1 if <=
             write("\tmovq $0, %rax");
             write("\tmovq $1, %rbx");
-            write("\tcmovbe %rbx, %rax");
+            write("\tcmovle %rbx, %rax");
+            break;
         case OpInstr::MORE_THAN:
             write("\tcmpq %rbx, %rax");
             // 0 per default, 1 if >
             write("\tmovq $0, %rax");
             write("\tmovq $1, %rbx");
-            write("\tcmova %rbx, %rax");
+            write("\tcmovg %rbx, %rax");
             break;
         case OpInstr::MORE_THAN_OR_EQ:
             write("\tcmpq %rbx, %rax");
             // 0 per default, 1 if >=
             write("\tmovq $0, %rax");
             write("\tmovq $1, %rbx");
-            write("\tcmovae %rbx, %rax");
+            write("\tcmovge %rbx, %rax");
             break;
         case OpInstr::AND:
             write("\tandq %rax, %rbx");

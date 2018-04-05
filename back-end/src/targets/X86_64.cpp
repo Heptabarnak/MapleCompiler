@@ -251,7 +251,7 @@ void X86_64::op(OpInstr *instr) {
             write("\tcmovge %rbx, %rax");
             break;
         case OpInstr::AND:
-            write("\tandq %rax, %rbx");
+            write("\tandq %rbx, %rax");
             break;
         case OpInstr::OR:
             write("\torq %rax, %rbx");

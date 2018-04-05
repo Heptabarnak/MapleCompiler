@@ -1,12 +1,12 @@
 #include<inttypes.h>
 
+char tab[] = "Bonjour";
 
 void main() {
-    int64_t i = 5;
-    int64_t j = 2;
+    int32_t z = 5;
+    int32_t x = z <= 3;
 
-    putchar('0' + (i << j));
-    putchar('0' + (i >> j));
+    putchar(tab[])
 
     putchar('\n');
 }

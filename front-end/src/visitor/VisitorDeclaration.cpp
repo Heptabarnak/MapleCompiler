@@ -138,7 +138,7 @@ antlrcpp::Any StartVisitor::visitDefinitionTab(MapleGrammarParser::DefinitionTab
             }
             lastC = aChar;
         }
-
+        values->push_back(new Value(Type::CHAR, '\0'));
         return values;
     }
     return mapContext2Vector<MapleGrammarParser::ValueContext *, Value *>(ctx->value(), this);

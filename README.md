@@ -44,7 +44,7 @@ The project use `cmake` to compile.
 - [x] 5.11: Compile function calls up to 6 arguments
 - [x] 5.12: Compile `for` loops
 - [x] 5.13: Complex programs testing (Collatz conjecture/Suite de Syracuse, Ackermann function, ...)
-- [ ] 5.14: Correct handling of types (Work In Progress)
+- [ ] 5.14: Correct handling of types (Work In Progress, 90%)
 - [x] 5.15: Compile function callswith more than 6 arguments
 
 ## Differences with the subject

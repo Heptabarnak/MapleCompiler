@@ -5,8 +5,6 @@
 #include "Accessor.h"
 
 class LeftValueAccessor : public Accessor {
-public:
-    virtual Type getType() = 0;
 };
 
 

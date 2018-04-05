@@ -9,16 +9,21 @@ using std::cerr;
 using std::endl;
 
 antlrcpp::Any StartVisitor::visitExprValue(MapleGrammarParser::ExprValueContext *ctx) {
+    Value *value = visit(ctx->value());
     return (Expr *) new ExprValue(
-            (Value *) visit(ctx->value())
+            value, value->getType()
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprBinaryShift(MapleGrammarParser::ExprBinaryShiftContext *ctx) {
+    Expr *expr1 = visit(ctx->expr(0));
+    Expr *expr2 = visit(ctx->expr(1));
+
     return (Expr *) new ExprBinaryShiftOperation(
-            visit(ctx->expr(0)),
-            visit(ctx->expr(1)),
-            visit(ctx->opBinaryShift())
+            expr1,
+            expr2,
+            visit(ctx->opBinaryShift()),
+            std::max(expr1->getType(), expr2->getType())
     );
 }
 
@@ -32,93 +37,130 @@ antlrcpp::Any StartVisitor::visitExprAffectation(MapleGrammarParser::ExprAffecta
     return (Expr *) new ExprAffectation(
             leftValue,
             visit(ctx->expr()),
-            visit(ctx->opAffectation())
+            visit(ctx->opAffectation()),
+            leftValue->getType()
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprBinaryXor(MapleGrammarParser::ExprBinaryXorContext *ctx) {
+    Expr *expr1 = visit(ctx->expr(0));
+    Expr *expr2 = visit(ctx->expr(1));
+
     return (Expr *) new ExprBinaryXorOperation(
-            visit(ctx->expr(0)),
-            visit(ctx->expr(1))
+            expr1,
+            expr2,
+            std::max(expr1->getType(), expr2->getType())
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprBinaryAnd(MapleGrammarParser::ExprBinaryAndContext *ctx) {
+    Expr *expr1 = visit(ctx->expr(0));
+    Expr *expr2 = visit(ctx->expr(1));
+
     return (Expr *) new ExprBinaryAndOperation(
-            visit(ctx->expr(0)),
-            visit(ctx->expr(1))
+            expr1,
+            expr2,
+            std::max(expr1->getType(), expr2->getType())
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprOr(MapleGrammarParser::ExprOrContext *ctx) {
+    Expr *expr1 = visit(ctx->expr(0));
+    Expr *expr2 = visit(ctx->expr(1));
     return (Expr *) new ExprOrOperation(
-            visit(ctx->expr(0)),
-            visit(ctx->expr(1))
+            expr1,
+            expr2,
+            std::max(expr1->getType(), expr2->getType())
+
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprMultiplicative(MapleGrammarParser::ExprMultiplicativeContext *ctx) {
+    Expr *expr1 = visit(ctx->expr(0));
+    Expr *expr2 = visit(ctx->expr(1));
     return (Expr *) new ExprMultiplicativeOperation(
-            visit(ctx->expr(0)),
-            visit(ctx->expr(1)),
-            visit(ctx->opMultiplicative())
+            expr1,
+            expr2,
+            visit(ctx->opMultiplicative()),
+            std::max(expr1->getType(), expr2->getType())
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprAdditive(MapleGrammarParser::ExprAdditiveContext *ctx) {
+    Expr *expr1 = visit(ctx->expr(0));
+    Expr *expr2 = visit(ctx->expr(1));
     return (Expr *) new ExprAdditiveOperation(
-            visit(ctx->expr(0)),
-            visit(ctx->expr(1)),
-            visit(ctx->opAdditive())
+            expr1,
+            expr2,
+            visit(ctx->opAdditive()),
+            std::max(expr1->getType(), expr2->getType())
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprAccessor(MapleGrammarParser::ExprAccessorContext *ctx) {
+    Accessor * accessor = visit(ctx->accessor());
     return (Expr *) new ExprAccessor(
-            (Accessor *) visit(ctx->accessor())
+            accessor,
+            accessor->getType()
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprAnd(MapleGrammarParser::ExprAndContext *ctx) {
+    Expr *expr1 = visit(ctx->expr(0));
+    Expr *expr2 = visit(ctx->expr(1));
     return (Expr *) new ExprAndOperation(
-            visit(ctx->expr(0)),
-            visit(ctx->expr(1))
+            expr1,
+            expr2,
+            std::max(expr1->getType(), expr2->getType())
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprParenthesis(MapleGrammarParser::ExprParenthesisContext *ctx) {
+    Expr * expr = visit(ctx->possibleCommaExpr());
     return (Expr *) new ExprParenthesis(
-            (Expr *) visit(ctx->possibleCommaExpr())
+            expr,
+            expr->getType()
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprBinaryOr(MapleGrammarParser::ExprBinaryOrContext *ctx) {
+    Expr *expr1 = visit(ctx->expr(0));
+    Expr *expr2 = visit(ctx->expr(1));
     return (Expr *) new ExprBinaryOrOperation(
-            visit(ctx->expr(0)),
-            visit(ctx->expr(1))
+            expr1,
+            expr2,
+            std::max(expr1->getType(), expr2->getType())
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprCompareRelational(MapleGrammarParser::ExprCompareRelationalContext *ctx) {
+    Expr *expr1 = visit(ctx->expr(0));
+    Expr *expr2 = visit(ctx->expr(1));
     return (Expr *) new ExprRelationalComparisonOperation(
-            visit(ctx->expr(0)),
-            visit(ctx->expr(1)),
-            visit(ctx->opCompareRelational())
+            expr1,
+            expr2,
+            visit(ctx->opCompareRelational()),
+            std::max(expr1->getType(), expr2->getType())
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprCompareEquality(MapleGrammarParser::ExprCompareEqualityContext *ctx) {
+    Expr *expr1 = visit(ctx->expr(0));
+    Expr *expr2 = visit(ctx->expr(1));
     return (Expr *) new ExprEqualityComparisonOperation(
-            visit(ctx->expr(0)),
-            visit(ctx->expr(1)),
-            visit(ctx->opCompareEquality())
+            expr1,
+            expr2,
+            visit(ctx->opCompareEquality()),
+            std::max(expr1->getType(), expr2->getType())
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprUnaryPrefix(MapleGrammarParser::ExprUnaryPrefixContext *ctx) {
+    Expr *expr = visit(ctx->expr());
     return (Expr *) new ExprPrefixUnary(
-            visit(ctx->expr()),
-            visit(ctx->opUnaryPrefix())
+            expr,
+            visit(ctx->opUnaryPrefix()),
+            expr->getType()
     );
 }
 
@@ -132,7 +174,8 @@ antlrcpp::Any StartVisitor::visitExprIncrementPostfix(MapleGrammarParser::ExprIn
     return (Expr *) new ExprIncrement(
             leftValue,
             visit(ctx->opIncrement()),
-            true
+            true,
+            leftValue->getType()
     );
 }
 
@@ -146,14 +189,18 @@ antlrcpp::Any StartVisitor::visitExprIncrementPrefix(MapleGrammarParser::ExprInc
     return (Expr *) new ExprIncrement(
             leftValue,
             visit(ctx->opIncrement()),
-            false
+            false,
+            leftValue->getType()
     );
 }
 
 antlrcpp::Any StartVisitor::visitExprComma(MapleGrammarParser::ExprCommaContext *context) {
+    Expr *expr1 = visit(context->possibleCommaExpr());
+    Expr *expr2 = visit(context->expr());
     return (Expr *) new ExprCommaOperation(
-            visit(context->possibleCommaExpr()),
-            visit(context->expr())
+            expr1,
+            expr2,
+            std::max(expr1->getType(), expr2->getType())
             );
 }
 

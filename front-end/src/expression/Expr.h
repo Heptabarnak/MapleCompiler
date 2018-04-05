@@ -21,6 +21,8 @@ public:
     virtual long simplify() {
         throw std::runtime_error("Tried to simplify a not simplifiable expression");
     }
+
+    Type getType() const;
 };
 
 #endif //MAPLECOMPILER_EXPR_H

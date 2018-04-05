@@ -24,3 +24,7 @@ string AccessorFunction::buildIR(CFG *cfg) {
 
     return dest;
 }
+
+Type AccessorFunction::getType() {
+    return declaration->getType();
+}

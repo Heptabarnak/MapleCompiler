@@ -8,6 +8,7 @@ class Accessor : public BuildIR {
 public:
 
     virtual std::string getSymbolName()=0;
+    virtual Type getType() =0;
 
 };
 

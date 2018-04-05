@@ -14,6 +14,8 @@ private:
     std::vector<Expr *> *arguments;
 
 public:
+    Type getType() override;
+
     AccessorFunction(FunctionDefinition *declaration, std::vector<Expr *> *arguments);
 
     std::string getSymbolName();

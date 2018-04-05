@@ -15,7 +15,7 @@ const string &TabDeclaration::getName() const {
 
 string TabDeclaration::buildIR(CFG *cfg) {
     // FIXME Try to write everything in one instruction
-    if (definition->empty()) return "";
+    if (definition == nullptr) return "";
 
     for (auto &&it = definition->begin(); it != definition->end(); it++) {
         auto index = cfg->createNewTmpVar(Type::INT64_T);

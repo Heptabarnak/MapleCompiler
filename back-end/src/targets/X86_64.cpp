@@ -294,13 +294,15 @@ void X86_64::op(OpInstr *instr) {
     auto right = instr->var2;
     auto dest = instr->var;
     auto type = instr->varType;
-
-    auto raxReg = gReg("rax", type);
-    auto rbxReg = gReg("rbx", type);
+    auto type1 = instr->var1Type;
+    auto type2 = instr->var2Type;
+    std::cout << instr->type << " -> " << type << ", " << type1 << ", " << type2 << std::endl;
+    auto raxReg = gReg("rax", type1);
+    auto rbxReg = gReg("rbx", type2);
 
     // Move to registers
-    write("\tmov" + gInstrExt(type) + " " + getAsmForVar(left) + ", " + raxReg);
-    write("\tmov" + gInstrExt(type) + " " + getAsmForVar(right) + ", " + rbxReg);
+    write("\tmov" + gInstrExt(type1) + " " + getAsmForVar(left) + ", " + raxReg);
+    write("\tmov" + gInstrExt(type2) + " " + getAsmForVar(right) + ", " + rbxReg);
 
     switch (instr->type) {
         case OpInstr::ADD:

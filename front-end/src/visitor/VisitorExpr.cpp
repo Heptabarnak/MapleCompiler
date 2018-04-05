@@ -246,8 +246,13 @@ antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
         return new Value(Type::CHAR, c);
     }
 
+    if(stoi(ctx->INTEGER()->getText()) >= 2147483648 || stoi(ctx->INTEGER()->getText()) <= -2147483647 ){
+        return new
+                Value(Type::INT64_T, stoi(ctx->INTEGER()->getText())
+    }
+
     return new
-            Value(Type::INT64_T, stoi(ctx->INTEGER()->getText())
+            Value(Type::INT32_T, stoi(ctx->INTEGER()->getText())
     );
 }
 

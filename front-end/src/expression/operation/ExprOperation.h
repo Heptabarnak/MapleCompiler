@@ -11,14 +11,14 @@ protected:
     Expr *leftExpr;
     Expr *rightExpr;
 
-    ExprOperation(Expr *left, Expr *right, Type type) {
+    ExprOperation(Expr *left, Expr *right, Type type): Expr(type) {
         // We try to simplify expression when we construct.
 
         if (!Expr::optimisationEnable || dynamic_cast<ExprValue *>(left) || !left->isSimplifiable()) {
             leftExpr = left;
         } else {
             leftExpr = new ExprValue(new Value(
-                    Type::INT64_T,
+                    left->getType(),
                     left->simplify()
 
             ), type);
@@ -30,7 +30,7 @@ protected:
             rightExpr = right;
         } else {
             rightExpr = new ExprValue(new Value(
-                    Type::INT64_T,
+                    right->getType(),
                     right->simplify()
             ), type);
 

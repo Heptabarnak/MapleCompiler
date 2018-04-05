@@ -10,7 +10,7 @@ protected:
     static bool optimisationEnable;
     Type type;
 public:
-    Expr(Type type);
+    Expr(Type type = INT64_T);
 
     static inline void setOptimisation(bool enable) { optimisationEnable = enable; }
 

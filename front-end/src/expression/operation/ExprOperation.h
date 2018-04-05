@@ -19,7 +19,7 @@ protected:
         } else {
             leftExpr = new ExprValue(new Value(
                     Type::INT64_T,
-                    left->simplify(),
+                    left->simplify()
 
             ), type);
 

@@ -175,7 +175,7 @@ StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDe
             Expr *newExpr = new ExprValue(new Value(
                     Type::INT64_T,
                     expr->simplify()
-            ));
+            ), );
 
             delete expr;
             expr = newExpr;

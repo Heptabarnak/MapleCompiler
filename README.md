@@ -36,6 +36,6 @@ The project use `cmake` to compile.
 * Array initialization for strings are implemented (no check for `char` type)
 * Tab in arguments does not work
 * We can assign a tab to an int by passing the address of the pointer of the tab to value of the int. 
-    * i.e, `int a = tab;` => `int *a = tab;`
+    * i.e, `int a = tab;` => `int a = (int)(tab);`
 
 ## [License](./LICENSE)

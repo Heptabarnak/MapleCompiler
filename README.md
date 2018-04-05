@@ -34,5 +34,6 @@ The project use `cmake` to compile.
 * For blocks are implemented in the front
 * Function declarations are implemented
 * Array initialization for strings are implemented (no check for `char` type)
+* Tab in arguments does not work
 
 ## [License](./LICENSE)

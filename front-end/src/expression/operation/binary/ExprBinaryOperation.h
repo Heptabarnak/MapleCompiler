@@ -5,7 +5,7 @@
 
 class ExprBinaryOperation : public ExprOperation {
 protected:
-    ExprBinaryOperation(Expr *left, Expr *right) : ExprOperation(left, right) {}
+    ExprBinaryOperation(Expr *left, Expr *right, Type type) : ExprOperation(left, right, type) {}
 
 };
 

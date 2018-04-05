@@ -14,7 +14,7 @@ private:
     EqualityComparisonOperation operation;
 
 public:
-    ExprEqualityComparisonOperation(Expr *left, Expr *right, const std::string &op);
+    ExprEqualityComparisonOperation(Expr *left, Expr *right, const std::string &op, Type type);
 
     std::string buildIR(CFG *cfg);
 

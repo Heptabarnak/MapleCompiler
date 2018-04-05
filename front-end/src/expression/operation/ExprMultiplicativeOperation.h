@@ -16,7 +16,7 @@ private:
     MultiplicativeOperation operation;
 
 public:
-    ExprMultiplicativeOperation(Expr *left, Expr *right, const std::string &op);
+    ExprMultiplicativeOperation(Expr *left, Expr *right, const std::string &op, Type type);
 
     std::string buildIR(CFG *cfg);
 

@@ -2,7 +2,7 @@
 
 using std::string;
 
-ExprAccessor::ExprAccessor(Accessor *accessor) : accessor(accessor) {}
+ExprAccessor::ExprAccessor(Accessor *accessor, Type type) : accessor(accessor), Expr(type) {}
 
 string ExprAccessor::buildIR(CFG *cfg) {
     return accessor->buildIR(cfg);

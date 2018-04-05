@@ -7,7 +7,7 @@
 class ExprOrOperation : public ExprOperation {
 
 public:
-    ExprOrOperation(Expr * left, Expr * right);
+    ExprOrOperation(Expr * left, Expr * right, Type type);
 
     long simplify() override;
 

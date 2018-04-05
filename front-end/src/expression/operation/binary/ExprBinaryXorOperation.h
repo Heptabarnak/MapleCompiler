@@ -6,7 +6,7 @@
 class ExprBinaryXorOperation : public ExprBinaryOperation {
 
 public:
-    ExprBinaryXorOperation(Expr *left, Expr *right);
+    ExprBinaryXorOperation(Expr *left, Expr *right, Type type);
 
     long simplify() override;
 

@@ -8,8 +8,8 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-ExprMultiplicativeOperation::ExprMultiplicativeOperation(Expr *left, Expr *right, const string &op)
-        : ExprOperation(left, right) {
+ExprMultiplicativeOperation::ExprMultiplicativeOperation(Expr *left, Expr *right, const string &op, Type type)
+        : ExprOperation(left, right, type) {
 
     switch (str2int(op.c_str())) {
         case str2int("*"):

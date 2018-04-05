@@ -8,8 +8,8 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-ExprBinaryShiftOperation::ExprBinaryShiftOperation(Expr *left, Expr *right, const string &op)
-        : ExprBinaryOperation(left, right) {
+ExprBinaryShiftOperation::ExprBinaryShiftOperation(Expr *left, Expr *right, const string &op, Type type)
+        : ExprBinaryOperation(left, right, type) {
 
     switch (str2int(op.c_str())) {
         case str2int("<<"):

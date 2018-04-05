@@ -31,7 +31,7 @@ class ExprAffectation : public Expr {
 
 public:
 
-    ExprAffectation(LeftValueAccessor *left, Expr *right, const std::string &op);
+    ExprAffectation(LeftValueAccessor *left, Expr *right, const std::string &op, Type type);
 
     std::string buildIR(CFG *cfg);
 };

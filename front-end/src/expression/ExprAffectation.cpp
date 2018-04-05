@@ -12,8 +12,8 @@ using std::cerr;
 using std::string;
 using std::endl;
 
-ExprAffectation::ExprAffectation(LeftValueAccessor *left, Expr *right, const string &op_str)
-        : left(left), right(right) {
+ExprAffectation::ExprAffectation(LeftValueAccessor *left, Expr *right, const string &op_str, Type type)
+        : left(left), right(right), Expr(type) {
 
     switch (str2int(op_str.c_str())) {
         case str2int("="):

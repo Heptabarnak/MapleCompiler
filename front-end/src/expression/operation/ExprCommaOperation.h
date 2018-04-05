@@ -8,7 +8,7 @@ class ExprCommaOperation : ExprOperation{
 private:
 
 public:
-    ExprCommaOperation(Expr *left, Expr *right);
+    ExprCommaOperation(Expr *left, Expr *right, Type type);
 
 private:
     std::string buildIR(CFG *cfg) override;

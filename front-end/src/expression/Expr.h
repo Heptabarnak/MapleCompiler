@@ -8,8 +8,9 @@
 class Expr : public BuildIR {
 protected:
     static bool optimisationEnable;
+    Type type;
 public:
-    Expr() = default;
+    Expr(Type type);
 
     static inline void setOptimisation(bool enable) { optimisationEnable = enable; }
 

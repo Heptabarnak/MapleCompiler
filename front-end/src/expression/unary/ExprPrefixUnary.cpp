@@ -9,7 +9,7 @@ using std::endl;
 using std::string;
 
 
-ExprPrefixUnary::ExprPrefixUnary(Expr *expr, const string &op) : ExprUnary(expr) {
+ExprPrefixUnary::ExprPrefixUnary(Expr *expr, const string &op, Type type) : ExprUnary(expr, type) {
 
     switch (str2int(op.c_str())) {
         case str2int("+"):

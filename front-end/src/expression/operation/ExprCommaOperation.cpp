@@ -2,7 +2,7 @@
 
 using std::string;
 
-ExprCommaOperation::ExprCommaOperation(Expr *left, Expr *right) : ExprOperation(left, right) {}
+ExprCommaOperation::ExprCommaOperation(Expr *left, Expr *right, Type type) : ExprOperation(left, right, type) {}
 
 string ExprCommaOperation::buildIR(CFG *cfg) {
     string var1 = leftExpr->buildIR(cfg);

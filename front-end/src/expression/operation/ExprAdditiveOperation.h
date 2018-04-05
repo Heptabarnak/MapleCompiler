@@ -14,7 +14,7 @@ private:
     AdditiveOperation operation;
 
 public:
-    ExprAdditiveOperation(Expr *left, Expr *right, const std::string &op);
+    ExprAdditiveOperation(Expr *left, Expr *right, const std::string &op, Type type);
 
     long simplify() override;
 

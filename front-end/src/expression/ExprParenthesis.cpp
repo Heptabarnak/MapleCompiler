@@ -2,7 +2,7 @@
 
 using std::string;
 
-ExprParenthesis::ExprParenthesis(Expr *expr) : expr(expr) {}
+ExprParenthesis::ExprParenthesis(Expr *expr, Type type) : expr(expr), Expr(type) {}
 
 bool ExprParenthesis::isSimplifiable() {
     return expr->isSimplifiable();

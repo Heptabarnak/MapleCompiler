@@ -16,7 +16,7 @@ private:
     PrefixOperation prefixOp;
 
 public:
-    ExprPrefixUnary(Expr *expr, const std::string &op);
+    ExprPrefixUnary(Expr *expr, const std::string &op, Type type);
 
     bool isSimplifiable() override;
 

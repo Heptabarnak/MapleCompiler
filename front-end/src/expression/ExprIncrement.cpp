@@ -11,8 +11,8 @@ using std::string;
 using std::cerr;
 using std::endl;
 
-ExprIncrement::ExprIncrement(LeftValueAccessor *leftValue, string op_str, bool isPostfix)
-        : leftValue(leftValue), isPostfix(isPostfix) {
+ExprIncrement::ExprIncrement(LeftValueAccessor *leftValue, string op_str, bool isPostfix, Type type)
+        : leftValue(leftValue), isPostfix(isPostfix), Expr(type) {
 
     switch (str2int(op_str.c_str())) {
         case str2int("++"):

@@ -11,7 +11,7 @@ private:
     Value *value;
 
 public:
-    explicit ExprValue(Value *v);
+    explicit ExprValue(Value *v, Type type);
 
     bool isSimplifiable() override;
 

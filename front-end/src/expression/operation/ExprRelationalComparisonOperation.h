@@ -16,7 +16,7 @@ private:
     RelationalComparisonOperation operation;
 
 public:
-    ExprRelationalComparisonOperation(Expr *left, Expr *right, const std::string &op);
+    ExprRelationalComparisonOperation(Expr *left, Expr *right, const std::string &op, Type type);
 
     std::string buildIR(CFG *cfg);
 

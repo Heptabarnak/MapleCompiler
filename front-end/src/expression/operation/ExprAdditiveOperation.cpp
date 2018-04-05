@@ -9,7 +9,7 @@ using std::endl;
 using std::string;
 
 
-ExprAdditiveOperation::ExprAdditiveOperation(Expr *left, Expr *right, const string &op) : ExprOperation(left, right) {
+ExprAdditiveOperation::ExprAdditiveOperation(Expr *left, Expr *right, const string &op, Type type) : ExprOperation(left, right, type) {
 
     switch (str2int(op.c_str())) {
         case str2int("+"):

@@ -3,7 +3,7 @@
 
 using std::string;
 
-ExprAndOperation::ExprAndOperation(Expr *left, Expr *right) : ExprOperation(left, right) {
+ExprAndOperation::ExprAndOperation(Expr *left, Expr *right, Type type) : ExprOperation(left, right, type) {
 
 }
 

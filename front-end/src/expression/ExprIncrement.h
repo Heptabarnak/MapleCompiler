@@ -19,7 +19,7 @@ private:
     bool isPostfix;
 
 public:
-    ExprIncrement(LeftValueAccessor *leftValue, std::string op_str, bool isPostfix);
+    ExprIncrement(LeftValueAccessor *leftValue, std::string op_str, bool isPostfix, Type type);
     std::string buildIR(CFG* cfg);
 };
 

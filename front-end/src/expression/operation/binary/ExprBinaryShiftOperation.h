@@ -14,7 +14,7 @@ private:
 
     BinaryShiftOperation operation;
 public:
-    ExprBinaryShiftOperation(Expr *left, Expr *right, const std::string &op);
+    ExprBinaryShiftOperation(Expr *left, Expr *right, const std::string &op, Type type);
 
     long simplify() override;
 

@@ -3,8 +3,8 @@
 
 using std::string;
 
-ExprValue::ExprValue(Value *v)
-        : value(v) {
+ExprValue::ExprValue(Value *v, Type type)
+        : value(v), Expr(type) {
 }
 
 bool ExprValue::isSimplifiable() {

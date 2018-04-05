@@ -10,8 +10,8 @@ using std::endl;
 using std::string;
 
 
-ExprEqualityComparisonOperation::ExprEqualityComparisonOperation(Expr *left, Expr *right, const string &op)
-        : ExprOperation(left, right) {
+ExprEqualityComparisonOperation::ExprEqualityComparisonOperation(Expr *left, Expr *right, const string &op, Type type)
+        : ExprOperation(left, right, type) {
 
     switch (str2int(op.c_str())) {
         case str2int("=="):

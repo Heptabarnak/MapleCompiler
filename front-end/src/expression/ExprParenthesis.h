@@ -11,7 +11,7 @@ private:
     Expr *expr;
 
 public:
-    explicit ExprParenthesis(Expr *expr);
+    explicit ExprParenthesis(Expr *expr, Type type);
 
     bool isSimplifiable() override;
 

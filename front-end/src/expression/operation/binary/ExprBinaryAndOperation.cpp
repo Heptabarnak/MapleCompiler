@@ -3,7 +3,7 @@
 
 using std::string;
 
-ExprBinaryAndOperation::ExprBinaryAndOperation(Expr *left, Expr *right) : ExprBinaryOperation(left, right) {
+ExprBinaryAndOperation::ExprBinaryAndOperation(Expr *left, Expr *right, Type type) : ExprBinaryOperation(left, right, type) {
 
 }
 

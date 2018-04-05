@@ -9,8 +9,8 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-ExprRelationalComparisonOperation::ExprRelationalComparisonOperation(Expr *left, Expr *right, const string &op)
-        : ExprOperation(left, right) {
+ExprRelationalComparisonOperation::ExprRelationalComparisonOperation(Expr *left, Expr *right, const string &op, Type type)
+        : ExprOperation(left, right, type) {
 
     switch (str2int(op.c_str())) {
         case str2int("<"):

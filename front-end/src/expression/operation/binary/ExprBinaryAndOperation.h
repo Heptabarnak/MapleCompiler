@@ -6,7 +6,7 @@
 class ExprBinaryAndOperation : public ExprBinaryOperation {
 
 public:
-    ExprBinaryAndOperation(Expr *left, Expr *right);
+    ExprBinaryAndOperation(Expr *left, Expr *right, Type type);
 
     long simplify() override;
 

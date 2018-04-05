@@ -26,13 +26,15 @@ public:
     };
 
 
-    OpInstr(BasicBlock *bb_, OpType t, std::string var, std::string var1, std::string var2, Type varType);
+    OpInstr(BasicBlock *bb_, OpType t, std::string var, std::string var1, std::string var2, Type varType, Type var1Type, Type var2Type);
 
     OpType type;
     std::string var;
     std::string var1;
     std::string var2;
     Type varType;
+    Type var1Type;
+    Type var2Type;
 };
 
 

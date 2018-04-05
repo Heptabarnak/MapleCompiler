@@ -39,14 +39,14 @@ string ExprEqualityComparisonOperation::buildIR(CFG *cfg) {
     string var1 = leftExpr->buildIR(cfg);
     string var2 = rightExpr->buildIR(cfg);
 
-    string var = cfg->createNewTmpVar(INT64_T);
+    string var = cfg->createNewTmpVar(getType());
 
     switch (operation) {
         case EQUAL:
-            cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::EQUAL_EQUAL, var, var1, var2, INT64_T));
+            cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::EQUAL_EQUAL, var, var1, var2, getType(), leftExpr->getType(), rightExpr->getType()));
             break;
         case NOT_EQUAL:
-            cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::NOT_EQUAL, var, var1, var2, INT64_T));
+            cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::NOT_EQUAL, var, var1, var2, getType(), leftExpr->getType(), rightExpr->getType()));
             break;
     }
     return var;

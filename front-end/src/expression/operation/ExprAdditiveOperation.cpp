@@ -36,7 +36,7 @@ long ExprAdditiveOperation::simplify() {
 string ExprAdditiveOperation::buildIR(CFG *cfg) {
     string var1 = leftExpr->buildIR(cfg);
     string var2 = rightExpr->buildIR(cfg);
-    string var = cfg->createNewTmpVar(INT64_T);
+    string var = cfg->createNewTmpVar(getType());
 
     OpInstr::OpType type = OpInstr::ADD;
     switch (operation) {
@@ -45,6 +45,6 @@ string ExprAdditiveOperation::buildIR(CFG *cfg) {
             break;
     }
 
-    cfg->addIRInstr(new OpInstr(cfg->currentBB, type, var, var1, var2, INT64_T));
+    cfg->addIRInstr(new OpInstr(cfg->currentBB, type, var, var1, var2, getType(), leftExpr->getType(), rightExpr->getType()));
     return var;
 }

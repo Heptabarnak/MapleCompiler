@@ -97,7 +97,7 @@ string ExprAffectation::buildIR(CFG *cfg) {
                 break;
         }
 
-        cfg->addIRInstr(new OpInstr(cfg->currentBB, type, value, dest, value, left->getType()));
+        cfg->addIRInstr(new OpInstr(cfg->currentBB, type, value, dest, value, getType(), left->getType(), right->getType() ));
     }
 
     if (auto leftVar = dynamic_cast<VarAccessor *>(left)) {

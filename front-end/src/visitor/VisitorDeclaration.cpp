@@ -166,7 +166,7 @@ StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDe
     if (ctx->assignment() == nullptr) {
         auto declaration = new VarDeclaration(name, type);
 
-        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, declaration, true));
+        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, declaration));
         return declaration;
     }
 

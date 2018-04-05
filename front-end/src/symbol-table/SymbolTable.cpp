@@ -60,7 +60,7 @@ void SymbolTable::staticAnalysis() {
 
             if (symbol->getAffectation()) {
 
-                cout << "Warning : " << name.second << "was defined but not used." << endl;
+                cout << "Warning : " << name.second << " was defined but not used." << endl;
             } else {
                 cout << "Warning : " << name.second << " was declared but not defined nor used." << endl;
             }

@@ -67,7 +67,7 @@ string ExprPrefixUnary::buildIR(CFG *cfg) {
             break;
     }
 
-    auto instr = new UnaryOpInstr(cfg->currentBB, opType, var, var1);
+    auto instr = new UnaryOpInstr(cfg->currentBB, opType, var, var1, INT64_T);
     cfg->addIRInstr(instr);
 
     return var;

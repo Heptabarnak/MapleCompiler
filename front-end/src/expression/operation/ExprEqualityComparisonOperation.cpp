@@ -43,10 +43,10 @@ string ExprEqualityComparisonOperation::buildIR(CFG *cfg) {
 
     switch (operation) {
         case EQUAL:
-            cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::EQUAL_EQUAL, var, var1, var2));
+            cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::EQUAL_EQUAL, var, var1, var2, INT64_T));
             break;
         case NOT_EQUAL:
-            cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::NOT_EQUAL, var, var1, var2));
+            cfg->addIRInstr(new OpInstr(cfg->currentBB, OpInstr::NOT_EQUAL, var, var1, var2, INT64_T));
             break;
     }
     return var;

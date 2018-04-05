@@ -63,7 +63,7 @@ string ExprRelationalComparisonOperation::buildIR(CFG *cfg) {
     }
 
     string var = cfg->createNewTmpVar(INT64_T);
-    cfg->addIRInstr(new OpInstr(cfg->currentBB, type, var, var1, var2));
+    cfg->addIRInstr(new OpInstr(cfg->currentBB, type, var, var1, var2, INT64_T));
 
     return var;
 }

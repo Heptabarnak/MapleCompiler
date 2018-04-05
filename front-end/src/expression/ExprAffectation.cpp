@@ -97,11 +97,11 @@ string ExprAffectation::buildIR(CFG *cfg) {
                 break;
         }
 
-        cfg->addIRInstr(new OpInstr(cfg->currentBB, type, value, dest, value));
+        cfg->addIRInstr(new OpInstr(cfg->currentBB, type, value, dest, value, left->getType()));
     }
 
     if (auto leftVar = dynamic_cast<VarAccessor *>(left)) {
-        cfg->addIRInstr(new WMemInstr(cfg->currentBB, dest, value));
+        cfg->addIRInstr(new WMemInstr(cfg->currentBB, dest, value, left->getType()));
     } else if (auto leftTab = dynamic_cast<TabAccessor *>(left)) {
         string pos = leftTab->getPos()->buildIR(cfg);
 

@@ -16,7 +16,7 @@ string VarDeclaration::buildIR(CFG *cfg) {
 
         auto defValue = assignment->buildIR(cfg);
 
-        cfg->addIRInstr(new WMemInstr(cfg->currentBB, name, defValue));
+        cfg->addIRInstr(new WMemInstr(cfg->currentBB, name, defValue, type));
         return defValue;
     }
     return "";

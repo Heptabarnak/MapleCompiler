@@ -495,7 +495,7 @@ void X86_64::incr(IncrInstr *instr) {
             break;
     }
 
-    write("\tmov" + gInstrExt(instr->varType) + " " + rbxReg, " + getAsmForVar(instr->var1));
+    write("\tmov" + gInstrExt(instr->varType) + " " + rbxReg + ", " + getAsmForVar(instr->var1));
 
     string reg = gReg(instr->isPostfix ? "rax" : "rbx", instr->varType);
 

@@ -41,16 +41,18 @@ public:
 
     FunctionDefinition *getFunctionDefinition();
 
-    BasicBlock* getReturnBlock();
+    BasicBlock *getReturnBlock();
 
 protected:
     int nextBBNumber; /**< just for naming */
 
     FunctionDefinition *funcDef;
 
-    BasicBlock* returnBlock;
+    BasicBlock *returnBlock;
 
     std::vector<BasicBlock *> bbs; /**< all the basic blocks of this CFG*/
+
+    std::map<std::string, bool> isAdded;
 };
 
 

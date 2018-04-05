@@ -25,7 +25,12 @@ string CFG::newBBName() {
 }
 
 void CFG::addBB(BasicBlock *bb) {
-    bbs.push_back(bb);
+    auto it = isAdded.find(bb->label);
+
+    if (it == isAdded.end()) {
+        isAdded.insert({bb->label, true});
+        bbs.push_back(bb);
+    }
 }
 
 void CFG::addIRInstr(IRInstr *instr) {

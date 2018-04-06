@@ -161,3 +161,18 @@ add_executable(MapleCompiler
         ${CLI_SRC_FILES}
         )
 target_link_libraries(MapleCompiler antlr4-runtime)
+
+
+#------------
+#   TESTS
+#------------
+
+enable_testing()
+
+find_program(BASH_PROGRAM bash)
+
+if (BASH_PROGRAM)
+    add_test(mytest ${BASH_PROGRAM} ${PROJECT_SOURCE_DIR}/tests/runAll.sh ${CMAKE_CURRENT_BINARY_DIR})
+else()
+    message(WARNING "Bash not found")
+endif (BASH_PROGRAM)

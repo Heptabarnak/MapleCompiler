@@ -54,14 +54,17 @@ Symbol *SymbolTable::lookup(string name) {
 void SymbolTable::staticAnalysis() {
     for (auto &&name : levels) {
         auto &&symbol = symbols.find(name.second)->second;
-        if (!symbol->getRead()) {
-            if (!symbol->getAffectation()) {
-                // Skip main function
-                if (name.second == "main") continue;
 
-                cout << "Warning : " << name.second << " is not used." << endl;
+        // Skip main function
+        if (name.second == "main") continue;
+
+        if (!symbol->getRead()) {
+
+            if (symbol->getAffectation()) {
+
+                cout << "Warning : " << name.second << " was defined but not used." << endl;
             } else {
-                cout << "Warning : " << name.second << " was declared but not read." << endl;
+                cout << "Warning : " << name.second << " was declared but not defined nor used." << endl;
             }
         }
     }

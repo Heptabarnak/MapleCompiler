@@ -1,6 +1,20 @@
 void main(){
     int64_t i = 4;
+    int64_t j = 0;
+    char text[] = "i = ";
+    char compOP[] = "i == 4 ; i != 5 ; i < 5 ; i <= 5 ; i <= 3 ; i > 3 ; i >= 3 ; i >= 5";
 
+    j=0;
+    while(text[j] != '\0'){
+        putchar(text[j]);
+        j++;
+    }
+
+    j=0;
+    while(compOP[j] != '\0'){
+        putchar(compOP[j]);
+        j++;
+    }
     putchar('0' + (i == 4));
     putchar('\n');
     putchar('0' + (i != 5));
@@ -10,14 +24,14 @@ void main(){
     putchar('\n');
     putchar('0' + (i <= 5));
     putchar('\n');
-    putchar('0' + (i <= 4));
+    putchar('0' + (i <= 3));
     putchar('\n');
     putchar('\n');
     putchar('0' + (i > 3));
     putchar('\n');
     putchar('0' + (i >= 3));
     putchar('\n');
-    putchar('0' + (i >= 4));
+    putchar('0' + (i >= 5));
     putchar('\n');
     putchar('\n');
     putchar('0' + (i + 3));
@@ -32,10 +46,10 @@ void main(){
     putchar('0' + (i % 3));
     putchar('\n');
     putchar('\n');
-    /*putchar('0' + (i >> 2));
+    putchar('0' + (i >> 2));
     putchar('\n');
-    putchar('0' + (i << 2));
-    putchar('\n');*/
+    putchar('0' + (i << 1));
+    putchar('\n');
     putchar('\n');
     putchar('0' + (i++));
     putchar('\n');
@@ -61,10 +75,11 @@ void main(){
     putchar('0' + (i %= 2));
     putchar('\n');
     putchar('\n');
-    /*putchar('0' + (i <<= 3));
+    putchar('0' + (i <<= 3));
     putchar('\n');
-    putchar('0' + (i >>= 3));
-    putchar('\n');*/
+    putchar('0' + (i >>= 1));
+    putchar('\n');
+    putchar('\n');
     putchar('0' + (i = 5));
     putchar('\n');
     i &= 2;
@@ -79,10 +94,11 @@ void main(){
     putchar('0' + (i));
     putchar('\n');
     putchar('\n');
+    putchar('\n');
     i = 3;
-    /*putchar('0' + (i == 3 && i >= 1));
-    putchar('\n');*/
-    putchar('0' +  (i == 3 || i >= 9));
+    putchar('0' + (i == 3 && i >= 1));
+    putchar('\n');
+    putchar('0' +  (i == 2 || i <= 9));
     putchar('\n');
     putchar('\n');
     putchar('0' + ((-i) + 6));

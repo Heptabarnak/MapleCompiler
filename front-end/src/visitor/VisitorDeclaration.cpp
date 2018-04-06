@@ -126,6 +126,9 @@ antlrcpp::Any StartVisitor::visitDefinitionTab(MapleGrammarParser::DefinitionTab
                     case '"':
                         aChar = '\"';
                         break;
+                    case '0':
+                        aChar = '\0';
+                        break;
                     default:
                         cerr << "Unable to parse escaped character " << aChar << "!" << endl;
                         printDebugInfo(cerr, ctx);
@@ -138,7 +141,7 @@ antlrcpp::Any StartVisitor::visitDefinitionTab(MapleGrammarParser::DefinitionTab
             }
             lastC = aChar;
         }
-
+        values->push_back(new Value(Type::CHAR, '\0'));
         return values;
     }
     return mapContext2Vector<MapleGrammarParser::ValueContext *, Value *>(ctx->value(), this);
@@ -163,7 +166,7 @@ StartVisitor::visitDeclarationVarDefinition(MapleGrammarParser::DeclarationVarDe
     if (ctx->assignment() == nullptr) {
         auto declaration = new VarDeclaration(name, type);
 
-        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, declaration, true));
+        currentSymbolTable->insert(name, new Symbol(currentSymbolTable, declaration));
         return declaration;
     }
 

@@ -201,7 +201,7 @@ antlrcpp::Any StartVisitor::visitExprComma(MapleGrammarParser::ExprCommaContext 
             expr1,
             expr2,
             std::max(expr1->getType(), expr2->getType())
-            );
+    );
 }
 
 antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
@@ -235,6 +235,9 @@ antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
                 case '"':
                     c = '\"';
                     break;
+                case '0':
+                    c = '\0';
+                    break;
                 default:
                     cerr << "Unable to parse escaped character " << val.at(2) << "!" << endl;
                     printDebugInfo(cerr, ctx);
@@ -246,14 +249,19 @@ antlrcpp::Any StartVisitor::visitValue(MapleGrammarParser::ValueContext *ctx) {
         return new Value(Type::CHAR, c);
     }
 
-    if(stoi(ctx->INTEGER()->getText()) >= 2147483648 || stoi(ctx->INTEGER()->getText()) <= -2147483647 ){
-        return new
-                Value(Type::INT64_T, stoi(ctx->INTEGER()->getText())
+    auto val = ctx->INTEGER()->getText();
+    long parsedVal = 0;
+
+    if (val.find('e') != std::string::npos) {
+        parsedVal = static_cast<long>(std::stod(val));
+    } else {
+        parsedVal = stoi(val);
     }
 
-    return new
-            Value(Type::INT32_T, stoi(ctx->INTEGER()->getText())
-    );
+    if (parsedVal >= 2147483648 || parsedVal <= -2147483647) {
+        return new Value(Type::INT64_T, parsedVal);
+    }
+    return new Value(Type::INT32_T, parsedVal);
 }
 
 antlrcpp::Any StartVisitor::visitExprNoComma(MapleGrammarParser::ExprNoCommaContext *context) {

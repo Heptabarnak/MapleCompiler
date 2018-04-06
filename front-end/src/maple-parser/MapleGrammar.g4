@@ -13,7 +13,7 @@ TYPE_VOID : 'void' ;
 CHAR : '\'' '\\'? [\u0000-\u00FF] '\'' ;
 INTEGER : [0-9]+ ('e' [0-9]+)?;
 ID : [a-zA-Z_]+ [a-zA-Z0-9_]* ;
-STRING : '"' ('\\'? [\u0000-\u00FF])+ '"' ;
+STRING : '"' (~["\\\r\n] | '\\' (. | EOF))* '"' ;
 value : INTEGER | CHAR ;
 
 // Comments
@@ -68,7 +68,7 @@ declarationVarDefinition : ID assignment? ;
 
 // Affectation
 definitionTab : '=' (('{' ((value ',')* value)? '}') | STRING) ;
-assignment: '=' possibleCommaExpr ;
+assignment: '=' expr ;
 
 // Accesseurs
 accessorTab : ID '[' possibleCommaExpr ']' ;

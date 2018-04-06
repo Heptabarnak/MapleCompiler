@@ -296,7 +296,7 @@ void X86_64::op(OpInstr *instr) {
     auto type = instr->varType;
     auto type1 = instr->var1Type;
     auto type2 = instr->var2Type;
-    std::cout << instr->type << " -> " << type << ", " << type1 << ", " << type2 << std::endl;
+
     auto raxReg = gReg("rax", type1);
     auto rbxReg = gReg("rbx", type2);
 

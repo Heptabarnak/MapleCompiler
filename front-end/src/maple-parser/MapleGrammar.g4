@@ -68,7 +68,7 @@ declarationVarDefinition : ID assignment? ;
 
 // Affectation
 definitionTab : '=' (('{' ((value ',')* value)? '}') | STRING) ;
-assignment: '=' possibleCommaExpr ;
+assignment: '=' expr ;
 
 // Accesseurs
 accessorTab : ID '[' possibleCommaExpr ']' ;

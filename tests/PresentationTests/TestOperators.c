@@ -2,7 +2,7 @@ void main(){
     int64_t i = 4;
     int64_t j = 0;
     char text[] = "i = ";
-    char compOp[] = "i == 4 ; i != 5 ; i < 5 ; i <= 5 ; i <= 3 ; i > 3 ; i >= 3 ; i >= 5";
+    char compOP[] = "i == 4 ; i != 5 ; i < 5 ; i <= 5 ; i <= 3 ; i > 3 ; i >= 3 ; i >= 5";
 
     j=0;
     while(text[j] != '\0'){

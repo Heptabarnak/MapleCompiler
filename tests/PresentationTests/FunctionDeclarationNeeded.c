@@ -21,6 +21,4 @@ int64_t function2(int64_t b)
 
 void main(){
     int64_t i = 0;
-
-    printChar(i);
 }

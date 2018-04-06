@@ -18,6 +18,25 @@ It is written in C++.
 
 The project use `cmake` to compile.
 
+To build an executable:
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build . --target MapleCompiler -- -j 2
+```
+
+## Testing
+
+You can launch tests with:
+
+```bash
+ctest -V # -V to see cout
+```
+
+If you want to see some errors,
+programs are available in `/tests` directory.
+
 ## Usage
 ```
 ./mapleCompiler [-a] [-o] [-c] [-l] [-t <x64|msp430|java>] <file.c>

@@ -220,5 +220,5 @@ antlrcpp::Any StartVisitor::visitDeclarationVar(MapleGrammarParser::DeclarationV
 
 
 antlrcpp::Any StartVisitor::visitAssignment(MapleGrammarParser::AssignmentContext *ctx) {
-    return (Expr *) visit(ctx->possibleCommaExpr());
+    return (Expr *) visit(ctx->expr());
 }
